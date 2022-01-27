@@ -5,7 +5,6 @@ import javax.annotation.Nullable;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 
 import net.dv8tion.jda.api.entities.AudioChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class SkipCommand {

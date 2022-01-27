@@ -11,7 +11,6 @@ import net.dv8tion.jda.api.managers.AudioManager;
 
 public class VoiceChannels {
 	
-	@SuppressWarnings("deprecation")
 	public void Join(MessageReceivedEvent event)
 	{
 	AudioChannel channel =event.getMember().getVoiceState().getChannel();
@@ -40,7 +39,6 @@ public class VoiceChannels {
 	}
 	
 	
-	@SuppressWarnings("deprecation")
 	public void JoinChannel(MessageReceivedEvent event, String channelName)
 	{
 		try {

@@ -4,7 +4,6 @@ import javax.annotation.Nullable;
 
 import Main.VoiceChannels;
 import net.dv8tion.jda.api.entities.AudioChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class ResumeCommand {
