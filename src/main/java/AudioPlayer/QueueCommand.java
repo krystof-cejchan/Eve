@@ -68,5 +68,9 @@ public class QueueCommand {
 			event.getChannel().sendMessage("Queue is empty").queue();
 		}
 	}
+	
+	public void removeFromQueue(MessageReceivedEvent event, int index) {
+		
+	}
 
 }
