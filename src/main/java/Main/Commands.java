@@ -1,8 +1,6 @@
 package Main;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
 import AudioPlayer.NowPlayingCommand;
 import AudioPlayer.PlayCommand;
 import AudioPlayer.PlayQCommand;
@@ -13,24 +11,34 @@ import AudioPlayer.SkipCommand;
 import AudioPlayer.StopCommand;
 import AudioPlayer.VolumeCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.audio.hooks.ConnectionListener;
+import net.dv8tion.jda.api.audio.hooks.ConnectionStatus;
+import net.dv8tion.jda.api.entities.AudioChannel;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-
 import net.dv8tion.jda.api.exceptions.ContextException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class Commands extends ListenerAdapter {
 
+
+public class Commands extends ListenerAdapter implements ConnectionListener {
+	
+	
 	private boolean POVOLOVAC = true;
 
 	public String prefix = "'";
 	public StartUp startUp = new StartUp();
 	String limit = "3";
 	GifSender gifs = new GifSender();
+	
 
+	
+		
 	public void posliGifa(String key, String limit, MessageReceivedEvent event) {
 		try {
 
@@ -40,6 +48,32 @@ public class Commands extends ListenerAdapter {
 			System.out.println(e);
 		}
 	}
+	/* void onUserSpeaking​(@Nonnull User user, @Nonnull EnumSet<SpeakingMode> modes) {
+
+		System.out.println(user.getId());
+	}*/
+	public void onUserSpeaking​(User user, boolean speaking) {
+	System.out.println(user.getName());
+	}
+	
+	
+	public void onGuildVoiceLeave(GuildVoiceLeaveEvent event) {
+		AudioChannel connectedChannelSelf = event.getGuild().getSelfMember().getVoiceState().getChannel();
+		try {
+			ArrayList<Member> members = new ArrayList<>(connectedChannelSelf.getMembers());
+			
+			if(members.size()==1) {
+				VoiceChannels leaveVC = new VoiceChannels();
+				StopCommand stop = new StopCommand();
+				stop.stopMusic(event);
+				leaveVC.Leave(event);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+	
 
 	public void onMessageReceived(MessageReceivedEvent event) {
 		if (event.getAuthor().isBot() == false) {
@@ -351,25 +385,27 @@ public class Commands extends ListenerAdapter {
 
 				}
 
-				
-				  else if (args[0].equalsIgnoreCase(prefix + "screenshot")) {
-				  if(args.length>1){ Screenshot ss= new Screenshot(); try {
-				  ss.getScreenshot(event, args[1].toString()); }
-				  catch (IOException e) { 
-				   e.printStackTrace(); } catch
-				  (InterruptedException e) { // TODO Auto-generated catch block
-				  e.printStackTrace(); } }
-				  
-				  }
-				 
+				/*else if (args[0].equalsIgnoreCase(prefix + "screenshot")) {
+					if (args.length > 1) {
+						Screenshot ss = new Screenshot();
+						try {
+							ss.getScreenshot(event, args[1].toString());
+						} catch (IOException e) {
+							e.printStackTrace();
+						} catch (InterruptedException e) { // TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+				}*/
 
 			} else {
 				/*
 				 * try { sendPrivateMessage(event.getAuthor(), "pls nech mě spát"); } catch
 				 * (ContextException e) { System.out.println(e); }
 				 */
-				event.getChannel().sendMessage("*jsem v říši snů a jednorožců*").queue();
-				System.out.println("někdo mě chtěl vzbudit v " + event.getGuild().getName().toString());
+			/*	event.getChannel().sendMessage("*jsem v říši snů a jednorožců*").queue();
+				System.out.println("někdo mě chtěl vzbudit v " + event.getGuild().getName().toString());*/
 
 			}
 
@@ -400,6 +436,21 @@ public class Commands extends ListenerAdapter {
 			System.out.println(e);
 		}
 
+	}
+	@Override
+	public void onPing(long ping) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onStatusChange(ConnectionStatus status) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onUserSpeaking(User user, boolean speaking) {
+		System.out.println(user.getName());
+		
 	}
 
 }

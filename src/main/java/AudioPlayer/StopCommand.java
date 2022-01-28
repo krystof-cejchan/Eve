@@ -3,6 +3,7 @@ package AudioPlayer;
 import javax.annotation.Nullable;
 
 import net.dv8tion.jda.api.entities.AudioChannel;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class StopCommand {
@@ -62,6 +63,29 @@ public class StopCommand {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+
+	public void stopMusic(GuildVoiceLeaveEvent event) {
+		final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
+	
+			
+
+			
+		try {
+			 
+						
+						musicManager.SCHEDULER.PLAYER.stopTrack();
+						musicManager.SCHEDULER.QUEUE.clear();
+						musicManager.SCHEDULER.PLAYER.destroy();
+						
+						
+					
+
+				
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
 	}
 	
 }
