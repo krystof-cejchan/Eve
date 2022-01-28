@@ -13,11 +13,11 @@ public class Help extends ListenerAdapter {
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setTitle("General");
 		embed.setColor(Color.decode("#4dff17"));
-		embed.setDescription("(prefix is **'** )");
+		embed.setDescription("(prefix is **'**)");
 
 		embed.addField("Help", "**'**help", false);
 
-	//	embed.addField("Say Something Nice", "**'**ssn", false);
+		// embed.addField("Say Something Nice", "**'**ssn", false);
 
 		embed.addField("Who the fuck am I?", "**'**me", false);
 
@@ -27,30 +27,26 @@ public class Help extends ListenerAdapter {
 
 		embed.addField("Moving pictures", "**'**gif <keyword>", false);
 
-		embed.addField("Emotional Damage", "**'**ed *or* **'**emotional damage", false);
+		embed.addField("Emotional Damage", "**'**ed *or*   **'**emotional damage", false);
 		embed.addField("I will send you to Jesus", "**'**jesus", false);
-		
-		embed.setFooter("*The End*");
 
-	//	event.getMessage().reply(embed.build()).queue();
-		event.getMessage().replyEmbeds(embed.build()).queue();
-		embed.clear();
-		
-		embed.setTitle("Music");
-		embed.addField("Play song","**'**join *or* **'**join <Channel name>",false);
-		embed.addField("Play song","**'**p *or* **'**play <youtube link / searchkey>",false);
-		embed.addField("Play music list","**'**pq *or* **'**playqueue <youtube link>",false);
-		embed.addField("Skip a music track","**'**next *or* **'**skip",false);
-		embed.addField("Show current queue","**'**q *or* **'**queue",false);
-		embed.addField("Current Song","**'**np *or* **'**now playing",false);
-		embed.addField("Pause music bot","**'**pause *or* **'**stop",false);
-		embed.addField("Resume music bot","**'**resume *or* **'**continue",false);
-		embed.addField("Mute","**'**mute",false);
-		embed.addField("Unmute","**'**unmute",false);
-		embed.addField("Resume music bot","**'**vol *or* **'**volume <number 1-200>",false);
-		embed.addField("Shuffle current queue","**'**mix *or* **'**shuffle",false);
-		embed.addField("Leave","**'**leave",false);
-		
+		embed.addBlankField(false);
+
+		embed.addField("Music", "", false);
+		embed.addField("Play song", "**'**join *or*   **'**join <Channel name>", false);
+		embed.addField("Play song", "**'**p *or*   **'**play <youtube link / searchkey>", false);
+		embed.addField("Play music list", "**'**pq *or*   **'**playqueue <youtube link>", false);
+		embed.addField("Skip a music track", "**'**next *or*   **'**skip", false);
+		embed.addField("Show current queue", "**'**q *or*   **'**queue", false);
+		embed.addField("Current Song", "**'**np *or*   **'**now playing", false);
+		embed.addField("Pause music bot", "**'**pause *or*   **'**stop", false);
+		embed.addField("Resume music bot", "**'**resume *or*   **'**continue", false);
+		embed.addField("Mute", "**'**mute", false);
+		embed.addField("Unmute", "**'**unmute", false);
+		embed.addField("Resume music bot", "**'**vol *or*   **'**volume <number 1-200>", false);
+		embed.addField("Shuffle current queue", "**'**mix *or*   **'**shuffle", false);
+		embed.addField("Leave", "**'**leave", false);
+
 		event.getMessage().replyEmbeds(embed.build()).queue();
 		embed.clear();
 	}
