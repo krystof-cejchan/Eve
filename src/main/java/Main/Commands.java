@@ -90,7 +90,7 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 					help.HelpCommand(event);
 
 				} else if (args[0].equalsIgnoreCase(prefix + "ssn")) {
-					event.getMessage().reply("Di doprdele ty hromado promrdanýho masa").queue();
+					event.getMessage().reply("I like your nice blue eyes whether you've got em blue or not").queue();
 
 				} else if (args[0].equalsIgnoreCase(prefix + "me")) {
 					User user = event.getAuthor();
