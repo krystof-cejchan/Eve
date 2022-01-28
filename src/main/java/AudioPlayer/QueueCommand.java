@@ -65,12 +65,51 @@ public class QueueCommand {
 
 		}
 		if(queue.isEmpty()) {
-			event.getChannel().sendMessage("Queue is empty").queue();
+			event.getChannel().sendMessage("Queue is empty like my life").queue();
 		}
 	}
 	
 	public void removeFromQueue(MessageReceivedEvent event, int index) {
 		
+
+		GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
+		BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
+
+		/*
+		 * if (queue.isEmpty()) { event.getChannel().sendMessage("The queue is empty");
+		 * return; }
+		 */
+		
+		if (!queue.isEmpty()) {
+
+			try {
+				ArrayList<AudioTrack> audioList= new ArrayList<>(queue);
+				String deletedTitle = audioList.get(index).getInfo().title;
+				audioList.remove(index);
+				
+				musicManager.SCHEDULER.QUEUE.clear();
+				
+				for (AudioTrack audioTrack : audioList) {
+					musicManager.SCHEDULER.QUEUE.add(audioTrack);
+				}
+				event.getChannel().sendMessage(deletedTitle+" has been removed from the queue.").queue();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			ArrayList<AudioTrack> audioList= new ArrayList<>(queue);
+			audioList.remove(index);
+			
+			musicManager.SCHEDULER.QUEUE.clear();
+			
+			for (AudioTrack audioTrack : audioList) {
+				musicManager.SCHEDULER.QUEUE.add(audioTrack);
+			}
+
+		}
+		if(queue.isEmpty()) {
+			event.getChannel().sendMessage("Queue is empty like my life").queue();
+		}
 	}
 
 }

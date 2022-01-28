@@ -191,7 +191,21 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 						System.out.println(e);
 					}
 
-				} else if (args[0].equalsIgnoreCase(prefix + "mute")) {
+				}
+				
+				else if (args[0].equalsIgnoreCase(prefix + "remove") || args[0].equalsIgnoreCase(prefix + "delete")) {
+					try {
+						if (args.length > 1) {
+							QueueCommand q = new QueueCommand();
+						q.removeFromQueue(event, Integer.valueOf(args[1])-1);
+						}
+						
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+
+				} 
+				else if (args[0].equalsIgnoreCase(prefix + "mute")) {
 					try {
 						VolumeCommand volume = new VolumeCommand();
 						volume.mute(event);
