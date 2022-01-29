@@ -44,7 +44,7 @@ public class Help extends ListenerAdapter {
 		embed.addField("Resume music bot", "**'**resume *or*   **'**continue", false);
 		embed.addField("Mute", "**'**mute", false);
 		embed.addField("Unmute", "**'**unmute", false);
-		embed.addField("Resume music bot", "**'**vol *or*   **'**volume <number 1-200>", false);
+		embed.addField("Set Volume", "**'**vol *or*   **'**volume <number 1-200>", false);
 		embed.addField("Shuffle current queue", "**'**mix *or*   **'**shuffle", false);
 		embed.addField("Leave", "**'**leave", false);
 
