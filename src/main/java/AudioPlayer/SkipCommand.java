@@ -1,18 +1,14 @@
 package AudioPlayer;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 
 import javax.annotation.Nullable;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.requests.restaction.MessageAction;
 
 public class SkipCommand {
 	public void skipTrack(MessageReceivedEvent event, boolean msg) {
@@ -82,8 +78,7 @@ public class SkipCommand {
 					} else {
 						
 						
-						BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
-						ArrayList<AudioTrack> audioList = new ArrayList<>(queue);
+						
 						int i;
 						for(i =0; i< index;i++) {
 							
