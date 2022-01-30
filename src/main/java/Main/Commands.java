@@ -366,7 +366,7 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 				 * }
 				 */
 
-				else if (args[0].equalsIgnoreCase(prefix + "send")) {
+				/*else if (args[0].equalsIgnoreCase(prefix + "send")) {
 
 					String limit = "7";
 
@@ -392,7 +392,7 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 						System.out.println(e);
 					}
 
-				}
+				}*/
 
 				else if (args[0].equalsIgnoreCase(prefix + "dick") || args[0].equalsIgnoreCase(prefix + "pp")) {
 					int delka = gifs.generateRandomInt(-1, 50);
