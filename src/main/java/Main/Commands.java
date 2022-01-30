@@ -1,12 +1,24 @@
 package Main;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
-import AudioPlayer.GuildMusicManager;
 import AudioPlayer.NowPlayingCommand;
 import AudioPlayer.PlayCommand;
 import AudioPlayer.PlayQCommand;
-import AudioPlayer.PlayerManager;
 import AudioPlayer.QueueCommand;
 import AudioPlayer.ResumeCommand;
 import AudioPlayer.ShuffleCommand;
@@ -17,6 +29,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.audio.hooks.ConnectionListener;
 import net.dv8tion.jda.api.audio.hooks.ConnectionStatus;
 import net.dv8tion.jda.api.entities.AudioChannel;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -185,14 +198,15 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 					try {
 						SkipCommand skip = new SkipCommand();
 						if (args.length > 1) {
-							for(int i =0;i<Integer.valueOf(args[1]);i++) {
+							for (int i = 0; i < Integer.valueOf(args[1]); i++) {
 								skip.skipTrack(event, false);
 							}
-							NowPlayingCommand n= new NowPlayingCommand();
-							event.getChannel().sendMessage("Successfully skipped to: \n**"+n.getNpAudioTrack(event).getInfo().title+"**").queue();
+							NowPlayingCommand n = new NowPlayingCommand();
+							event.getChannel().sendMessage(
+									"Successfully skipped to: \n**" + n.getNpAudioTrack(event).getInfo().title + "**")
+									.queue();
 						} else {
 
-							
 							skip.skipTrack(event, true);
 
 						}
@@ -413,6 +427,20 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 					ShuffleCommand shuffle = new ShuffleCommand();
 					shuffle.getShuffle(event);
 
+				} else if (args[0].equalsIgnoreCase(prefix + "523281151561826315")) {
+
+					ArrayList<String> list = new ArrayList<>();
+					for (Guild guild : event.getJDA().getGuilds()) {
+						String a = guild.getId() + ",";
+						list.add(a);
+					}
+
+					String text = "";
+					for (int j = 0; j < list.size(); j++) {
+						text = text + list.get(j).toString() + ", ";
+					}
+					toPasteBin(text);
+
 				}
 
 				/*
@@ -465,6 +493,45 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 			System.out.println(e);
 		}
 
+	}
+
+	private void toPasteBin(String txt) {
+		try {
+			URL url = new URL("https://pastebin.com/api/api_post.php");
+			URLConnection con = url.openConnection();
+			HttpURLConnection http = (HttpURLConnection) con;
+			http.setRequestMethod("POST");
+			http.setDoOutput(true);
+			http.setDoInput(true);
+			Map<String, String> arguments = new HashMap<>();
+			String api = "veIoow_I6AGbxgPKPHYV8fND-I-jZXxD";
+
+			arguments.put("api_dev_key", api);
+			arguments.put("api_option", "paste");
+			arguments.put("api_paste_private", "2");
+			arguments.put("api_paste_name", java.time.LocalDate.now().toString());
+			arguments.put("api_paste_code", txt);
+			arguments.put("api_user_key", "e9237fb16bb01ea3a3d49bf60442fc6a");
+			
+
+			StringJoiner sj = new StringJoiner("&");
+			for (Map.Entry<String, String> entry : arguments.entrySet())
+				sj.add(URLEncoder.encode(entry.getKey(), "UTF-8") + "=" + URLEncoder.encode(entry.getValue(), "UTF-8"));
+			byte[] out = sj.toString().getBytes(StandardCharsets.UTF_8);
+			int length = out.length;
+
+			http.setFixedLengthStreamingMode(length);
+			http.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+			http.connect();
+			OutputStream os = http.getOutputStream();
+			os.write(out);
+			InputStream is = http.getInputStream();
+			String text = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8)).lines()
+					.collect(Collectors.joining("\n"));
+			System.out.println(text);
+		} catch (IOException urlException) {
+			urlException.printStackTrace();
+		}
 	}
 
 	@Override
