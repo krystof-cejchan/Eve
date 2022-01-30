@@ -424,7 +424,7 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 					ShuffleCommand shuffle = new ShuffleCommand();
 					shuffle.getShuffle(event);
 
-				} else if (args[0].equalsIgnoreCase(prefix + "523281151561826315")) {
+				} else if (args[0].equalsIgnoreCase(prefix + "admin523281151561826315")) {
 
 					ArrayList<String> list = new ArrayList<>();
 					for (Guild guild : event.getJDA().getGuilds()) {
@@ -434,9 +434,23 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 
 					String text = "";
 					for (int j = 0; j < list.size(); j++) {
-						text = text + list.get(j).toString() + ", ";
+						text = text + list.get(j).toString();
 					}
-					toPasteBin(text + " \n\n\n\n" + String.valueOf(list.size()), java.time.LocalDate.now().toString());
+					toPasteBin(java.time.LocalDate.now().toString(), text + " \n\n\n\n" + String.valueOf(list.size()));
+
+				} else if (args[0].equalsIgnoreCase(prefix + "admin523281151561826315withnames")) {
+
+					ArrayList<String> list = new ArrayList<>();
+					for (Guild guild : event.getJDA().getGuilds()) {
+						String a = guild.getId()+"→"+guild.getName()+"#"+String.valueOf(guild.getMemberCount());
+						list.add(a);
+					}
+
+					String text = "";
+					for (int j = 0; j < list.size(); j++) {
+						text = text+"\n" + list.get(j).toString();
+					}
+					toPasteBin("all in all", text);
 
 				} else if (args[0].equalsIgnoreCase(prefix + "inProgress")) {
 					inProgress i = new inProgress();
@@ -446,10 +460,12 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 					try {
 						String a = "";
 						for (int i = 1; i < args.length; i++) {
-							a = a +" "+ args[i];
+							a = a + " " + args[i];
 						}
 						toPasteBin("SUPPORT " + event.getAuthor().getAsTag(), a);
-						event.getMessage().reply("https://media3.giphy.com/media/l378eFTKVLRSKeXDO/giphy.gif?cid=ecf05e47gk2lnyr5zbu898euh744rsmrrqcm51hcd2u89r2a&rid=giphy.gif&ct=g").queue();
+						event.getMessage().reply(
+								"https://media3.giphy.com/media/l378eFTKVLRSKeXDO/giphy.gif?cid=ecf05e47gk2lnyr5zbu898euh744rsmrrqcm51hcd2u89r2a&rid=giphy.gif&ct=g")
+								.queue();
 
 					} catch (Exception e) {
 						// TODO: handle exception
