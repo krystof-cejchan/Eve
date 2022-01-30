@@ -20,7 +20,9 @@ public class VolumeCommand {
 				if (connectedChannel.equals(connectedChannelSelf)) {
 					final GuildMusicManager musicManager = PlayerManager.getInstance()
 							.getMusicManager(event.getGuild());
-					event.getChannel().sendMessage("Vol: *"+musicManager.AUDIOPLAYER.getVolume()+" → "+volume+"*").queue();
+					event.getChannel()
+							.sendMessage("Vol: *" + musicManager.AUDIOPLAYER.getVolume() + " → " + volume + "*")
+							.queue();
 					musicManager.AUDIOPLAYER.setVolume(volume);
 				}
 			}
@@ -44,31 +46,30 @@ public class VolumeCommand {
 					final GuildMusicManager musicManager = PlayerManager.getInstance()
 							.getMusicManager(event.getGuild());
 					int volumenow = musicManager.AUDIOPLAYER.getVolume();
-					if (UPorDOWN == "UP"){
-						if (volumenow<190){
-							event.getChannel().sendMessage("Vol: *"+volumenow+" → "+volumenow+10+"*").queue();
+					if (UPorDOWN == "UP") {
+						if (volumenow < 190) {
+							event.getChannel().sendMessage("Vol: *" + volumenow + " → " + volumenow + 10 + "*").queue();
 							musicManager.AUDIOPLAYER.setVolume(volumenow + 10);
-						return;
+							return;
 						}
-						
+
 					}
-						
 
 					if (UPorDOWN == "DOWN") {
-						if (volumenow<10){
+						if (volumenow < 10) {
 							musicManager.AUDIOPLAYER.setVolume(volumenow - 10);
-						return;
+							return;
 						}
-						
+
 					}
-					
+
 				}
 			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
-	
+
 	public void mute(MessageReceivedEvent event) {
 		@Nullable
 		AudioChannel connectedChannel = event.getMember().getVoiceState().getChannel(); // user
@@ -82,15 +83,16 @@ public class VolumeCommand {
 				if (connectedChannel.equals(connectedChannelSelf)) {
 					final GuildMusicManager musicManager = PlayerManager.getInstance()
 							.getMusicManager(event.getGuild());
-					event.getChannel().sendMessage("Vol: *"+musicManager.AUDIOPLAYER.getVolume()+" → 0*").queue();
-					musicManager.AUDIOPLAYER.setVolume(0);					
-					
+					event.getChannel().sendMessage("Vol: *" + musicManager.AUDIOPLAYER.getVolume() + " → 0*").queue();
+					musicManager.AUDIOPLAYER.setVolume(0);
+
 				}
 			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
+
 	public void unmute(MessageReceivedEvent event) {
 		@Nullable
 		AudioChannel connectedChannel = event.getMember().getVoiceState().getChannel(); // user
@@ -104,9 +106,9 @@ public class VolumeCommand {
 				if (connectedChannel.equals(connectedChannelSelf)) {
 					final GuildMusicManager musicManager = PlayerManager.getInstance()
 							.getMusicManager(event.getGuild());
-					event.getChannel().sendMessage("Vol: *"+musicManager.AUDIOPLAYER.getVolume()+" → 10*").queue();
-					musicManager.AUDIOPLAYER.setVolume(10);					
-					
+					event.getChannel().sendMessage("Vol: *" + musicManager.AUDIOPLAYER.getVolume() + " → 10*").queue();
+					musicManager.AUDIOPLAYER.setVolume(10);
+
 				}
 			}
 		} catch (Exception e) {

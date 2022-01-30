@@ -1,6 +1,7 @@
 package AudioPlayer;
 
 import java.util.regex.Matcher;
+//import tk.ardentbot.main.Ardent.spotifyApi;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
@@ -32,6 +33,19 @@ public class PlayCommand {
 			if (connectedChannel.equals(connectedChannelSelf)) {
 				// uživatel je s botem a proto se hraje hudba
 				if (isLink) {
+					
+					if (url.contains("spotify.com")) {/*
+			            String[] parsed = url.split("/track/");
+			            if (parsed.length == 2) {
+			                final TrackRequest request = spotifyApi.getTrack(parsed[1]).build();
+			                try {
+			                    trackUrl = request.get().getName();
+			                }
+			                catch (Exception e) {
+			                    new BotException(e);
+			                } }
+			          */  }
+					else
 					loadNPlay(channel, url, event);
 				} else {
 					loadNPlay(channel, "ytsearch:" + url, event);

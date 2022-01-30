@@ -76,21 +76,19 @@ public class SkipCommand {
 					if (audioPlayer.getPlayingTrack() == null) {
 						event.getChannel().sendMessage("Queue is empty").queue();
 					} else {
-						
-						
-						
+
 						int i;
-						for(i =0; i< index;i++) {
-							
-							
-							skipTrack(event,false);
-							
-							
+						for (i = 0; i < index; i++) {
+
+							skipTrack(event, false);
+
 						}
-					
-						NowPlayingCommand n= new NowPlayingCommand();
-						event.getChannel().sendMessage("Successfully skipped to: \n**"+n.getNpAudioTrack(event).getInfo().title+"**").queue();
-						//skipTrack(event,false);
+
+						NowPlayingCommand n = new NowPlayingCommand();
+						event.getChannel().sendMessage(
+								"Successfully skipped to: \n**" + n.getNpAudioTrack(event).getInfo().title + "**")
+								.queue();
+						// skipTrack(event,false);
 					}
 
 				}

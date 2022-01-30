@@ -88,7 +88,7 @@ public class NowPlayingCommand {
 		AudioTrack track = audioPlayer.getPlayingTrack();
 
 		return track;
-		
+
 	}
 
 }

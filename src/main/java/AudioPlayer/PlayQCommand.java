@@ -31,7 +31,7 @@ public class PlayQCommand {
 			if (connectedChannel.equals(connectedChannelSelf)) {
 				// uživatel je s botem a proto se hraje hudba
 				if (isLink) {
-					loadNPlay(channel, url,event);
+					loadNPlay(channel, url, event);
 				}
 
 			} else {
@@ -39,7 +39,7 @@ public class PlayQCommand {
 
 				if (isLink) {
 					vc.Join(event);
-					loadNPlay(channel, url,event);
+					loadNPlay(channel, url, event);
 				}
 
 			}

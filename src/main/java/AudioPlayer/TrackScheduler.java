@@ -23,7 +23,7 @@ public class TrackScheduler extends AudioEventAdapter {
 		if (!this.PLAYER.startTrack(track, true)) {
 			this.QUEUE.offer(track);
 		}
-		
+
 	}
 
 	public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
@@ -35,15 +35,14 @@ public class TrackScheduler extends AudioEventAdapter {
 	public void nextTrack() {
 		this.PLAYER.startTrack(this.QUEUE.poll(), false);
 	}
-	
-	 public void shuffle()
-	    {
-		 ArrayList<AudioTrack> arrayList= new ArrayList<>(QUEUE);
-		   QUEUE.clear();
-	       Collections.shuffle(arrayList);
-	       for (AudioTrack audioTrack : arrayList) {
+
+	public void shuffle() {
+		ArrayList<AudioTrack> arrayList = new ArrayList<>(QUEUE);
+		QUEUE.clear();
+		Collections.shuffle(arrayList);
+		for (AudioTrack audioTrack : arrayList) {
 			QUEUE.add(audioTrack);
 		}
-	    }
+	}
 
 }

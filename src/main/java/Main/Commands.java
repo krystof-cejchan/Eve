@@ -58,16 +58,17 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 			System.out.println(e);
 		}
 	}
-
+	public void onUserSpeaking​(User user, boolean speaking) {
+		System.out.println(user.getName());
+	}
+	//public void on
 	/*
 	 * void onUserSpeaking​(@Nonnull User user, @Nonnull EnumSet<SpeakingMode>
 	 * modes) {
 	 * 
 	 * System.out.println(user.getId()); }
 	 */
-	public void onUserSpeaking​(User user, boolean speaking) {
-		System.out.println(user.getName());
-	}
+	
 
 	public void onGuildVoiceLeave(GuildVoiceLeaveEvent event) {
 		AudioChannel connectedChannelSelf = event.getGuild().getSelfMember().getVoiceState().getChannel();

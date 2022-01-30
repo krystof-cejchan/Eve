@@ -13,8 +13,9 @@ public class ResumeCommand {
 		event.getChannel();
 
 		@Nullable
-		AudioChannel connectedChannel = event.getMember().getVoiceState().getChannel();  /*event.getMember().getVoiceState().getChannel();*/ // user
-		
+		AudioChannel connectedChannel = event.getMember().getVoiceState()
+				.getChannel(); /* event.getMember().getVoiceState().getChannel(); */ // user
+
 		@Nullable
 		AudioChannel connectedChannelSelf = event.getGuild().getSelfMember().getVoiceState().getChannel(); // bot
 
