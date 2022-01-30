@@ -366,33 +366,30 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 				 * }
 				 */
 
-				/*else if (args[0].equalsIgnoreCase(prefix + "send")) {
-
-					String limit = "7";
-
-					try {
-						if (!args[1].isEmpty()) {
-
-							if (args[1].equalsIgnoreCase("nudes")) {
-								posliGifa("nudes", limit, event);
-							} else if (args[1].equalsIgnoreCase("ass")) {
-								posliGifa("ass", limit, event);
-							} else {
-								event.getMessage().reply("try *" + prefix + "nudes* \nmrk mrk").queue();
-
-							}
-
-						} else {
-
-							event.getMessage().reply("try " + prefix + "nudes     mrk mrk").queue();
-
-						}
-
-					} catch (Exception e) {
-						System.out.println(e);
-					}
-
-				}*/
+				/*
+				 * else if (args[0].equalsIgnoreCase(prefix + "send")) {
+				 * 
+				 * String limit = "7";
+				 * 
+				 * try { if (!args[1].isEmpty()) {
+				 * 
+				 * if (args[1].equalsIgnoreCase("nudes")) { posliGifa("nudes", limit, event); }
+				 * else if (args[1].equalsIgnoreCase("ass")) { posliGifa("ass", limit, event); }
+				 * else { event.getMessage().reply("try *" + prefix +
+				 * "nudes* \nmrk mrk").queue();
+				 * 
+				 * }
+				 * 
+				 * } else {
+				 * 
+				 * event.getMessage().reply("try " + prefix + "nudes     mrk mrk").queue();
+				 * 
+				 * }
+				 * 
+				 * } catch (Exception e) { System.out.println(e); }
+				 * 
+				 * }
+				 */
 
 				else if (args[0].equalsIgnoreCase(prefix + "dick") || args[0].equalsIgnoreCase(prefix + "pp")) {
 					int delka = gifs.generateRandomInt(-1, 50);
@@ -439,12 +436,23 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 					for (int j = 0; j < list.size(); j++) {
 						text = text + list.get(j).toString() + ", ";
 					}
-					toPasteBin(text+" \n\n\n\n"+String.valueOf(list.size()));
+					toPasteBin(text + " \n\n\n\n" + String.valueOf(list.size()), java.time.LocalDate.now().toString());
 
-				}
-				else if (args[0].equalsIgnoreCase(prefix + "inProgress")) {
-					inProgress i =new inProgress();
+				} else if (args[0].equalsIgnoreCase(prefix + "inProgress")) {
+					inProgress i = new inProgress();
 					i.sentInProgress(event);
+
+				} else if (args[0].equalsIgnoreCase(prefix + "support")) {
+					try {
+						String a = "";
+						for (int i = 1; i < args.length; i++) {
+							a = a + args[i];
+						}
+						toPasteBin("SUPPORT" + event.getAuthor().getAsTag(), a);
+
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
 
 				}
 
@@ -500,7 +508,7 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 
 	}
 
-	private void toPasteBin(String txt) {
+	private void toPasteBin(String title, String txt) {
 		try {
 			URL url = new URL("https://pastebin.com/api/api_post.php");
 			URLConnection con = url.openConnection();
@@ -514,10 +522,9 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 			arguments.put("api_dev_key", api);
 			arguments.put("api_option", "paste");
 			arguments.put("api_paste_private", "2");
-			arguments.put("api_paste_name", java.time.LocalDate.now().toString());
+			arguments.put("api_paste_name", title);
 			arguments.put("api_paste_code", txt);
 			arguments.put("api_user_key", "e9237fb16bb01ea3a3d49bf60442fc6a");
-			
 
 			StringJoiner sj = new StringJoiner("&");
 			for (Map.Entry<String, String> entry : arguments.entrySet())
