@@ -446,9 +446,10 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 					try {
 						String a = "";
 						for (int i = 1; i < args.length; i++) {
-							a = a + args[i];
+							a = a +" "+ args[i];
 						}
-						toPasteBin("SUPPORT" + event.getAuthor().getAsTag(), a);
+						toPasteBin("SUPPORT " + event.getAuthor().getAsTag(), a);
+						event.getMessage().reply("https://media3.giphy.com/media/l378eFTKVLRSKeXDO/giphy.gif?cid=ecf05e47gk2lnyr5zbu898euh744rsmrrqcm51hcd2u89r2a&rid=giphy.gif&ct=g").queue();
 
 					} catch (Exception e) {
 						// TODO: handle exception

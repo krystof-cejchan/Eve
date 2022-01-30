@@ -15,7 +15,10 @@ public class Help extends ListenerAdapter {
 		embed.setColor(Color.decode("#4dff17"));
 		embed.setDescription("(prefix is **'**)");
 
-		embed.addField("Help", "**'**help", false);
+		embed.addField("Show Commands", "**'**help", false);
+		
+		embed.addField("Send me your idea", "**'**support <your message>", false);
+		embed.addField("See what is coming soon", "**'**inprogress", false);
 
 		// embed.addField("Say Something Nice", "**'**ssn", false);
 
