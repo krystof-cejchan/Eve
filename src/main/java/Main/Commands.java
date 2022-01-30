@@ -439,7 +439,7 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 					for (int j = 0; j < list.size(); j++) {
 						text = text + list.get(j).toString() + ", ";
 					}
-					toPasteBin(text);
+					toPasteBin(text+" \n\n\n\n"+String.valueOf(list.size()));
 
 				}
 
