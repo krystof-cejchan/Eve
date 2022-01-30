@@ -11,8 +11,8 @@ public class StartUp {
 
 	public static void main(String[] args) throws LoginException {
 
-		//jda = JDABuilder.createDefault("OTMzNDgyMTE1MDM3ODEwNzI5.YeiK9w.k3jvmDgGu5Qgk_19dVk7d8CY9IY");
-		jda = JDABuilder.createDefault("OTM3MTA0ODE5MTY3MDY4MjMy.YfW43w.0kDl03FxJvgxyJ8a2tBDYDbwkLk");
+		jda = JDABuilder.createDefault("OTMzNDgyMTE1MDM3ODEwNzI5.YeiK9w.k3jvmDgGu5Qgk_19dVk7d8CY9IY");
+		//jda = JDABuilder.createDefault("OTM3MTA0ODE5MTY3MDY4MjMy.YfW43w.0kDl03FxJvgxyJ8a2tBDYDbwkLk");
 		jda.setActivity(Activity.competing("'help"));
 		
 		jda.setStatus(OnlineStatus.ONLINE);
