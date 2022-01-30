@@ -17,7 +17,7 @@ public class Help extends ListenerAdapter {
 
 		embed.addField("Show Commands", "**'**help", false);
 		
-		embed.addField("Send me your idea", "**'**support <your message>", false);
+		embed.addField("Contact us 24 hours a day 7 days a week 🙂", "**'**support <your message>", false);
 		embed.addField("See what is coming soon", "**'**inprogress", false);
 
 		// embed.addField("Say Something Nice", "**'**ssn", false);
