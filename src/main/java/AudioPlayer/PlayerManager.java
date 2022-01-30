@@ -63,8 +63,9 @@ public class PlayerManager {
 				AudioTrack track = tracks.get(0);
 				musicManager.SCHEDULER.queue(track);
 
-				channel.sendMessage("Adding to queue: ").append(track.getInfo().title)
-						.append("\n by:" + track.getInfo().author).queue();
+				channel.sendMessage("`yaml\n"
+						+ "Adding to queue:").append(track.getInfo().title)
+						.append("  #  from:" + track.getInfo().author+" channel`").queue();
 			}
 			else {
 				int pocet =0;
