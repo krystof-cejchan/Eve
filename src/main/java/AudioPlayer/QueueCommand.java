@@ -31,7 +31,7 @@ public class QueueCommand {
 		}
 		if (!queue.isEmpty()) {
 
-			int shownTrackCount = 10;
+			int shownTrackCount = 30;
 			final int trackCount = Math.min(queue.size(), shownTrackCount);
 			final ArrayList<AudioTrack> trackList = new ArrayList<>(queue);
 
@@ -97,14 +97,7 @@ public class QueueCommand {
 				// TODO: handle exception
 			}
 			
-			ArrayList<AudioTrack> audioList= new ArrayList<>(queue);
-			audioList.remove(index);
 			
-			musicManager.SCHEDULER.QUEUE.clear();
-			
-			for (AudioTrack audioTrack : audioList) {
-				musicManager.SCHEDULER.QUEUE.add(audioTrack);
-			}
 
 		}
 		if(queue.isEmpty()) {

@@ -1,9 +1,12 @@
 package Main;
 
 import java.util.ArrayList;
+
+import AudioPlayer.GuildMusicManager;
 import AudioPlayer.NowPlayingCommand;
 import AudioPlayer.PlayCommand;
 import AudioPlayer.PlayQCommand;
+import AudioPlayer.PlayerManager;
 import AudioPlayer.QueueCommand;
 import AudioPlayer.ResumeCommand;
 import AudioPlayer.ShuffleCommand;
@@ -24,21 +27,15 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.ContextException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-
-
 public class Commands extends ListenerAdapter implements ConnectionListener {
-	
-	
+
 	private boolean POVOLOVAC = true;
 
-	public String prefix = "'";
+	public String prefix = ";";
 	public StartUp startUp = new StartUp();
 	String limit = "3";
 	GifSender gifs = new GifSender();
-	
 
-	
-		
 	public void posliGifa(String key, String limit, MessageReceivedEvent event) {
 		try {
 
@@ -48,21 +45,23 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 			System.out.println(e);
 		}
 	}
-	/* void onUserSpeaking​(@Nonnull User user, @Nonnull EnumSet<SpeakingMode> modes) {
 
-		System.out.println(user.getId());
-	}*/
+	/*
+	 * void onUserSpeaking​(@Nonnull User user, @Nonnull EnumSet<SpeakingMode>
+	 * modes) {
+	 * 
+	 * System.out.println(user.getId()); }
+	 */
 	public void onUserSpeaking​(User user, boolean speaking) {
-	System.out.println(user.getName());
+		System.out.println(user.getName());
 	}
-	
-	
+
 	public void onGuildVoiceLeave(GuildVoiceLeaveEvent event) {
 		AudioChannel connectedChannelSelf = event.getGuild().getSelfMember().getVoiceState().getChannel();
 		try {
 			ArrayList<Member> members = new ArrayList<>(connectedChannelSelf.getMembers());
-			
-			if(members.size()==1) {
+
+			if (members.size() == 1) {
 				VoiceChannels leaveVC = new VoiceChannels();
 				StopCommand stop = new StopCommand();
 				stop.stopMusic(event);
@@ -71,9 +70,8 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 	}
-	
 
 	public void onMessageReceived(MessageReceivedEvent event) {
 		if (event.getAuthor().isBot() == false) {
@@ -186,26 +184,47 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 				else if (args[0].equalsIgnoreCase(prefix + "skip") || args[0].equalsIgnoreCase(prefix + "next")) {
 					try {
 						SkipCommand skip = new SkipCommand();
-						skip.skipTrack(event);
+						if (args.length > 1) {
+							for(int i =0;i<Integer.valueOf(args[1]);i++) {
+								skip.skipTrack(event, false);
+							}
+							NowPlayingCommand n= new NowPlayingCommand();
+							event.getChannel().sendMessage("Successfully skipped to: \n**"+n.getNpAudioTrack(event).getInfo().title+"**").queue();
+						} else {
+
+							
+							skip.skipTrack(event, true);
+
+						}
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+
+				} else if (args[0].equalsIgnoreCase(prefix + "skipto") || args[0].equalsIgnoreCase(prefix + "getto")) {
+					try {
+						if (args.length > 1) {
+							SkipCommand s = new SkipCommand();
+							s.skipTrackTo(event, Integer.valueOf(args[1]));
+						}
+
 					} catch (Exception e) {
 						System.out.println(e);
 					}
 
 				}
-				
+
 				else if (args[0].equalsIgnoreCase(prefix + "remove") || args[0].equalsIgnoreCase(prefix + "delete")) {
 					try {
 						if (args.length > 1) {
 							QueueCommand q = new QueueCommand();
-						q.removeFromQueue(event, Integer.valueOf(args[1])-1);
+							q.removeFromQueue(event, Integer.valueOf(args[1]) - 1);
 						}
-						
+
 					} catch (Exception e) {
 						System.out.println(e);
 					}
 
-				} 
-				else if (args[0].equalsIgnoreCase(prefix + "mute")) {
+				} else if (args[0].equalsIgnoreCase(prefix + "mute")) {
 					try {
 						VolumeCommand volume = new VolumeCommand();
 						volume.mute(event);
@@ -325,16 +344,13 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 
 				}
 
-				else if (args[0].equalsIgnoreCase(prefix + "tgif")) {
-					GifSender_Trending gsT = new GifSender_Trending();
-					try {
-						gsT.call_me("20");
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-				}
+				/*
+				 * else if (args[0].equalsIgnoreCase(prefix + "tgif")) { GifSender_Trending gsT
+				 * = new GifSender_Trending(); try { gsT.call_me("20"); } catch (Exception e) {
+				 * // TODO Auto-generated catch block e.printStackTrace(); }
+				 * 
+				 * }
+				 */
 
 				else if (args[0].equalsIgnoreCase(prefix + "send")) {
 
@@ -399,27 +415,26 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 
 				}
 
-				/*else if (args[0].equalsIgnoreCase(prefix + "screenshot")) {
-					if (args.length > 1) {
-						Screenshot ss = new Screenshot();
-						try {
-							ss.getScreenshot(event, args[1].toString());
-						} catch (IOException e) {
-							e.printStackTrace();
-						} catch (InterruptedException e) { // TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-
-				}*/
+				/*
+				 * else if (args[0].equalsIgnoreCase(prefix + "screenshot")) { if (args.length >
+				 * 1) { Screenshot ss = new Screenshot(); try { ss.getScreenshot(event,
+				 * args[1].toString()); } catch (IOException e) { e.printStackTrace(); } catch
+				 * (InterruptedException e) { // TODO Auto-generated catch block
+				 * e.printStackTrace(); } }
+				 * 
+				 * }
+				 */
 
 			} else {
 				/*
 				 * try { sendPrivateMessage(event.getAuthor(), "pls nech mě spát"); } catch
 				 * (ContextException e) { System.out.println(e); }
 				 */
-			/*	event.getChannel().sendMessage("*jsem v říši snů a jednorožců*").queue();
-				System.out.println("někdo mě chtěl vzbudit v " + event.getGuild().getName().toString());*/
+				/*
+				 * event.getChannel().sendMessage("*jsem v říši snů a jednorožců*").queue();
+				 * System.out.println("někdo mě chtěl vzbudit v " +
+				 * event.getGuild().getName().toString());
+				 */
 
 			}
 
@@ -451,20 +466,23 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 		}
 
 	}
+
 	@Override
 	public void onPing(long ping) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	public void onStatusChange(ConnectionStatus status) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	public void onUserSpeaking(User user, boolean speaking) {
 		System.out.println(user.getName());
-		
+
 	}
 
 }

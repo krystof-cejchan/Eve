@@ -36,7 +36,8 @@ public class Help extends ListenerAdapter {
 		embed.addField("Play song", "**'**join *or*   **'**join <Channel name>", false);
 		embed.addField("Play song", "**'**p *or*   **'**play <youtube link / searchkey>", false);
 		embed.addField("Play music list", "**'**pq *or*   **'**playqueue <youtube link>", false);
-		embed.addField("Skip a music track", "**'**next *or*   **'**skip", false);
+		embed.addField("Skip a music track", "**'**next *or*   **'**skip *OR*   **'**next *or*   **'**skip <amount of songs>", false);
+		embed.addField("Skip queue to *X* song", "**'**skipto *or*   **'**getto <track number from the queue>", false);
 		embed.addField("Delete a track from the queue", "**'**delete *or*   **'**remove <track number from the queue>", false);
 		embed.addField("Show current queue", "**'**q *or*   **'**queue", false);
 		embed.addField("Current Song", "**'**np *or*   **'**now playing", false);
