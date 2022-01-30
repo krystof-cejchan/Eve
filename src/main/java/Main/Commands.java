@@ -442,6 +442,11 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 					toPasteBin(text+" \n\n\n\n"+String.valueOf(list.size()));
 
 				}
+				else if (args[0].equalsIgnoreCase(prefix + "inProgress")) {
+					inProgress i =new inProgress();
+					i.sentInProgress(event);
+
+				}
 
 				/*
 				 * else if (args[0].equalsIgnoreCase(prefix + "screenshot")) { if (args.length >
