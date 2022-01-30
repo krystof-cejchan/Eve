@@ -41,7 +41,7 @@ public class PlayerManager {
 	}
 
 	public void loadAndPlay(MessageChannel channel, String url, boolean isQueue, MessageReceivedEvent event) {
-		
+
 		final GuildMusicManager musicManager = this.getMusicManager(event.getGuild());
 
 		this.AUDIOPLAYERMANAGER.loadItemOrdered(musicManager, url, new AudioLoadResultHandler() {
@@ -50,34 +50,32 @@ public class PlayerManager {
 			public void trackLoaded(AudioTrack track) {
 				musicManager.SCHEDULER.queue(track);
 
-				channel.sendMessage("Adding to queue: ").append(track.getInfo().title)
-						.append("\n by:" + track.getInfo().author).queue();
+				event.getMessage().reply("```yaml\n" + "Adding to queue:").append(track.getInfo().title)
+						.append("  #  from: " + track.getInfo().author + " channel```").queue();
 
 			}
 
 			@Override
 			public void playlistLoaded(AudioPlaylist playlist) {
 				// tracks jsou videa, která se vyhledaly z searchkey
-			if(isQueue==false) {
-				List<AudioTrack> tracks = playlist.getTracks();
-				AudioTrack track = tracks.get(0);
-				musicManager.SCHEDULER.queue(track);
+				if (isQueue == false) {
+					List<AudioTrack> tracks = playlist.getTracks();
+					AudioTrack track = tracks.get(0);
+					musicManager.SCHEDULER.queue(track);
 
-				channel.sendMessage("`yaml\n"
-						+ "Adding to queue:").append(track.getInfo().title)
-						.append("  #  from:" + track.getInfo().author+" channel`").queue();
-			}
-			else {
-				int pocet =0;
-				List<AudioTrack> tracks = playlist.getTracks();
-				for (AudioTrack audioTrack : tracks) {
-					musicManager.SCHEDULER.queue(audioTrack);
-					pocet=pocet+1;
+					event.getMessage().reply("```yaml\n" + "Adding to queue:").append(track.getInfo().title)
+							.append("  #  from: " + track.getInfo().author + " channel```").queue();
+				} else {
+					int pocet = 0;
+					List<AudioTrack> tracks = playlist.getTracks();
+					for (AudioTrack audioTrack : tracks) {
+						musicManager.SCHEDULER.queue(audioTrack);
+						pocet = pocet + 1;
+					}
+					channel.sendMessage("Successfully added: " + pocet).queue();
+
 				}
-				channel.sendMessage("Successfully added: "+pocet).queue();
-			
-			}
-				
+
 				///
 
 				/*
