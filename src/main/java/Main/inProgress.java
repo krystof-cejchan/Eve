@@ -13,12 +13,12 @@ public class inProgress {
 		embed.setAuthor("Večerníček#3533");
 		embed.addField("List:", "Spotify as Music Source \n"
 				+ "Youtube Queue Bug fix\n"
-				+ "...\n"
+				+ "FastForwarding\n"
 				+ "\n"
 			/*	+ "\n"
 				+ "\n"
-				+ "\n"
 				+ "\n"*/
+				+ "...\n"
 				
 				, false);
 		
