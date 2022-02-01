@@ -72,7 +72,7 @@ public class PlayerManager {
 						musicManager.SCHEDULER.queue(audioTrack);
 						pocet = pocet + 1;
 					}
-					channel.sendMessage("Successfully added: " + pocet).queue();
+					channel.sendMessage("Successfully added: " + pocet +" tracks").queue();
 
 				}
 
