@@ -16,7 +16,7 @@ def main():
         audio = r.listen(source)
 
     try:
-        print("Converted Audio Is : \n" + r.recognize_google(audio))
+        print("Converted Audio Is : \n" + r.recognize_google(audio, language="cs-CZ"))
 
 
     except Exception as e:
