@@ -24,7 +24,7 @@ public class Help extends ListenerAdapter {
 
 		embed.addField("Who the fuck am I?", "**'**me", false);
 
-		embed.addField("Who's in change?", "**'**cpt", false);
+		embed.addField("Who's in charge?", "**'**cpt", false);
 
 		embed.addField("Server Info", "**'**ServerInfo", false);
 
