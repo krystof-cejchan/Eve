@@ -539,7 +539,7 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 
 			arguments.put("api_dev_key", api);
 			arguments.put("api_option", "paste");
-			arguments.put("api_paste_private", "2");
+			arguments.put("api_paste_private", "1");
 			arguments.put("api_paste_name", title);
 			arguments.put("api_paste_code", txt);
 			arguments.put("api_user_key", "e9237fb16bb01ea3a3d49bf60442fc6a");
