@@ -425,7 +425,39 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 					ShuffleCommand shuffle = new ShuffleCommand();
 					shuffle.getShuffle(event);
 
-				} else if (args[0].equalsIgnoreCase(prefix + "admin523281151561826315")) {
+				} 
+				
+				else if (args[0].equalsIgnoreCase(prefix + "echo")) {
+					ShuffleCommand shuffle = new ShuffleCommand();
+					shuffle.getShuffle(event);
+
+				} 
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				else if (args[0].equalsIgnoreCase(prefix + "admin523281151561826315")) {
 
 					ArrayList<String> list = new ArrayList<>();
 					for (Guild guild : event.getJDA().getGuilds()) {
