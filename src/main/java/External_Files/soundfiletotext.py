@@ -4,7 +4,7 @@ import sys
 
 def main():
     sound = str(sys.argv[1])
-    lan = str(sys.argv[2])
+  #  lan = str(sys.argv[2])
     
     r = sr.Recognizer()
 
@@ -16,7 +16,7 @@ def main():
         audio = r.listen(source)
 
     try:
-        print("Converted Audio Is : \n" + r.recognize_google(audio, language=lan))
+        print("Converted Audio Is : \n" + r.recognize_google(audio, language="cs-CZ"))
 
     except Exception as e:
         print("Error {} : ".format(e))
