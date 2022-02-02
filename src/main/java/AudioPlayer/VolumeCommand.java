@@ -20,6 +20,11 @@ public class VolumeCommand {
 			if (!(connectedChannel == (null)) || !(connectedChannelSelf == (null))) {
 				// uživatel někde je a bot taky
 				if (connectedChannel.equals(connectedChannelSelf)) {
+					if (volume > 200 || volume < 0) {
+
+						event.getMessage().reply("Please, provide Volume value within range from 0 to 200").queue();
+						return;
+					}
 					final GuildMusicManager musicManager = PlayerManager.getInstance()
 							.getMusicManager(event.getGuild());
 					event.getChannel()
@@ -75,6 +80,8 @@ public class VolumeCommand {
 		}
 	}
 
+	private int volumeBeforeMuted = 0;
+
 	public void mute(MessageReceivedEvent event) {
 		@Nullable
 		AudioChannel connectedChannel = event.getMember().getVoiceState().getChannel(); // user
@@ -88,6 +95,7 @@ public class VolumeCommand {
 				if (connectedChannel.equals(connectedChannelSelf)) {
 					final GuildMusicManager musicManager = PlayerManager.getInstance()
 							.getMusicManager(event.getGuild());
+					volumeBeforeMuted = musicManager.AUDIOPLAYER.getVolume();
 					event.getChannel().sendMessage("🔇: *" + musicManager.AUDIOPLAYER.getVolume() + " → 0*").queue();
 					musicManager.AUDIOPLAYER.setVolume(0);
 
@@ -114,7 +122,7 @@ public class VolumeCommand {
 					final GuildMusicManager musicManager = PlayerManager.getInstance()
 							.getMusicManager(event.getGuild());
 					event.getChannel().sendMessage("Vol: *" + musicManager.AUDIOPLAYER.getVolume() + " → 10*").queue();
-					musicManager.AUDIOPLAYER.setVolume(10);
+					musicManager.AUDIOPLAYER.setVolume(volumeBeforeMuted);
 
 				}
 			}
@@ -122,4 +130,10 @@ public class VolumeCommand {
 			System.out.println(e);
 		}
 	}
+
+	public int getCurrentVolume(MessageReceivedEvent event) {
+		final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
+		return musicManager.AUDIOPLAYER.getVolume();
+	}
+
 }

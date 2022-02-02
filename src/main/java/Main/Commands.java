@@ -59,17 +59,17 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 			System.out.println(e);
 		}
 	}
+
 	public void onUserSpeaking​(User user, boolean speaking) {
 		System.out.println(user.getName());
 	}
-	//public void on
+	// public void on
 	/*
 	 * void onUserSpeaking​(@Nonnull User user, @Nonnull EnumSet<SpeakingMode>
 	 * modes) {
 	 * 
 	 * System.out.println(user.getId()); }
 	 */
-	
 
 	public void onGuildVoiceLeave(GuildVoiceLeaveEvent event) {
 		AudioChannel connectedChannelSelf = event.getGuild().getSelfMember().getVoiceState().getChannel();
@@ -260,8 +260,9 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 
 				else if (args[0].equalsIgnoreCase(prefix + "vol") || (args[0].equalsIgnoreCase(prefix + "volume"))) {
 					try {
+						VolumeCommand volume = new VolumeCommand();
 						if (args.length > 1) {
-							VolumeCommand volume = new VolumeCommand();
+
 							if (args[1].equalsIgnoreCase("up")) {
 
 								volume.upDownVolume(event, "UP");
@@ -276,6 +277,12 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 								return;
 							}
 
+						} else {
+
+							event.getMessage()
+									.reply("Current Volume is `" + volume.getCurrentVolume(event)
+											+ "`.\nTo change Volume, use " + prefix + "volume <number 1 - 200>")
+									.queue();
 						}
 					} catch (Exception e) {
 						System.out.println(e);
@@ -426,42 +433,18 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 					ShuffleCommand shuffle = new ShuffleCommand();
 					shuffle.getShuffle(event);
 
-				} 
-				
+				}
+
 				else if (args[0].equalsIgnoreCase(prefix + "echo")) {
 					Echo echo = new Echo();
 					echo.onEchoCommand(event);
 
-				} 
-				else if (args[0].equalsIgnoreCase(prefix + "stopecho")) {
+				} else if (args[0].equalsIgnoreCase(prefix + "stopecho")) {
 					Echo echo = new Echo();
 					echo.stopEchoing();
 
-				} 
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+				}
+
 				else if (args[0].equalsIgnoreCase(prefix + "admin523281151561826315")) {
 
 					ArrayList<String> list = new ArrayList<>();
@@ -480,13 +463,13 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 
 					ArrayList<String> list = new ArrayList<>();
 					for (Guild guild : event.getJDA().getGuilds()) {
-						String a = guild.getId()+"→"+guild.getName()+"#"+String.valueOf(guild.getMemberCount());
+						String a = guild.getId() + "→" + guild.getName() + "#" + String.valueOf(guild.getMemberCount());
 						list.add(a);
 					}
 
 					String text = "";
 					for (int j = 0; j < list.size(); j++) {
-						text = text+"\n" + list.get(j).toString();
+						text = text + "\n" + list.get(j).toString();
 					}
 					toPasteBin("all in all", text);
 
