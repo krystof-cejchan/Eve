@@ -1,4 +1,4 @@
-<?php
+
 <html>
 <head>
 <title>Music Bot with Emotional Damage</title>
