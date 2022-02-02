@@ -1,3 +1,4 @@
+<?php
 <html>
 <center>
 <a href="https://top.gg/bot/933482115037810729">
@@ -5,3 +6,4 @@
 </a>
 </center>
 </html>
+?>
