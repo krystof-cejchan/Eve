@@ -25,6 +25,7 @@ import AudioPlayer.ShuffleCommand;
 import AudioPlayer.SkipCommand;
 import AudioPlayer.StopCommand;
 import AudioPlayer.VolumeCommand;
+import Speech_Texts_Listening.Echo;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.audio.hooks.ConnectionListener;
 import net.dv8tion.jda.api.audio.hooks.ConnectionStatus;
@@ -428,11 +429,15 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 				} 
 				
 				else if (args[0].equalsIgnoreCase(prefix + "echo")) {
-					ShuffleCommand shuffle = new ShuffleCommand();
-					shuffle.getShuffle(event);
+					Echo echo = new Echo();
+					echo.onEchoCommand(event);
 
 				} 
-				
+				else if (args[0].equalsIgnoreCase(prefix + "stopecho")) {
+					Echo echo = new Echo();
+					echo.stopEchoing();
+
+				} 
 				
 				
 				
