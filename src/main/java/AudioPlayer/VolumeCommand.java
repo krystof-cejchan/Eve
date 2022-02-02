@@ -2,10 +2,12 @@ package AudioPlayer;
 
 import javax.annotation.Nullable;
 
+import Speech_Texts_Listening.Echo;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class VolumeCommand {
+	Echo echo = new Echo();
 
 	public void setVolume(MessageReceivedEvent event, int volume) {
 		@Nullable
@@ -21,9 +23,12 @@ public class VolumeCommand {
 					final GuildMusicManager musicManager = PlayerManager.getInstance()
 							.getMusicManager(event.getGuild());
 					event.getChannel()
-							.sendMessage("Vol: *" + musicManager.AUDIOPLAYER.getVolume() + " → " + volume + "*")
+							.sendMessage("Volume: *" + musicManager.AUDIOPLAYER.getVolume() + " → " + volume + "*")
 							.queue();
 					musicManager.AUDIOPLAYER.setVolume(volume);
+
+					// echoVolume
+					echo.setVolume(volume);
 				}
 			}
 		} catch (Exception e) {
@@ -83,9 +88,11 @@ public class VolumeCommand {
 				if (connectedChannel.equals(connectedChannelSelf)) {
 					final GuildMusicManager musicManager = PlayerManager.getInstance()
 							.getMusicManager(event.getGuild());
-					event.getChannel().sendMessage("Vol: *" + musicManager.AUDIOPLAYER.getVolume() + " → 0*").queue();
+					event.getChannel().sendMessage("🔇: *" + musicManager.AUDIOPLAYER.getVolume() + " → 0*").queue();
 					musicManager.AUDIOPLAYER.setVolume(0);
 
+					// echoVolume
+					echo.setVolume(0);
 				}
 			}
 		} catch (Exception e) {
