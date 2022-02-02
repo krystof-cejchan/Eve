@@ -7,11 +7,15 @@
   <img src="https://top.gg/api/widget/933482115037810729.svg">
 </a></div><br>
 <div class="invite">
-<button class="invite" role="button")>INVITE BOT</button>
+<button class="invite" onclick="onInviteButtonClick()" role="button")>INVITE BOT</button>
 </div>
 </center>
 </body>
-
+<script>
+function onInviteButtonClick() {
+  window.open("https://discord.com/oauth2/authorize?client_id=933482115037810729&permissions=8&scope=bot", '_blank').focus();
+}
+</script>
 <style>
 body {
   background-color: #800080;
