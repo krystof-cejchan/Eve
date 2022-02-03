@@ -1,33 +1,31 @@
-
+<!DOCTYPE html>
 <html>
 <head>
-<title>Music Bot with Emotional Damage</title>
-<link rel="icon" href="http://kys.hys.cz/Z0c9owbRc0OnCeQVHdY3/images/pepo-jam-pepe.png">
+  <title>Music Bot with Emotional Damage</title>
+  <link rel="icon" href="http://kys.hys.cz/Z0c9owbRc0OnCeQVHdY3/images/pepo-jam-pepe.png">
 </head>
 <body>
-<center>
-<div class="widget">
-<a href="https://top.gg/bot/933482115037810729">
-  <img src="https://top.gg/api/widget/933482115037810729.svg">
-</a></div><br>
-<div class="invite">
-<button class="invite" name="inv" role="button" onclick="Open()")>INVITE BOT</button>
-</div>
-</center>
-</body>
-
- <script>
+  <center>
+    <div class="widget">
+      <a href="https://top.gg/bot/933482115037810729"><img src="https://top.gg/api/widget/933482115037810729.svg" alt="933482115037810729"></a>
+    </div><br>
+    <div class="invite">
+      <button class="invite" name="inv" role="button" onclick="Open()">INVITE BOT</button>
+    </div>
+  </center>
+  <script>
         function Open() {
             window.open("https://discord.com/oauth2/authorize?client_id=933482115037810729&permissions=8&scope=bot", "_blank");
         }
-    </script>
+  </script>
+  <style>
 
-<style>
-body {
+
+  body {
   background-color: #800080;
-}
-.invite,
-.invite:after {
+  }
+  .invite,
+  .invite:after {
   width: 150px;
   height: 76px;
   line-height: 78px;
@@ -43,16 +41,16 @@ body {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-}
+  }
 
-.invite:after {
+  .invite:after {
   --slice-0: inset(50% 50% 50% 50%);
   --slice-1: inset(80% -6px 0 0);
   --slice-2: inset(50% -6px 30% 0);
   --slice-3: inset(10% -6px 85% 0);
   --slice-4: inset(40% -6px 43% 0);
   --slice-5: inset(80% -6px 5% 0);
-  
+
   content: 'INVITE BOT';
   display: block;
   position: absolute;
@@ -63,14 +61,14 @@ body {
   background: linear-gradient(45deg, transparent 3%, #4d004d 3%, #4d004d 5%, #4d004d 5%);
   text-shadow: -3px -3px 0px #F8F005, 3px 3px 0px #00E6F6;
   clip-path: var(--slice-0);
-}
+  }
 
-.invite:hover:after {
+  .invite:hover:after {
   animation: 1s glitch;
   animation-timing-function: steps(2, end);
-}
+  }
 
-@keyframes glitch {
+  @keyframes glitch {
   0% {
     clip-path: var(--slice-1);
     transform: translate(-20px, -10px);
@@ -115,17 +113,16 @@ body {
     clip-path: var(--slice-1);
     transform: translate(0);
   }
-}
+  }
 
-@media (min-width: 768px) {
+  @media (min-width: 768px) {
   .invite,
   .invite:after {
     width: 200px;
     height: 86px;
     line-height: 88px;
   }
-}
-</style>
+  }
+  </style>
+</body>
 </html>
-
-
