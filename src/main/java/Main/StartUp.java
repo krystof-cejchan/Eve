@@ -21,8 +21,8 @@ public class StartUp {
 				GatewayIntent.GUILD_VOICE_STATES);
 
 		String APITokenMAIN, APITokenTEST;
-		APITokenMAIN = "OTMzNDgyMTE1MDM3ODEwNzI5.YeiK9w.k3jvmDgGu5Qgk_19dVk7d8CY9IY";
-		APITokenTEST = "OTM3MTA0ODE5MTY3MDY4MjMy.YfW43w.0kDl03FxJvgxyJ8a2tBDYDbwkLk";
+		APITokenMAIN = "OTMzNDgyMTE1MDM3ODEwNzI5.YeiK9w.Qy3vSVFx5zQ8MsjL0jHVbLmrMXs";
+		APITokenTEST = "OTM2Njc1NTQzNzU0MDg4NTQw.YfQpFA.sVKCrcPurel5KqKyLC-5lk0eS5M";
 
 		jda = JDABuilder.createDefault(APITokenTEST, intents);
 		jda.setActivity(Activity.competing("'help"));
