@@ -84,11 +84,9 @@ public enum LANGUAGES {
 		case slovak:
 			l = "sk-SK";
 			break;
-
 		case swedish:
 			l = "sv-SE";
 			break;
-
 		case thai:
 			l = "th-TH";
 			break;
