@@ -1,0 +1,26 @@
+  def lang(l):
+
+        switcher = {
+            "arabic": 'ar',
+            "czech": 'cs',
+            "danish": 'da',
+            "german": 'de',
+            "greek": 'el',
+            "english": 'cs',
+            "czech": 'cs',
+            "czech": 'cs',
+            "czech": 'cs',
+            "czech": 'cs',
+            "czech": 'cs',
+            "czech": 'cs',
+            "czech": 'cs',
+            "czech": 'cs',
+            "czech": 'cs',
+            "czech": 'cs',
+            "czech": 'cs',
+            "czech": 'cs',
+            "czech": 'cs',
+            "czech": 'cs',
+            "czech": 'cs'
+        }
+        return switcher.get(l, "not-supported language")
