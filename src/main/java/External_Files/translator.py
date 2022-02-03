@@ -5,8 +5,13 @@ import sys
 def main():
     
     try:
-        
-        print(GoogleTranslator(source='auto', target='cs').translate(str(sys.argv[1])))
+        i = 1
+        txt =""
+        while i < len(sys.argv):
+            txt = txt +sys.argv[i] + " "
+            i += 1
+            #tak python má hodně zajímavou syntax
+        print(GoogleTranslator(source='auto', target='en').translate(txt))
         
     except Exception as err:
         
