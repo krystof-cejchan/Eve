@@ -46,16 +46,24 @@ public class SpeechToText {
 				AudioFileFormat.Type.WAVE, outFile);
 	}
 
+	private String lang = "en-GB";
+
+	public void setLang(String lang) {
+		this.lang = lang;
+	}
+
+	public String getLang() {
+		return this.lang;
+	}
+
 	public String getTranscription() {
-		String s, lang = "en-GB";
+		String s;
 
 		try {
 
 			Process p = Runtime.getRuntime().exec(
-					"py C:\\Users\\kryst\\git\\repository3\\discordbottest\\src\\main\\java\\External_Files\\soundfiletotext.py H:\\audio_file.wav"/*
-																																					 * +
-																																					 * lang
-																																					 */);
+					"py C:\\Users\\kryst\\git\\repository3\\discordbottest\\src\\main\\java\\External_Files\\soundfiletotext.py H:\\audio_file.wav"
+							+ lang);
 			// Process p = Runtime.getRuntime().exec("py
 			// https://github.com/TheKrystof701/Discord-Java-Bot/blob/master/src/main/java/External_Files/soundfiletotext.py
 			// H:\\audio_file.wav");
