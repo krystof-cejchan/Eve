@@ -26,6 +26,7 @@ import AudioPlayer.SkipCommand;
 import AudioPlayer.StopCommand;
 import AudioPlayer.VolumeCommand;
 import Speech_Texts_Listening.Echo;
+import Speech_Texts_Listening.SpeechToText;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.audio.hooks.ConnectionListener;
 import net.dv8tion.jda.api.audio.hooks.ConnectionStatus;
@@ -492,6 +493,16 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 								"https://media3.giphy.com/media/l378eFTKVLRSKeXDO/giphy.gif?cid=ecf05e47gk2lnyr5zbu898euh744rsmrrqcm51hcd2u89r2a&rid=giphy.gif&ct=g")
 								.queue();
 
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+
+				}
+				
+				else if (args[0].equalsIgnoreCase(prefix + "hey")) {
+					try {
+						SpeechToText speechToText = new SpeechToText();
+						speechToText.onEchoCommand(event);
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
