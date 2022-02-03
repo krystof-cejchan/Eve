@@ -142,6 +142,8 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 
 				else if (args[0].equalsIgnoreCase(prefix + "play") || args[0].equalsIgnoreCase(prefix + "p")) {
 					try {
+						Echo stopEcho = new Echo();
+						stopEcho.stopEchoing();
 						PlayCommand playC = new PlayCommand();
 						String urlNeboSearchKey = "";
 
@@ -162,6 +164,8 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 				} else if (args[0].equalsIgnoreCase(prefix + "playq") || args[0].equalsIgnoreCase(prefix + "playqueue")
 						|| args[0].equalsIgnoreCase(prefix + "pq")) {
 					try {
+						Echo stopEcho = new Echo();
+						stopEcho.stopEchoing();
 						PlayQCommand pq = new PlayQCommand();
 
 						if (pq.isLink(args[1])) {
