@@ -1,4 +1,4 @@
-# Discord-Java-Bot
+# Discord Java Bot
 **A Discord Bot with a wide range of capabilities, starting from simple command responding through music playing to speech-control.**
 
 Bot is written mainly in Java, using JDA library, and is hosted on Google Cloud in Western Europe.
