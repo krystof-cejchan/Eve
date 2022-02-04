@@ -498,9 +498,10 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 					}
 
 				}
-				
+
 				else if (args[0].equalsIgnoreCase(prefix + "hey")) {
 					try {
+						event.getMessage().reply("I'm listening...");
 						SpeechToText speechToText = new SpeechToText();
 						speechToText.onEchoCommand(event);
 					} catch (Exception e) {
