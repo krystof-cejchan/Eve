@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import AudioPlayer.GuildMusicManager;
-
 public class Echo {
 	static double volume = 1f;
 	static boolean isAllowedbyUser = false;
