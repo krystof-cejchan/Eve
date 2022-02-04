@@ -28,7 +28,7 @@ public class SpeechToText {
 		Member member = event.getMember(); // Member is the context of the user for the specific guild, containing voice
 											// state and roles
 		EchoHandler a = new EchoHandler();
-		a.ano=true;
+		a.ano = true;
 		rescievedBytes.clear();
 		GuildVoiceState voiceState = member.getVoiceState(); // Check the current voice state of the user
 		AudioChannel channel = voiceState.getChannel(); // Use the channel the user is currently connected to
@@ -70,7 +70,7 @@ public class SpeechToText {
 			// H:\\audio_file.wav");
 			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-			BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+			new BufferedReader(new InputStreamReader(p.getErrorStream()));
 
 			String vysledek = "";
 			while ((s = stdInput.readLine()) != null) {
@@ -103,7 +103,7 @@ public class SpeechToText {
 
 		EchoHandler handler = new EchoHandler();
 
-		audioManager.setSendingHandler(handler);
+		// audioManager.setSendingHandler(handler);
 
 		audioManager.setReceivingHandler(handler);
 
@@ -123,7 +123,8 @@ public class SpeechToText {
 
 		ArrayList<Integer> talkingMembersCount = new ArrayList<Integer>();
 		int MAX_VALUE = 50;
-		public boolean ano=true;
+		public boolean ano = true;
+
 		@Override
 		public void handleCombinedAudio(CombinedAudio combinedAudio) {
 
@@ -131,18 +132,19 @@ public class SpeechToText {
 			 * if (combinedAudio.getUsers().isEmpty()) return;
 			 */
 
-			AudioManager audioManager = guild.getAudioManager();
-			// System.out.println(audioManager.getConnectedChannel().getMembers().size());
+			guild.getAudioManager();
 
-		//	byte[] data = combinedAudio.getAudioData(1.0f); // volume at 100% = 1.0 (50% = 0.5 / 55% = 0.55)
+			// byte[] data = combinedAudio.getAudioData(1.0f); // volume at 100% = 1.0 (50%
+			// = 0.5 / 55% = 0.55)
 			rescievedBytes.add(combinedAudio.getAudioData(1.5f));
-			System.out.println(combinedAudio.getUsers().size());
+
 			talkingMembersCount.add(combinedAudio.getUsers().size());
-		//	queue.add(data);
+			// queue.add(data);
 
 			if (talkingMembersCount.size() > MAX_VALUE) {
-				if (ano||areLastxxValuesZero(talkingMembersCount)) {
+				if (ano && areLastxxValuesZero(talkingMembersCount)) {
 					try {
+						System.out.println(combinedAudio.getUsers().size());
 						int size = 0;
 						for (byte[] bs : rescievedBytes) {
 							size += bs.length;
@@ -159,8 +161,9 @@ public class SpeechToText {
 						getWavFile(file, decodedData);
 						SpeechToText StT = new SpeechToText();
 						System.out.println(StT.getTranscription());
-					//audioManager.closeAudioConnection();
-						ano=false;
+						// audioManager.closeAudioConnection();
+						if (areLastxxValuesZero(talkingMembersCount))
+							ano = false;
 
 						System.out.println("its done aint it");
 					} catch (Exception e) {
