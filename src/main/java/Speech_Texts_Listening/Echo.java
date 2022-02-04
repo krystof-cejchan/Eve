@@ -33,8 +33,8 @@ public class Echo {
 	public void stopEchoing() {
 		isAllowedbyUser = false;
 		AudioManager audioManager = guild.getAudioManager();
-		
-		//audioManager.setSendingHandler();
+
+		// audioManager.setSendingHandler();
 
 		audioManager.setReceivingHandler(null);
 		// reset audiosource to null + reset sending audio
@@ -42,7 +42,7 @@ public class Echo {
 
 	public void setVolume(int vol) {
 		double toDouble = Double.valueOf(vol);
-		volume=toDouble/100;
+		volume = toDouble / 100;
 	}
 
 	private void onConnecting(AudioChannel channel, MessageChannel messageChannel) {
