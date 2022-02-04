@@ -68,7 +68,7 @@ public class Echo {
 		audioManager.setReceivingHandler(handler);
 
 		audioManager.openAudioConnection(channel);
-		
+
 	}
 
 	public static class EchoHandler implements AudioSendHandler, AudioReceiveHandler {
