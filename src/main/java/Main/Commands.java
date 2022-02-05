@@ -16,6 +16,10 @@ import java.util.Map;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+
+import AudioPlayer.GuildMusicManager;
 import AudioPlayer.NowPlayingCommand;
 import AudioPlayer.PlayCommand;
 import AudioPlayer.PlayQCommand;
@@ -95,6 +99,8 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 			// String ahoj = (event.getChannel().getId()).toString();
 			TextChannel re = event.getGuild().getTextChannelById("933515864790159360");
 			MessageChannel eventChannel = event.getChannel();
+			CurrentTextChannel ctch = new CurrentTextChannel(eventChannel.getId());
+			ctch.setIid(eventChannel.getId());
 			if (eventChannel == re || POVOLOVAC) {
 
 				String[] args = event.getMessage().getContentRaw().split(" ");
@@ -147,6 +153,8 @@ public class Commands extends ListenerAdapter implements ConnectionListener {
 						stopEcho.stopEchoing();
 						PlayCommand playC = new PlayCommand();
 						String urlNeboSearchKey = "";
+						AudioPlayerManager apm = new DefaultAudioPlayerManager();
+						GuildMusicManager gmm = new GuildMusicManager(apm);
 
 						if (playC.isLink(args[1])) {
 							playC.playMusic(event, args[1], true);
