@@ -10,6 +10,8 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
+import Main.CurrentTextChannel;
+
 import javax.sound.sampled.AudioFileFormat;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -160,7 +162,11 @@ public class SpeechToText {
 
 						getWavFile(file, decodedData);
 						SpeechToText StT = new SpeechToText();
-						System.out.println(StT.getTranscription());
+						String transcription = StT.getTranscription();
+						System.out.println(transcription);
+						// CurrentTextChannel ctch = new CurrentTextChannel();
+						guild.getTextChannelById(CurrentTextChannel.getId()).sendMessage(transcription).queue();
+
 						// audioManager.closeAudioConnection();
 						if (areLastxxValuesZero(talkingMembersCount))
 							ano = false;
