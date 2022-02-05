@@ -166,7 +166,16 @@ public class SpeechToText {
 						System.out.println(transcription);
 						// CurrentTextChannel ctch = new CurrentTextChannel();
 						guild.getTextChannelById(CurrentTextChannel.getId()).sendMessage(transcription).queue();
-
+						SpeechCommands speechCommands = new SpeechCommands();
+						
+						
+						// 4?AC→
+						speechCommands.doTask(transcription, CurrentTextChannel.getId());
+						
+						
+						
+						
+						
 						// audioManager.closeAudioConnection();
 						if (areLastxxValuesZero(talkingMembersCount))
 							ano = false;
