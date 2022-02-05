@@ -26,19 +26,20 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class SpeechToText {
 	public void onEchoCommand(MessageReceivedEvent event) {
-		// Note: None of these can be null due to our configuration with the JDABuilder!
-		Member member = event.getMember(); // Member is the context of the user for the specific guild, containing voice
-											// state and roles
-		EchoHandler a = new EchoHandler();
-		a.ano = true;
+
+		Member member = event.getMember();
+
+		EchoHandler echoH = new EchoHandler();
+		echoH.ano = true;
 		rescievedBytes.clear();
-		GuildVoiceState voiceState = member.getVoiceState(); // Check the current voice state of the user
-		AudioChannel channel = voiceState.getChannel(); // Use the channel the user is currently connected to
-		if (channel != null) {
-			connectTo(channel); // Join the channel of the user
-			onConnecting(channel, event.getChannel()); // Tell the user about our success
+		GuildVoiceState voiceState = member.getVoiceState();
+		AudioChannel channel = voiceState.getChannel(); // user
+		AudioChannel connectedChannelSelf = event.getGuild().getSelfMember().getVoiceState().getChannel(); // bot
+		if (channel != null || connectedChannelSelf.equals(channel)) {
+			connectTo(channel);
+			onConnecting(channel, event.getChannel());
 		} else {
-			onUnknownChannel(event.getChannel(), "your voice channel"); // Tell the user about our failure
+			onUnknownChannel(event.getChannel(), "your voice channel");
 		}
 	}
 
@@ -167,15 +168,10 @@ public class SpeechToText {
 						// CurrentTextChannel ctch = new CurrentTextChannel();
 						guild.getTextChannelById(CurrentTextChannel.getId()).sendMessage(transcription).queue();
 						SpeechCommands speechCommands = new SpeechCommands();
-						
-						
+
 						// 4?AC→
 						speechCommands.doTask(transcription, CurrentTextChannel.getId());
-						
-						
-						
-						
-						
+
 						// audioManager.closeAudioConnection();
 						if (areLastxxValuesZero(talkingMembersCount))
 							ano = false;
