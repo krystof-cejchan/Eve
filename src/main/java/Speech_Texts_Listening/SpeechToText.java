@@ -122,7 +122,7 @@ public class SpeechToText {
 		}
 
 		ArrayList<Integer> talkingMembersCount = new ArrayList<Integer>();
-		int MAX_VALUE = 50;
+		int MAX_VALUE = 100;
 		public boolean ano = true;
 
 		@Override
