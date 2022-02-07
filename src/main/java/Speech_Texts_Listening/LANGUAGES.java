@@ -1,5 +1,8 @@
 package Speech_Texts_Listening;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum LANGUAGES {
 	arabic, czech, danish, german, greek, englisha/* Australia */, englishuk/* The UK */, englishus/* The USA */,
 	spanish, finnish, french, hebrew, hindi, hungarian, indonesian, italian, japanese, korean, dutch, norwegian, polish,
@@ -109,4 +112,13 @@ public enum LANGUAGES {
 		}
 		return l;
 	}
+
+	public static List<String> getAllEnums() {
+		List<String> enums = new ArrayList<String>();
+		for (LANGUAGES language : LANGUAGES.values()) {
+			enums.add(language.toString());
+		}
+		return enums;
+	}
+
 }
