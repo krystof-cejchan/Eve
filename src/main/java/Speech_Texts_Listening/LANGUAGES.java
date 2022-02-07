@@ -9,7 +9,7 @@ public enum LANGUAGES {
 	portuguese, romanian, russian, slovak, swedish, thai, turkish, chinese/* regular */, chinesehk/* honk kong */,
 	chineset/* taiwan */;
 
-	public String getShortLang(LANGUAGES LANG) {
+	public static String getShortLang(LANGUAGES LANG) {
 		String l;
 		switch (LANG) {
 		case arabic:

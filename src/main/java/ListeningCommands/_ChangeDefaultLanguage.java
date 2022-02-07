@@ -3,29 +3,47 @@ package ListeningCommands;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import Main.CurrentTextChannel;
+import Main.LibraryClass;
 import Speech_Texts_Listening.LANGUAGES;
 import Speech_Texts_Listening.SpeechToText;
+import net.dv8tion.jda.api.entities.Guild;
 
 public class _ChangeDefaultLanguage implements IListeningCommands {
+	Guild guild;
 
 	@Override
 	public void doTask() {
+		try {
+			String text = SpeechToText.getText();
+			if (text.isEmpty() == false) {
 
-		String text = SpeechToText.getText();
-		if (text.isEmpty() == false) {
+				String[] words = text.split("\\s");
+				ArrayList<String> wordsArray = new ArrayList<>();
+				for (String word : words) {
+					wordsArray.add(word);
+				}
+				ArrayList<String> languagesArray = new ArrayList<>(LANGUAGES.getAllEnums());
 
-			String[] words = text.split("\\s");
-			ArrayList<String> wordsArray = new ArrayList<>();
-			for (String word : words) {
-				wordsArray.add(word);
+				if (LibraryClass.compareTwoArrays(wordsArray, languagesArray)) {
+
+					/*
+					 * setting language according to the user's input audio, if found it has to be
+					 * rewritten to "shorter" version eg. english→ en-GB
+					 */
+
+					SpeechToText.setLang(LANGUAGES.getShortLang(LANGUAGES.valueOf(languagesArray
+							.get(LibraryClass.whereAreTwoArraysTheSame(wordsArray, languagesArray)).toLowerCase())));
+
+				}
+
 			}
-			ArrayList<String> languagesArray = new ArrayList<>(LANGUAGES.getAllEnums());
+		} catch (Exception e) {
 
-			// compare two arrays
+			guild.getTextChannelById(CurrentTextChannel.getId())
+					.sendMessage("there's been a problem when executing a task. " + e).queue();
 
 		}
-
-		SpeechToText.setLang("cs-CZ");
 
 	}
 

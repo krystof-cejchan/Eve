@@ -10,6 +10,8 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
+import ListeningCommands.IListeningCommands;
+import ListeningCommands.ListeningCommandManager;
 import Main.CurrentTextChannel;
 
 import javax.sound.sampled.AudioFileFormat;
@@ -30,7 +32,7 @@ public class SpeechToText {
 		Member member = event.getMember();
 
 		EchoHandler echoH = new EchoHandler();
-		echoH.ano = true;
+		echoH.isAllowedToCarryOn = true;
 		rescievedBytes.clear();
 		GuildVoiceState voiceState = member.getVoiceState();
 		AudioChannel channel = voiceState.getChannel(); // user
@@ -50,14 +52,24 @@ public class SpeechToText {
 				AudioFileFormat.Type.WAVE, outFile);
 	}
 
-	private String lang = "en-GB";
+	private static String lang = "en-GB";
 
-	public void setLang(String lang) {
-		this.lang = lang;
+	public static void setLang(String language) {
+		lang = language;
 	}
 
 	public String getLang() {
-		return this.lang;
+		return SpeechToText.lang;
+	}
+
+	private static String text = "";
+
+	public static void setText(String txt) {
+		text = txt;
+	}
+
+	public static String getText() {
+		return text;
 	}
 
 	public String getTranscription() {
@@ -126,7 +138,7 @@ public class SpeechToText {
 
 		ArrayList<Integer> talkingMembersCount = new ArrayList<Integer>();
 		int MAX_VALUE = 100;
-		public boolean ano = true;
+		public boolean isAllowedToCarryOn = true;
 
 		@Override
 		public void handleCombinedAudio(CombinedAudio combinedAudio) {
@@ -145,7 +157,7 @@ public class SpeechToText {
 			// queue.add(data);
 
 			if (talkingMembersCount.size() > MAX_VALUE) {
-				if (ano && areLastxxValuesZero(talkingMembersCount)) {
+				if (isAllowedToCarryOn && haveUsersStoppedTalking(talkingMembersCount)) {
 					try {
 						System.out.println(combinedAudio.getUsers().size());
 						int size = 0;
@@ -167,14 +179,19 @@ public class SpeechToText {
 						System.out.println(transcription);
 						// CurrentTextChannel ctch = new CurrentTextChannel();
 						guild.getTextChannelById(CurrentTextChannel.getId()).sendMessage(transcription).queue();
-						SpeechCommands speechCommands = new SpeechCommands();
-
-						// 4?AC→
-						speechCommands.doTask(transcription, CurrentTextChannel.getId());
+						SpeechToText.setText(transcription);
+						ListeningCommandManager listeningCommandManager = new ListeningCommandManager();
+						
+						//error here command is null
+						IListeningCommands command = listeningCommandManager.getCommand(transcription);
+						command.doTask();
+						
+						
+						System.out.println("I have just executed " + command.getName());
 
 						// audioManager.closeAudioConnection();
-						if (areLastxxValuesZero(talkingMembersCount))
-							ano = false;
+						if (haveUsersStoppedTalking(talkingMembersCount))
+							isAllowedToCarryOn = false;
 
 						System.out.println("its done aint it");
 					} catch (Exception e) {
@@ -205,13 +222,13 @@ public class SpeechToText {
 			return false;
 		}
 
-		private boolean areLastxxValuesZero(ArrayList<Integer> list) {
+		private boolean haveUsersStoppedTalking(ArrayList<Integer> list) {
 
 			int count = 0;
 			try {
-				for (int i = talkingMembersCount.size() - MAX_VALUE; i < talkingMembersCount.size(); i++) {
+				for (int i = list.size() - MAX_VALUE; i < list.size(); i++) {
 
-					count = count + talkingMembersCount.get(i);
+					count = count + list.get(i);
 				}
 
 				if (count == 0)
