@@ -121,7 +121,10 @@ public class VolumeCommand {
 				if (connectedChannel.equals(connectedChannelSelf)) {
 					final GuildMusicManager musicManager = PlayerManager.getInstance()
 							.getMusicManager(event.getGuild());
-					event.getChannel().sendMessage("Vol: *" + musicManager.AUDIOPLAYER.getVolume() + " → 10*").queue();
+					event.getChannel()
+							.sendMessage(
+									"Vol: *" + musicManager.AUDIOPLAYER.getVolume() + " → " + volumeBeforeMuted + "*")
+							.queue();
 					musicManager.AUDIOPLAYER.setVolume(volumeBeforeMuted);
 
 				}
