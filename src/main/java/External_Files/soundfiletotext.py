@@ -19,7 +19,7 @@ def main():
         print("Converted Audio Is : \n" + r.recognize_google(audio, language=str(sys.argv[2])))
 
     except Exception as e:
-        print("Error {} : ".format(e))
+        print("-ERROR-")
 
 
 if __name__ == "__main__":
