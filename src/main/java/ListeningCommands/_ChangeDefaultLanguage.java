@@ -3,8 +3,6 @@ package ListeningCommands;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.sun.tools.javac.code.Attribute.Array;
-
 import Speech_Texts_Listening.LANGUAGES;
 import Speech_Texts_Listening.SpeechToText;
 
