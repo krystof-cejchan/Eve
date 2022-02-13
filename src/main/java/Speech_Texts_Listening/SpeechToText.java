@@ -58,7 +58,7 @@ public class SpeechToText {
 		lang = language;
 	}
 
-	public String getLang() {
+	public static String getLang() {
 		return SpeechToText.lang;
 	}
 
@@ -181,12 +181,11 @@ public class SpeechToText {
 						guild.getTextChannelById(CurrentTextChannel.getId()).sendMessage(transcription).queue();
 						SpeechToText.setText(transcription);
 						ListeningCommandManager listeningCommandManager = new ListeningCommandManager();
-						
-						//error here command is null
+
+						// error here command is null
 						IListeningCommands command = listeningCommandManager.getCommand(transcription);
 						command.doTask();
-						
-						
+
 						System.out.println("I have just executed " + command.getName());
 
 						// audioManager.closeAudioConnection();

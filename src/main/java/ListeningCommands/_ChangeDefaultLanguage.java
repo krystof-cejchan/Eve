@@ -34,7 +34,8 @@ public class _ChangeDefaultLanguage implements IListeningCommands {
 
 					SpeechToText.setLang(LANGUAGES.getShortLang(LANGUAGES.valueOf(languagesArray
 							.get(LibraryClass.whereAreTwoArraysTheSame(wordsArray, languagesArray)).toLowerCase())));
-
+					guild.getTextChannelById(CurrentTextChannel.getId())
+							.sendMessage("The default language was set to *" + SpeechToText.getLang() + "*").queue();
 				}
 
 			}
