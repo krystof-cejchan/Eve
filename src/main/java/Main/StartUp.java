@@ -20,15 +20,16 @@ public class StartUp {
 
 				GatewayIntent.GUILD_VOICE_STATES);
 
+		@SuppressWarnings("unused")
 		String APITokenMAIN, APITokenTEST;
 		APITokenMAIN = "OTMzNDgyMTE1MDM3ODEwNzI5.YeiK9w.Qy3vSVFx5zQ8MsjL0jHVbLmrMXs";
 		APITokenTEST = "OTM2Njc1NTQzNzU0MDg4NTQw.YfQpFA.sVKCrcPurel5KqKyLC-5lk0eS5M";
 
 		jda = JDABuilder.createDefault(APITokenTEST, intents);
-		jda.setActivity(Activity.competing("'help"));
+		jda.setActivity(Activity.competing("Hey Eve"));
 		jda.enableCache(CacheFlag.VOICE_STATE);
 		jda.setStatus(OnlineStatus.ONLINE);
-		jda.addEventListeners(new Commands());
+		jda.addEventListeners(new Listener());
 		jda.build();
 
 	}

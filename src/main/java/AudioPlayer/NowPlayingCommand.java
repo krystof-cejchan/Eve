@@ -70,7 +70,7 @@ public class NowPlayingCommand {
 
 	}
 
-	private static String getTimestamp(long milliseconds) {
+	public static String getTimestamp(long milliseconds) {
 		int seconds = (int) (milliseconds / 1000) % 60;
 		int minutes = (int) ((milliseconds / (1000 * 60)) % 60);
 		int hours = (int) ((milliseconds / (1000 * 60 * 60)) % 24);

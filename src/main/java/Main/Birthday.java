@@ -34,7 +34,29 @@ public class Birthday {
 		return hourS + ":" + minuteS + ":" + secondS;
 	}
 
-	protected String getMonthName(int monthIndex) {
+	public static String getNormalDate(OffsetDateTime date) {
+		int day = date.getDayOfMonth();
+		int month = date.getMonthValue();
+		int year = date.getYear();
+		String dayS = String.valueOf(day);
+		String monthS = String.valueOf(getMonthName(month));
+		String yearS = String.valueOf(year);
+
+		return dayS + " " + monthS + " " + yearS;
+	}
+
+	public static String getNormalTime(OffsetDateTime date) {
+		int hour = date.getHour();
+		int minute = date.getMinute();
+		int second = date.getSecond();
+		String hourS = String.valueOf(hour);
+		String minuteS = String.valueOf(minute);
+		String secondS = String.valueOf(second);
+
+		return hourS + ":" + minuteS + ":" + secondS;
+	}
+
+	public static String getMonthName(int monthIndex) {
 		String mesic = "";
 		switch (monthIndex) {
 		case 1:

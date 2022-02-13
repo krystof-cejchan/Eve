@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 //import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
@@ -86,6 +87,15 @@ public class VoiceChannels {
 	}
 
 	public void Leave(GuildVoiceLeaveEvent event) {
+		try {
+			event.getGuild().getAudioManager().closeAudioConnection();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
+	public void Leave(GuildVoiceMoveEvent event) {
 		try {
 			event.getGuild().getAudioManager().closeAudioConnection();
 		} catch (Exception e) {

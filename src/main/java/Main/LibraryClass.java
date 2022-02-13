@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import ListeningCommands.IListeningCommands;
 import ListeningCommands.ListeningCommandManager;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * 
@@ -71,5 +72,14 @@ public class LibraryClass {
 		} else {
 			return null;
 		}
+	}
+
+	public static void addReactionToTheMsg(MessageReceivedEvent event, String emoteUNICODE) {
+		try {
+			event.getMessage().addReaction(emoteUNICODE).queue();
+		} catch (Exception e) {
+			/* emote may not exist */
+		}
+
 	}
 }

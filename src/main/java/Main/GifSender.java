@@ -78,7 +78,7 @@ public class GifSender {
 
 	}
 
-	public int generateRandomInt(int min, int max) {
+	public static int generateRandomInt(int min, int max) {
 		Random random = new Random();
 		return random.nextInt(max);
 
