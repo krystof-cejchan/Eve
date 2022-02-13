@@ -36,6 +36,7 @@ public class CommandManager {
 		addNewCommand(new _Volume());
 		addNewCommand(new _Mute());
 		addNewCommand(new _Unmute());
+		addNewCommand(new _ECHO());
 
 	}
 
