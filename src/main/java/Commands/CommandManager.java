@@ -3,7 +3,7 @@ package Commands;
 import java.util.ArrayList;
 import javax.annotation.Nullable;
 
-import Main.Listener;
+import Main.Prefix;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class CommandManager {
@@ -11,6 +11,7 @@ public class CommandManager {
 
 	public CommandManager() {
 		addNewCommand(new _Help());
+		addNewCommand(new _Prefix());
 		addNewCommand(new _EmotionalDamage());
 		addNewCommand(new _Jesus());
 		addNewCommand(new _Gif());
@@ -59,7 +60,8 @@ public class CommandManager {
 
 		try {
 			String[] args = event.getMessage().getContentRaw().split(" ");
-			if (args[0].startsWith(Listener.prefix)) {
+			Prefix pref = new Prefix();
+			if (args[0].startsWith(pref.getValue())) {
 
 				for (ICommands iCommands : commands) {
 

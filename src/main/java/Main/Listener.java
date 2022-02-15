@@ -15,8 +15,8 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 public class Listener extends ListenerAdapter {
 
 	private boolean allower = true;
-
-	public static String prefix = ";";
+	Prefix prefixClass = new Prefix();
+	String prefix = this.prefixClass.getValue();
 
 	public StartUp startUp = new StartUp();
 	String limit = "3";

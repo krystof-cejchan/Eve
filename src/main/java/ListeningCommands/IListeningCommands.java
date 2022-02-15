@@ -4,14 +4,11 @@ import java.util.ArrayList;
 
 public interface IListeningCommands {
 
-	 void doTask();
+	void doTask();
 
-	 String getName();
+	String getName();
 
-	 String whatDoIDo();
-	
-	 ArrayList<String> getTags();
-	
-	
+	String whatDoIDo();
 
+	ArrayList<String> getTags();
 }
