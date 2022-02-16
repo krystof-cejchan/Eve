@@ -1,124 +1,33 @@
--
-   LanguageTags(BCP 47): ar-SA 
-   Language : Arabic 
-   Country: Saudi Arabia
--
-   LanguageTags(BCP 47): cs-CZ 
-   Language : Czech 
-   Country: Czech Republic
--
-   LanguageTags(BCP 47): da-DK 
-   Language : Danish
-   Country: Denmark
--
-   LanguageTags(BCP 47): de-DE 
-   Language : German 
-   Country: Germany
--
-   LanguageTags(BCP 47): el-GR 
-   Language : Modern Greek 
-   Country: Greece
--
-   LanguageTags(BCP 47): en-AU 
-   Language : English 
-   Country: Australia
--
-   LanguageTags(BCP 47): en-GB 
-   Language : English 
-   Country: United Kingdom
--
-   LanguageTags(BCP 47): en-US 
-   Language : English 
-   Country: United States
--
-   LanguageTags(BCP 47): es-ES 
-   Language : Spanish 
-   Country: Spain
--
-   LanguageTags(BCP 47): fi-FI 
-   Language : Finnish 
-   Country: Finland
--
-   LanguageTags(BCP 47): fr-FR 
-   Language : French 
-   Country: France
--
-   LanguageTags(BCP 47): he-IL 
-   Language : Hebrew 
-   Country: Israel
--
-   LanguageTags(BCP 47): hi-IN 
-   Language : Hindi 
-   Country: India
--
-   LanguageTags(BCP 47): hu-HU 
-   Language : Hungarian 
-   Country: Hungary
--
-   LanguageTags(BCP 47): id-ID 
-   Language : Indonesian 
-   Country: Indonesia
--
-   LanguageTags(BCP 47): it-IT 
-   Language : Italian 
-   Country: Italy
--
-   LanguageTags(BCP 47): ja-JP 
-   Language : Japanese 
-   Country: Japan
--
-   LanguageTags(BCP 47): ko-KR 
-   Language : Korean 
-   Country: Republic of Korea
--
-   LanguageTags(BCP 47): nl-NL 
-   Language : Dutch 
-   Country: Netherlands
--
-   LanguageTags(BCP 47): no-NO 
-   Language : Norwegian 
-   Country: Norway
--
-   LanguageTags(BCP 47): pl-PL 
-   Language : Polish 
-   Country: Poland
--
-   LanguageTags(BCP 47): pt-PT 
-   Language : Portuguese 
-   Country: Portugal
--
-   LanguageTags(BCP 47): ro-RO 
-   Language : Romanian 
-   Country: Romania
--
-   LanguageTags(BCP 47): ru-RU 
-   Language : Russian 
-   Country: Russian Federation
--
-   LanguageTags(BCP 47): sk-SK 
-   Language : Slovak 
-   Country: Slovakia
--
-   LanguageTags(BCP 47): sv-SE 
-   Language : Swedish 
-   Country: Sweden
--
-   LanguageTags(BCP 47): th-TH 
-   Language : Thai 
-   Country: Thailand
--
-   LanguageTags(BCP 47): tr-TR 
-   Language : Turkish 
-   Country: Turkey
--
-   LanguageTags(BCP 47): zh-CN 
-   Language : Chinese 
-   Country: China
--
-   LanguageTags(BCP 47): zh-HK 
-   Language : Chinese 
-   Country: Hong Kong
--
-   LanguageTags(BCP 47): zh-TW 
-   Language : Chinese 
-   Country: Taiwan
+| **LanguageTags(BCP 47) | Language  | Country**        |
+|--------------------------|---------------|--------------------|
+| ar-SA                    | Arabic        | Saudi Arabia       |
+| cs-CZ                    | Czech         | Czech Republic     |
+| da-DK                    | Danish        | Denmark            |
+| de-DE                    | German        | Germany            |
+| el-GR                    | Modern Greek  | Greece             |
+| en-AU                    | English       | Australia          |
+| en-GB                    | English       | United Kingdom     |
+| en-US                    | English       | United States      |
+| es-ES                    | Spanish       | Spain              |
+| fi-FI                    | Finnish       | Finland            |
+| fr-FR                    | French        | France             |
+| he-IL                    | Hebrew        | Israel             |
+| hi-IN                    | Hindi         | India              |
+| hu-HU                    | Hungarian     | Hungary            |
+| id-ID                    | Indonesian    | Indonesia          |
+| it-IT                    | Italian       | Italy              |
+| ja-JP                    | Japanese      | Japan              |
+| ko-KR                    | Korean        | Republic of Korea  |
+| nl-NL                    | Dutch         | Netherlands        |
+| no-NO                    | Norwegian     | Norway             |
+| pl-PL                    | Polish        | Poland             |
+| pt-PT                    | Portuguese    | Portugal           |
+| ro-RO                    | Romanian      | Romania            |
+| ru-RU                    | Russian       | Russian Federation |
+| sk-SK                    | Slovak        | Slovakia           |
+| sv-SE                    | Swedish       | Sweden             |
+| th-TH                    | Thai          | Thailand           |
+| tr-TR                    | Turkish       | Turkey             |
+| zh-CN                    | Chinese       | China              |
+| zh-HK                    | Chinese       | Hong Kong          |
+| zh-TW                    | Chinese       | Taiwan             |
