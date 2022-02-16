@@ -1,4 +1,4 @@
-| **LanguageTags(BCP 47) | Language  | Country**        |
+| **LanguageTags(BCP 47)** | **Language ** | **Country**        |
 |--------------------------|---------------|--------------------|
 | ar-SA                    | Arabic        | Saudi Arabia       |
 | cs-CZ                    | Czech         | Czech Republic     |
