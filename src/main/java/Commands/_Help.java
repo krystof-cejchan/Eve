@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import Main.Listener;
+import Main.Prefix;
 import net.dv8tion.jda.api.EmbedBuilder;
 //import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -27,10 +28,11 @@ public class _Help implements ICommands {
 		 * msgBuilder.clear();
 		 */
 		EmbedBuilder embedBuilder = new EmbedBuilder();
+		Prefix pref = new Prefix();
 		for (ICommands iCommands : CommandManager.getAllCommands()) {
 			String allTriggers = "";
 			for (String trigger : iCommands.getTriggers()) {
-				allTriggers += Listener.prefix + trigger + "   ";
+				allTriggers += pref.getValue() + trigger + "   ";
 			}
 
 			embedBuilder.addField("**" + iCommands.getName() + "**  :  ", iCommands.whatDoIDo() + "\n" + allTriggers,
