@@ -3,7 +3,6 @@ package Commands;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import Main.Listener;
 import Main.Prefix;
 import net.dv8tion.jda.api.EmbedBuilder;
 //import net.dv8tion.jda.api.MessageBuilder;

@@ -3,7 +3,7 @@ package Commands;
 import java.util.ArrayList;
 
 import AudioPlayer.StopCommand;
-import Main.LibraryClass;
+import LIBRARYclass.LibraryClass;
 import Main.VoiceChannels;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 

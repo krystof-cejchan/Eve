@@ -2,7 +2,7 @@ package Commands;
 
 import java.util.ArrayList;
 
-import Main.GifSender;
+import LIBRARYclass.LibraryClass;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class _Pp implements ICommands {
@@ -11,7 +11,7 @@ public class _Pp implements ICommands {
 	public void doTask(MessageReceivedEvent event) {
 		String[] args = event.getMessage().getContentRaw().split(" ");
 
-		int len = GifSender.generateRandomInt(-1, 50);
+		int len = LibraryClass.generateRandomInt(-1, 50);
 		if (args.length > 1) {
 		} else {
 

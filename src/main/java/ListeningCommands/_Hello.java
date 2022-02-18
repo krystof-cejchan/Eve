@@ -3,17 +3,17 @@ package ListeningCommands;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import Main.CurrentTextChannel;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class _Hello implements IListeningCommands {
 	Guild guild;
 
 	@Override
-	public void doTask() {
+	public void doTask(MessageReceivedEvent event) {
 		// TODO Auto-generated method stub
 
-		guild.getTextChannelById(CurrentTextChannel.getId()).sendMessage("Hello").queue();
+		event.getMessage().reply("Hello " + event.getAuthor().getAsTag()).queue();
 	}
 
 	@Override

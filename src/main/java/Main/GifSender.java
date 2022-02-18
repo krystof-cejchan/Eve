@@ -5,10 +5,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Random;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import LIBRARYclass.LibraryClass;
 
 public class GifSender {
 
@@ -45,7 +45,7 @@ public class GifSender {
 
 		int resultMax = results.length();
 
-		int index = generateRandomInt(0, resultMax);
+		int index = LibraryClass.generateRandomInt(0, resultMax);
 
 		System.out.println(resultMax);
 
@@ -78,9 +78,4 @@ public class GifSender {
 
 	}
 
-	public static int generateRandomInt(int min, int max) {
-		Random random = new Random();
-		return random.nextInt(max);
-
-	}
 }

@@ -11,7 +11,7 @@ public class _ECHO implements ICommands {
 	public void doTask(MessageReceivedEvent event) {
 		// TODO Auto-generated method stub
 		try {
-			event.getMessage().reply("I'm listening...");
+			event.getMessage().reply("I'm listening...").queue();
 			SpeechToText speechToText = new SpeechToText();
 			speechToText.onEchoCommand(event);
 		} catch (Exception e) {

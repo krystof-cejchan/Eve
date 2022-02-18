@@ -9,7 +9,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import AudioPlayer.GuildMusicManager;
 import AudioPlayer.NowPlayingCommand;
 import AudioPlayer.PlayerManager;
-import Main.LibraryClass;
+import LIBRARYclass.LibraryClass;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 

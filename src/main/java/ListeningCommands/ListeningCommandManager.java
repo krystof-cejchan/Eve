@@ -3,7 +3,8 @@ package ListeningCommands;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.annotation.Nullable;
-import Main.LibraryClass;
+
+import LIBRARYclass.LibraryClass;
 import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
@@ -13,7 +14,8 @@ public class ListeningCommandManager {
 	public final static ArrayList<IListeningCommands> commands = new ArrayList<>();
 
 	public ListeningCommandManager() {
-	addNewCommand(new _ChangeDefaultLanguage());
+		addNewCommand(new _ChangeDefaultLanguage());
+		addNewCommand(new _Hello());
 	}
 
 	private void addNewCommand(IListeningCommands Icmd) {
@@ -45,7 +47,7 @@ public class ListeningCommandManager {
 		 * 
 		 * long story short: GET THE MOST SUITABLE COMMAND FROM USER'S VOICE INPUT
 		 */
-		try {		
+		try {
 
 			HashMap<IListeningCommands, Double> suitabilityMap = new HashMap<>();
 			/*
@@ -69,7 +71,7 @@ public class ListeningCommandManager {
 				suitabilityMap.put(theInterfaceExample, LibraryClass.averageOfDoubleArray(tempResults));
 
 			}
-
+			System.out.println(LibraryClass.getTheMostSuitableItemFromAHashMap(suitabilityMap));
 			return LibraryClass.getTheMostSuitableItemFromAHashMap(suitabilityMap);
 
 		} catch (Exception e) {

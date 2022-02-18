@@ -2,6 +2,8 @@ package Main;
 
 import java.util.ArrayList;
 
+import LIBRARYclass.LibraryClass;
+
 public class Asian {
 
 	GifSender gs = new GifSender();
@@ -14,7 +16,7 @@ public class Asian {
 		pole.add("https://tenor.com/bOgeZ.gif");
 		pole.add("https://tenor.com/bOco4.gif");
 		pole.add("https://tenor.com/bM4pO.gif");
-		int i = gs.generateRandomInt(0, pole.size());
+		int i = LibraryClass.generateRandomInt(0, pole.size());
 		return (pole.get(i).toString());
 	}
 
@@ -26,7 +28,7 @@ public class Asian {
 		pole.add("https://tenor.com/bOqal.gif");
 		pole.add("https://tenor.com/bO3s3.gif");
 		pole.add("https://tenor.com/bOQ0f.gif");
-		int i = gs.generateRandomInt(0, pole.size());
+		int i = LibraryClass.generateRandomInt(0, pole.size());
 		return (pole.get(i).toString());
 	}
 

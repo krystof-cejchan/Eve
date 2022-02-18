@@ -3,17 +3,16 @@ package ListeningCommands;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import Main.CurrentTextChannel;
-import Main.LibraryClass;
+import LIBRARYclass.LibraryClass;
 import Speech_Texts_Listening.LANGUAGES;
 import Speech_Texts_Listening.SpeechToText;
-import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class _ChangeDefaultLanguage implements IListeningCommands {
-	Guild guild;
 
 	@Override
-	public void doTask() {
+	public void doTask(MessageReceivedEvent event) {
+
 		try {
 			String text = SpeechToText.getText();
 			if (text.isEmpty() == false) {
@@ -32,17 +31,17 @@ public class _ChangeDefaultLanguage implements IListeningCommands {
 					 * rewritten to "shorter" version eg. english→ en-GB
 					 */
 
-					SpeechToText.setLang(LANGUAGES.getShortLang(LANGUAGES.valueOf(languagesArray
+					SpeechToText.Language.setLang(LANGUAGES.getShortLang(LANGUAGES.valueOf(languagesArray
 							.get(LibraryClass.whereAreTwoArraysTheSame(wordsArray, languagesArray)).toLowerCase())));
-					guild.getTextChannelById(CurrentTextChannel.getId())
-							.sendMessage("The default language was set to *" + SpeechToText.getLang() + "*").queue();
+					event.getChannel()
+							.sendMessage("The default language was set to *" + SpeechToText.Language.getLang() + "*")
+							.queue();
 				}
 
 			}
 		} catch (Exception e) {
 
-			guild.getTextChannelById(CurrentTextChannel.getId())
-					.sendMessage("there's been a problem when executing a task. " + e).queue();
+			event.getChannel().sendMessage("There's been an error \ninfo:" + e).queue();
 
 		}
 

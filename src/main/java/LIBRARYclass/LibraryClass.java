@@ -1,7 +1,8 @@
-package Main;
+package LIBRARYclass;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -47,6 +48,12 @@ public class LibraryClass {
 		}
 		// returns index from the SECOND arraylist
 		return where;
+
+	}
+
+	public static int generateRandomInt(int min, int max) {
+		Random random = new Random();
+		return random.nextInt(max);
 
 	}
 

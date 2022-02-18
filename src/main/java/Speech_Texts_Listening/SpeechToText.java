@@ -13,6 +13,7 @@ import javax.sound.sampled.AudioSystem;
 import ListeningCommands.IListeningCommands;
 import ListeningCommands.ListeningCommandManager;
 import Main.CurrentTextChannel;
+import Others.MessageReceivedEvent_CustomClass;
 
 import javax.sound.sampled.AudioFileFormat;
 import java.io.BufferedReader;
@@ -27,13 +28,34 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class SpeechToText {
+	public static MessageReceivedEvent_CustomClass msgEvent;
+
+	public static class Language {
+		private static String lang = "en-GB";
+
+		public static void setLang(String language) {
+			lang = language;
+		}
+
+		public static String getLang() {
+			return lang;
+		}
+	}
+
+	public static String channelId;
+
+	public static String getChannelId() {
+		return channelId;
+	}
+
 	public void onEchoCommand(MessageReceivedEvent event) {
 
 		Member member = event.getMember();
-
+		msgEvent = new MessageReceivedEvent_CustomClass(event);
 		EchoHandler echoH = new EchoHandler();
 		echoH.isAllowedToCarryOn = true;
 		rescievedBytes.clear();
+		channelId = event.getChannel().getId();
 		GuildVoiceState voiceState = member.getVoiceState();
 		AudioChannel channel = voiceState.getChannel(); // user
 		AudioChannel connectedChannelSelf = event.getGuild().getSelfMember().getVoiceState().getChannel(); // bot
@@ -50,16 +72,6 @@ public class SpeechToText {
 
 		AudioSystem.write(new AudioInputStream(new ByteArrayInputStream(decodedData), format, decodedData.length),
 				AudioFileFormat.Type.WAVE, outFile);
-	}
-
-	private static String lang = "en-GB";
-
-	public static void setLang(String language) {
-		lang = language;
-	}
-
-	public static String getLang() {
-		return SpeechToText.lang;
 	}
 
 	private static String text = "";
@@ -79,7 +91,7 @@ public class SpeechToText {
 
 			Process p = Runtime.getRuntime().exec(
 					"py C:\\Users\\kryst\\git\\repository3\\discordbottest\\src\\main\\java\\External_Files\\soundfiletotext.py H:\\audio_file.wav "
-							+ lang);
+							+ Language.lang);
 			// Process p = Runtime.getRuntime().exec("py
 			// https://github.com/TheKrystof701/Discord-Java-Bot/blob/master/src/main/java/External_Files/soundfiletotext.py
 			// H:\\audio_file.wav");
@@ -182,9 +194,8 @@ public class SpeechToText {
 						SpeechToText.setText(transcription);
 						ListeningCommandManager listeningCommandManager = new ListeningCommandManager();
 
-						// error here command is null
 						IListeningCommands command = listeningCommandManager.getCommand(transcription);
-						command.doTask();
+						command.doTask(msgEvent.getEvent());
 
 						System.out.println("I have just executed " + command.getName());
 
