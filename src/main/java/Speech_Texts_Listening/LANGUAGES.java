@@ -113,6 +113,214 @@ public enum LANGUAGES {
 		return l;
 	}
 
+	public static String getProperLanguage(LANGUAGES LANG) {
+		String l;
+		switch (LANG) {
+		case arabic:
+			l = "Arabic";
+			break;
+		case czech:
+			l = "Czech";
+			break;
+		case danish:
+			l = "Danish";
+			break;
+		case german:
+			l = "German";
+			break;
+		case greek:
+			l = "Greek";
+			break;
+		case englisha:
+			l = "English (Australia)";
+			break;
+		case englishuk:
+			l = "English (the UK)";
+			break;
+		case englishus:
+			l = "English (the USA)";
+			break;
+		case spanish:
+			l = "Spanish";
+			break;
+		case finnish:
+			l = "Finnish";
+			break;
+		case french:
+			l = "French";
+			break;
+		case hebrew:
+			l = "Hebrew";
+			break;
+		case hindi:
+			l = "Hindi";
+			break;
+		case hungarian:
+			l = "Hungarian";
+			break;
+		case indonesian:
+			l = "Indonesian";
+			break;
+		case italian:
+			l = "Italian";
+			break;
+		case japanese:
+			l = "Japanese";
+			break;
+		case korean:
+			l = "Korean";
+			break;
+		case dutch:
+			l = "Dutch";
+			break;
+		case norwegian:
+			l = "Norwegian";
+			break;
+		case polish:
+			l = "Polish";
+			break;
+		case portuguese:
+			l = "Portuguese";
+			break;
+		case romanian:
+			l = "Romanian";
+			break;
+		case russian:
+			l = "Russian";
+			break;
+		case slovak:
+			l = "Slovak";
+			break;
+		case swedish:
+			l = "Swedish";
+			break;
+		case thai:
+			l = "Thai";
+			break;
+		case turkish:
+			l = "Turkish";
+			break;
+		case chinese:
+			l = "Chinese";
+			break;
+		case chinesehk:
+			l = "Chinese (Hong Kong)";
+			break;
+		case chineset:
+			l = "Chinese (Taiwan)";
+			break;
+
+		default:
+			l = "";
+			break;
+		}
+		return l;
+	}
+
+	public static String getLangFlag(LANGUAGES LANG) {
+		String l;
+		switch (LANG) {
+		case arabic:
+			l = "🇸🇦";
+			break;
+		case czech:
+			l = "🇨🇿";
+			break;
+		case danish:
+			l = "🇩🇰";
+			break;
+		case german:
+			l = "🇩🇪";
+			break;
+		case greek:
+			l = "🇬🇷";
+			break;
+		case englisha:
+			l = "🇦🇺";
+			break;
+		case englishuk:
+			l = "🇬🇧";
+			break;
+		case englishus:
+			l = "🇺🇸";
+			break;
+		case spanish:
+			l = "🇪🇸";
+			break;
+		case finnish:
+			l = "🇫🇮";
+			break;
+		case french:
+			l = "🇫🇷";
+			break;
+		case hebrew:
+			l = "🇮🇱";
+			break;
+		case hindi:
+			l = "🇮🇳";
+			break;
+		case hungarian:
+			l = "🇭🇺";
+			break;
+		case indonesian:
+			l = "🇮🇩";
+			break;
+		case italian:
+			l = "🇮🇹";
+			break;
+		case japanese:
+			l = "🇯🇵";
+			break;
+		case korean:
+			l = "🇰🇷";
+			break;
+		case dutch:
+			l = "🇳🇱";
+			break;
+		case norwegian:
+			l = "🇳🇴";
+			break;
+		case polish:
+			l = "🇵🇱";
+			break;
+		case portuguese:
+			l = "🇵🇹";
+			break;
+		case romanian:
+			l = "🇷🇴";
+			break;
+		case russian:
+			l = "🇷🇺";
+			break;
+		case slovak:
+			l = "🇸🇰";
+			break;
+		case swedish:
+			l = "🇸🇪";
+			break;
+		case thai:
+			l = "🇹🇭";
+			break;
+		case turkish:
+			l = "🇹🇷";
+			break;
+		case chinese:
+			l = "🇨🇳";
+			break;
+		case chinesehk:
+			l = "🇭🇰";
+			break;
+		case chineset:
+			l = "🇹🇼";
+			break;
+
+		default:
+			l = "🌐";
+			break;
+		}
+		return l;
+	}
+
 	public static List<String> getAllEnums() {
 		List<String> enums = new ArrayList<String>();
 		for (LANGUAGES language : LANGUAGES.values()) {

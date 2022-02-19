@@ -1,5 +1,6 @@
 package LIBRARYclass;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -49,6 +50,10 @@ public class LibraryClass {
 		// returns index from the SECOND arraylist
 		return where;
 
+	}
+
+	public static Color getRandomColor() {
+		return (new Color(generateRandomInt(0, 255), generateRandomInt(0, 255), generateRandomInt(0, 255)));
 	}
 
 	public static int generateRandomInt(int min, int max) {

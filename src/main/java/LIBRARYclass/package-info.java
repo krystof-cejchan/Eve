@@ -1,6 +1,7 @@
 /**
  * This class represents a Library Class according to the
  *          Java Design Patters
+ *          You can call any method from this class without creating an instance of the class
  */
 /**
  * @author TheKrystof701
