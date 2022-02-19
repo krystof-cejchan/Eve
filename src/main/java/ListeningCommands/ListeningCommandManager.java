@@ -16,6 +16,7 @@ public class ListeningCommandManager {
 	public ListeningCommandManager() {
 		addNewCommand(new _ChangeDefaultLanguage());
 		addNewCommand(new _Hello());
+		addNewCommand(new _PlaySong());
 	}
 
 	private void addNewCommand(IListeningCommands Icmd) {
@@ -32,21 +33,22 @@ public class ListeningCommandManager {
 		return commands;
 	}
 
+	/**
+	 * what we aim to do here is rather simple but quite difficult to create. We
+	 * need to find the most suitable command from the user's voice input. Meaning
+	 * that we have to compare every word that the user said with the description
+	 * and tags of every command (description = return value of @whatDoIdo()) and
+	 * then we calculate an average of an average values from description and tags
+	 * most likely, we will state some certain value that will serve as a minimum
+	 * value of the calculated average (if average is too low, it may mean that the
+	 * input was incorrect) then we compare all calculated averages and the most
+	 * reliable average will be chosen and its command will be executed.
+	 * 
+	 * long story short: GET THE MOST SUITABLE COMMAND FROM USER'S VOICE INPUT
+	 */
 	@Nullable
 	public IListeningCommands getCommand(String usersVoiceInput) {
-		/*
-		 * what we aim to do here is rather simple but quite difficult to create. We
-		 * need to find the most suitable command from the user's voice input. Meaning
-		 * that we have to compare every word that the user said with the description
-		 * and tags of every command (description = return value of @whatDoIdo()) and
-		 * then we calculate an average of an average values from description and tags
-		 * most likely, we will state some certain value that will serve as a minimum
-		 * value of the calculated average (if average is too low, it may mean that the
-		 * input was incorrect) then we compare all calculated averages and the most
-		 * reliable average will be chosen and its command will be executed.
-		 * 
-		 * long story short: GET THE MOST SUITABLE COMMAND FROM USER'S VOICE INPUT
-		 */
+		
 		try {
 
 			HashMap<IListeningCommands, Double> suitabilityMap = new HashMap<>();
@@ -61,8 +63,10 @@ public class ListeningCommandManager {
 			StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
 			System.out.println(commands.size());
 			for (IListeningCommands theInterfaceExample : commands) {
-				targetAsDescr = theInterfaceExample.whatDoIDo();
-				tempResults.add(service.score(targetAsDescr, usersVoiceInput));
+				/*
+				 * targetAsDescr = theInterfaceExample.whatDoIDo();
+				 * tempResults.add(service.score(targetAsDescr, usersVoiceInput));
+				 */
 				double tempResult_FORLOOP = 0;
 				for (int i = 0; i < theInterfaceExample.getTags().size(); i++) {
 					tempResult_FORLOOP += service.score(theInterfaceExample.getTags().get(i), usersVoiceInput);
