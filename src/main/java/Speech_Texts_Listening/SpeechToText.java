@@ -195,9 +195,15 @@ public class SpeechToText {
 						ListeningCommandManager listeningCommandManager = new ListeningCommandManager();
 
 						IListeningCommands command = listeningCommandManager.getCommand(transcription);
-						command.doTask(msgEvent.getEvent());
+						if (command != null)
+							command.doTask(msgEvent.getEvent());
 
-						System.out.println("I have just executed " + command.getName());
+						else {
+
+							msgEvent.getEvent().getMessage().reply(
+									"There's been an error\nCommand either does not exist or I couldn't understand you")
+									.queue();
+						}
 
 						// audioManager.closeAudioConnection();
 						if (haveUsersStoppedTalking(talkingMembersCount))

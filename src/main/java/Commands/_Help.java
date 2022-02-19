@@ -1,8 +1,7 @@
 package Commands;
 
-import java.awt.Color;
 import java.util.ArrayList;
-
+import LIBRARYclass.LibraryClass;
 import Main.Prefix;
 import net.dv8tion.jda.api.EmbedBuilder;
 //import net.dv8tion.jda.api.MessageBuilder;
@@ -35,10 +34,10 @@ public class _Help implements ICommands {
 			}
 
 			embedBuilder.addField("**" + iCommands.getName() + "**  :  ", iCommands.whatDoIDo() + "\n" + allTriggers,
-					false);
+					true);
 
 		}
-		embedBuilder.setColor(new Color(0, 191, 255));
+		embedBuilder.setColor(LibraryClass.getRandomColor());
 		embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + " commands:");
 		event.getMessage().replyEmbeds(embedBuilder.build()).queue();
 		embedBuilder.clear();

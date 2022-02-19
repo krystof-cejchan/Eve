@@ -69,8 +69,11 @@ public class ListeningCommandManager {
 				}
 				tempResults.add(tempResult_FORLOOP / theInterfaceExample.getTags().size());
 				suitabilityMap.put(theInterfaceExample, LibraryClass.averageOfDoubleArray(tempResults));
+				System.out
+						.println(theInterfaceExample.getName() + " " + LibraryClass.averageOfDoubleArray(tempResults));
 
 			}
+
 			System.out.println(LibraryClass.getTheMostSuitableItemFromAHashMap(suitabilityMap));
 			return LibraryClass.getTheMostSuitableItemFromAHashMap(suitabilityMap);
 

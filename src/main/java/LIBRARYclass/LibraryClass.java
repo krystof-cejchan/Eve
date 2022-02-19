@@ -79,7 +79,8 @@ public class LibraryClass {
 				ImostLikelyToBe = I;
 			}
 		}
-		if (highest != 0) {
+		double minSimilarity = 0.45;
+		if (highest >= minSimilarity) {
 			return ImostLikelyToBe;
 		} else {
 			return null;

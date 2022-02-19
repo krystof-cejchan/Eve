@@ -1,6 +1,5 @@
 package Commands;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -32,7 +31,7 @@ public class _SupportedLanguages implements ICommands {
 		}
 		// event.getChannel().sendMessage(msgB.build()).queue();
 		embedBuilder.setColor(LibraryClass.getRandomColor());
-		embedBuilder.setTimestamp(Instant.now());
+
 		event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
 
 	}
