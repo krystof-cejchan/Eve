@@ -1,13 +1,12 @@
 package ListeningCommands;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import AudioPlayer.PlayCommand;
 import Speech_Texts_Listening.SpeechToText;
-import Speech_Texts_Listening.SpeechToText.Language;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
@@ -40,6 +39,7 @@ public class _PlaySong implements IListeningCommands {
 				}
 
 				PlayCommand playCommand = new PlayCommand();
+				event.getChannel().sendMessage("Searching for " + output).queue();
 				playCommand.playMusic(event, output, false);
 
 			}
@@ -81,8 +81,30 @@ public class _PlaySong implements IListeningCommands {
 	 * @return a song if possible
 	 */
 	private String extracttheSong(String[] args) {
+		ArrayList<String> searchWords = new ArrayList<>();
+		for (int i = 0; i < args.length; i++) {
+			searchWords.add(args[i].toLowerCase());
+		}
+		for (String word : searchWords) {
+			for (String forbidden : forbiddenWords()) {
+				if (word == forbidden) {
+					searchWords.remove(searchWords.indexOf(word));
+				}
+			}
+			// get song s nejvíce výsldkdy, nebo get song který je nejčastejikrát první v
+			// search resultu z py scriptu
+		}
 
 		return null;
+	}
+
+	private ArrayList<String> forbiddenWords() {
+		ArrayList<String> forbidden = new ArrayList<>(Arrays.asList
+
+		("play", "song"));
+
+		return forbidden;
+
 	}
 
 }
