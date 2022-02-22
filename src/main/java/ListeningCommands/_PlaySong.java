@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import AudioPlayer.PlayCommand;
 import Speech_Texts_Listening.SpeechToText;
@@ -34,7 +35,7 @@ public class _PlaySong implements IListeningCommands {
 				new BufferedReader(new InputStreamReader(p.getErrorStream()));
 
 				String output = "";
-				while ((s = stdInput.readLine()) != null) {
+				while (!((s = stdInput.readLine()) == null)) {
 					output = s;
 				}
 
@@ -77,11 +78,12 @@ public class _PlaySong implements IListeningCommands {
 	/**
 	 * this function tries to extract a song name from String[] @param args
 	 * 
-	 * @param args is what users said seperated with spaces
+	 * @param args is what users said separated with spaces
 	 * @return a song if possible
 	 */
 	private String extracttheSong(String[] args) {
 		ArrayList<String> searchWords = new ArrayList<>();
+		HashMap<String, Integer> hMap = new HashMap<>();
 		for (int i = 0; i < args.length; i++) {
 			searchWords.add(args[i].toLowerCase());
 		}
@@ -91,8 +93,17 @@ public class _PlaySong implements IListeningCommands {
 					searchWords.remove(searchWords.indexOf(word));
 				}
 			}
-			// get song s nejvíce výsldkdy, nebo get song který je nejčastejikrát první v
-			// search resultu z py scriptu
+			String words = "";
+			for (int j = 0; j < searchWords.size(); j++) {
+				words+=searchWords.get(j);
+				for (int y = 0; y <= j; y++) {
+					words+=searchWords.get(y+1);
+					//curb this algorithm
+					//we need to get every word combination tested for number of search results
+				}
+
+			}
+
 		}
 
 		return null;

@@ -57,7 +57,7 @@ public class PlayerManager {
 
 			@Override
 			public void playlistLoaded(AudioPlaylist playlist) {
-				// tracks jsou videa, která se vyhledaly z searchkey
+
 				if (isQueue == false) {
 					List<AudioTrack> tracks = playlist.getTracks();
 					AudioTrack track = tracks.get(0);
@@ -75,12 +75,6 @@ public class PlayerManager {
 					channel.sendMessage("Successfully added: " + pocet + " tracks").queue();
 
 				}
-
-				///
-
-				/*
-				 * pokud se nahraje playlist, který se má přehrát celý, tak TO-DO
-				 */
 
 			}
 

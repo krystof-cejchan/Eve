@@ -29,7 +29,7 @@ def main():
         release = d.release(res_trimmed[:str_loc2])
 
         print(release.title)
-        # print(release.artists)
+        print(release.artists)
 
     except Exception as err:
 

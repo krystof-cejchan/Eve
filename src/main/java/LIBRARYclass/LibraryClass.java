@@ -1,6 +1,9 @@
 package LIBRARYclass;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -94,6 +97,27 @@ public class LibraryClass {
 			/* emote may not exist */
 		}
 
+	}
+
+	public static String runPyScript(String fullPath, String arguments) {
+		try {
+			String s;
+			Process p = Runtime.getRuntime().exec("py " + fullPath + " " + arguments);
+
+			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+			new BufferedReader(new InputStreamReader(p.getErrorStream()));
+
+			String output = "";
+			while (!((s = stdInput.readLine()) == null)) {
+				output = s;
+			}
+			return output;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
