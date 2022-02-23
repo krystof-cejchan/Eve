@@ -90,6 +90,19 @@ public class LibraryClass {
 		}
 	}
 
+	public static String getTheMostSuitableStringFromAHashMap(HashMap<String, Integer> map) {
+		int top = 0;
+		String chosen = null;
+		for (HashMap.Entry<String, Integer> entry : map.entrySet()) {
+
+			if (entry.getValue() > top) {
+				chosen = entry.getKey();
+			}
+
+		}
+		return chosen;
+	}
+
 	public static void addReactionToTheMsg(MessageReceivedEvent event, String emoteUNICODE) {
 		try {
 			event.getMessage().addReaction(emoteUNICODE).queue();

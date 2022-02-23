@@ -59,7 +59,7 @@ public class Listener extends ListenerAdapter {
 				CurrentTextChannel ctch = new CurrentTextChannel(eventChannel.getId());
 				ctch.setIid(eventChannel.getId());
 				if (eventChannel == re || allower) {
-					if (event.getMessage().getContentRaw().startsWith(prefix)) {
+					if (event.getMessage().getContentRaw().contains(prefix)) {
 						CommandManager manager = new CommandManager();
 						if (manager.getCommand(event) != null)
 							manager.getCommand(event).doTask(event);

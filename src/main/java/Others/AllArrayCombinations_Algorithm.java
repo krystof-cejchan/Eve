@@ -1,6 +1,3 @@
-/**
- * 
- */
 package Others;
 
 import java.util.List;
@@ -12,8 +9,8 @@ import java.util.ArrayList;
  * @author TheKrystof701
  * @version 23-02-22
  */
-class AllArrayPossibilities_Algorithm {
-	public static List<List<String>> getCombinations(ArrayList<String> words) {
+public class AllArrayCombinations_Algorithm {
+	public static ArrayList<String> getCombinations(ArrayList<String> words) {
 
 		try {
 			List<List<String>> powerSet = new LinkedList<List<String>>();
@@ -21,7 +18,21 @@ class AllArrayPossibilities_Algorithm {
 			for (int i = 1; i <= words.size(); i++)
 				powerSet.addAll(combination(words, i));
 
-			return powerSet;
+			ArrayList<String> lists = new ArrayList<>();
+
+			String vysl = "";
+			for (List<String> l1 : powerSet) {
+				for (String s : l1) {
+					vysl += s + " ";
+
+				}
+				lists.add(vysl);
+				vysl = "";
+
+			}
+
+			// lists.forEach((it) -> System.out.println(it));
+			return lists;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,13 +1,14 @@
 package ListeningCommands;
 
 import java.io.BufferedReader;
-import Others.All;
+import Others.*;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 import AudioPlayer.PlayCommand;
+import LIBRARYclass.LibraryClass;
 import Speech_Texts_Listening.SpeechToText;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -96,8 +97,20 @@ public class _PlaySong implements IListeningCommands {
 			}
 
 		}
+		AllArrayCombinations_Algorithm.getCombinations(searchWords).forEach((item) -> {
+			String path = "C:\\Users\\vecer\\git\\Eve\\src\\main\\java\\External_Files\\GetSongSearchResult_s.py";
+			String output = LibraryClass.runPyScript(path, item);
+			hMap.put(item, Integer.valueOf(output));
+		});
+		// String suitableSong =
+		// LibraryClass.getTheMostSuitableStringFromAHashMap(hMap);
 
-		return null;
+		/*
+		 * maybe run suitableSong through the py script to get the "correct" song title??
+		 */
+
+		// AllArrayCombinations_Algorithm.getCombinations(searchWords);
+		return LibraryClass.getTheMostSuitableStringFromAHashMap(hMap);
 	}
 
 	private ArrayList<String> forbiddenWords() {
