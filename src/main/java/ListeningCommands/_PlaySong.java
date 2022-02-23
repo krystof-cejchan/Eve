@@ -1,6 +1,7 @@
 package ListeningCommands;
 
 import java.io.BufferedReader;
+import Others.All;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -92,16 +93,6 @@ public class _PlaySong implements IListeningCommands {
 				if (word == forbidden) {
 					searchWords.remove(searchWords.indexOf(word));
 				}
-			}
-			String words = "";
-			for (int j = 0; j < searchWords.size(); j++) {
-				words+=searchWords.get(j);
-				for (int y = 0; y <= j; y++) {
-					words+=searchWords.get(y+1);
-					//curb this algorithm
-					//we need to get every word combination tested for number of search results
-				}
-
 			}
 
 		}
