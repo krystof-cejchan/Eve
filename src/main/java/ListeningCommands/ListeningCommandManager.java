@@ -21,7 +21,7 @@ public class ListeningCommandManager {
 
 	private void addNewCommand(IListeningCommands Icmd) {
 
-		boolean exists = commands.stream().anyMatch((it) -> it.getName().equals(Icmd.getName()));
+		boolean exists = commands.stream().anyMatch((matched) -> matched.getName().equals(Icmd.getName()));
 
 		if (!exists) {
 			commands.add(Icmd);
@@ -48,7 +48,7 @@ public class ListeningCommandManager {
 	 */
 	@Nullable
 	public IListeningCommands getCommand(String usersVoiceInput) {
-		
+
 		try {
 
 			HashMap<IListeningCommands, Double> suitabilityMap = new HashMap<>();
@@ -59,7 +59,7 @@ public class ListeningCommandManager {
 			ArrayList<Double> tempResults = new ArrayList<>();
 
 			SimilarityStrategy strategy = new JaroWinklerStrategy();
-			String targetAsDescr;
+			// String targetAsDescr;
 			StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
 			System.out.println(commands.size());
 			for (IListeningCommands theInterfaceExample : commands) {
