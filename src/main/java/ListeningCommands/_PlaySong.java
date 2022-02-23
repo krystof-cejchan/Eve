@@ -29,21 +29,9 @@ public class _PlaySong implements IListeningCommands {
 			String[] args = text.split(" ");
 			if ((args == null) == false) {
 
-				Process p = Runtime.getRuntime().exec(
-						"py C:\\Users\\kryst\\git\\repository3\\discordbottest\\src\\main\\java\\External_Files\\GettheMostSuitableSong.py "
-								+ extracttheSong(args));
-				BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-				new BufferedReader(new InputStreamReader(p.getErrorStream()));
-
-				String output = "";
-				while (!((s = stdInput.readLine()) == null)) {
-					output = s;
-				}
-
 				PlayCommand playCommand = new PlayCommand();
-				event.getChannel().sendMessage("Searching for " + output).queue();
-				playCommand.playMusic(event, output, false);
+				event.getChannel().sendMessage("Searching for " + extracttheSong(args)).queue();
+				playCommand.playMusic(event, extracttheSong(args), false);
 
 			}
 		} catch (Exception e) {
@@ -106,7 +94,8 @@ public class _PlaySong implements IListeningCommands {
 		// LibraryClass.getTheMostSuitableStringFromAHashMap(hMap);
 
 		/*
-		 * maybe run suitableSong through the py script to get the "correct" song title??
+		 * maybe run suitableSong through the py script to get the "correct" song
+		 * title??
 		 */
 
 		// AllArrayCombinations_Algorithm.getCombinations(searchWords);
