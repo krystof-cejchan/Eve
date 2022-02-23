@@ -23,7 +23,7 @@ public class NowPlayingCommand {
 
 		try {
 			if (!(connectedChannel == (null)) || !(connectedChannelSelf == (null))) {
-				// uživatel někde je a bot taky
+
 				if (connectedChannel.equals(connectedChannelSelf)) {
 
 					final GuildMusicManager musicManager = PlayerManager.getInstance()
@@ -37,16 +37,6 @@ public class NowPlayingCommand {
 						AudioTrack track = audioPlayer.getPlayingTrack();
 
 						AudioTrackInfo info = track.getInfo();
-
-						/*
-						 * Queue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE; ArrayList<AudioTrack>
-						 * arrList=new ArrayList<>(queue);
-						 * 
-						 * synchronized (queue) { if(!queue.isEmpty()) {
-						 * 
-						 * AudioTrack nextTrack = arrList.get(track.getInfo().g); } }
-						 */
-
 						String position = getTimestamp(track.getPosition());
 						String duration = getTimestamp(track.getDuration());
 						String timeLeft = getTimestamp(track.getDuration() - track.getPosition());

@@ -18,10 +18,6 @@ public class QueueCommand {
 		GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
 		BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
 
-		/*
-		 * if (queue.isEmpty()) { event.getChannel().sendMessage("The queue is empty");
-		 * return; }
-		 */
 		if (queue.size() < 1 && musicManager.SCHEDULER.PLAYER.getPlayingTrack() != null) {
 			event.getChannel().sendMessage("The queue contains only one track").queue();
 			NowPlayingCommand np = new NowPlayingCommand();
@@ -43,7 +39,7 @@ public class QueueCommand {
 				int ii = i + 1;
 				messageAction.append(("*" + ii + "*") + ".").append(" `").append(info.title).append("` \n");
 			}
-			// if (trackList.size() <= trackCount) {
+
 			int restCountTrack = trackList.size() - shownTrackCount;
 			String trackSmore = "";
 
@@ -61,8 +57,6 @@ public class QueueCommand {
 				messageAction.queue();
 			}
 
-			// }
-
 		}
 		if (queue.isEmpty()) {
 			event.getChannel().sendMessage("Queue is empty like my life").queue();
@@ -73,11 +67,6 @@ public class QueueCommand {
 
 		GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
 		BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
-
-		/*
-		 * if (queue.isEmpty()) { event.getChannel().sendMessage("The queue is empty");
-		 * return; }
-		 */
 
 		if (!queue.isEmpty()) {
 
@@ -98,7 +87,7 @@ public class QueueCommand {
 
 		}
 		if (queue.isEmpty()) {
-			event.getChannel().sendMessage("Queue is empty like my life").queue();
+			event.getChannel().sendMessage("Q seems to be empty").queue();
 		}
 	}
 

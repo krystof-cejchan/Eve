@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
@@ -133,4 +135,11 @@ public class LibraryClass {
 		}
 	}
 
+	public static boolean isLink(String link) {
+		String urlRegex = "((http:\\/\\/|https:\\/\\/)?(www.)?(([a-zA-Z0-9-]){2,}\\.){1,4}([a-zA-Z]){2,6}(\\/([a-zA-Z-_\\/\\.0-9#:?=&;,]*)?)?)";
+		Pattern pattern = Pattern.compile(urlRegex);
+		Matcher matcher = pattern.matcher(link);
+		return matcher.find();
+
+	}
 }

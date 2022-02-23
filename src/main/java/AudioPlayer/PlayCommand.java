@@ -15,10 +15,6 @@ public class PlayCommand {
 
 	public void playMusic(MessageReceivedEvent event, String url, boolean isLink) {
 		final MessageChannel channel = event.getChannel();
-		/*
-		 * final Member self = (Member) event.getGuild().getSelfMember(); final
-		 * GuildVoiceState selfVoiceState = (GuildVoiceState) self.getVoiceState();
-		 */
 
 		@Nullable
 		AudioChannel connectedChannel = event.getMember().getVoiceState().getChannel(); // user
@@ -29,24 +25,18 @@ public class PlayCommand {
 		VoiceChannels vc = new VoiceChannels();
 
 		if (!(connectedChannel == (null))) {
-			// uživatel někde je
 			if (connectedChannel.equals(connectedChannelSelf)) {
-				// uživatel je s botem a proto se hraje hudba
 				if (isLink) {
 
 					if (url.contains("spotify.com")) {
-						/*
-						 * String[] parsed = url.split("/track/"); if (parsed.length == 2) { final
-						 * TrackRequest request = spotifyApi.getTrack(parsed[1]).build(); try { trackUrl
-						 * = request.get().getName(); } catch (Exception e) { new BotException(e); } }
-						 */ } else
+// finish
+					} else
 						loadNPlay(channel, url, event);
 				} else {
 					loadNPlay(channel, "ytsearch:" + url, event);
 				}
 
 			} else {
-				// uživatel není s botem, proto ho joini a hraj hudbu
 
 				vc.Join(event);
 				if (isLink) {
@@ -59,7 +49,7 @@ public class PlayCommand {
 		}
 
 		else {
-			event.getMessage().reply("where r u?  🥺").queue();
+			event.getMessage().reply("where r u? 🥺").queue();
 		}
 
 	}
@@ -68,12 +58,6 @@ public class PlayCommand {
 		PlayerManager.getInstance().loadAndPlay(channel, url, false, event);
 	}
 
-	public boolean isLink(String link) {
-		String urlRegex = "((http:\\/\\/|https:\\/\\/)?(www.)?(([a-zA-Z0-9-]){2,}\\.){1,4}([a-zA-Z]){2,6}(\\/([a-zA-Z-_\\/\\.0-9#:?=&;,]*)?)?)";
-		Pattern pattern = Pattern.compile(urlRegex);
-		Matcher matcher = pattern.matcher(link);
-		return matcher.find();
-
-	}
+}
 
 }

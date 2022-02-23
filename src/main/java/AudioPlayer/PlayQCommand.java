@@ -27,16 +27,14 @@ public class PlayQCommand {
 		VoiceChannels vc = new VoiceChannels();
 
 		if (!(connectedChannel == (null))) {
-			// uživatel někde je
+
 			if (connectedChannel.equals(connectedChannelSelf)) {
-				// uživatel je s botem a proto se hraje hudba
+
 				if (isLink) {
 					loadNPlay(channel, url, event);
 				}
 
 			} else {
-				// uživatel není s botem, proto ho joini a hraj hudbu
-
 				if (isLink) {
 					vc.Join(event);
 					loadNPlay(channel, url, event);
@@ -55,11 +53,4 @@ public class PlayQCommand {
 		PlayerManager.getInstance().loadAndPlay(channel, url, true, event);
 	}
 
-	public boolean isLink(String link) {
-		String urlRegex = "((http:\\/\\/|https:\\/\\/)?(www.)?(([a-zA-Z0-9-]){2,}\\.){1,4}([a-zA-Z]){2,6}(\\/([a-zA-Z-_\\/\\.0-9#:?=&;,]*)?)?)";
-		Pattern pattern = Pattern.compile(urlRegex);
-		Matcher matcher = pattern.matcher(link);
-		return matcher.find();
-
-	}
 }

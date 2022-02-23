@@ -10,7 +10,6 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 public class StopCommand {
 	public void pauseMusic(MessageReceivedEvent event) {
 
-		// event.getChannel();
 		final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
 		@Nullable
 		AudioChannel connectedChannel = event.getMember().getVoiceState().getChannel(); // user
@@ -18,11 +17,9 @@ public class StopCommand {
 		@Nullable
 		AudioChannel connectedChannelSelf = event.getGuild().getSelfMember().getVoiceState().getChannel(); // bot
 
-		// new VoiceChannels();
-
 		try {
 			if (!(connectedChannel == (null)) || !(connectedChannelSelf == (null))) {
-				// uživatel někde je a bot taky
+
 				if (connectedChannel.equals(connectedChannelSelf)) {
 
 					if (!musicManager.SCHEDULER.PLAYER.isPaused()) {
@@ -77,6 +74,7 @@ public class StopCommand {
 		}
 
 	}
+
 	public void stopMusic(GuildVoiceMoveEvent event) {
 		final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
 

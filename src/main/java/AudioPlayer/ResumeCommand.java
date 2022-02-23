@@ -13,8 +13,7 @@ public class ResumeCommand {
 		event.getChannel();
 
 		@Nullable
-		AudioChannel connectedChannel = event.getMember().getVoiceState()
-				.getChannel(); /* event.getMember().getVoiceState().getChannel(); */ // user
+		AudioChannel connectedChannel = event.getMember().getVoiceState().getChannel();
 
 		@Nullable
 		AudioChannel connectedChannelSelf = event.getGuild().getSelfMember().getVoiceState().getChannel(); // bot
@@ -23,15 +22,15 @@ public class ResumeCommand {
 
 		try {
 			if (!(connectedChannel == (null)) || !(connectedChannelSelf == (null))) {
-				// uživatel někde je a bot taky
+
 				if (connectedChannel.equals(connectedChannelSelf)) {
 
 					final GuildMusicManager musicManager = PlayerManager.getInstance()
 							.getMusicManager(event.getGuild());
-					// System.out.print(musicManager.SCHEDULER.PLAYER.);
+
 					if (musicManager.SCHEDULER.PLAYER.isPaused()) {
 						musicManager.SCHEDULER.PLAYER.setPaused(false);
-						// System.out.println("im paused");
+
 					}
 
 				}
