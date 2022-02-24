@@ -6,7 +6,8 @@ import net.dv8tion.jda.api.audio.CombinedAudio;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
-import uncategorized.MessageReceivedEvent_CustomClass;
+import objects.CurrentTextChannel;
+import objects.MessageReceivedEvent_CustomClass;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -14,7 +15,6 @@ import javax.sound.sampled.AudioSystem;
 
 import commands_voice.IListeningCommands;
 import commands_voice.ListeningCommandManager;
-import main.CurrentTextChannel;
 
 import javax.sound.sampled.AudioFileFormat;
 import java.io.BufferedReader;
