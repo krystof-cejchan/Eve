@@ -23,6 +23,5 @@ def main():
 
         print("-ERROR-")
 
-
 if __name__ == "__main__":
     main()
