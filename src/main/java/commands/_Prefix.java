@@ -13,8 +13,10 @@ public class _Prefix implements ICommands {
 
 		try {
 			pref.setValue(event.getMessage().getContentRaw().split(" ")[1]);
-			System.out.print(event.getMessage().getContentRaw().split(" ")[1]);
-			System.out.println(pref.getValue());
+			/*
+			 * System.out.print(event.getMessage().getContentRaw().split(" ")[1]);
+			 * System.out.println(pref.getValue());
+			 */
 
 			event.getMessage().reply("Prefix has been changed to " + pref.getValue()).queue();
 		} catch (Exception e) {

@@ -58,7 +58,7 @@ public class PlayerManager {
 			@Override
 			public void playlistLoaded(AudioPlaylist playlist) {
 
-				if (isQueue == false) {
+				if (!isQueue) {
 					List<AudioTrack> tracks = playlist.getTracks();
 					AudioTrack track = tracks.get(0);
 					musicManager.SCHEDULER.queue(track);
@@ -66,13 +66,17 @@ public class PlayerManager {
 					event.getMessage().reply("```yaml\n" + "Adding to queue:").append(track.getInfo().title)
 							.append("  #  from: " + track.getInfo().author + " channel```").queue();
 				} else {
-					int pocet = 0;
+					int addedTracks_count = 0;
 					List<AudioTrack> tracks = playlist.getTracks();
 					for (AudioTrack audioTrack : tracks) {
 						musicManager.SCHEDULER.queue(audioTrack);
-						pocet = pocet + 1;
+						addedTracks_count = addedTracks_count + 1;
 					}
-					channel.sendMessage("Successfully added: " + pocet + " tracks").queue();
+					/*
+					 * tracks.forEach(audioTrack -> { musicManager.SCHEDULER.queue(audioTrack);
+					 * addedTracks_count = addedTracks_count + 1; });
+					 */
+					channel.sendMessage("Successfully added: " + addedTracks_count + " tracks").queue();
 
 				}
 

@@ -21,24 +21,19 @@ import voice_and_listening.SpeechToText;
 public class _PlaySong implements IListeningCommands {
 
 	@Override
-	public void doTask(MessageReceivedEvent event) {
+	public void doTask(MessageReceivedEvent event) throws Exception {
 		// TODO Auto-generated method stub
 		String s = "";
-		try {
-			String text = SpeechToText.getText();
-			String[] args = text.split(" ");
-			if ((args == null) == false) {
 
-				PlayCommand playCommand = new PlayCommand();
-				event.getChannel().sendMessage("Searching for " + extracttheSong(args)).queue();
-				playCommand.playMusic(event, extracttheSong(args), false);
+		String text = SpeechToText.getText();
+		String[] args = text.split(" ");
+		if ((args == null) == false) {
 
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			PlayCommand playCommand = new PlayCommand();
+			event.getChannel().sendMessage("Searching for " + extracttheSong(args)).queue();
+			playCommand.playMusic(event, extracttheSong(args), false);
+
 		}
-
 	}
 
 	@Override

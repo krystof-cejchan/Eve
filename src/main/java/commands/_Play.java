@@ -2,6 +2,7 @@ package commands;
 
 import java.util.ArrayList;
 
+import _library_class.LibraryClass;
 import audio_player.PlayCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -14,7 +15,7 @@ public class _Play implements ICommands {
 		PlayCommand playC = new PlayCommand();
 		String urlNeboSearchKey = "";
 
-		if (playC.isLink(args[1])) {
+		if (LibraryClass.isLink(args[1])) {
 			playC.playMusic(event, args[1], true);
 
 		} else {
@@ -24,7 +25,7 @@ public class _Play implements ICommands {
 			}
 			playC.playMusic(event, urlNeboSearchKey, false);
 		}
-		
+
 	}
 
 	@Override
@@ -42,7 +43,7 @@ public class _Play implements ICommands {
 	@Override
 	public ArrayList<String> getTriggers() {
 		// TODO Auto-generated method stub
-		ArrayList<String> t =new ArrayList<>();
+		ArrayList<String> t = new ArrayList<>();
 		t.add("play");
 		t.add("p");
 		return t;

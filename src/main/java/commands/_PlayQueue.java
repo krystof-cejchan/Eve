@@ -2,6 +2,7 @@ package commands;
 
 import java.util.ArrayList;
 
+import _library_class.LibraryClass;
 import audio_player.PlayQCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -16,7 +17,7 @@ public class _PlayQueue implements ICommands {
 
 			PlayQCommand pq = new PlayQCommand();
 
-			if (pq.isLink(args[1])) {
+			if (LibraryClass.isLink(args[1])) {
 				pq.playMusic(event, args[1], true);
 
 			} else {
