@@ -39,6 +39,7 @@ public class CommandManager {
 		addNewCommand(new _Unmute());
 		addNewCommand(new _ECHO());
 		addNewCommand(new _SupportedLanguages());
+		addNewCommand(new _Memes());
 
 	}
 
