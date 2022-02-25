@@ -1,6 +1,6 @@
 <?php
 /*
-http://kys.hys.cz/DISCORD%20BOT(S)/new.php?boolean=0&desturl=http://kys.hys.cz/DISCORD%20BOT(S)/adam_rage.png&srcurl=http://kys.hys.cz/DISCORD%20BOT(S)/honza_slightlyconfused.png
+http://kys.hys.cz/DISCORD%20BOT(S)/new.php?boolean=0&&src2url=http://kys.hys.cz/DISCORD%20BOT(S)/honza_slightlyconfused.png&desturl=https://imgflip.com/s/meme/Distracted-Boyfriend.jpg&srcurl=http://kys.hys.cz/DISCORD%20BOT(S)/honza_slightlyconfused.png
 */
 if (empty($_GET['boolean']) == false || assert($_GET['boolean'])) {
     if ((empty($_GET['desturl']) == false ||
@@ -34,16 +34,23 @@ function mergeImg($img1, $img2)
 
     $dest =  imagecreatefromstring(file_get_contents($img1));
     $src =  imagecreatefromstring(file_get_contents($img2));
-    $dst_x = 0;
-    $dst_y = 0;
-    $src_x = 20;
-    $src_y = 20;
-    $src_width = 165;
-    $src_height = 100;
+    list($dest_width, $dest_height) = getimagesize($img1);
+    list($src_width, $src_height) = getimagesize($img2);
+
+    $dst_x = 250;
+    $dst_y = 230;
+    $src_x = $dest_width / 2;
+    $src_y = $dest_height / 2;
+    // $src_width = $dest_width /2 ;
+    // $src_height = $dest_width /2;
     $alpha = 100;
 
-    imagecopymerge($dest, $src, $dst_x, $dst_y, $src_x, $src_y, $src_width, $src_height, $alpha);
 
+
+
+    imagecopymerge($dest, $src, $dst_x, $dst_y, $src_x, $src_y, $src_width, $src_height, $alpha);
+    /*$black = imagecolorallocate($dest, 0, 0, 0); 
+imagecolortransparent($dest, $black);*/
 
     header('Content-Type: image/png');
     imagepng($dest);
