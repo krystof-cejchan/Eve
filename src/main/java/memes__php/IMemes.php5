@@ -7,7 +7,7 @@ function getRandomMeme()
     $implementsIModule = array();
     foreach ($classes as $class) {
         $reflect = new ReflectionClass($class);
-        if ($reflect->implementsInterface('IModule'))
+        if ($reflect->implementsInterface('IMemes'))
             $implementsIModule[] = $class;
     }
 
