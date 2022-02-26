@@ -10,6 +10,20 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class _Memes implements ICommands {
 
+	/**
+	 * 
+	 * This method takes a photo of the mentioned user from the message →generates
+	 * random number from 1 to count of functions from PHP script →runs a php script
+	 * where the photo of the mentioned user is placed on a meme template →sends the
+	 * link to the image to a message channel
+	 * 
+	 * @param takes MessageReceivedEvent so that we can work with current guild,
+	 *              members...
+	 * @exception
+	 * @author thekrystof701
+	 * @since 26.02.2022
+	 * 
+	 */
 	@Override
 	public void doTask(MessageReceivedEvent event) throws Exception, NumberFormatException {
 		String profpic_1 = event.getAuthor().getAvatarUrl();
