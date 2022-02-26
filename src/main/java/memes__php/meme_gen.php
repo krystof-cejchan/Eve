@@ -1,6 +1,6 @@
 <?php
 //getAndDo($_GET['rnd']);
-if (assert($_GET['profpic1'])) {
+if (assert($_GET['profpic1']) && empty($_GET['profpic1']) == false) {
     $arg = $_GET['profpic1'];
 
     switch ($_GET['rnd']) {
@@ -10,20 +10,154 @@ if (assert($_GET['profpic1'])) {
         case 2:
             But_That_Thing_It_Scares_Me($arg);
             break;
+        case 3:
+            Clown($arg);
+            break;
+        case 4:
+            SpongeBob_Burn($arg);
+            break;
+        case 5:
+            Smoking_while_Pregnant($arg);
+            break;
+
+
+
+
+
+
+
         default:
             echo 'err';
             break;
     }
 }
+if (assert($_GET['getFunctionCount'])) {
+    $functions = get_defined_functions();
+    $functions_list = array();
+    $i = 0;
+    foreach ($functions['user'] as $func) {
+        $i++;
+    }
+    echo $i;
+}
+function Clown($clown_)
+{
+
+
+    if ((assert($_GET['profpic1']) && empty($_GET['profpic1']) == false)) {
+        $bcg_ = 'http://eveuwu.g6.cz/memes/bcg_s/clownmeme.jpg';
+
+        $pic_bcg =  imagecreatefromstring(file_get_contents($bcg_));
+        $pic_clw =  imagecreatefromstring(file_get_contents($clown_));
+
+        $res_to_x = 278;
+        $res_to_y = 155;
+        $resized_pic = imagescale($pic_clw, $res_to_x, $res_to_y);
+
+        $bcg_x = 1;
+        $bcg_y = 500;
+
+        $grl_x = 0;
+        $grl_y = 0;
+
+        $alpha = 100;
+
+        imagecopymerge($pic_bcg, $resized_pic, $bcg_x, $bcg_y, $grl_x, $grl_y, $res_to_x, $res_to_y, $alpha);
+
+        header('Content-Type: image/png');
+        imagepng($pic_bcg);
 
 
 
+        imagedestroy($pic_bcg);
+        imagedestroy($pic_clw);
+
+        /*memory cleared*/
+    }
+}
+function SpongeBob_Burn($user_)
+{
 
 
-/*
-http://eveuwu.g6.cz/memes/But_That_Thing_It_Scares_Me_meme.php?&profpic1=https://cdn.discordapp.com/avatars/348358747825111040/72cd3210b9272374c0cd844c8242816a.png
-*/
+    if ((assert($_GET['profpic1']) && empty($_GET['profpic1']) == false)) {
+        $bcg_ = 'https://www.tjtoday.org/wp-content/uploads/2021/01/IMG_7501.jpg';
 
+        $pic_bcg =  imagecreatefromstring(file_get_contents($bcg_));
+        $pic_user =  imagecreatefromstring(file_get_contents($user_));
+
+
+        $res_to_x = 210;
+        $res_to_y = 210;
+        $resized_pic = imagescale($pic_user, $res_to_x, $res_to_y);
+
+        $bcg_x = 59;
+        $bcg_y = 120;
+
+        $grl_x = 0;
+        $grl_y = 0;
+
+        $alpha = 100;
+
+        imagecopymerge($pic_bcg, $resized_pic, $bcg_x, $bcg_y, $grl_x, $grl_y, $res_to_x, $res_to_y, $alpha);
+
+        header('Content-Type: image/png');
+        imagepng($pic_bcg);
+
+
+
+        imagedestroy($pic_bcg);
+        imagedestroy($pic_user);
+
+        /*memory cleared*/
+    }
+}
+function Smoking_while_pregnant($user_)
+{
+
+
+    if ((assert($_GET['profpic1']) && empty($_GET['profpic1']) == false)) {
+        $bcg_ = 'http://eveuwu.g6.cz/memes/bcg_s/smoking_while_pregnant.jpg';
+
+        $pic_bcg =  imagecreatefromstring(file_get_contents($bcg_));
+        $pic_user =  imagecreatefromstring(file_get_contents($user_));
+
+
+        $res_to_x = 450;
+        $res_to_y = 450;
+        $resized_pic = imagescale($pic_user, $res_to_x, $res_to_y);
+
+        $bcg_x = (imagesx($pic_bcg) / 2) - ($res_to_x / 2);
+        $bcg_y = 480;
+
+        $grl_x = 0;
+        $grl_y = 0;
+
+        $alpha = 100;
+
+        imagecopymerge($pic_bcg, $resized_pic, $bcg_x, $bcg_y, $grl_x, $grl_y, $res_to_x, $res_to_y, $alpha);
+        header("Content-type: image/jpeg");
+
+
+        $color = imagecolorallocate($pic_bcg, 255, 255, 0);
+        $string = "19 years late...";
+        $fontSize = 120;
+        $x = $bcg_x;
+        $y = $bcg_y + 420;
+        imagestring($pic_bcg, $fontSize, $x, $y, $string, $color);
+
+        header('Content-Type: image/png');
+
+
+        imagepng($pic_bcg);
+
+
+
+        imagedestroy($pic_bcg);
+        imagedestroy($pic_user);
+
+        /*memory cleared*/
+    }
+}
 function Distracted_BoyFriend($girl_)
 {
 
@@ -34,9 +168,6 @@ function Distracted_BoyFriend($girl_)
         $pic_bcg =  imagecreatefromstring(file_get_contents($bcg_));
         $pic_grl =  imagecreatefromstring(file_get_contents($girl_));
 
-
-        list($bcg_width, $bcg_height) = getimagesize($bcg_);
-        list($grl_width, $grl_height) = getimagesize($girl_);
 
         $res_to_x = 183;
         $res_to_y = 183;
@@ -63,6 +194,7 @@ function Distracted_BoyFriend($girl_)
         /*memory cleared*/
     }
 }
+
 function But_That_Thing_It_Scares_Me($user_)
 {
 
@@ -73,9 +205,6 @@ function But_That_Thing_It_Scares_Me($user_)
         $pic_bcg =  imagecreatefromstring(file_get_contents($bcg_));
         $pic_user =  imagecreatefromstring(file_get_contents($user_));
 
-
-        list($bcg_width, $bcg_height) = getimagesize($bcg_);
-        list($grl_width, $grl_height) = getimagesize($user_);
 
         $res_to_x = 400;
         $res_to_y = 392;
