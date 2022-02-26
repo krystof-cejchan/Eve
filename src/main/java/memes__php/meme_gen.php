@@ -139,7 +139,7 @@ function Smoking_while_pregnant($user_)
 
 
         $color = imagecolorallocate($pic_bcg, 255, 255, 0);
-        $string = "19 years late...";
+        $string = "19 years later...";
         $fontSize = 120;
         $x = $bcg_x;
         $y = $bcg_y + 420;
