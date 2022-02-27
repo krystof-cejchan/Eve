@@ -18,34 +18,24 @@ public class _Help implements ICommands {
 
 		embedBuilder.clear();
 		int maxEmbedSize = 25;
-//		opakuj odkud tam budou furt zbývat celé 25, potom vypiš zbatek,
-//		pokud není nad 25, tak to vypiš vše rovnou
-		if (CommandManager.getAllCommands().size() > maxEmbedSize) {
 
-			for (int i = 0; i < CommandManager.getAllCommands().size() % maxEmbedSize; i++) {
-				for (int j = 0; j < maxEmbedSize; j++) {
-					int helper = j;
-					ICommands iCommands = CommandManager.getCommandbyId(i * maxEmbedSize + helper);
-					String allTriggers = "";
-					for (String trigger : iCommands.getTriggers()) {
-						allTriggers += pref.getValue() + trigger + "   ";
+		int cmdSize = CommandManager.getAllCommands().size();
+		embedBuilder.clear();
+		if (cmdSize > maxEmbedSize) {
+
+			for (int i = 0; i < cmdSize; i++) {
+				for (int j = 0; j < Math.abs(i * cmdSize - (Math.abs(i * cmdSize - maxEmbedSize))); j++) {
+					for (int w = (i) * 25; w < cmdSize; w++) {
+						String allTriggers = "";
+						for (String trigger : CommandManager.getCommandbyId(w).getTriggers()) {
+							allTriggers += pref.getValue() + trigger + "   ";
+						}
+						embedBuilder.addField("**" + CommandManager.getCommandbyId(w).getName() + "**  :  ",
+								CommandManager.getCommandbyId(w).whatDoIDo() + "\n" + allTriggers, true);
 					}
-					embedBuilder.addField("**" + iCommands.getName() + "**  :  ",
-							iCommands.whatDoIDo() + "\n" + allTriggers, true);
 				}
-				event.getMessage().replyEmbeds(embedBuilder.build()).queue();
-				embedBuilder.clear();
-			}
-			for (int k = 0; k < (CommandManager.getAllCommands().size()
-					- (25 * (CommandManager.getAllCommands().size() % maxEmbedSize))); k++) {
-				ICommands iCommands = CommandManager
-						.getCommandbyId(k + (maxEmbedSize * (CommandManager.getAllCommands().size() % maxEmbedSize)));
-				String allTriggers = "";
-				for (String trigger : iCommands.getTriggers()) {
-					allTriggers += pref.getValue() + trigger + "   ";
-				}
-				embedBuilder.addField("**" + iCommands.getName() + "**  :  ",
-						iCommands.whatDoIDo() + "\n" + allTriggers, true);
+				embedBuilder.setColor(LibraryClass.getRandomColor());
+				embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + " commands:");
 				event.getMessage().replyEmbeds(embedBuilder.build()).queue();
 				embedBuilder.clear();
 			}
