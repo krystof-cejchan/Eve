@@ -45,7 +45,7 @@ public class CommandManager {
 
 	private void addNewCommand(ICommands Icmd) {
 
-		boolean exists = commands.stream().anyMatch((it) -> it.getName().equals(Icmd.getName()));
+		boolean exists = commands.stream().anyMatch(match -> match.getName().equals(Icmd.getName()));
 
 		if (!exists) {
 			commands.add(Icmd);
@@ -55,6 +55,10 @@ public class CommandManager {
 
 	public static ArrayList<ICommands> getAllCommands() {
 		return commands;
+	}
+
+	public static ICommands getCommandbyId(int id) {
+		return commands.get(id);
 	}
 
 	@Nullable

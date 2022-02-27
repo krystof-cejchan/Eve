@@ -15,21 +15,57 @@ public class _Help implements ICommands {
 
 		EmbedBuilder embedBuilder = new EmbedBuilder();
 		Prefix pref = new Prefix();
-		for (ICommands iCommands : CommandManager.getAllCommands()) {
-			String allTriggers = "";
-			for (String trigger : iCommands.getTriggers()) {
-				allTriggers += pref.getValue() + trigger + "   ";
-			}
 
-			embedBuilder.addField("**" + iCommands.getName() + "**  :  ", iCommands.whatDoIDo() + "\n" + allTriggers,
-					true);
-
-		}
-		embedBuilder.setColor(LibraryClass.getRandomColor());
-		embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + " commands:");
-		event.getMessage().replyEmbeds(embedBuilder.build()).queue();
 		embedBuilder.clear();
+		int maxEmbedSize = 25;
+//		opakuj odkud tam budou furt zbývat celé 25, potom vypiš zbatek,
+//		pokud není nad 25, tak to vypiš vše rovnou
+		if (CommandManager.getAllCommands().size() > maxEmbedSize) {
 
+			for (int i = 0; i < CommandManager.getAllCommands().size() % maxEmbedSize; i++) {
+				for (int j = 0; j < maxEmbedSize; j++) {
+					int helper = j;
+					ICommands iCommands = CommandManager.getCommandbyId(i * maxEmbedSize + helper);
+					String allTriggers = "";
+					for (String trigger : iCommands.getTriggers()) {
+						allTriggers += pref.getValue() + trigger + "   ";
+					}
+					embedBuilder.addField("**" + iCommands.getName() + "**  :  ",
+							iCommands.whatDoIDo() + "\n" + allTriggers, true);
+				}
+				event.getMessage().replyEmbeds(embedBuilder.build()).queue();
+				embedBuilder.clear();
+			}
+			for (int k = 0; k < (CommandManager.getAllCommands().size()
+					- (25 * (CommandManager.getAllCommands().size() % maxEmbedSize))); k++) {
+				ICommands iCommands = CommandManager
+						.getCommandbyId(k + (maxEmbedSize * (CommandManager.getAllCommands().size() % maxEmbedSize)));
+				String allTriggers = "";
+				for (String trigger : iCommands.getTriggers()) {
+					allTriggers += pref.getValue() + trigger + "   ";
+				}
+				embedBuilder.addField("**" + iCommands.getName() + "**  :  ",
+						iCommands.whatDoIDo() + "\n" + allTriggers, true);
+				event.getMessage().replyEmbeds(embedBuilder.build()).queue();
+				embedBuilder.clear();
+			}
+		} else {
+
+			for (ICommands iCommands : CommandManager.getAllCommands()) {
+				String allTriggers = "";
+				for (String trigger : iCommands.getTriggers()) {
+					allTriggers += pref.getValue() + trigger + "   ";
+				}
+
+				embedBuilder.addField("**" + iCommands.getName() + "**  :  ",
+						iCommands.whatDoIDo() + "\n" + allTriggers, true);
+
+			}
+			embedBuilder.setColor(LibraryClass.getRandomColor());
+			embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + " commands:");
+			event.getMessage().replyEmbeds(embedBuilder.build()).queue();
+			embedBuilder.clear();
+		}
 	}
 
 	@Override
