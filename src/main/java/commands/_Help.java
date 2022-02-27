@@ -24,16 +24,18 @@ public class _Help implements ICommands {
 		if (cmdSize > maxEmbedSize) {
 
 			for (int i = 0; i < cmdSize; i++) {
-				for (int j = 0; j < Math.abs(i * cmdSize - (Math.abs(i * cmdSize - maxEmbedSize))); j++) {
-					for (int w = (i) * 25; w < cmdSize; w++) {
-						String allTriggers = "";
-						for (String trigger : CommandManager.getCommandbyId(w).getTriggers()) {
-							allTriggers += pref.getValue() + trigger + "   ";
-						}
-						embedBuilder.addField("**" + CommandManager.getCommandbyId(w).getName() + "**  :  ",
-								CommandManager.getCommandbyId(w).whatDoIDo() + "\n" + allTriggers, true);
+				// for (int j = 0; j < Math.abs(i * cmdSize - (Math.abs(i * cmdSize -
+				// maxEmbedSize))); j++) {
+				for (int w = (i) * 25; w < (i * maxEmbedSize)
+						+ Math.abs(i * cmdSize - (Math.abs(i * cmdSize - maxEmbedSize))); w++) {
+					String allTriggers = "";
+					for (String trigger : CommandManager.getCommandbyId(w).getTriggers()) {
+						allTriggers += pref.getValue() + trigger + "   ";
 					}
+					embedBuilder.addField("**" + CommandManager.getCommandbyId(w).getName() + "**  :  ",
+							CommandManager.getCommandbyId(w).whatDoIDo() + "\n" + allTriggers, true);
 				}
+				// }
 				embedBuilder.setColor(LibraryClass.getRandomColor());
 				embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + " commands:");
 				event.getMessage().replyEmbeds(embedBuilder.build()).queue();
