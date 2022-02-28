@@ -19,7 +19,9 @@ if (assert($_GET['profpic1']) && empty($_GET['profpic1']) == false) {
         case 5:
             Smoking_while_Pregnant($arg);
             break;
-
+case 6:
+            SpiderMan($arg);
+            break;
 
 
 
@@ -39,8 +41,7 @@ if (assert($_GET['getFunctionCount'])) {
         $i++;
     }
     echo $i;
-}
-function Clown($clown_)
+}function Clown($clown_)
 {
 
 
@@ -56,6 +57,41 @@ function Clown($clown_)
 
         $bcg_x = 1;
         $bcg_y = 500;
+
+        $grl_x = 0;
+        $grl_y = 0;
+
+        $alpha = 100;
+
+        imagecopymerge($pic_bcg, $resized_pic, $bcg_x, $bcg_y, $grl_x, $grl_y, $res_to_x, $res_to_y, $alpha);
+
+        header('Content-Type: image/png');
+        imagepng($pic_bcg);
+
+
+
+        imagedestroy($pic_bcg);
+        imagedestroy($pic_clw);
+
+        /*memory cleared*/
+    }
+}
+function SpiderMan($user_)
+{
+
+
+    if ((assert($_GET['profpic1']) && empty($_GET['profpic1']) == false)) {
+        $bcg_ = 'http://eveuwu.g6.cz/memes/bcg_s/spidermanmeme.jpg';
+
+        $pic_bcg =  imagecreatefromstring(file_get_contents($bcg_));
+        $pic_clw =  imagecreatefromstring(file_get_contents($user_));
+
+        $res_to_x = 140;
+        $res_to_y = 140;
+        $resized_pic = imagescale($pic_clw, $res_to_x, $res_to_y);
+
+        $bcg_x = imagesx($pic_bcg)-imagesx($pic_clw)-60;
+        $bcg_y = 70;
 
         $grl_x = 0;
         $grl_y = 0;
