@@ -11,17 +11,13 @@ public class inProgress {
 		embed.setTitle("...coming soon...");
 		embed.setColor(Color.decode("#7987bd"));
 		embed.setAuthor("Večerníček#3533");
-		embed.addField("List:", "Spotify as Music Source \n"
-				+ "Youtube Queue Bug fix\n"
-				+ "FastForwarding\n"
-				+ "\n"
-			/*	+ "\n"
-				+ "\n"
-				+ "\n"*/
+		embed.addField("List:", "Spotify as Music Source \n" + "Youtube Queue Bug fix\n" + "FastForwarding\n" + "\n"
+		/*
+		 * + "\n" + "\n" + "\n"
+		 */
 				+ "...\n"
-				
+
 				, false);
-		
 
 		event.getMessage().replyEmbeds(embed.build()).queue();
 		embed.clear();

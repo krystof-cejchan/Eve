@@ -1,21 +1,21 @@
 package commands_voice;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 import _library_class.LibraryClass;
+import audio_player.GuildMusicManager;
+import audio_player.MessageTypes;
 import audio_player.PlayCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import uncategorized.*;
+import uncategorized.AllArrayCombinations_Algorithm;
 import voice_and_listening.SpeechToText;
 
 /**
  * @author kryst
  * @see IListeningCommands
- * 
+ *
  */
 
 public class _PlaySong implements IListeningCommands {
@@ -27,11 +27,11 @@ public class _PlaySong implements IListeningCommands {
 
 		String text = SpeechToText.getText();
 		String[] args = text.split(" ");
-		if ((args == null) == false) {
+		if ((args != null)) {
 
 			PlayCommand playCommand = new PlayCommand();
 			event.getChannel().sendMessage("Searching for " + extracttheSong(args)).queue();
-			playCommand.playMusic(event, extracttheSong(args), false);
+			playCommand.playMusic(event, extracttheSong(args), false, MessageTypes.EMBED_MESSAGE, text);
 
 		}
 	}
@@ -62,15 +62,15 @@ public class _PlaySong implements IListeningCommands {
 
 	/**
 	 * this function tries to extract a song name from String[] @param args
-	 * 
+	 *
 	 * @param args is what users said separated with spaces
 	 * @return a song if possible
 	 */
 	private String extracttheSong(String[] args) {
 		ArrayList<String> searchWords = new ArrayList<>();
 		HashMap<String, Integer> hMap = new HashMap<>();
-		for (int i = 0; i < args.length; i++) {
-			searchWords.add(args[i].toLowerCase());
+		for (String arg : args) {
+			searchWords.add(arg.toLowerCase());
 		}
 		for (String word : searchWords) {
 			for (String forbidden : forbiddenWords()) {

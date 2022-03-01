@@ -9,7 +9,7 @@ public class _SaySomethingNice implements ICommands {
 	@Override
 	public void doTask(MessageReceivedEvent event) {
 		event.getMessage().reply("I like your nice blue eyes whether you've got em blue or not").queue();
-		
+
 	}
 
 	@Override

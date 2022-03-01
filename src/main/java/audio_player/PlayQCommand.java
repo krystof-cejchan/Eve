@@ -28,13 +28,13 @@ public class PlayQCommand {
 			if (connectedChannel.equals(connectedChannelSelf)) {
 
 				if (isLink) {
-					loadNPlay(channel, url, event);
+					loadNPlay(channel, url, event, null, null);
 				}
 
 			} else {
 				if (isLink) {
 					vc.Join(event);
-					loadNPlay(channel, url, event);
+					loadNPlay(channel, url, event, null, null);
 				}
 
 			}
@@ -46,8 +46,9 @@ public class PlayQCommand {
 
 	}
 
-	protected void loadNPlay(MessageChannel channel, String url, MessageReceivedEvent event) {
-		PlayerManager.getInstance().loadAndPlay(channel, url, true, event);
+	protected void loadNPlay(MessageChannel channel, String url, MessageReceivedEvent event, MessageTypes types,
+			String voice) {
+		PlayerManager.getInstance().loadAndPlay(channel, url, true, event, null, null);
 	}
 
 }

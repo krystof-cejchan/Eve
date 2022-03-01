@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import audio_player.StopCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class _Pause implements ICommands{
+public class _Pause implements ICommands {
 
 	@Override
 	public void doTask(MessageReceivedEvent event) {

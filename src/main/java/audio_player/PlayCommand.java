@@ -9,7 +9,8 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class PlayCommand {
 
-	public void playMusic(MessageReceivedEvent event, String url, boolean isLink) {
+	public void playMusic(MessageReceivedEvent event, String url, boolean isLink, MessageTypes messageTypes,
+			String voice) {
 		final MessageChannel channel = event.getChannel();
 
 		@Nullable
@@ -29,18 +30,18 @@ public class PlayCommand {
 						// finish
 
 					} else
-						loadNPlay(channel, url, event);
+						loadNPlay(channel, url, event, messageTypes, voice);
 				} else {
-					loadNPlay(channel, "ytsearch:" + url, event);
+					loadNPlay(channel, "ytsearch:" + url, event, messageTypes, voice);
 				}
 
 			} else {
 
 				vc.Join(event);
 				if (isLink) {
-					loadNPlay(channel, url, event);
+					loadNPlay(channel, url, event, messageTypes, voice);
 				} else {
-					loadNPlay(channel, "ytsearch:" + url, event);
+					loadNPlay(channel, "ytsearch:" + url, event, messageTypes, voice);
 				}
 
 			}
@@ -52,8 +53,9 @@ public class PlayCommand {
 
 	}
 
-	protected void loadNPlay(MessageChannel channel, String url, MessageReceivedEvent event) {
-		PlayerManager.getInstance().loadAndPlay(channel, url, false, event);
+	protected void loadNPlay(MessageChannel channel, String url, MessageReceivedEvent event, MessageTypes type,
+			String voice) {
+		PlayerManager.getInstance().loadAndPlay(channel, url, false, event, type, voice);
 	}
 
 }

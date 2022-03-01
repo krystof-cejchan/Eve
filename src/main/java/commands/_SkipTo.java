@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import audio_player.SkipCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class _SkipTo implements ICommands{
+public class _SkipTo implements ICommands {
 
 	@Override
 	public void doTask(MessageReceivedEvent event) {

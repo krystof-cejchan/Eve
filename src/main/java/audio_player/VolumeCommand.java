@@ -58,8 +58,7 @@ public class VolumeCommand {
 					int volumenow = musicManager.AUDIOPLAYER.getVolume();
 					if (UPorDOWN == "UP") {
 						if (volumenow < 190) {
-							event.getChannel().sendMessage("Vol: *" + volumenow + " → " + volumenow + 10 + "*")
-									.queue();
+							event.getChannel().sendMessage("Vol: *" + volumenow + " → " + volumenow + 10 + "*").queue();
 							musicManager.AUDIOPLAYER.setVolume(volumenow + 10);
 							return;
 						}
@@ -97,8 +96,7 @@ public class VolumeCommand {
 					final GuildMusicManager musicManager = PlayerManager.getInstance()
 							.getMusicManager(event.getGuild());
 					volumeBeforeMuted = musicManager.AUDIOPLAYER.getVolume();
-					event.getChannel().sendMessage("🔇: *" + musicManager.AUDIOPLAYER.getVolume() + " → 0*")
-							.queue();
+					event.getChannel().sendMessage("🔇: *" + musicManager.AUDIOPLAYER.getVolume() + " → 0*").queue();
 					musicManager.AUDIOPLAYER.setVolume(0);
 
 					// echoVolume

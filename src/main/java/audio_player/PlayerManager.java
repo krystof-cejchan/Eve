@@ -1,7 +1,10 @@
 package audio_player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Nullable;
 
 import org.apache.commons.collections4.map.HashedMap;
 
@@ -13,7 +16,9 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class PlayerManager {
@@ -40,7 +45,21 @@ public class PlayerManager {
 		});
 	}
 
-	public void loadAndPlay(MessageChannel channel, String url, boolean isQueue, MessageReceivedEvent event) {
+	public void sendRegularMessage(MessageReceivedEvent event, AudioTrack track) {
+		event.getMessage().reply("```yaml\n" + "Adding to queue:").append(track.getInfo().title)
+				.append("  #  from: " + track.getInfo().author + " channel```").queue();
+	}
+
+	public MessageEmbed createEmbedMsg(AudioTrack track, String usersInput) {
+		EmbedBuilder embedBuilder = new EmbedBuilder();
+		embedBuilder.setTitle("New Song has been Added");
+		embedBuilder.addField("What I understood you:", usersInput, true);
+		embedBuilder.addField("What I'm going to play:", track.getInfo().title, true);
+		return embedBuilder.build();
+	}
+
+	public void loadAndPlay(MessageChannel channel, String url, boolean isQueue, MessageReceivedEvent event,
+			MessageTypes msgType, String usersInput) {
 
 		final GuildMusicManager musicManager = this.getMusicManager(event.getGuild());
 
@@ -50,22 +69,23 @@ public class PlayerManager {
 			public void trackLoaded(AudioTrack track) {
 				musicManager.SCHEDULER.queue(track);
 
-				event.getMessage().reply("```yaml\n" + "Adding to queue:").append(track.getInfo().title)
-						.append("  #  from: " + track.getInfo().author + " channel```").queue();
+				switch (msgType) {
+				case EMBED_MESSAGE:
+					event.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput));
+					break;
+				case REG_MESSAGE:
+					sendRegularMessage(event, track);
+					break;
+				default:
+					System.out.println("error while sending track info");
+				}
 
 			}
 
 			@Override
 			public void playlistLoaded(AudioPlaylist playlist) {
 
-				if (!isQueue) {
-					List<AudioTrack> tracks = playlist.getTracks();
-					AudioTrack track = tracks.get(0);
-					musicManager.SCHEDULER.queue(track);
-
-					event.getMessage().reply("```yaml\n" + "Adding to queue:").append(track.getInfo().title)
-							.append("  #  from: " + track.getInfo().author + " channel```").queue();
-				} else {
+				if (isQueue) {
 					int addedTracks_count = 0;
 					List<AudioTrack> tracks = playlist.getTracks();
 					for (AudioTrack audioTrack : tracks) {
@@ -78,6 +98,13 @@ public class PlayerManager {
 					 */
 					channel.sendMessage("Successfully added: " + addedTracks_count + " tracks").queue();
 
+				} else {
+					List<AudioTrack> tracks = playlist.getTracks();
+					AudioTrack track = tracks.get(0);
+					musicManager.SCHEDULER.queue(track);
+
+					event.getMessage().reply("```yaml\n" + "Adding to queue:").append(track.getInfo().title)
+							.append("  #  from: " + track.getInfo().author + " channel```").queue();
 				}
 
 			}
