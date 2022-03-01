@@ -10,6 +10,7 @@ public class CommandManager {
 	public final static ArrayList<ICommands> commands = new ArrayList<>();
 
 	public CommandManager() {
+		//maybe add a loop that would go through all classes that could be commands?????
 		addNewCommand(new _Help());
 		addNewCommand(new _Prefix());
 		addNewCommand(new _EmotionalDamage());
