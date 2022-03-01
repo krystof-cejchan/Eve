@@ -24,36 +24,36 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
  */
 public class LibraryClass {
 	public static boolean compareTwoArrays(ArrayList<String> listA, ArrayList<String> listB) {
-		boolean found = false;
+		//boolean found = false;
 
 		for (int i = 0; i < listA.size(); i++) {
 			for (int j = 0; j < listB.size(); j++) {
 				if (listA.get(i).equalsIgnoreCase(listB.get(j))) {
-					found = true;
+					return true;
 				}
 
 			}
 
 		}
 
-		return found;
+		return false/*found*/;
 	}
 
 	@Nullable
 	public static int whereAreTwoArraysTheSame(ArrayList<String> listA, ArrayList<String> listB) {
-		int where = 0;
+		//int where = 0;
 
 		for (int i = 0; i < listA.size(); i++) {
 			for (int j = 0; j < listB.size(); j++) {
 				if (listA.get(i).equalsIgnoreCase(listB.get(j))) {
-					where = j;
+					return j;
 				}
 
 			}
 
 		}
 		// returns index from the SECOND arraylist
-		return where;
+		return null;
 
 	}
 
