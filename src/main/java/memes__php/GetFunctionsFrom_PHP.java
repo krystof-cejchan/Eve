@@ -9,7 +9,8 @@ public class GetFunctionsFrom_PHP {
 
 	public static String getCount(String weburl) {
 		// http://eveuwu.g6.cz/memes/IMemes.php?&getFunctionCount
-
+		
+		//use LibraryClass.isLink to verify that weburl is a proper link
 		try {
 			URL url = new URL(weburl);
 
