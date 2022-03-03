@@ -12,15 +12,14 @@ public class _Prefix implements ICommands {
 		Prefix pref = new Prefix();
 
 		try {
-			pref.setValue(event.getMessage().getContentRaw().split(" ")[1]);
-			/*
-			 * System.out.print(event.getMessage().getContentRaw().split(" ")[1]);
-			 * System.out.println(pref.getValue());
-			 */
+			if (/*
+				 * event.getMessage().getContentRaw().split(" ")[1].contains(" ") == false &&
+				 */ event.getMessage().getContentRaw().split(" ")[1].length() >= 1) {
+				pref.setValue(event.getMessage().getContentRaw().split(" ")[1]);
 
-			event.getMessage().reply("Prefix has been changed to " + pref.getValue()).queue();
+				event.getMessage().reply("Prefix has been changed to " + pref.getValue()).queue();
+			}
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 
 	}

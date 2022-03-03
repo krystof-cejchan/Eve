@@ -23,7 +23,7 @@ public class _PlaySong implements IListeningCommands {
 	@Override
 	public void doTask(MessageReceivedEvent event) throws Exception {
 		// TODO Auto-generated method stub
-		String s = "";
+		
 
 		String text = SpeechToText.getText();
 		String[] args = text.split(" ");
