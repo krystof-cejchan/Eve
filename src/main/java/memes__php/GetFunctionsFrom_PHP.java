@@ -5,13 +5,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
+import _library_class.LibraryClass;
+
 public class GetFunctionsFrom_PHP {
 
 	public static String getCount(String weburl) {
 		// http://eveuwu.g6.cz/memes/IMemes.php?&getFunctionCount
-		
-		//use LibraryClass.isLink to verify that weburl is a proper link
+
 		try {
+			if (!LibraryClass.isLink(weburl))
+				weburl = "http://eveuwu.g6.cz/memes/IMemes.php?&getFunctionCount";
+
 			URL url = new URL(weburl);
 
 			Scanner sc = new Scanner(url.openStream());
