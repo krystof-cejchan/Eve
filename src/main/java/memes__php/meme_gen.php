@@ -19,8 +19,11 @@ if (assert($_GET['profpic1']) && empty($_GET['profpic1']) == false) {
         case 5:
             Smoking_while_Pregnant($arg);
             break;
-case 6:
+        case 6:
             SpiderMan($arg);
+            break;
+        case 7:
+            a_Star_Was_Born($arg);
             break;
 
 
@@ -41,7 +44,8 @@ if (assert($_GET['getFunctionCount'])) {
         $i++;
     }
     echo $i;
-}function Clown($clown_)
+}
+function Clown($clown_)
 {
 
 
@@ -90,7 +94,7 @@ function SpiderMan($user_)
         $res_to_y = 140;
         $resized_pic = imagescale($pic_clw, $res_to_x, $res_to_y);
 
-        $bcg_x = imagesx($pic_bcg)-imagesx($pic_clw)-60;
+        $bcg_x = imagesx($pic_bcg) - imagesx($pic_clw) - 60;
         $bcg_y = 70;
 
         $grl_x = 0;
@@ -231,6 +235,7 @@ function Distracted_BoyFriend($girl_)
     }
 }
 
+
 function But_That_Thing_It_Scares_Me($user_)
 {
 
@@ -248,6 +253,47 @@ function But_That_Thing_It_Scares_Me($user_)
 
         $bcg_x = 400;
         $bcg_y = 780;
+
+        $grl_x = 0;
+        $grl_y = 0;
+
+        $alpha = 100;
+
+
+
+
+
+        imagecopymerge($pic_bcg, $resized_pic, $bcg_x, $bcg_y, $grl_x, $grl_y, $res_to_x, $res_to_y, $alpha);
+
+        header('Content-Type: image/png');
+        imagepng($pic_bcg);
+
+
+
+        imagedestroy($pic_bcg);
+        imagedestroy($pic_user);
+
+        /*memory cleared*/
+    }
+}
+//https://i.imgflip.com/bgte8.jpg
+function a_Star_Was_Born($user_)
+{
+
+
+    if ((assert($_GET['profpic1']) && empty($_GET['profpic1']) == false)) {
+        $bcg_ = 'https://i.imgflip.com/bgte8.jpg';
+
+        $pic_bcg =  imagecreatefromstring(file_get_contents($bcg_));
+        $pic_user =  imagecreatefromstring(file_get_contents($user_));
+
+
+        $res_to_x = 80;
+        $res_to_y = 80;
+        $resized_pic = imagescale($pic_user, $res_to_x, $res_to_y);
+
+        $bcg_x = 200;
+        $bcg_y = 173;
 
         $grl_x = 0;
         $grl_y = 0;
