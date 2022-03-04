@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import _library_class.LibraryClass;
@@ -11,8 +12,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 public class _Help implements ICommands {
 
 	@Override
-	public void doTask(MessageReceivedEvent event) throws IndexOutOfBoundsException {
-
+	public void doTask(MessageReceivedEvent event) throws IndexOutOfBoundsException, IOException {
 		try {
 			EmbedBuilder embedBuilder = new EmbedBuilder();
 			Prefix pref = new Prefix();
@@ -81,6 +81,7 @@ public class _Help implements ICommands {
 				event.getMessage().replyEmbeds(embedBuilder.build()).queue();
 				embedBuilder.clear();
 			}
+
 		} catch (
 
 		Exception e) {
