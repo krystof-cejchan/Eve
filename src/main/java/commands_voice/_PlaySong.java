@@ -1,7 +1,6 @@
 package commands_voice;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import _library_class.LibraryClass;
 import audio_player.MessageTypes;
 import audio_player.PlayCommand;
@@ -60,8 +59,10 @@ public class _PlaySong implements IListeningCommands {
 	 *
 	 * @param args is what users said separated with spaces
 	 * @return a song if possible
+	 * @throws IndexOutOfBoundsException if starter reaches forbiddenWords array
+	 *                                   size
 	 */
-	private String extracttheSong(String[] args) {
+	private String extracttheSong(String[] args) throws IndexOutOfBoundsException {
 		ArrayList<String> searchWords = new ArrayList<>();
 		// HashMap<String, Integer> hMap = new HashMap<>();
 		for (String arg : args) {
@@ -73,13 +74,18 @@ public class _PlaySong implements IListeningCommands {
 		for (int i = 0; i < starter; i++) {
 			for (String word : searchWords) {
 				for (String forbidden : forbiddenWords()) {
-					if (word == forbidden) {
+					if (word == (forbidden.toLowerCase())) {
+						// fix
 						searchWords.remove(i);
+						System.out.println(i);
+					} else {
+
 					}
 				}
 
 			}
 		}
+
 		return LibraryClass.getStringFromArrayOfStrings_withSpaces(searchWords);
 		// error here
 		/*
@@ -104,10 +110,10 @@ public class _PlaySong implements IListeningCommands {
 	}
 
 	private ArrayList<String> forbiddenWords() {
-		ArrayList<String> forbidden = new ArrayList<>(Arrays.asList
-
-		("play", "song"));
-
+		ArrayList<String> forbidden = new ArrayList<>();
+		forbidden.add("play");
+		forbidden.add("by");
+		// forbidden.add("");
 		return forbidden;
 
 	}

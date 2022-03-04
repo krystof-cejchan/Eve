@@ -13,6 +13,7 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
+import _library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -49,9 +50,10 @@ public class PlayerManager {
 
 	public MessageEmbed createEmbedMsg(AudioTrack track, String usersInput) {
 		EmbedBuilder embedBuilder = new EmbedBuilder();
-		embedBuilder.setTitle("New Song has been Added");
-		embedBuilder.addField("What I understood you:", usersInput, true);
-		embedBuilder.addField("What I'm going to play:", track.getInfo().title, true);
+		embedBuilder.setDescription("A new song request");
+		embedBuilder.addField("What I understood you:", usersInput, false);
+		embedBuilder.addField("What I'm going to play:", track.getInfo().title, false);
+		embedBuilder.setColor(LibraryClass.getRandomColor());
 		return embedBuilder.build();
 	}
 
@@ -65,10 +67,10 @@ public class PlayerManager {
 			@Override
 			public void trackLoaded(AudioTrack track) {
 				musicManager.SCHEDULER.queue(track);
-
+				System.out.println("aej");
 				switch (msgType) {
 				case EMBED_MESSAGE:
-					event.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput));
+					event.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput)).queue();
 					break;
 				case REG_MESSAGE:
 					sendRegularMessage(event, track);
@@ -99,9 +101,16 @@ public class PlayerManager {
 					List<AudioTrack> tracks = playlist.getTracks();
 					AudioTrack track = tracks.get(0);
 					musicManager.SCHEDULER.queue(track);
-
-					event.getMessage().reply("```yaml\n" + "Adding to queue:").append(track.getInfo().title)
-							.append("  #  from: " + track.getInfo().author + " channel```").queue();
+					switch (msgType) {
+					case EMBED_MESSAGE:
+						event.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput)).queue();
+						break;
+					case REG_MESSAGE:
+						sendRegularMessage(event, track);
+						break;
+					default:
+						System.out.println("error while sending track info");
+					}
 				}
 
 			}
