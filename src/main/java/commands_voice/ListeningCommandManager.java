@@ -57,13 +57,17 @@ public class ListeningCommandManager {
 			 * 
 			 * String a = new String(bytes, StandardCharsets.UTF_8); System.out.println(a);
 			 */
-			if (SpeechToText.Language.getLang().contains("en-GB")
-					|| SpeechToText.Language.getLang().contains("en-US")) {
+			if ((SpeechToText.Language.getLang().equals("en-GB")
+					|| SpeechToText.Language.getLang().equals("en-US")) == false) {
 				usersVoiceInput = LibraryClass.runPyScript(
 						"C:\\Users\\kryst\\git\\repository3\\discordbottest\\src\\main\\java\\External_Files\\translator.py",
 						usersVoiceInput);
+
 			}
-			System.out.println(usersVoiceInput);
+
+			if (LibraryClass.isUserInputVerySimilarToTags(usersVoiceInput) != null)
+				return LibraryClass.isUserInputVerySimilarToTags(usersVoiceInput);
+
 			HashMap<IListeningCommands, Double> suitabilityMap = new HashMap<>();
 			/*
 			 * hashmap contains commands and their average value of suitability

@@ -2,13 +2,10 @@ package commands_voice;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-
 import _library_class.LibraryClass;
 import audio_player.MessageTypes;
 import audio_player.PlayCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import uncategorized.AllArrayCombinations_Algorithm;
 import voice_and_listening.SpeechToText;
 
 /**
@@ -22,7 +19,6 @@ public class _PlaySong implements IListeningCommands {
 	@Override
 	public void doTask(MessageReceivedEvent event) throws Exception {
 		// TODO Auto-generated method stub
-		
 
 		String text = SpeechToText.getText();
 		String[] args = text.split(" ");
@@ -67,33 +63,44 @@ public class _PlaySong implements IListeningCommands {
 	 */
 	private String extracttheSong(String[] args) {
 		ArrayList<String> searchWords = new ArrayList<>();
-		HashMap<String, Integer> hMap = new HashMap<>();
+		// HashMap<String, Integer> hMap = new HashMap<>();
 		for (String arg : args) {
 			searchWords.add(arg.toLowerCase());
 		}
-		for (String word : searchWords) {
-			for (String forbidden : forbiddenWords()) {
-				if (word == forbidden) {
-					searchWords.remove(searchWords.indexOf(word));
+		int starter = searchWords.size();
+		if (searchWords.size() < forbiddenWords().size())
+			starter = forbiddenWords().size();
+		for (int i = 0; i < starter; i++) {
+			for (String word : searchWords) {
+				for (String forbidden : forbiddenWords()) {
+					if (word == forbidden) {
+						searchWords.remove(i);
+					}
 				}
+
 			}
-
 		}
-		AllArrayCombinations_Algorithm.getCombinations(searchWords).forEach((item) -> {
-			String path = "C:\\Users\\vecer\\git\\Eve\\src\\main\\java\\External_Files\\GetSongSearchResult_s.py";
-			String output = LibraryClass.runPyScript(path, item);
-			hMap.put(item, Integer.valueOf(output));
-		});
-		// String suitableSong =
-		// LibraryClass.getTheMostSuitableStringFromAHashMap(hMap);
-
+		return LibraryClass.getStringFromArrayOfStrings_withSpaces(searchWords);
+		// error here
 		/*
-		 * maybe run suitableSong through the py script to get the "correct" song
-		 * title??
+		 * AllArrayCombinations_Algorithm.getCombinations(searchWords).forEach((item) ->
+		 * { System.out.println(item); String path =
+		 * "C:\\Users\\kryst\\git\\repository3\\discordbottest\\src\\main\\java\\External_Files\\GetSongSearchResult_s.py";
+		 * String output = LibraryClass.runPyScript(path, item); hMap.put(item,
+		 * Integer.valueOf(output)); });
 		 */
 
-		// AllArrayCombinations_Algorithm.getCombinations(searchWords);
-		return LibraryClass.getTheMostSuitableStringFromAHashMap(hMap);
+		/**
+		 * unused due to high slowness for (String comb :
+		 * AllArrayCombinations_Algorithm.getCombinations(searchWords)) {
+		 * System.out.println(comb); String path =
+		 * "C:\\Users\\kryst\\git\\repository3\\discordbottest\\src\\main\\java\\External_Files\\GetSongSearchResult_s.py";
+		 * String output = LibraryClass.runPyScript(path, comb); hMap.put(comb,
+		 * Integer.valueOf(output)); }
+		 * 
+		 * // AllArrayCombinations_Algorithm.getCombinations(searchWords); return
+		 * LibraryClass.getTheMostSuitableStringFromAHashMap(hMap);
+		 */
 	}
 
 	private ArrayList<String> forbiddenWords() {

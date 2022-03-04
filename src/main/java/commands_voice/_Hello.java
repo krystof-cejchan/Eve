@@ -33,7 +33,7 @@ public class _Hello implements IListeningCommands {
 		// TODO Auto-generated method stub
 		ArrayList<String> tags = new ArrayList<>(Arrays.asList
 
-		("hello", "hi", "greetings", "hey"));
+		("hello", "hi", "hey"));
 
 		return tags;
 	}

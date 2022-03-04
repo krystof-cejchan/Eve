@@ -74,9 +74,27 @@ public class LibraryClass {
 		return temp / arrInput.size();
 	}
 
+	public static IListeningCommands isUserInputVerySimilarToTags(String input) {
+		for (IListeningCommands I : ListeningCommandManager.getAllCommands()) {
+			try {
+				ArrayList<String> words = new ArrayList<>();
+				for (String aWord : input.toLowerCase().split(" ")) {
+					words.add(aWord);
+				}
+				if (compareTwoArrays(I.getTags(), words)) {
+					return I;
+				}
+			} catch (Exception e) {
+				return null;
+			}
+		}
+		return null;
+	}
+
 	public static IListeningCommands getTheMostSuitableItemFromAHashMap(HashMap<IListeningCommands, Double> map) {
 		IListeningCommands ImostLikelyToBe = null;
 		double highest = 0;
+
 		for (IListeningCommands I : ListeningCommandManager.getAllCommands()) {
 			if (map.get(I) > highest) {
 				highest = map.get(I);
@@ -91,6 +109,13 @@ public class LibraryClass {
 		}
 	}
 
+	/**
+	 * used for song search opt
+	 * 
+	 * @param map
+	 * @return words with most hits (a song)
+	 * @author thekrystof701
+	 */
 	public static String getTheMostSuitableStringFromAHashMap(HashMap<String, Integer> map) {
 		int top = 0;
 		String chosen = null;
@@ -102,6 +127,14 @@ public class LibraryClass {
 
 		}
 		return chosen;
+	}
+
+	public static String getStringFromArrayOfStrings_withSpaces(ArrayList<String> array) {
+		String ret_val = "";
+		for (String string : array) {
+			ret_val += string + " ";
+		}
+		return ret_val;
 	}
 
 	public static void addReactionToTheMsg(MessageReceivedEvent event, String emoteUNICODE) {
@@ -125,7 +158,9 @@ public class LibraryClass {
 			String output = "";
 			while (!((s = stdInput.readLine()) == null)) {
 				output = s;
+
 			}
+			System.out.println("out " + output);
 			return output;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
