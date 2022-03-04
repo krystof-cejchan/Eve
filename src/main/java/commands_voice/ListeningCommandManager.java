@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.annotation.Nullable;
 
+import com.sun.jdi.event.Event;
+
 import _library_class.LibraryClass;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
+import objects.CurrentTextChannel;
+import voice_and_listening.SpeechToText;
 
 public class ListeningCommandManager {
 	public final static ArrayList<IListeningCommands> commands = new ArrayList<>();
@@ -50,7 +55,13 @@ public class ListeningCommandManager {
 	public IListeningCommands getCommand(String usersVoiceInput) {
 
 		try {
-
+			if (SpeechToText.Language.getLang().contains("en-GB")
+					|| SpeechToText.Language.getLang().contains("en-US")) {
+				usersVoiceInput = LibraryClass.runPyScript(
+						"C:\\Users\\kryst\\git\\repository3\\discordbottest\\src\\main\\java\\External_Files\\translator.py",
+						usersVoiceInput);
+			}
+			System.out.println(usersVoiceInput);
 			HashMap<IListeningCommands, Double> suitabilityMap = new HashMap<>();
 			/*
 			 * hashmap contains commands and their average value of suitability

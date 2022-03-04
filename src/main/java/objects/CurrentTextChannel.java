@@ -1,5 +1,6 @@
 package objects;
 
+
 public class CurrentTextChannel {
 	static String id;
 

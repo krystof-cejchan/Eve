@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.annotation.Nullable;
 
@@ -9,7 +10,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 public class CommandManager {
 	public final static ArrayList<ICommands> commands = new ArrayList<>();
 
-	public CommandManager() {
+	public CommandManager() throws IOException {
 		addNewCommand(new _Help());
 		addNewCommand(new _Prefix());
 		addNewCommand(new _EmotionalDamage());
@@ -41,7 +42,26 @@ public class CommandManager {
 		addNewCommand(new _SupportedLanguages());
 		addNewCommand(new _Memes());
 
+		/*
+		 * CommandManager.getClassesFromPackage("commands").forEach((CLASS_var) -> { try
+		 * { if (CLASS_var.getSimpleName().toString().startsWith("_"))
+		 * addNewCommand(CLASS_var.getDeclaredConstructor().newInstance());
+		 * 
+		 * 
+		 * } catch (InstantiationException | IllegalAccessException |
+		 * IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+		 * | SecurityException multiExep) { System.out.println(multiExep); } });
+		 */
+
 	}
+
+	/*
+	 * public static Set<Class<?>> getClassesFromPackage(String packageName) throws
+	 * IOException { return
+	 * ClassPath.from(ClassLoader.getSystemClassLoader()).getAllClasses().stream()
+	 * .filter(classVar -> classVar.getPackageName().equalsIgnoreCase(packageName))
+	 * .map(classVar -> classVar.load()).collect(Collectors.toSet()); }
+	 */
 
 	private void addNewCommand(ICommands Icmd) {
 
