@@ -4,15 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.annotation.Nullable;
 
-import com.sun.jdi.event.Event;
-
 import _library_class.LibraryClass;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
-import objects.CurrentTextChannel;
 import voice_and_listening.SpeechToText;
 
 public class ListeningCommandManager {
@@ -55,6 +51,12 @@ public class ListeningCommandManager {
 	public IListeningCommands getCommand(String usersVoiceInput) {
 
 		try {
+
+			/*
+			 * byte[] bytes = usersVoiceInput.getBytes(StandardCharsets.UTF_8);
+			 * 
+			 * String a = new String(bytes, StandardCharsets.UTF_8); System.out.println(a);
+			 */
 			if (SpeechToText.Language.getLang().contains("en-GB")
 					|| SpeechToText.Language.getLang().contains("en-US")) {
 				usersVoiceInput = LibraryClass.runPyScript(

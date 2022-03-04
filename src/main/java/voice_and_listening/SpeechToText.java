@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
@@ -104,7 +105,10 @@ public class SpeechToText {
 			while ((s = stdInput.readLine()) != null) {
 				vysledek = s;
 			}
-			return vysledek;
+			String rawString = vysledek;
+			byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
+		
+			return new String(bytes, StandardCharsets.UTF_8);
 
 		} catch (IOException e) {
 			System.out.println("exception happened - here's what I know: ");
