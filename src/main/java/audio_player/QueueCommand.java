@@ -80,7 +80,37 @@ public class QueueCommand {
 				for (AudioTrack audioTrack : audioList) {
 					musicManager.SCHEDULER.QUEUE.add(audioTrack);
 				}
-				event.getChannel().sendMessage(deletedTitle + " has been removed from the queue.").queue();
+				event.getChannel().sendMessage("```diff\n" + "-")
+						.append(deletedTitle + " \nhas been thrown into the void!```").queue();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+
+		}
+		if (queue.isEmpty()) {
+			event.getChannel().sendMessage("Q seems to be empty").queue();
+		}
+	}
+
+	public void removeFromQueuebyName(MessageReceivedEvent event, AudioTrack aTrack) {
+
+		GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
+		BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
+
+		if (!queue.isEmpty()) {
+
+			try {
+				ArrayList<AudioTrack> audioList = new ArrayList<>(queue);
+				String deletedTitle = aTrack.getInfo().title;
+				audioList.remove(aTrack);
+
+				musicManager.SCHEDULER.QUEUE.clear();
+
+				for (AudioTrack audioTrack : audioList) {
+					musicManager.SCHEDULER.QUEUE.add(audioTrack);
+				}
+				event.getChannel().sendMessage("```diff\n" + "-")
+						.append(deletedTitle + " \nhas been thrown into the void!```").queue();
 			} catch (Exception e) {
 				// TODO: handle exception
 			}

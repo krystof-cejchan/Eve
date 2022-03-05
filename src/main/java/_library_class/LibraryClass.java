@@ -7,10 +7,13 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.concurrent.BlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
+
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 import commands_voice.IListeningCommands;
 import commands_voice.ListeningCommandManager;
@@ -102,6 +105,25 @@ public class LibraryClass {
 			}
 		}
 		double minSimilarity = 0.45;
+		if (highest >= minSimilarity) {
+			return ImostLikelyToBe;
+		} else {
+			return null;
+		}
+	}
+
+	public static AudioTrack getTheMostSuitableItemFromAHashMap(HashMap<AudioTrack, Double> map,
+			BlockingQueue<AudioTrack> queue) {
+		AudioTrack ImostLikelyToBe = null;
+		double highest = 0;
+
+		for (AudioTrack I : queue) {
+			if (map.get(I) > highest) {
+				highest = map.get(I);
+				ImostLikelyToBe = I;
+			}
+		}
+		double minSimilarity = 0.1;
 		if (highest >= minSimilarity) {
 			return ImostLikelyToBe;
 		} else {
