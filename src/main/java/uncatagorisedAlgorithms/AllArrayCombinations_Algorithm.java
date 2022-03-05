@@ -1,4 +1,4 @@
-package uncategorized;
+package uncatagorisedAlgorithms;
 
 import java.util.List;
 import java.util.LinkedList;
