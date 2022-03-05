@@ -81,14 +81,14 @@ public class QueueCommand {
 					musicManager.SCHEDULER.QUEUE.add(audioTrack);
 				}
 				event.getChannel().sendMessage("```diff\n" + "-")
-						.append(deletedTitle + " \nhas been thrown into the void!```").queue();
+						.append(deletedTitle + "\nhas been thrown into the void!```").queue();
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 
 		}
 		if (queue.isEmpty()) {
-			event.getChannel().sendMessage("Q seems to be empty").queue();
+			event.getChannel().sendMessage("Queue seems to be empty").queue();
 		}
 	}
 
@@ -110,14 +110,14 @@ public class QueueCommand {
 					musicManager.SCHEDULER.QUEUE.add(audioTrack);
 				}
 				event.getChannel().sendMessage("```diff\n" + "-")
-						.append(deletedTitle + " \nhas been thrown into the void!```").queue();
+						.append(deletedTitle + "\nhas been thrown into the void!```").queue();
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 
 		}
 		if (queue.isEmpty()) {
-			event.getChannel().sendMessage("Q seems to be empty").queue();
+			event.getChannel().sendMessage("Queue seems to be empty").queue();
 		}
 	}
 

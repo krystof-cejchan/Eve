@@ -14,6 +14,7 @@ def main():
             i += 1
 
         d = discogs_client.Client('my_user_agent/1.0', user_token='daRhMyKSYbULWcwtwFOmVPMOfrlpIAsPPFtjdZdI')
+        #deleted token
         results = d.search(searchKeys, type='release')
         # print(searchKeys)
         results.per_page = 1  # sets number of shown results per page
