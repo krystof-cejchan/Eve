@@ -66,7 +66,7 @@ public class _PlaySong implements IListeningCommands {
 		ArrayList<String> searchWords = new ArrayList<>();
 		// HashMap<String, Integer> hMap = new HashMap<>();
 		for (String arg : args) {
-			searchWords.add(arg.toLowerCase());
+			searchWords.add(arg/* .toLowerCase() */);
 		}
 		int starter = searchWords.size();
 		if (searchWords.size() < forbiddenWords().size())
@@ -74,7 +74,7 @@ public class _PlaySong implements IListeningCommands {
 		for (int i = 0; i < starter; i++) {
 			for (String word : searchWords) {
 				for (String forbidden : forbiddenWords()) {
-					if (word == (forbidden.toLowerCase())) {
+					if (word.equalsIgnoreCase(forbidden)) {
 						// fix
 						searchWords.remove(i);
 						System.out.println(i);

@@ -48,9 +48,10 @@ public class PlayerManager {
 				.append("  #  from: " + track.getInfo().author + " channel```").queue();
 	}
 
-	public MessageEmbed createEmbedMsg(AudioTrack track, String usersInput) {
+	public MessageEmbed createEmbedMsg(AudioTrack track, String usersInput, MessageReceivedEvent event) {
 		EmbedBuilder embedBuilder = new EmbedBuilder();
 		embedBuilder.setDescription("A new song request");
+		embedBuilder.setAuthor(event.getAuthor().getAsMention(), null, event.getAuthor().getAvatarUrl());
 		embedBuilder.addField("What I understood you:", usersInput, false);
 		embedBuilder.addField("What I'm going to play:", track.getInfo().title, false);
 		embedBuilder.setColor(LibraryClass.getRandomColor());
@@ -67,16 +68,20 @@ public class PlayerManager {
 			@Override
 			public void trackLoaded(AudioTrack track) {
 				musicManager.SCHEDULER.queue(track);
-				System.out.println("aej");
 				switch (msgType) {
 				case EMBED_MESSAGE:
-					event.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput)).queue();
+					event.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput, event)).queue();
 					break;
 				case REG_MESSAGE:
 					sendRegularMessage(event, track);
 					break;
 				default:
-					System.out.println("error while sending track info");
+					try {
+						sendRegularMessage(event, track);
+						break;
+					} catch (Exception e) {
+						event.getChannel().sendMessage("There's been an error").queue();
+					}
 				}
 
 			}
@@ -89,7 +94,7 @@ public class PlayerManager {
 					List<AudioTrack> tracks = playlist.getTracks();
 					for (AudioTrack audioTrack : tracks) {
 						musicManager.SCHEDULER.queue(audioTrack);
-						addedTracks_count = addedTracks_count + 1;
+						addedTracks_count++;
 					}
 					/*
 					 * tracks.forEach(audioTrack -> { musicManager.SCHEDULER.queue(audioTrack);
@@ -103,21 +108,25 @@ public class PlayerManager {
 					musicManager.SCHEDULER.queue(track);
 					switch (msgType) {
 					case EMBED_MESSAGE:
-						event.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput)).queue();
+						event.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput, event)).queue();
 						break;
 					case REG_MESSAGE:
 						sendRegularMessage(event, track);
 						break;
 					default:
-						System.out.println("error while sending track info");
+						try {
+							sendRegularMessage(event, track);
+							break;
+						} catch (Exception e) {
+							event.getChannel().sendMessage("There's been an error").queue();
+						}
 					}
 				}
-
 			}
 
 			@Override
 			public void noMatches() {
-				channel.sendMessage("Nothing was found").queue();
+				channel.sendMessage("Nothing was found for: __" + usersInput + "__").queue();
 
 			}
 
@@ -126,6 +135,7 @@ public class PlayerManager {
 				channel.sendMessage("Failed to load the track" + exception).queue();
 
 			}
+
 		});
 	}
 
