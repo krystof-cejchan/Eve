@@ -48,12 +48,16 @@ public class PlayerManager {
 				.append("  #  from: " + track.getInfo().author + " channel```").queue();
 	}
 
-	public MessageEmbed createEmbedMsg(AudioTrack track, String usersInput, MessageReceivedEvent event) {
+	public MessageEmbed createEmbedMsg(AudioTrack track, String usersInput, MessageReceivedEvent event,
+			String searchingfor) throws IllegalArgumentException {
 		EmbedBuilder embedBuilder = new EmbedBuilder();
 		embedBuilder.setDescription("A new song request");
-		embedBuilder.setAuthor(event.getAuthor().getAsMention(), null, event.getAuthor().getAvatarUrl());
-		embedBuilder.addField("What I understood you:", usersInput, false);
-		embedBuilder.addField("What I'm going to play:", track.getInfo().title, false);
+		embedBuilder.setAuthor(event.getGuild().getMember(event.getAuthor()).getNickname(), null,
+				event.getAuthor().getAvatarUrl());
+		embedBuilder.addField("What I understood you:", usersInput, true);
+		embedBuilder.addField("What I'm searching for:", searchingfor.replace("ytsearch:", ""), true);
+		embedBuilder.addBlankField(false);
+		embedBuilder.addField("What I'm going to play:", "***" + track.getInfo().title + "***", false);
 		embedBuilder.setColor(LibraryClass.getRandomColor());
 		return embedBuilder.build();
 	}
@@ -70,7 +74,7 @@ public class PlayerManager {
 				musicManager.SCHEDULER.queue(track);
 				switch (msgType) {
 				case EMBED_MESSAGE:
-					event.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput, event)).queue();
+					event.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput, event, url)).queue();
 					break;
 				case REG_MESSAGE:
 					sendRegularMessage(event, track);
@@ -108,7 +112,7 @@ public class PlayerManager {
 					musicManager.SCHEDULER.queue(track);
 					switch (msgType) {
 					case EMBED_MESSAGE:
-						event.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput, event)).queue();
+						event.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput, event, url)).queue();
 						break;
 					case REG_MESSAGE:
 						sendRegularMessage(event, track);

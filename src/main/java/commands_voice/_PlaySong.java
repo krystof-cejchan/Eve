@@ -68,26 +68,18 @@ public class _PlaySong implements IListeningCommands {
 		for (String arg : args) {
 			searchWords.add(arg/* .toLowerCase() */);
 		}
-		int starter = searchWords.size();
+		searchWords.size();
 		if (searchWords.size() < forbiddenWords().size())
-			starter = forbiddenWords().size();
-		for (int i = 0; i < starter; i++) {
-			for (String word : searchWords) {
-				for (String forbidden : forbiddenWords()) {
-					if (word.equalsIgnoreCase(forbidden)) {
-						// fix
-						searchWords.remove(i);
-						System.out.println(i);
-					} else {
+			forbiddenWords().size();
 
-					}
-				}
+		for (String forbidden : forbiddenWords()) {
 
-			}
+			searchWords.removeIf(currWord -> currWord.equalsIgnoreCase(forbidden));
+
 		}
-
+		System.out.println(searchWords);
 		return LibraryClass.getStringFromArrayOfStrings_withSpaces(searchWords);
-		// error here
+
 		/*
 		 * AllArrayCombinations_Algorithm.getCombinations(searchWords).forEach((item) ->
 		 * { System.out.println(item); String path =
