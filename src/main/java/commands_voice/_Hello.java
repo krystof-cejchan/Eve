@@ -13,7 +13,7 @@ public class _Hello implements IListeningCommands {
 	public void doTask(MessageReceivedEvent event) {
 		// TODO Auto-generated method stub
 
-		event.getMessage().reply("Hello " + event.getAuthor().getAsTag()).queue();
+		event.getMessage().reply("Hello " + event.getGuild().getMember(event.getAuthor()).getNickname());
 	}
 
 	@Override
