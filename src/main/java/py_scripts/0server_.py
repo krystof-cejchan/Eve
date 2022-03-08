@@ -9,14 +9,14 @@ port = 9611
 
 def audio_stream():
     server_socket = socket.socket()
-    server_socket.bind((host_ip, (port - 1)))
+    server_socket.bind((host_ip, (port )))
 
     server_socket.listen(5)
     CHUNK = 1024
-    wf = wave.open("C:\Users\vecer\Music\Cutting Crew - (I Just) Died In Your Arms (Orchestral Version).mp3", 'rb')
+    wf = wave.open("C:\\Users\\vecer\\Music\\Ak nie si moja.wav", 'rb')
 
     p = pyaudio.PyAudio()
-    print('server listening at', (host_ip, (port - 1)))
+    print('server listening at', (host_ip, (port)))
 
     stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
                     channels=wf.getnchannels(),
