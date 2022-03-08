@@ -5,7 +5,7 @@ host_name = socket.gethostname()
 host_ip = socket.gethostbyname(host_name)
 print(host_ip)
 port = 9611
-
+#"C:\\Users\\vecer\\Music\\Ak nie si moja.wav"
 
 def audio_stream():
     p = pyaudio.PyAudio()
@@ -18,7 +18,7 @@ def audio_stream():
 
     # create socket
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socket_address = (host_ip, port - 1)
+    socket_address = (host_ip, port)
     print('server listening at', socket_address)
     client_socket.connect(socket_address)
     print("CLIENT CONNECTED TO", socket_address)
