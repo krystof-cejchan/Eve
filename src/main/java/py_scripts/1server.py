@@ -20,7 +20,7 @@ server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, BUFF_SIZE)
 host_name = socket.gethostname()
 host_ip = socket.gethostbyname(host_name) #'192.168.1.21'  # socket.gethostbyname(host_name)
 print(host_ip)
-port = 9688
+port = 9688 # find out if used?
 socket_address = (host_ip, port)
 server_socket.bind(socket_address)
 print('Listening at:', socket_address)
