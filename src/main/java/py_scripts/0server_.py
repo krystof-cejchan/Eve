@@ -2,7 +2,7 @@ import socket
 import threading, wave, pyaudio, pickle, struct
 
 host_name = socket.gethostname()
-host_ip = '192.168.1.102'  # socket.gethostbyname(host_name)
+host_ip = socket.gethostbyname(host_name)
 print(host_ip)
 port = 9611
 
@@ -13,7 +13,7 @@ def audio_stream():
 
     server_socket.listen(5)
     CHUNK = 1024
-    wf = wave.open("temp.wav", 'rb')
+    wf = wave.open("C:\Users\vecer\Music\Cutting Crew - (I Just) Died In Your Arms (Orchestral Version).mp3", 'rb')
 
     p = pyaudio.PyAudio()
     print('server listening at', (host_ip, (port - 1)))
