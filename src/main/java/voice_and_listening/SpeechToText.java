@@ -61,11 +61,16 @@ public class SpeechToText {
 		GuildVoiceState voiceState = member.getVoiceState();
 		AudioChannel channel = voiceState.getChannel(); // user
 		AudioChannel connectedChannelSelf = event.getGuild().getSelfMember().getVoiceState().getChannel(); // bot
-		if (channel != null || connectedChannelSelf.equals(channel)) {
-			connectTo(channel);
-			onConnecting(channel, event.getChannel());
+		if (channel != null) {
+			if (!channel.equals(connectedChannelSelf)) {
+				connectTo(channel);
+				onConnecting(channel, event.getChannel());
+			} else {
+				connectTo(channel);
+			}
+
 		} else {
-			onUnknownChannel(event.getChannel(), "your voice channel");
+			event.getChannel().sendMessage("You are nowhere to be found *sad noises*").queue();
 		}
 	}
 
@@ -88,22 +93,6 @@ public class SpeechToText {
 
 	public String getTranscription() {
 
-		/*
-		 * Process p = Runtime.getRuntime().exec(
-		 * "py C:\\Users\\kryst\\git\\repository3\\discordbottest\\src\\main\\java\\External_Files\\soundfiletotext.py H:\\audio_file.wav "
-		 * + Language.lang); // Process p = Runtime.getRuntime().exec("py //
-		 * https://github.com/TheKrystof701/Discord-Java-Bot/blob/master/src/main/java/
-		 * External_Files/soundfiletotext.py // H:\\audio_file.wav"); BufferedReader
-		 * stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		 * 
-		 * new BufferedReader(new InputStreamReader(p.getErrorStream()));
-		 * 
-		 * String vysledek = ""; while ((s = stdInput.readLine()) != null) { vysledek =
-		 * s; } String rawString = vysledek; byte[] bytes =
-		 * rawString.getBytes(StandardCharsets.UTF_8);
-		 * 
-		 * return new String(bytes, StandardCharsets.UTF_8);
-		 */
 		String rawString = LibraryClass.runPyScript(ScriptPathPointer.soundFile2Text,
 				"H:\\audio_file.wav " + Language.lang);
 		byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
@@ -114,11 +103,6 @@ public class SpeechToText {
 
 	private void onConnecting(AudioChannel channel, MessageChannel messageChannel) {
 		messageChannel.sendMessage("Connecting to " + channel.getName()).queue();
-	}
-
-	private void onUnknownChannel(MessageChannel channel, String comment) {
-		channel.sendMessage("Unable to connect to ``" + comment + "``, no such channel!").queue();
-
 	}
 
 	static Guild guild;
@@ -149,24 +133,17 @@ public class SpeechToText {
 		}
 
 		ArrayList<Integer> talkingMembersCount = new ArrayList<Integer>();
-		int MAX_VALUE = 100;
+		final int MAX_VALUE = 100;
 		public boolean isAllowedToCarryOn = true;
 
 		@Override
 		public void handleCombinedAudio(CombinedAudio combinedAudio) {
 
-			/*
-			 * if (combinedAudio.getUsers().isEmpty()) return;
-			 */
-
 			guild.getAudioManager();
 
-			// byte[] data = combinedAudio.getAudioData(1.0f); // volume at 100% = 1.0 (50%
-			// = 0.5 / 55% = 0.55)
-			rescievedBytes.add(combinedAudio.getAudioData(1.5f));
+			rescievedBytes.add(combinedAudio.getAudioData(1.5f));/* 1.0 → 100% */
 
 			talkingMembersCount.add(combinedAudio.getUsers().size());
-			// queue.add(data);
 
 			if (talkingMembersCount.size() > MAX_VALUE) {
 				if (isAllowedToCarryOn && haveUsersStoppedTalking(talkingMembersCount)) {
@@ -249,16 +226,16 @@ public class SpeechToText {
 
 			int count = 0;
 			try {
-				for (int i = list.size() - MAX_VALUE; i < list.size(); i++) {
+				for (int y = list.size() - MAX_VALUE; y < list.size(); y++) {
 
-					count = count + list.get(i);
+					count += list.get(y);
 				}
 
 				if (count == 0)
 					return true;
-				else {
-					return false;
-				}
+
+				return false;
+
 			} catch (Exception e) {
 				System.out.println(e);
 				return false;
