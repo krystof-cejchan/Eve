@@ -24,12 +24,13 @@ def audio_stream():
     print("CLIENT CONNECTED TO", socket_address)
     data = b""
     payload_size = struct.calcsize("Q")
+    size = 4 * 1024
     while True:
         try:
             print("1")
             while len(data) < payload_size:
                 print("2")
-                packet = client_socket.recv(1 * 1024)  # 4K
+                packet = client_socket.recv(size)  # 4K
                 if not packet: break
                 data += packet
             packed_msg_size = data[:payload_size]
@@ -37,12 +38,13 @@ def audio_stream():
             msg_size = struct.unpack("Q", packed_msg_size)[0]
             while len(data) < msg_size:
                 print("3")
-                data += client_socket.recv(1 * 1024)
+                data += client_socket.recv(size)
+            print("3,5")
             frame_data = data[:msg_size]
             data = data[msg_size:]
             frame = pickle.loads(frame_data)
             stream.write(frame)
-            print("4")
+            
 
 
 
