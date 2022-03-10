@@ -61,11 +61,7 @@ public class _ChangeDefaultLanguage implements IListeningCommands {
 
 	@Override
 	public ArrayList<String> getTags() {
-		ArrayList<String> tags = new ArrayList<>(Arrays.asList
-
-		("language", "set language", "change language", "default language"));
-
-		return tags;
+		return new ArrayList<String>(Arrays.asList("language", "set language", "change language", "default language"));
 	}
 
 }
