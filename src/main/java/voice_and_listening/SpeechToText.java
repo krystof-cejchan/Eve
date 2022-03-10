@@ -8,20 +8,20 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
 import objects.CurrentTextChannel;
 import objects.MessageReceivedEvent_CustomClass;
+import objects.ScriptPathPointer;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
+import _library_class.LibraryClass;
 import commands_voice.IListeningCommands;
 import commands_voice.ListeningCommandManager;
 
 import javax.sound.sampled.AudioFileFormat;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -87,34 +87,29 @@ public class SpeechToText {
 	}
 
 	public String getTranscription() {
-		String s;
 
-		try {
+		/*
+		 * Process p = Runtime.getRuntime().exec(
+		 * "py C:\\Users\\kryst\\git\\repository3\\discordbottest\\src\\main\\java\\External_Files\\soundfiletotext.py H:\\audio_file.wav "
+		 * + Language.lang); // Process p = Runtime.getRuntime().exec("py //
+		 * https://github.com/TheKrystof701/Discord-Java-Bot/blob/master/src/main/java/
+		 * External_Files/soundfiletotext.py // H:\\audio_file.wav"); BufferedReader
+		 * stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		 * 
+		 * new BufferedReader(new InputStreamReader(p.getErrorStream()));
+		 * 
+		 * String vysledek = ""; while ((s = stdInput.readLine()) != null) { vysledek =
+		 * s; } String rawString = vysledek; byte[] bytes =
+		 * rawString.getBytes(StandardCharsets.UTF_8);
+		 * 
+		 * return new String(bytes, StandardCharsets.UTF_8);
+		 */
+		String rawString = LibraryClass.runPyScript(ScriptPathPointer.soundFile2Text,
+				"H:\\audio_file.wav " + Language.lang);
+		byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
 
-			Process p = Runtime.getRuntime().exec(
-					"py C:\\Users\\kryst\\git\\repository3\\discordbottest\\src\\main\\java\\External_Files\\soundfiletotext.py H:\\audio_file.wav "
-							+ Language.lang);
-			// Process p = Runtime.getRuntime().exec("py
-			// https://github.com/TheKrystof701/Discord-Java-Bot/blob/master/src/main/java/External_Files/soundfiletotext.py
-			// H:\\audio_file.wav");
-			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		return new String(bytes, StandardCharsets.UTF_8);
 
-			new BufferedReader(new InputStreamReader(p.getErrorStream()));
-
-			String vysledek = "";
-			while ((s = stdInput.readLine()) != null) {
-				vysledek = s;
-			}
-			String rawString = vysledek;
-			byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
-		
-			return new String(bytes, StandardCharsets.UTF_8);
-
-		} catch (IOException e) {
-			System.out.println("exception happened - here's what I know: ");
-			e.printStackTrace();
-			return "Error has occured";
-		}
 	}
 
 	private void onConnecting(AudioChannel channel, MessageChannel messageChannel) {
@@ -193,9 +188,16 @@ public class SpeechToText {
 						getWavFile(file, decodedData);
 						SpeechToText StT = new SpeechToText();
 						String transcription = StT.getTranscription();
+						guild.getTextChannelById(CurrentTextChannel.getId()).sendMessage(transcription).queue();
+						if (!((SpeechToText.Language.getLang().equals("en-GB")
+								|| SpeechToText.Language.getLang().equals("en-US")))) {
+							transcription = LibraryClass.runPyScript(ScriptPathPointer.translator, transcription);
+							guild.getTextChannelById(CurrentTextChannel.getId()).sendMessage(transcription).queue();
+						}
+
 						System.out.println(transcription);
 						// CurrentTextChannel ctch = new CurrentTextChannel();
-						guild.getTextChannelById(CurrentTextChannel.getId()).sendMessage(transcription).queue();
+
 						SpeechToText.setText(transcription);
 						ListeningCommandManager listeningCommandManager = new ListeningCommandManager();
 

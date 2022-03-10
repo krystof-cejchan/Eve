@@ -10,7 +10,7 @@ import java.net.Socket;
 public class Server_audio {
 	public static void launch(String filePath) throws IOException {
 
-		if (filePath == null || filePath.isBlank() || filePath.isEmpty())
+		if (filePath == null || filePath.isEmpty())
 			throw new IllegalArgumentException("expected sound file");
 		File soundFile = AudioUtil.getSoundFile(filePath);
 

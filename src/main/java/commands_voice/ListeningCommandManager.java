@@ -9,7 +9,6 @@ import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
-import voice_and_listening.SpeechToText;
 
 public class ListeningCommandManager {
 	public final static ArrayList<IListeningCommands> commands = new ArrayList<>();
@@ -57,13 +56,7 @@ public class ListeningCommandManager {
 			 * 
 			 * String a = new String(bytes, StandardCharsets.UTF_8); System.out.println(a);
 			 */
-			if ((SpeechToText.Language.getLang().equals("en-GB")
-					|| SpeechToText.Language.getLang().equals("en-US")) == false) {
-				usersVoiceInput = LibraryClass.runPyScript(
-						"C:\\Users\\kryst\\git\\repository3\\discordbottest\\src\\main\\java\\External_Files\\translator.py",
-						usersVoiceInput);
-
-			}
+			
 
 			if (LibraryClass.isUserInputVerySimilarToTags(usersVoiceInput) != null)
 				return LibraryClass.isUserInputVerySimilarToTags(usersVoiceInput);
