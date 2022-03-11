@@ -113,6 +113,109 @@ public enum LANGUAGES {
 		return l;
 	}
 
+	public static LANGUAGES getProperLanFromShort(String shortLan) {
+
+		switch (shortLan) {
+		case "ar-SA":
+			return arabic;
+
+		case "cs-CZ":
+			return czech;
+
+		case "da-DK":
+			return danish;
+
+		case "de-DE":
+			return german;
+
+		case "el-GR":
+			return greek;
+
+		case "en-AU":
+			return englisha;
+
+		case "en-GB":
+			return englishuk;
+
+		case "en-US":
+			return englishus;
+
+		case "es-ES":
+			return spanish;
+
+		case "fi-FI":
+			return finnish;
+
+		case "fr-FR":
+			return french;
+
+		case "he-IL":
+			return hebrew;
+
+		case "hi-IN":
+			return hindi;
+
+		case "hu-HU":
+			return hungarian;
+
+		case "id-ID":
+			return indonesian;
+
+		case "it-IT":
+			return italian;
+
+		case "ja-JP":
+			return japanese;
+
+		case "ko-KR":
+			return korean;
+
+		case "nl-NL":
+			return dutch;
+
+		case "no-NO":
+			return norwegian;
+
+		case "pl-PL":
+			return polish;
+
+		case "pt-PT":
+			return portuguese;
+
+		case "ro-RO":
+			return romanian;
+
+		case "ru-RU":
+			return russian;
+
+		case "sk-SK":
+			return slovak;
+
+		case "sv-SE":
+			return swedish;
+
+		case "th-TH":
+			return thai;
+
+		case "tr-TR":
+			return turkish;
+
+		case "zh-CN":
+			return chinese;
+
+		case "zn-HK":
+			return chinesehk;
+
+		case "zn-TW":
+			return chineset;
+
+		default:
+			return englishuk;
+
+		}
+
+	}
+
 	public static String getProperLanguage(LANGUAGES LANG) {
 		String l;
 		switch (LANG) {

@@ -22,10 +22,6 @@ public class _SupportedLanguages implements ICommands {
 		// MessageBuilder msgB = new MessageBuilder();
 		EmbedBuilder embedBuilder = new EmbedBuilder();
 		for (int i = 0; i < langArr.size(); i++) {
-			// msgB.append((String.valueOf(i)) + "**" +
-			// langArr.get(i).toString().toUpperCase() + "**");
-
-			// msgB.append(LANGUAGES.getLangFlag(langArr.get(i)) + "\n");
 			embedBuilder.addField(LANGUAGES.getLangFlag(langArr.get(i)), LANGUAGES.getProperLanguage(langArr.get(i)),
 					true);
 
