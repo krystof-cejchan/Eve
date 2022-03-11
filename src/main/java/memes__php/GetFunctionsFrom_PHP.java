@@ -15,29 +15,20 @@ public class GetFunctionsFrom_PHP {
 		try {
 			if (!LibraryClass.isLink(weburl))
 				weburl = "http://eveuwu.g6.cz/memes/IMemes.php?&getFunctionCount";
-
 			URL url = new URL(weburl);
-
 			Scanner sc = new Scanner(url.openStream());
-
 			StringBuffer sb = new StringBuffer();
 			while (sc.hasNext()) {
 				sb.append(sc.next());
-
 			}
-
 			String result = sb.toString();
 			System.out.println(result);
-
 			sc.close();
 			return result.replaceAll("<[^>]*>", "");
-
 		} catch (MalformedURLException e) {
-
 			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
-
 			e.printStackTrace();
 			return null;
 		}
