@@ -72,6 +72,8 @@ public class ListeningCommandManager {
 			
 			StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
 			System.out.println(commands.size());
+			//if(AreTwoArrayValuesEqual_Algo.areTwoArrayValuesEqual(arrayList, arrayList2))
+			
 			for (IListeningCommands theInterfaceExample : commands) {
 				/*
 				 * targetAsDescr = theInterfaceExample.whatDoIDo();

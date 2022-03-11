@@ -191,6 +191,17 @@ public class LibraryClass {
 		}
 	}
 
+	public static boolean areTwoArrayValuesEqual(ArrayList<?> a, ArrayList<?> b) {
+		for (Object objectB : b) {
+			for (Object objectA : a) {
+				if (objectB == objectA || objectB.equals(objectA))
+					return true;
+			}
+		}
+
+		return false;
+	}
+
 	public static boolean isLink(String link) {
 		String urlRegex = "((http:\\/\\/|https:\\/\\/)?(www.)?(([a-zA-Z0-9-]){2,}\\.){1,4}([a-zA-Z]){2,6}(\\/([a-zA-Z-_\\/\\.0-9#:?=&;,]*)?)?)";
 		Pattern pattern = Pattern.compile(urlRegex);
