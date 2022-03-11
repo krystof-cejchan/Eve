@@ -17,6 +17,7 @@ public class ListeningCommandManager {
 		addNewCommand(new _ChangeDefaultLanguage());
 		addNewCommand(new _Hello());
 		addNewCommand(new _PlaySong());
+		addNewCommand(new _Skip_toNext());
 	}
 
 	private void addNewCommand(IListeningCommands Icmd) {
@@ -34,30 +35,29 @@ public class ListeningCommandManager {
 	}
 
 	/**
+	 * 
 	 * what we aim to do here is rather simple but quite difficult to create. We
 	 * need to find the most suitable command from the user's voice input. Meaning
 	 * that we have to compare every word that the user said with the description
-	 * and tags of every command (description = return value of @whatDoIdo()) and
-	 * then we calculate an average of an average values from description and tags
-	 * most likely, we will state some certain value that will serve as a minimum
-	 * value of the calculated average (if average is too low, it may mean that the
-	 * input was incorrect) then we compare all calculated averages and the most
-	 * reliable average will be chosen and its command will be executed.
+	 * and tags of every command (description = return value of @whatDoIdo()) of
+	 * every command implementing IListeningCommands interface and then we calculate
+	 * an average of an average values from description and tags most likely, we
+	 * will state some certain value that will serve as a minimum value of the
+	 * calculated average (if average is too low, it may mean that the input was
+	 * incorrect) then we compare all calculated averages and the most reliable
+	 * average will be chosen and its command will be executed. long story short:
+	 * GET THE MOST SUITABLE COMMAND FROM USER'S VOICE INPUT
 	 * 
-	 * long story short: GET THE MOST SUITABLE COMMAND FROM USER'S VOICE INPUT
+	 * @param usersVoiceInput → user's voice input transcribed to text
+	 *                        {@link String}
+	 * @author thekrystof701 <br>
+	 *         <i>02 / 2022</i>
+	 * @return the most suitable class implementing the interface
 	 */
 	@Nullable
 	public IListeningCommands getCommand(String usersVoiceInput) {
 
 		try {
-
-			/*
-			 * byte[] bytes = usersVoiceInput.getBytes(StandardCharsets.UTF_8);
-			 * 
-			 * String a = new String(bytes, StandardCharsets.UTF_8); System.out.println(a);
-			 */
-			
-
 			if (LibraryClass.isUserInputVerySimilarToTags(usersVoiceInput) != null)
 				return LibraryClass.isUserInputVerySimilarToTags(usersVoiceInput);
 
@@ -69,7 +69,7 @@ public class ListeningCommandManager {
 			ArrayList<Double> tempResults = new ArrayList<>();
 
 			SimilarityStrategy strategy = new JaroWinklerStrategy();
-			// String targetAsDescr;
+			
 			StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
 			System.out.println(commands.size());
 			for (IListeningCommands theInterfaceExample : commands) {
