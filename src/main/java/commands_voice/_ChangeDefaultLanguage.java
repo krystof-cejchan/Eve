@@ -33,17 +33,19 @@ public class _ChangeDefaultLanguage implements IListeningCommands {
 
 					SpeechToText.Language.setLang(LANGUAGES.getShortLang(LANGUAGES.valueOf(languagesArray
 							.get(LibraryClass.whereAreTwoArraysTheSame(wordsArray, languagesArray)).toLowerCase())));
-					/*
-					 * event.getChannel() .sendMessage("The default language was set to *" +
-					 * SpeechToText.Language.getLang() + "*") .queue();
-					 */
-					event.getChannel()
-							.sendMessage("The default language was set to **"
-									+ LANGUAGES.getProperLanFromShort(SpeechToText.Language.getLang()) + " "
-									+ LANGUAGES.getLangFlag(
-											LANGUAGES.getProperLanFromShort(SpeechToText.Language.getLang()))
-									+ "**")
-							.queue();
+
+					try {
+						event.getChannel().sendMessage("The default language was set to **"
+								+ LANGUAGES.getProperLanFromShort(SpeechToText.Language.getLang()) + " "
+								+ LANGUAGES.getLangFlag(
+										LANGUAGES.getProperLanFromShort(SpeechToText.Language.getLang()))
+								+ "**").queue();
+					} catch (IllegalArgumentException e) {
+						event.getChannel()
+								.sendMessage(
+										"The default language was set to *" + SpeechToText.Language.getLang() + "*")
+								.queue();
+					}
 				}
 
 			}
