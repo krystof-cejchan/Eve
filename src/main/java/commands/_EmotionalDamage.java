@@ -10,9 +10,8 @@ public class _EmotionalDamage implements ICommands {
 	@Override
 	public void doTask(MessageReceivedEvent event) {
 		// TODO Auto-generated method stub
-		Asian asian = new Asian();
 
-		event.getMessage().reply(asian.sendEmotionalDamage()).queue();
+		event.getMessage().reply(Asian.sendEmotionalDamage()).queue();
 	}
 
 	@Override

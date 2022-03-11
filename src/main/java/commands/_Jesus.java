@@ -10,9 +10,7 @@ public class _Jesus implements ICommands {
 	@Override
 	public void doTask(MessageReceivedEvent event) {
 		// TODO Auto-generated method stub
-		Asian asian = new Asian();
-
-		event.getMessage().reply(asian.sendJesus()).queue();
+		event.getMessage().reply(Asian.sendJesus()).queue();
 	}
 
 	@Override

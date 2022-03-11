@@ -1,36 +1,21 @@
 package commands_others;
 
-import java.util.ArrayList;
-
 import _library_class.LibraryClass;
-import main.GifSender;
 
 public class Asian {
 
-	GifSender gs = new GifSender();
-
-	public String sendEmotionalDamage() {
-		ArrayList<String> pole = new ArrayList<>();
-		pole.add("https://tenor.com/bLzfU.gif");
-		pole.add("https://tenor.com/bKsTq.gif");
-		pole.add("https://tenor.com/bKtZ4.gif");
-		pole.add("https://tenor.com/bOgeZ.gif");
-		pole.add("https://tenor.com/bOco4.gif");
-		pole.add("https://tenor.com/bM4pO.gif");
-		int i = LibraryClass.generateRandomInt(0, pole.size());
-		return (pole.get(i).toString());
+	public static String sendEmotionalDamage() {
+		String[] links = { "https://tenor.com/bLzfU.gif", "https://tenor.com/bKsTq.gif", "https://tenor.com/bKtZ4.gif",
+				"https://tenor.com/bOgeZ.gif", "https://tenor.com/bOco4.gif", "https://tenor.com/bM4pO.gif" };
+		return links[LibraryClass.generateRandomInt(0, links.length)];
 	}
 
-	public String sendJesus() {
-		ArrayList<String> pole = new ArrayList<>();
-		pole.add("https://tenor.com/bDxn5.gif");
-		pole.add("https://tenor.com/bGgnd.gif");
-		pole.add("https://tenor.com/bNFnu.gif");
-		pole.add("https://tenor.com/bOqal.gif");
-		pole.add("https://tenor.com/bO3s3.gif");
-		pole.add("https://tenor.com/bOQ0f.gif");
-		int i = LibraryClass.generateRandomInt(0, pole.size());
-		return (pole.get(i).toString());
+	public static String sendJesus() {
+
+		String[] links = { "https://tenor.com/bDxn5.gif", "https://tenor.com/bGgnd.gif", "https://tenor.com/bNFnu.gif",
+				"https://tenor.com/bOqal.gif", "https://tenor.com/bO3s3.gif", "https://tenor.com/bOQ0f.gif" };
+
+		return links[LibraryClass.generateRandomInt(0, links.length)];
 	}
 
 }
