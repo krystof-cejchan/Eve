@@ -38,7 +38,7 @@ public class _Me implements ICommands {
 	@Override
 	public String whatDoIDo() {
 		// TODO Auto-generated method stub
-		return "This command tells you info about you";
+		return "This command tells you your account details";
 	}
 
 	@Override
