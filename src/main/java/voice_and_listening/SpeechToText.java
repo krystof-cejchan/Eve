@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.managers.AudioManager;
 import objects.CurrentTextChannel;
 import objects.MessageReceivedEvent_CustomClass;
 import objects.ScriptPathPointer;
+import objects.SoundFile;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -94,7 +95,7 @@ public class SpeechToText {
 	public String getTranscription() {
 
 		String rawString = LibraryClass.runPyScript(ScriptPathPointer.soundFile2Text,
-				"H:\\audio_file.wav " + Language.lang);
+				SoundFile.getWholePath() + " " + Language.lang);
 		byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
 
 		return new String(bytes, StandardCharsets.UTF_8);
@@ -160,7 +161,10 @@ public class SpeechToText {
 								decodedData[i++] = bs[j];
 							}
 						}
-						File file = new File("H:\\audio_file.wav");
+
+						SoundFile.setTitle(msgEvent.getEvent().getGuild().getId());
+
+						File file = new File(SoundFile.getWholePath());
 
 						getWavFile(file, decodedData);
 						SpeechToText StT = new SpeechToText();

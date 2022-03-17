@@ -56,7 +56,6 @@ public class PlayerManager {
 				event.getAuthor().getAvatarUrl());
 		embedBuilder.addField("What I understood you:", usersInput, true);
 		embedBuilder.addField("What I'm searching for:", searchingfor.replace("ytsearch:", ""), true);
-		embedBuilder.addBlankField(false);
 		embedBuilder.addField("What I'm going to play:", "***" + track.getInfo().title + "***", false);
 		embedBuilder.setColor(LibraryClass.getRandomColor());
 		return embedBuilder.build();
