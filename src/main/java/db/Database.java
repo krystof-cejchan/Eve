@@ -1,6 +1,5 @@
 package db;
 
-import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,6 +7,7 @@ import java.sql.SQLException;
 public class Database {
 	String path;
 	int guild;
+	String fullPath;
 
 	boolean isConnSuccesfully = false;
 
@@ -16,6 +16,12 @@ public class Database {
 		this.path = path;
 		this.guild = guild;
 
+		this.fullPath = "jdbc:sqlite:" + path;
+
+	}
+
+	public String getFullPath() {
+		return fullPath;
 	}
 
 	public String getPath() {
@@ -38,15 +44,15 @@ public class Database {
 	 * @param pass path to the db "C:/folder1/folder2/databaseFile.db"
 	 * @see {@code createNewDB_withFileName(String fileName)}
 	 */
-	public void createNewDB_withWholePath(String path) {
-		String url = "jdbc:sqlite:" + path;
-		java.io.File db = new java.io.File(path);
+	public void createNewDB_withWholePath() {
+
+		java.io.File db = new java.io.File(getPath());
 
 		if (!db.exists()) {
 			@SuppressWarnings("unused")
 			Connection conn = null;
 			try {
-				conn = DriverManager.getConnection(url);
+				conn = DriverManager.getConnection(fullPath);
 				isConnSuccesfully = true;
 			} catch (SQLException e) {
 				// TODO: handle exception
@@ -55,17 +61,37 @@ public class Database {
 		}
 	}
 
+	public void connectToDB() {
+		Connection conn = null;
+		try {
+
+			conn = DriverManager.getConnection(fullPath);
+
+			System.out.println("Connection to SQLite has been established.");
+			isConnSuccesfully = true;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+					isConnSuccesfully = false;
+				}
+			} catch (SQLException ex) {
+				System.out.println(ex.getMessage());
+			}
+		}
+	}
+
 	/**
 	 * @param pass filename "database1.db"
 	 * @see {@code createNewDB_withWholePath(String path)}
 	 */
-	public void createNewDB_withFileName(String fileName) {
-		String url = "jdbc:sqlite:H:/SQLite/" + fileName;
-
+	public void createNewDB_withFileName() {
 		@SuppressWarnings("unused")
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection(url);
+			conn = DriverManager.getConnection(fullPath);
 			isConnSuccesfully = true;
 		} catch (SQLException e) {
 			// TODO: handle exception
@@ -74,8 +100,17 @@ public class Database {
 
 	}
 
-	public boolean isConnected() {
-		return isConnSuccesfully;
+	public void closeConnection() throws SQLException {
+		Connection conn = DriverManager.getConnection(fullPath);
+		conn.close();
+	}
+
+	public boolean isConnected() throws SQLException {
+		Connection conn = DriverManager.getConnection(fullPath);
+		if (conn.isClosed())
+			return false;
+
+		return true;
 	}
 
 }
