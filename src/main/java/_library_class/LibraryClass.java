@@ -6,7 +6,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
@@ -168,6 +170,11 @@ public class LibraryClass {
 			/* emote may not exist */
 		}
 
+	}
+
+	public static String getCurrentDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		return formatter.format(new Date(System.currentTimeMillis()));
 	}
 
 	public static void ADD_Text2File(String path, String str) throws IOException, NullPointerException {
