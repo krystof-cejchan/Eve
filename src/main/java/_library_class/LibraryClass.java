@@ -2,6 +2,8 @@ package _library_class;
 
 import java.awt.Color;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ public class LibraryClass {
 
 		}
 
-		return false/* found */;
+		return false;
 	}
 
 	@Nullable
@@ -166,6 +168,17 @@ public class LibraryClass {
 			/* emote may not exist */
 		}
 
+	}
+
+	public static void ADD_Text2File(String path, String str) throws IOException, NullPointerException {
+		if (path == null)
+			path = "H:\\lst_of_existing_sound_files.txt";
+
+		BufferedWriter writer = new BufferedWriter(new FileWriter(path, true));
+		writer.append("\n");
+		writer.append(str);
+
+		writer.close();
 	}
 
 	public static String runPyScript(String fullPath, String arguments) {
