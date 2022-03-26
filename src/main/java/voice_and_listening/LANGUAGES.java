@@ -418,7 +418,7 @@ public enum LANGUAGES {
 			break;
 
 		default:
-			l = "🌐";
+			l = "🌎";
 			break;
 		}
 		return l;
