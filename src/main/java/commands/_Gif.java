@@ -29,9 +29,9 @@ public class _Gif implements ICommands {
 			}
 
 			GifSender gifs = new GifSender();
-			String zprava = gifs.call_me(searchKey, "2");
+			String msg = gifs.call_me(searchKey, "2");
 
-			event.getMessage().reply((zprava)).queue();
+			event.getMessage().reply(msg).queue();
 		} catch (Exception e) {
 			System.out.println(e);
 		}

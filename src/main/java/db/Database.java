@@ -1,20 +1,20 @@
 package db;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
 	String path;
-	int guild;
+
 	String fullPath;
 
 	boolean isConnSuccesfully = false;
 
-	public Database(String path, int guild) {
+	public Database(String path) {
 		// TODO Auto-generated constructor stub
 		this.path = path;
-		this.guild = guild;
 
 		this.fullPath = "jdbc:sqlite:" + path;
 
@@ -32,21 +32,15 @@ public class Database {
 		this.path = path;
 	}
 
-	public int getGuild() {
-		return guild;
-	}
-
-	public void setGuild(int guild) {
-		this.guild = guild;
-	}
-
 	/**
 	 * @param pass path to the db "C:/folder1/folder2/databaseFile.db"
+	 * @throws IOException
 	 * @see {@code createNewDB_withFileName(String fileName)}
 	 */
-	public void createNewDB_withWholePath() {
+	public void createNewDB_withWholePath() throws IOException {
 
 		java.io.File db = new java.io.File(getPath());
+		db.createNewFile();
 
 		if (!db.exists()) {
 			@SuppressWarnings("unused")
@@ -81,23 +75,6 @@ public class Database {
 				System.out.println(ex.getMessage());
 			}
 		}
-	}
-
-	/**
-	 * @param pass filename "database1.db"
-	 * @see {@code createNewDB_withWholePath(String path)}
-	 */
-	public void createNewDB_withFileName() {
-		@SuppressWarnings("unused")
-		Connection conn = null;
-		try {
-			conn = DriverManager.getConnection(fullPath);
-			isConnSuccesfully = true;
-		} catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-
 	}
 
 	public void closeConnection() throws SQLException {

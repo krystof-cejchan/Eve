@@ -172,8 +172,12 @@ public class LibraryClass {
 
 	}
 
-	public static String getCurrentDate() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	public static String getCurrentDate(boolean includeTime) {
+		String format = "dd-MM-yyyy";
+		if (includeTime)
+			format += " HH_mm_ss";
+		System.out.println(format);
+		SimpleDateFormat formatter = new SimpleDateFormat(format);
 		return formatter.format(new Date(System.currentTimeMillis()));
 	}
 

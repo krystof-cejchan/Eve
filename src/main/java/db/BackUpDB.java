@@ -17,7 +17,7 @@ public class BackUpDB {
 	}
 
 	public static void copyFileUsingJava7Files(File source, String dir) throws IOException {
-		File n_dest_time = new File(dir.concat(LibraryClass.getCurrentDate()));
+		File n_dest_time = new File(dir.concat(LibraryClass.getCurrentDate(true)));
 		if (Files.exists(source.toPath())) {
 			Files.copy(source.toPath(), n_dest_time.toPath());
 		}

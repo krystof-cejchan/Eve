@@ -134,17 +134,23 @@ public class SpeechToText {
 		}
 
 		ArrayList<Integer> talkingMembersCount = new ArrayList<Integer>();
+		// ArrayList<Boolean> talkingMemeberGuard = new ArrayList<>();
 		final int MAX_VALUE = 100;
 		public boolean isAllowedToCarryOn = true;
 
 		@Override
 		public void handleCombinedAudio(CombinedAudio combinedAudio) {
+			// includeUserInCombinedAudio(msgEvent.getEvent().getAuthor());
 
 			guild.getAudioManager();
 
-			rescievedBytes.add(combinedAudio.getAudioData(1.5f));/* 1.0 → 100% */
+			rescievedBytes.add(combinedAudio.getAudioData(1.5f));// 1.0 → 100%
 
-			talkingMembersCount.add(combinedAudio.getUsers().size());
+			if (combinedAudio.getUsers().contains(msgEvent.getEvent().getAuthor()))
+				talkingMembersCount.add(1);
+
+			else
+				talkingMembersCount.add(0);
 
 			if (talkingMembersCount.size() > MAX_VALUE) {
 				if (isAllowedToCarryOn && haveUsersStoppedTalking(talkingMembersCount)) {
@@ -176,12 +182,11 @@ public class SpeechToText {
 							guild.getTextChannelById(CurrentTextChannel.getId()).sendMessage(transcription).queue();
 						}
 
-						System.out.println(transcription);
-						// CurrentTextChannel ctch = new CurrentTextChannel();
+						System.out.println(transcription); // CurrentTextChannel ctch = new CurrentTextChannel();
 
 						SpeechToText.setText(transcription);
 						ListeningCommandManager listeningCommandManager = new ListeningCommandManager();
-
+						// System.out.println("");
 						IListeningCommands command = listeningCommandManager.getCommand(transcription);
 						if (command != null)
 							command.doTask(msgEvent.getEvent());
@@ -201,10 +206,79 @@ public class SpeechToText {
 					} catch (Exception e) {
 						System.out.println(e);
 					}
-
 				}
 			}
 
+		}
+
+		// if (combinedAudio.getUsers().contains(msgEvent.getEvent().getAuthor()))
+
+		// talkingMembersCount.add(1); System.out.println("mluvíš"); }
+
+		/*
+		 * /*@Override public void handleUserAudio(@Nonnull UserAudio userAudio) {
+		 * GuildVoiceState voiceState = msgEvent.getEvent().getMember().getVoiceState();
+		 * 
+		 * if (userAudio.getUser().equals(msgEvent.getEvent().getAuthor())) {
+		 * guild.getAudioManager();
+		 * 
+		 * rescievedBytes.add(userAudio.getAudioData(1.5f));// 1.0 → 100%
+		 * 
+		 * if (talkingMembersCount.size() > MAX_VALUE) { if (isAllowedToCarryOn &&
+		 * haveUsersStoppedTalking(talkingMembersCount)) { try {
+		 * 
+		 * // System.out.println(combinedAudio.getUsers().size()); int size = 0; for
+		 * (byte[] bs : rescievedBytes) { size += bs.length; } byte[] decodedData = new
+		 * byte[size]; int i = 0; for (byte[] bs : rescievedBytes) { for (int j = 0; j <
+		 * bs.length; j++) { decodedData[i++] = bs[j]; } }
+		 * 
+		 * SoundFile.setTitle(msgEvent.getEvent().getGuild().getId());
+		 * 
+		 * File file = new File(SoundFile.getWholePath());
+		 * 
+		 * getWavFile(file, decodedData); SpeechToText StT = new SpeechToText(); String
+		 * transcription = StT.getTranscription();
+		 * guild.getTextChannelById(CurrentTextChannel.getId()).sendMessage(
+		 * transcription).queue(); if
+		 * (!((SpeechToText.Language.getLang().equals("en-GB") ||
+		 * SpeechToText.Language.getLang().equals("en-US")))) { transcription =
+		 * LibraryClass.runPyScript(ScriptPathPointer.translator, transcription);
+		 * guild.getTextChannelById(CurrentTextChannel.getId()).sendMessage(
+		 * transcription).queue(); }
+		 * 
+		 * System.out.println(transcription); // CurrentTextChannel ctch = new
+		 * CurrentTextChannel();
+		 * 
+		 * SpeechToText.setText(transcription); ListeningCommandManager
+		 * listeningCommandManager = new ListeningCommandManager();
+		 * 
+		 * IListeningCommands command =
+		 * listeningCommandManager.getCommand(transcription); if (command != null)
+		 * command.doTask(msgEvent.getEvent());
+		 * 
+		 * else {
+		 * 
+		 * msgEvent.getEvent().getMessage().reply(
+		 * "There's been an error\nCommand either does not exist or I couldn't understand you"
+		 * ) .queue(); }
+		 * 
+		 * // audioManager.closeAudioConnection(); if
+		 * (haveUsersStoppedTalking(talkingMembersCount)) isAllowedToCarryOn = false;
+		 * 
+		 * System.out.println("its done aint it"); } catch (Exception e) {
+		 * System.out.println(e); }
+		 * 
+		 * } } }
+		 * 
+		 * }
+		 */
+
+		@Override
+		public boolean includeUserInCombinedAudio(User user) {
+			if (user.equals(msgEvent.getEvent().getAuthor()))
+				return true;
+
+			return false;
 		}
 
 		@Override
@@ -226,6 +300,20 @@ public class SpeechToText {
 			return false;
 		}
 
+		/*
+		 * @Override public boolean canReceiveUser() { // TODO Auto-generated method
+		 * stub return AudioReceiveHandler.super.canReceiveUser(); }
+		 */
+
+		/**
+		 * Checks if users have stopped talking
+		 * 
+		 * @author thekrystof701
+		 * 
+		 * @param list of talking members {@link #talkingMembersCount}
+		 * @return true if last {@link #MAX_VALUE} (100 as default) is 0 <br>
+		 *         else false
+		 */
 		private boolean haveUsersStoppedTalking(ArrayList<Integer> list) {
 
 			int count = 0;
@@ -238,13 +326,13 @@ public class SpeechToText {
 				if (count == 0)
 					return true;
 
-				return false;
-
 			} catch (Exception e) {
 				System.out.println(e);
-				return false;
+
 			}
+			return false;
 
 		}
+
 	}
 }

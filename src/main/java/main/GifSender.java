@@ -19,9 +19,9 @@ public class GifSender {
 
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-		// optional default is GET
+
 		con.setRequestMethod("GET");
-		// add request header
+
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		int responseCode = con.getResponseCode();
 		System.out.println("\nSending 'GET' request to URL : " + url);
@@ -34,14 +34,11 @@ public class GifSender {
 		}
 		in.close();
 
-		// print in String
 		System.out.println("resp " + response.toString());
 
-		// Read JSON response and print
 		JSONObject myResponse = new JSONObject(response.toString());
-		// JSONObject objects = new JSONObject(myResponse.getJSONObject("object"));
+
 		JSONArray results = new JSONArray(myResponse.getJSONArray("results"));
-		// JSONObject indexes = new JSONObject(results.getJSONObject(index));
 
 		int resultMax = results.length();
 
@@ -49,7 +46,6 @@ public class GifSender {
 
 		System.out.println(resultMax);
 
-		// List list = new List();
 		ArrayList<JSONObject> listdata = new ArrayList<JSONObject>();
 		if (results != null) {
 			for (int i = 0; i < results.length(); i++) {
@@ -62,19 +58,19 @@ public class GifSender {
 		String finalString = listdata.get(index).toString();
 		String catchWord = ",\"url\":\"";
 		String stopWord = "\",\"content_description\"";
-		String vytazekVytazku = "";
+		String extractedExtract = "";
 		try {
 			int start = finalString.lastIndexOf(catchWord);
 			int end = finalString.indexOf(stopWord);
-			String vytazek = finalString.substring(start, end);
-			vytazekVytazku = vytazek.substring(8);
-			System.out.print(vytazekVytazku);
+			String extract = finalString.substring(start, end);
+			extractedExtract = extract.substring(8);
+			System.out.print(extractedExtract);
 
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 
-		return vytazekVytazku;
+		return extractedExtract;
 
 	}
 

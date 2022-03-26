@@ -17,6 +17,7 @@ public class _Leave implements ICommands {
 		stop.stopMusic(event);
 		leaveVC.Leave(event);
 		LibraryClass.addReactionToTheMsg(event, "U+1F44B");
+
 	}
 
 	@Override

@@ -3,8 +3,8 @@ package db;
 public class DbCommands extends Database {
 	String fullPath;
 
-	public DbCommands(String path, int guild) {
-		super(path, guild);
+	public DbCommands(String path) {
+		super(path);
 
 		this.fullPath = getFullPath();
 	}

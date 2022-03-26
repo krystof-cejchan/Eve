@@ -1,9 +1,12 @@
 package main;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.EnumSet;
 
 import javax.security.auth.login.LoginException;
 
+import db.Database;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -13,7 +16,7 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 public class StartUp {
 	static JDABuilder jda;
 
-	public static void main(String[] args) throws LoginException {
+	public static void main(String[] args) throws LoginException, SQLException, IOException {
 		EnumSet<GatewayIntent> intents = EnumSet.of(
 
 				GatewayIntent.GUILD_MESSAGES,
@@ -32,10 +35,20 @@ public class StartUp {
 		jda.addEventListeners(new Listener());
 		jda.build();
 
+		db_init();
+
 	}
 
-	public String getBotsId() {
-		return jda.toString();
+	/**
+	 * sets up new database if needed and connects to it
+	 * 
+	 * @throws IOException
+	 */
+	private static void db_init() throws SQLException, IOException {
+
+		Database db = new Database("H:\\SQLite\\eve_database.db");
+		db.createNewDB_withWholePath();
+		db.connectToDB();
 
 	}
 
