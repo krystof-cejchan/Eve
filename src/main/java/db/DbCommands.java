@@ -1,5 +1,12 @@
 package db;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.annotation.Nullable;
+
 public class DbCommands extends Database {
 	String fullPath;
 
@@ -9,8 +16,27 @@ public class DbCommands extends Database {
 		this.fullPath = getFullPath();
 	}
 
-	public void createTable() {
-//TO-DO
+	public void executeNewQuery(String query) {
+		try (Connection conn = DriverManager.getConnection(fullPath); Statement stmt = conn.createStatement()) {
+			stmt.execute(query);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void createTable(@Nullable String table_query) {
+		if (table_query == null)
+			table_query = "CREATE TABLE \"discord_guilds\" (	\"id\" INTEGER UNIQUE, \"d_id\"	INTEGER NOT NULL UNIQUE,\"d_name\"	TEXT NOT NULL,\"d_prefix\"	TEXT,\"first_noticed\"	TEXT,PRIMARY KEY(\"id\" AUTOINCREMENT));";
+		/*
+		 * table_query = "CREATE TABLE \"discord_guilds\" (\r\n" +
+		 * "	\"id\"	INTEGER UNIQUE,\r\n" +
+		 * "	\"d_id\"	INTEGER NOT NULL UNIQUE,\r\n" +
+		 * "	\"d_name\"	TEXT NOT NULL,\r\n" + "	\"d_prefix\"	TEXT,\r\n" +
+		 * "	\"first_noticed\"	TEXT,\r\n" +
+		 * "	PRIMARY KEY(\"id\" AUTOINCREMENT)\r\n" + ");";
+		 */
+		
+		executeNewQuery(table_query);
 	}
 
 	/**

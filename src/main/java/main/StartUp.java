@@ -7,6 +7,7 @@ import java.util.EnumSet;
 import javax.security.auth.login.LoginException;
 
 import db.Database;
+import db.DbCommands;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -29,7 +30,7 @@ public class StartUp {
 		APITokenTEST = "OTM2Njc1NTQzNzU0MDg4NTQw.YfQpFA.sVKCrcPurel5KqKyLC-5lk0eS5M";
 
 		jda = JDABuilder.createDefault(APITokenTEST, intents);
-		jda.setActivity(Activity.competing("Hey Eve"));
+		jda.setActivity(Activity.competing("Hey Eve-ing in "+jda.build().getGuilds().size()+" servers"));
 		jda.enableCache(CacheFlag.VOICE_STATE);
 		jda.setStatus(OnlineStatus.ONLINE);
 		jda.addEventListeners(new Listener());
@@ -42,13 +43,17 @@ public class StartUp {
 	/**
 	 * sets up new database if needed and connects to it
 	 * 
-	 * @throws IOException
+	 * @throws
 	 */
 	private static void db_init() throws SQLException, IOException {
 
 		Database db = new Database("H:\\SQLite\\eve_database.db");
+		DbCommands db_cmds = new DbCommands(db.getPath());
+		
 		db.createNewDB_withWholePath();
 		db.connectToDB();
+		
+		db_cmds.createTable(null);
 
 	}
 
