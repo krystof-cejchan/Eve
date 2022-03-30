@@ -1,5 +1,3 @@
-
-
  CREATE TABLE "discord_guilds"
 ("id" INTEGER UNIQUE,
  "d_id"	INTEGER NOT NULL UNIQUE,
