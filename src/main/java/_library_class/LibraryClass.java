@@ -6,11 +6,14 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -233,4 +236,26 @@ public class LibraryClass {
 		return matcher.find();
 
 	}
+
+	public static String getTextFromWebpage(String weburl) {
+		try {
+			if (!isLink(weburl))
+				return null;
+			URL url = new URL(weburl);
+			Scanner sc = new Scanner(url.openStream());
+			StringBuffer sb = new StringBuffer();
+			while (sc.hasNext()) {
+				sb.append(sc.next());
+			}
+			sc.close();
+			return sb.toString().replaceAll("<[^>]*>", "");
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

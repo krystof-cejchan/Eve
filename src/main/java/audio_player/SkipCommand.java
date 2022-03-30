@@ -38,9 +38,11 @@ public class SkipCommand {
 
 						BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
 						ArrayList<AudioTrack> audioList = new ArrayList<>(queue);
-						String nextTrackName = audioList.get(0).getInfo().title;
+						// String nextTrackName = audioList.get(0).getInfo().title;
 						if (msg)
-							event.getChannel().sendMessage("Skipped to the next song!\n**" + nextTrackName + "**")
+							event.getChannel()
+									.sendMessage("Skipped to the next song!\n**"
+											+ audioList.get(0).getInfo().title/* title of the following track */ + "**")
 									.queue();
 						musicManager.SCHEDULER.nextTrack();
 					}
