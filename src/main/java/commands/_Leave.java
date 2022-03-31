@@ -9,37 +9,37 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class _Leave implements ICommands {
 
-	@Override
-	public void doTask(MessageReceivedEvent event) {
-		// TODO Auto-generated method stub
-		VoiceChannels leaveVC = new VoiceChannels();
-		StopCommand stop = new StopCommand();
-		stop.stopMusic(event);
-		leaveVC.Leave(event);
-		LibraryClass.addReactionToTheMsg(event, "U+1F44B");
+    @Override
+    public void doTask(MessageReceivedEvent event) {
 
-	}
+        VoiceChannels leaveVC = new VoiceChannels();
+        StopCommand stop = new StopCommand();
+        stop.stopMusic(event);
+        leaveVC.Leave(event);
+        LibraryClass.addReactionToTheMsg(event, "U+1F44B");
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "Leave a voice channel";
-	}
+    }
 
-	@Override
-	public String whatDoIDo() {
-		// TODO Auto-generated method stub
-		return "This command forces the bot to leave your voice channel and discard the song queue";
-	}
+    @Override
+    public String getName() {
 
-	@Override
-	public ArrayList<String> getTriggers() {
-		// TODO Auto-generated method stub
-		ArrayList<String> t = new ArrayList<>();
-		t.add("leave");
-		t.add("exit");
-		t.add("quit");
-		return t;
-	}
+        return "Leave a voice channel";
+    }
+
+    @Override
+    public String whatDoIDo() {
+
+        return "This command forces the bot to leave your voice channel and discard the song queue";
+    }
+
+    @Override
+    public ArrayList<String> getTriggers() {
+
+        ArrayList<String> t = new ArrayList<>();
+        t.add("leave");
+        t.add("exit");
+        t.add("quit");
+        return t;
+    }
 
 }

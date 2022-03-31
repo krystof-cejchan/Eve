@@ -31,7 +31,7 @@ public class DbCommands extends Database {
 		executeNewQuery(table_query);
 	}
 
-	/**
+	/*
 	 * 
 	 * 
 	 * 

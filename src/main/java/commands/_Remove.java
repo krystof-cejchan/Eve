@@ -1,6 +1,7 @@
 package commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
 
@@ -18,66 +19,63 @@ import net.ricecode.similarity.StringSimilarityServiceImpl;
 
 public class _Remove implements ICommands {
 
-	@Override
-	public void doTask(MessageReceivedEvent event) {
-		// TODO Auto-generated method stub
-		String[] args = event.getMessage().getContentRaw().split(" ");
+    @Override
+    public void doTask(MessageReceivedEvent event) {
 
-		try {
-			if (args.length > 1) {
-				QueueCommand queueCommand = new QueueCommand();
-				if (event.getMessage().getContentRaw().matches(".*\\d.*"))// check for numbers
-				{
+        String[] args = event.getMessage().getContentRaw().split(" ");
 
-					queueCommand.removeFromQueue(event, Integer.valueOf(args[1]) - 1);
-				} else {
-					ArrayList<String> text = new ArrayList<>();
-					for (int i = 1; i < args.length; i++) {
-						text.add(args[i]);
-					}
+        try {
+            if (args.length > 1) {
+                QueueCommand queueCommand = new QueueCommand();
+                if (event.getMessage().getContentRaw().matches(".*\\d.*"))// check for numbers
+                {
 
-					SimilarityStrategy strategy = new JaroWinklerStrategy();
-					StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
-					GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
-					BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
-					HashMap<AudioTrack, Double> similarityMap = new HashMap<>();
-					for (AudioTrack track : queue) {
-						similarityMap.put(track, service.score(track.getInfo().title,
-								LibraryClass.getStringFromArrayOfStrings_withSpaces(text)));
+                    queueCommand.removeFromQueue(event, Integer.parseInt(args[1]) - 1);
+                } else {
+                    ArrayList<String> text = new ArrayList<>(Arrays.asList(args).subList(1, args.length));
 
-					}
-					queueCommand.removeFromQueuebyName(event,
-							LibraryClass.getTheMostSuitableItemFromAHashMap(similarityMap, queue));
-				}
+                    SimilarityStrategy strategy = new JaroWinklerStrategy();
+                    StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
+                    GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
+                    BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
+                    HashMap<AudioTrack, Double> similarityMap = new HashMap<>();
+                    for (AudioTrack track : queue) {
+                        similarityMap.put(track, service.score(track.getInfo().title,
+                                LibraryClass.getStringFromArrayOfStrings_withSpaces(text)));
 
-			}
+                    }
+                    queueCommand.removeFromQueuebyName(event,
+                            LibraryClass.getTheMostSuitableItemFromAHashMap(similarityMap, queue));
+                }
 
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+            }
 
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "Remove a track";
-	}
+    }
 
-	@Override
-	public String whatDoIDo() {
-		// TODO Auto-generated method stub
-		return "This command removes *x.* track from the queue";
-	}
+    @Override
+    public String getName() {
 
-	@Override
-	public ArrayList<String> getTriggers() {
-		// TODO Auto-generated method stub
-		ArrayList<String> t = new ArrayList<>();
-		t.add("remove");
-		t.add("del");
-		t.add("delete");
-		return t;
-	}
+        return "Remove a track";
+    }
+
+    @Override
+    public String whatDoIDo() {
+
+        return "This command removes *x.* track from the queue";
+    }
+
+    @Override
+    public ArrayList<String> getTriggers() {
+
+        ArrayList<String> t = new ArrayList<>();
+        t.add("remove");
+        t.add("del");
+        t.add("delete");
+        return t;
+    }
 
 }

@@ -11,104 +11,101 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class _Help implements ICommands {
 
-	@Override
-	public void doTask(MessageReceivedEvent event) throws IndexOutOfBoundsException, IOException {
-		try {
-			EmbedBuilder embedBuilder = new EmbedBuilder();
-			Prefix pref = new Prefix();
+    @Override
+    public void doTask(MessageReceivedEvent event) throws IndexOutOfBoundsException, IOException {
+        try {
+            EmbedBuilder embedBuilder = new EmbedBuilder();
 
-			embedBuilder.clear();
-			int maxEmbedSize = 25;
 
-			int counter = 0;
+            embedBuilder.clear();
+            int maxEmbedSize = 25;
 
-			int cmdSize = CommandManager.getAllCommands().size();
-			embedBuilder.clear();
-			if (cmdSize > maxEmbedSize) {
+            int counter = 0;
 
-				for (int i = 0; i < cmdSize; i++) {
-					// for (int j = 0; j < Math.abs(i * cmdSize - (Math.abs(i * cmdSize -
-					// maxEmbedSize))); j++) {
-					for (int w = (i) * 25; w < (i * maxEmbedSize)
-							+ Math.abs(i * cmdSize - (Math.abs(i * cmdSize - maxEmbedSize))); w++) {
-						String allTriggers = "";
+            int cmdSize = CommandManager.getAllCommands().size();
+            embedBuilder.clear();
+            if (cmdSize > maxEmbedSize) {
 
-						if (w < cmdSize) {
+                for (int i = 0; i < cmdSize; i++) {
+                    // for (int j = 0; j < Math.abs(i * cmdSize - (Math.abs(i * cmdSize -
+                    // maxEmbedSize))); j++) {
+                    for (int w = (i) * 25; w < (i * maxEmbedSize) + Math.abs(i * cmdSize - (Math.abs(i * cmdSize - maxEmbedSize))); w++) {
+                        StringBuilder allTriggers = new StringBuilder();
 
-							for (String trigger : CommandManager.getCommandbyId(w).getTriggers()) {
-								allTriggers += pref.getValue() + trigger + "   ";
-							}
+                        if (w < cmdSize) {
 
-							embedBuilder.addField("**" + CommandManager.getCommandbyId(w).getName() + "**  :  ",
-									CommandManager.getCommandbyId(w).whatDoIDo() + "\n" + allTriggers, true);
-							counter++;
-						} else {
-							embedBuilder.setColor(LibraryClass.getRandomColor());
-							// embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + "
-							// commands:");
-							embedBuilder.setTitle("Showing " + counter + " commands");
-							counter = 0;
-							event.getMessage().replyEmbeds(embedBuilder.build()).queue();
-							embedBuilder.clear();
+                            for (String trigger : CommandManager.getCommandbyId(w).getTriggers()) {
+                                allTriggers.append(Prefix.getValue()).append(trigger).append("   ");
+                            }
 
-							counter++;
-							return;
-						}
-					}
-					// }
-					embedBuilder.setColor(LibraryClass.getRandomColor());
-					// embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + "
-					// commands:");
-					embedBuilder.setTitle("Showing " + counter + " commands");
-					counter = 0;
-					event.getMessage().replyEmbeds(embedBuilder.build()).queue();
-					embedBuilder.clear();
-				}
-			} else {
+                            embedBuilder.addField("**" + CommandManager.getCommandbyId(w).getName() + "**  :  ", CommandManager.getCommandbyId(w).whatDoIDo() + "\n" + allTriggers, true);
+                            counter++;
+                        } else {
+                            embedBuilder.setColor(LibraryClass.getRandomColor());
+                            // embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + "
+                            // commands:");
+                            embedBuilder.setTitle("Showing " + counter + " commands");
+                            counter = 0;
+                            event.getMessage().replyEmbeds(embedBuilder.build()).queue();
+                            embedBuilder.clear();
 
-				for (ICommands iCommands : CommandManager.getAllCommands()) {
-					String allTriggers = "";
-					for (String trigger : iCommands.getTriggers()) {
-						allTriggers += pref.getValue() + trigger + "   ";
-					}
+                            counter++;
+                            return;
+                        }
+                    }
+                    // }
+                    embedBuilder.setColor(LibraryClass.getRandomColor());
+                    // embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + "
+                    // commands:");
+                    embedBuilder.setTitle("Showing " + counter + " commands");
+                    counter = 0;
+                    event.getMessage().replyEmbeds(embedBuilder.build()).queue();
+                    embedBuilder.clear();
+                }
+            } else {
 
-					embedBuilder.addField("**" + iCommands.getName() + "**  :  ",
-							iCommands.whatDoIDo() + "\n" + allTriggers, true);
+                for (ICommands iCommands : CommandManager.getAllCommands()) {
+                    StringBuilder allTriggers = new StringBuilder();
+                    for (String trigger : iCommands.getTriggers()) {
+                        allTriggers.append(Prefix.getValue()).append(trigger).append("   ");
+                    }
 
-				}
-				embedBuilder.setColor(LibraryClass.getRandomColor());
-				embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + " commands:");
-				event.getMessage().replyEmbeds(embedBuilder.build()).queue();
-				embedBuilder.clear();
-			}
+                    embedBuilder.addField("**" + iCommands.getName() + "**  :  ", iCommands.whatDoIDo() + "\n" + allTriggers, true);
 
-		} catch (
+                }
+                embedBuilder.setColor(LibraryClass.getRandomColor());
+                embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + " commands:");
+                event.getMessage().replyEmbeds(embedBuilder.build()).queue();
+                embedBuilder.clear();
+            }
 
-		Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        } catch (
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "Help";
-	}
+                Exception e) {
 
-	@Override
-	public String whatDoIDo() {
-		// TODO Auto-generated method stub
-		return "This command sends you a list of all commands";
-	}
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public ArrayList<String> getTriggers() {
-		// TODO Auto-generated method stub
-		ArrayList<String> t = new ArrayList<>();
-		t.add("help");
+    @Override
+    public String getName() {
 
-		return t;
-	}
+        return "Help";
+    }
+
+    @Override
+    public String whatDoIDo() {
+
+        return "This command sends you a list of all commands";
+    }
+
+    @Override
+    public ArrayList<String> getTriggers() {
+
+        ArrayList<String> t = new ArrayList<>();
+        t.add("help");
+
+        return t;
+    }
 
 }

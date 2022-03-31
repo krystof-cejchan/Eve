@@ -2,36 +2,36 @@ package commands;
 
 import java.util.ArrayList;
 
-import commands_others.Asian;
+import commands.commands_others.Asian;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class _Jesus implements ICommands {
 
-	@Override
-	public void doTask(MessageReceivedEvent event) {
-		// TODO Auto-generated method stub
-		event.getMessage().reply(Asian.sendJesus()).queue();
-	}
+    @Override
+    public void doTask(MessageReceivedEvent event) {
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "I will Send you to Jesus";
-	}
+        event.getMessage().reply(Asian.sendJesus()).queue();
+    }
 
-	@Override
-	public String whatDoIDo() {
-		// TODO Auto-generated method stub
-		return "This command sends you swiftly to Jesus";
-	}
+    @Override
+    public String getName() {
 
-	@Override
-	public ArrayList<String> getTriggers() {
-		ArrayList<String> t = new ArrayList<>();
-		t.add("jesus");
-		t.add("js");
+        return "I will Send you to Jesus";
+    }
 
-		return t;
-	}
+    @Override
+    public String whatDoIDo() {
+
+        return "This command sends you swiftly to Jesus";
+    }
+
+    @Override
+    public ArrayList<String> getTriggers() {
+        ArrayList<String> t = new ArrayList<>();
+        t.add("jesus");
+        t.add("js");
+
+        return t;
+    }
 
 }

@@ -308,7 +308,7 @@ public class SpeechToText {
 		/**
 		 * Checks if users have stopped talking
 		 * 
-		 * @author thekrystof701
+		 * @author krystof-cejchan
 		 * 
 		 * @param list of talking members {@link #talkingMembersCount}
 		 * @return true if last {@link #MAX_VALUE} (100 as default) is 0 <br>

@@ -7,45 +7,45 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class _Join implements ICommands {
 
-	@Override
-	public void doTask(MessageReceivedEvent event) {
-		// TODO Auto-generated method stub
-		String[] args = event.getMessage().getContentRaw().split(" ");
+    @Override
+    public void doTask(MessageReceivedEvent event) {
 
-		try {
-			VoiceChannels joinVC = new VoiceChannels();
-			if (args.length > 1) {
-				System.out.println("notempty");
-				joinVC.JoinChannel(event, args[1].toString());
+        String[] args = event.getMessage().getContentRaw().split(" ");
 
-			} else {
-				System.out.println("empty");
-				joinVC.Join(event);
+        try {
+            VoiceChannels joinVC = new VoiceChannels();
+            if (args.length > 1) {
+                System.out.println("notempty");
+                joinVC.JoinChannel(event, args[1]);
 
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
+            } else {
+                System.out.println("empty");
+                joinVC.Join(event);
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "Join a voice channel";
-	}
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public String whatDoIDo() {
-		// TODO Auto-generated method stub
-		return "This command forces the bot to join a voice channel. Write the title of the voice channel, if you don't want the bot to join you.";
-	}
+    @Override
+    public String getName() {
 
-	@Override
-	public ArrayList<String> getTriggers() {
-		// TODO Auto-generated method stub
-		ArrayList<String> t = new ArrayList<>();
-		t.add("join");
-		return t;
-	}
+        return "Join a voice channel";
+    }
+
+    @Override
+    public String whatDoIDo() {
+
+        return "This command forces the bot to join a voice channel. Write the title of the voice channel, if you don't want the bot to join you.";
+    }
+
+    @Override
+    public ArrayList<String> getTriggers() {
+
+        ArrayList<String> t = new ArrayList<>();
+        t.add("join");
+        return t;
+    }
 
 }

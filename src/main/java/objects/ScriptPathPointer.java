@@ -1,7 +1,7 @@
 package objects;
 
 import _library_class.LibraryClass;
-
+@SuppressWarnings("unused")
 public class ScriptPathPointer {
 
 	public static String translator = LibraryClass

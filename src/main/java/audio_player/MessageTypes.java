@@ -8,12 +8,4 @@ public enum MessageTypes {
 		return MessageTypes.values();
 	}
 
-	public MessageTypes getByName(String name) {
-		try {
-			return MessageTypes.valueOf(name);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			return null;
-		}
-	}
 }

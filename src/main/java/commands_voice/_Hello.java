@@ -1,41 +1,36 @@
 package commands_voice;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+
 public class _Hello implements IListeningCommands {
-	Guild guild;
 
-	@Override
-	public void doTask(MessageReceivedEvent event) {
-		// TODO Auto-generated method stub
 
-		event.getMessage().reply("Hello " + event.getGuild().getMember(event.getAuthor()).getNickname());
-	}
+    @Override
+    public void doTask(MessageReceivedEvent event) {
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "Hello";
-	}
+        event.getMessage().reply("Hello " + Objects.requireNonNull(event.getGuild().getMember(event.getAuthor())).getNickname()).queue();
+    }
 
-	@Override
-	public String whatDoIDo() {
-		// TODO Auto-generated method stub
-		return "This command answers a simple hello";
-	}
+    @Override
+    public String getName() {
+        return "Hello";
+    }
 
-	@Override
-	public ArrayList<String> getTags() {
-		// TODO Auto-generated method stub
-		ArrayList<String> tags = new ArrayList<>(Arrays.asList
+    @Override
+    public String whatDoIDo() {
+        return "This command answers a simple hello";
+    }
 
-		("hello", "hi", "hey"));
+    @Override
+    public ArrayList<String> getTags() {
 
-		return tags;
-	}
+        return new ArrayList<>(Arrays.asList
+
+                ("hello", "hi", "hey"));
+    }
 
 }

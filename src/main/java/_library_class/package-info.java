@@ -4,7 +4,7 @@
  *          You can call any method from this class without creating an instance of the class
  
 
- * @author TheKrystof701
+ * @author krystof-cejchan
  * @since 1.0
  * @version 1.0
  */

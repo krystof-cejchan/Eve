@@ -7,7 +7,7 @@ import commands.CommandManager;
 import commands.ICommands;
 
 /**
- * @author kryst
+ * @author krystof-cejchan
  *
  */
 public class AverageTriggerCountFromCommands implements IOnStart {

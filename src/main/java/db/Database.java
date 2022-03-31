@@ -6,88 +6,81 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-	String path;
+    String path;
 
-	String fullPath;
+    String fullPath;
 
-	boolean isConnSuccesfully = false;
+    boolean isConnSuccesfully = false;
 
-	public Database(String path) {
-		// TODO Auto-generated constructor stub
-		this.path = path;
+    public Database(String path) {
 
-		this.fullPath = "jdbc:sqlite:" + path;
+        this.path = path;
 
-	}
+        this.fullPath = "jdbc:sqlite:" + path;
 
-	public String getFullPath() {
-		return fullPath;
-	}
+    }
 
-	public String getPath() {
-		return path;
-	}
+    public String getFullPath() {
+        return fullPath;
+    }
 
-	public void setPath(String path) {
-		this.path = path;
-	}
+    public String getPath() {
+        return path;
+    }
 
-	/**
-	 * @param pass path to the db "C:/folder1/folder2/databaseFile.db"
-	 * @throws IOException
-	 * @see {@code createNewDB_withFileName(String fileName)}
-	 */
-	public void createNewDB_withWholePath() throws IOException {
+    public void setPath(String path) {
+        this.path = path;
+    }
 
-		java.io.File db = new java.io.File(getPath());
-		db.createNewFile();
+    /**
+     * @throws IOException if files is not found
+     * @see {@code createNewDB_withFileName(String fileName)}
+     */
+    public void createNewDB_withWholePath() throws IOException {
 
-		if (!db.exists()) {
-			@SuppressWarnings("unused")
-			Connection conn = null;
-			try {
-				conn = DriverManager.getConnection(fullPath);
-				isConnSuccesfully = true;
-			} catch (SQLException e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-		}
-	}
+        java.io.File db = new java.io.File(getPath());
+        db.createNewFile();
 
-	public void connectToDB() {
-		Connection conn = null;
-		try {
-
-			conn = DriverManager.getConnection(fullPath);
-
-			System.out.println("Connection to SQLite has been established.");
+        if (!db.exists()) {
+            @SuppressWarnings("unused")
+            Connection conn = null;
 			isConnSuccesfully = true;
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			try {
-				if (conn != null) {
-					conn.close();
-					isConnSuccesfully = false;
-				}
-			} catch (SQLException ex) {
-				System.out.println(ex.getMessage());
-			}
 		}
-	}
+    }
 
-	public void closeConnection() throws SQLException {
-		Connection conn = DriverManager.getConnection(fullPath);
-		conn.close();
-	}
+    public void connectToDB() {
+        Connection conn = null;
+        try {
 
-	public boolean isConnected() throws SQLException {
-		Connection conn = DriverManager.getConnection(fullPath);
-		if (conn.isClosed())
-			return false;
+            conn = DriverManager.getConnection(fullPath);
 
-		return true;
-	}
+            System.out.println("Connection to SQLite has been established.");
+            isConnSuccesfully = true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                    isConnSuccesfully = false;
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+
+    public void closeConnection() throws SQLException {
+        Connection conn = DriverManager.getConnection(fullPath);
+        conn.close();
+    }
+
+    public boolean isConnected() throws SQLException {
+        Connection conn = DriverManager.getConnection(fullPath);
+        if (conn.isClosed())
+            return false;
+
+        return true;
+    }
 
 }

@@ -7,57 +7,55 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class _Gif implements ICommands {
 
-	@Override
-	public void doTask(MessageReceivedEvent event) {
-		// TODO Auto-generated method stub
-		String[] args = event.getMessage().getContentRaw().split(" ");
-		String searchKey = "";
+    @Override
+    public void doTask(MessageReceivedEvent event) {
 
-		try {
-			if (args.length > 1) {
+        String[] args = event.getMessage().getContentRaw().split(" ");
+        StringBuilder searchKey = new StringBuilder();
 
-				for (int i = 1; i < args.length; i++) {
-					searchKey = searchKey + "%20" + args[i];
-				}
+        try {
+            if (args.length > 1) {
 
-			}
+                for (int i = 1; i < args.length; i++) {
+                    searchKey.append("%20").append(args[i]);
+                }
 
-			else {
+            } else {
 
-				searchKey = "null";
+                searchKey = new StringBuilder("null");
 
-			}
+            }
 
-			GifSender gifs = new GifSender();
-			String msg = gifs.call_me(searchKey, "2");
+            GifSender gifs = new GifSender();
+            String msg = gifs.call_me(searchKey.toString(), "2");
 
-			event.getMessage().reply(msg).queue();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+            event.getMessage().reply(msg).queue();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-	}
+    }
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "Gif Sender";
-	}
+    @Override
+    public String getName() {
 
-	@Override
-	public String whatDoIDo() {
-		// TODO Auto-generated method stub
-		return "This Command sends you a gif depending on your keyword";
-	}
+        return "Gif Sender";
+    }
 
-	@Override
-	public ArrayList<String> getTriggers() {
-		// TODO Auto-generated method stub
-		ArrayList<String> t = new ArrayList<>();
-		t.add("g");
-		t.add("gif");
-		t.add("movingpicture");
-		return t;
-	}
+    @Override
+    public String whatDoIDo() {
+
+        return "This Command sends you a gif depending on your keyword";
+    }
+
+    @Override
+    public ArrayList<String> getTriggers() {
+
+        ArrayList<String> t = new ArrayList<>();
+        t.add("g");
+        t.add("gif");
+        t.add("movingpicture");
+        return t;
+    }
 
 }

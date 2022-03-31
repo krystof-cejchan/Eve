@@ -12,113 +12,107 @@ import net.dv8tion.jda.api.requests.restaction.MessageAction;
 
 public class QueueCommand {
 
-	public void getQueue(MessageReceivedEvent event) {
-		MessageChannel channel = event.getChannel();
+    public void getQueue(MessageReceivedEvent event) {
+        MessageChannel channel = event.getChannel();
 
-		GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
-		BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
+        GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
+        BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
 
-		if (queue.size() < 1 && musicManager.SCHEDULER.PLAYER.getPlayingTrack() != null) {
-			event.getChannel().sendMessage("The queue contains only one track").queue();
-			NowPlayingCommand np = new NowPlayingCommand();
-			np.getNowPlayingTrack(event);
+        if (queue.size() < 1 && musicManager.SCHEDULER.PLAYER.getPlayingTrack() != null) {
+            event.getChannel().sendMessage("The queue contains only one track").queue();
+            NowPlayingCommand np = new NowPlayingCommand();
+            np.getNowPlayingTrack(event);
 
-			return;
-		}
-		if (!queue.isEmpty()) {
+            return;
+        }
+        if (!queue.isEmpty()) {
 
-			int shownTrackCount = 30;
-			final int trackCount = Math.min(queue.size(), shownTrackCount);
-			final ArrayList<AudioTrack> trackList = new ArrayList<>(queue);
+            int shownTrackCount = 30;
+            final int trackCount = Math.min(queue.size(), shownTrackCount);
+            final ArrayList<AudioTrack> trackList = new ArrayList<>(queue);
 
-			MessageAction messageAction = channel.sendMessage("**QUEUE**\n");
+            MessageAction messageAction = channel.sendMessage("**QUEUE**\n");
 
-			for (int i = 0; i < trackCount; i++) {
-				AudioTrack track = trackList.get(i);
-				AudioTrackInfo info = track.getInfo();
-				int ii = i + 1;
-				messageAction.append(("*" + ii + "*") + ".").append(" `").append(info.title).append("` \n");
-			}
+            for (int i = 0; i < trackCount; i++) {
+                AudioTrack track = trackList.get(i);
+                AudioTrackInfo info = track.getInfo();
+                int ii = i + 1;
+                messageAction.append("*").append(String.valueOf(ii)).append("*").append(".").append(" `").append(info.title).append("` \n").queue();
+            }
 
-			int restCountTrack = trackList.size() - shownTrackCount;
-			String trackSmore = "";
+            int restCountTrack = trackList.size() - shownTrackCount;
+            String trackSmore;
 
-			if (trackList.size() > shownTrackCount) {
-				if (restCountTrack < 2) {
-					trackSmore = " more track";
-				} else {
-					trackSmore = " more tracks";
-				}
-				messageAction.append("\n+").append(String.valueOf(restCountTrack)).append(trackSmore);
+            if (trackList.size() > shownTrackCount) {
+                if (restCountTrack < 2) {
+                    trackSmore = " more track";
+                } else {
+                    trackSmore = " more tracks";
+                }
+                messageAction.append("\n+").append(String.valueOf(restCountTrack)).append(trackSmore).queue();
 
-				messageAction.queue();
+                messageAction.queue();
 
-			} else {
-				messageAction.queue();
-			}
+            } else {
+                messageAction.queue();
+            }
 
-		}
-		if (queue.isEmpty()) {
-			event.getChannel().sendMessage("Queue is empty like my life").queue();
-		}
-	}
+        }
+        if (queue.isEmpty()) {
+            event.getChannel().sendMessage("Queue is empty like my life").queue();
+        }
+    }
 
-	public void removeFromQueue(MessageReceivedEvent event, int index) {
+    public void removeFromQueue(MessageReceivedEvent event, int index) {
 
-		GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
-		BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
+        GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
+        BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
 
-		if (!queue.isEmpty()) {
+        if (!queue.isEmpty()) {
 
-			try {
-				ArrayList<AudioTrack> audioList = new ArrayList<>(queue);
-				String deletedTitle = audioList.get(index).getInfo().title;
-				audioList.remove(index);
+            try {
+                ArrayList<AudioTrack> audioList = new ArrayList<>(queue);
+                String deletedTitle = audioList.get(index).getInfo().title;
+                audioList.remove(index);
 
-				musicManager.SCHEDULER.QUEUE.clear();
+                musicManager.SCHEDULER.QUEUE.clear();
 
-				for (AudioTrack audioTrack : audioList) {
-					musicManager.SCHEDULER.QUEUE.add(audioTrack);
-				}
-				event.getChannel().sendMessage("```diff\n" + "-")
-						.append(deletedTitle + "\nhas been thrown into the void!```").queue();
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+                musicManager.SCHEDULER.QUEUE.addAll(audioList);
+                event.getChannel().sendMessage("```diff\n" + "-").append(deletedTitle).append("\nhas been thrown into the void!```").queue();
+            } catch (Exception e) {
 
-		}
-		if (queue.isEmpty()) {
-			event.getChannel().sendMessage("Queue seems to be empty").queue();
-		}
-	}
+            }
 
-	public void removeFromQueuebyName(MessageReceivedEvent event, AudioTrack aTrack) {
+        }
+        if (queue.isEmpty()) {
+            event.getChannel().sendMessage("Queue seems to be empty").queue();
+        }
+    }
 
-		GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
-		BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
+    public void removeFromQueuebyName(MessageReceivedEvent event, AudioTrack aTrack) {
 
-		if (!queue.isEmpty()) {
+        GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
+        BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
 
-			try {
-				ArrayList<AudioTrack> audioList = new ArrayList<>(queue);
-				String deletedTitle = aTrack.getInfo().title;
-				audioList.remove(aTrack);
+        if (!queue.isEmpty()) {
 
-				musicManager.SCHEDULER.QUEUE.clear();
+            try {
+                ArrayList<AudioTrack> audioList = new ArrayList<>(queue);
+                String deletedTitle = aTrack.getInfo().title;
+                audioList.remove(aTrack);
 
-				for (AudioTrack audioTrack : audioList) {
-					musicManager.SCHEDULER.QUEUE.add(audioTrack);
-				}
-				event.getChannel().sendMessage("```diff\n" + "-")
-						.append(deletedTitle + "\nhas been thrown into the void!```").queue();
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+                musicManager.SCHEDULER.QUEUE.clear();
 
-		}
-		if (queue.isEmpty()) {
-			event.getChannel().sendMessage("Queue seems to be empty").queue();
-		}
-	}
+                musicManager.SCHEDULER.QUEUE.addAll(audioList);
+                event.getChannel().sendMessage("```diff\n" + "-").append(deletedTitle).append("\nhas been thrown into the void!```").queue();
+            } catch (Exception e) {
+
+            }
+
+        }
+        if (queue.isEmpty()) {
+            event.getChannel().sendMessage("Queue seems to be empty").queue();
+        }
+    }
 
 }

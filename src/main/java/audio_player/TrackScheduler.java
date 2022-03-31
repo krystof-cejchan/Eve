@@ -11,38 +11,36 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 
 public class TrackScheduler extends AudioEventAdapter {
-	public final AudioPlayer PLAYER;
-	public final BlockingQueue<AudioTrack> QUEUE;
+    public final AudioPlayer PLAYER;
+    public final BlockingQueue<AudioTrack> QUEUE;
 
-	public TrackScheduler(AudioPlayer player) {
-		this.PLAYER = player;
-		this.QUEUE = new LinkedBlockingQueue<>();
-	}
+    public TrackScheduler(AudioPlayer player) {
+        this.PLAYER = player;
+        this.QUEUE = new LinkedBlockingQueue<>();
+    }
 
-	public void queue(AudioTrack track) {
-		if (!this.PLAYER.startTrack(track, true)) {
-			this.QUEUE.offer(track);
-		}
+    public void queue(AudioTrack track) {
+        if (!this.PLAYER.startTrack(track, true)) {
+            this.QUEUE.offer(track);
+        }
 
-	}
+    }
 
-	public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
-		if (endReason.mayStartNext) {
-			nextTrack();
-		}
-	}
+    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
+        if (endReason.mayStartNext) {
+            nextTrack();
+        }
+    }
 
-	public void nextTrack() {
-		this.PLAYER.startTrack(this.QUEUE.poll(), false);
-	}
+    public void nextTrack() {
+        this.PLAYER.startTrack(this.QUEUE.poll(), false);
+    }
 
-	public void shuffle() {
-		ArrayList<AudioTrack> arrayList = new ArrayList<>(QUEUE);
-		QUEUE.clear();
-		Collections.shuffle(arrayList);
-		for (AudioTrack audioTrack : arrayList) {
-			QUEUE.add(audioTrack);
-		}
-	}
+    public void shuffle() {
+        ArrayList<AudioTrack> arrayList = new ArrayList<>(QUEUE);
+        QUEUE.clear();
+        Collections.shuffle(arrayList);
+        QUEUE.addAll(arrayList);
+    }
 
 }

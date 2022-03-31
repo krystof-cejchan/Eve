@@ -8,47 +8,47 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class _PlayQueue implements ICommands {
 
-	@Override
-	public void doTask(MessageReceivedEvent event) {
-		// TODO Auto-generated method stub
-		String[] args = event.getMessage().getContentRaw().split(" ");
+    @Override
+    public void doTask(MessageReceivedEvent event) {
 
-		try {
+        String[] args = event.getMessage().getContentRaw().split(" ");
 
-			PlayQCommand pq = new PlayQCommand();
+        try {
 
-			if (LibraryClass.isLink(args[1])) {
-				pq.playMusic(event, args[1], true);
+            PlayQCommand pq = new PlayQCommand();
 
-			} else {
-				event.getChannel().sendMessage("Please, provide a proper YouTube link").queue();
+            if (LibraryClass.isLink(args[1])) {
+                pq.playMusic(event, args[1], true);
 
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
+            } else {
+                event.getChannel().sendMessage("Please, provide a proper YouTube link").queue();
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "Play a Queue";
-	}
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public String whatDoIDo() {
-		// TODO Auto-generated method stub
-		return "This command adds every song from your playlist to the queue";
-	}
+    @Override
+    public String getName() {
 
-	@Override
-	public ArrayList<String> getTriggers() {
-		// TODO Auto-generated method stub
-		ArrayList<String> t = new ArrayList<>();
-		t.add("playqueue");
-		t.add("playq");
-		t.add("pq");
-		return t;
-	}
+        return "Play a Queue";
+    }
+
+    @Override
+    public String whatDoIDo() {
+
+        return "This command adds every song from your playlist to the queue";
+    }
+
+    @Override
+    public ArrayList<String> getTriggers() {
+
+        ArrayList<String> t = new ArrayList<>();
+        t.add("playqueue");
+        t.add("playq");
+        t.add("pq");
+        return t;
+    }
 
 }

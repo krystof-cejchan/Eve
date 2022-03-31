@@ -7,42 +7,42 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class _NowPlaying implements ICommands {
 
-	@Override
-	public void doTask(MessageReceivedEvent event) {
-		// TODO Auto-generated method stub
-		nowPlaying(event);
+    @Override
+    public void doTask(MessageReceivedEvent event) {
 
-	}
+        nowPlaying(event);
 
-	private void nowPlaying(MessageReceivedEvent event) {
-		try {
-			NowPlayingCommand np = new NowPlayingCommand();
-			np.getNowPlayingTrack(event);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+    }
 
-	}
+    private void nowPlaying(MessageReceivedEvent event) {
+        try {
+            NowPlayingCommand np = new NowPlayingCommand();
+            np.getNowPlayingTrack(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "Now Playing";
-	}
+    }
 
-	@Override
-	public String whatDoIDo() {
-		// TODO Auto-generated method stub
-		return "This command informs you about the currently playing track";
-	}
+    @Override
+    public String getName() {
 
-	@Override
-	public ArrayList<String> getTriggers() {
-		// TODO Auto-generated method stub
-		ArrayList<String> t = new ArrayList<>();
-		t.add("np");
-		t.add("nowplaying");
-		return t;
-	}
+        return "Now Playing";
+    }
+
+    @Override
+    public String whatDoIDo() {
+
+        return "This command informs you about the currently playing track";
+    }
+
+    @Override
+    public ArrayList<String> getTriggers() {
+
+        ArrayList<String> t = new ArrayList<>();
+        t.add("np");
+        t.add("nowplaying");
+        return t;
+    }
 
 }

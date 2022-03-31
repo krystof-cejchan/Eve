@@ -7,43 +7,43 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class _Prefix implements ICommands {
 
-	@Override
-	public void doTask(MessageReceivedEvent event) {
-		// Prefix pref = new Prefix();
+    @Override
+    public void doTask(MessageReceivedEvent event) {
+        // Prefix pref = new Prefix();
 
-		try {
+        try {
 
-			if (event.getMessage().getContentRaw().split(" ")[1].length() >= 1) {
-				Prefix.setValue(event.getMessage().getContentRaw().split(" ")[1]);
+            if (event.getMessage().getContentRaw().split(" ")[1].length() >= 1) {
+                Prefix.setValue(event.getMessage().getContentRaw().split(" ")[1]);
 
-				event.getMessage().reply("Prefix has been changed to " + Prefix.getValue()).queue();
-			}
-		} catch (Exception e) {
-		}
+                event.getMessage().reply("Prefix has been changed to " + Prefix.getValue()).queue();
+            }
+        } catch (Exception ignored) {
+        }
 
-	}
+    }
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "Change Prefix";
-	}
+    @Override
+    public String getName() {
 
-	@Override
-	public String whatDoIDo() {
-		// TODO Auto-generated method stub
-		return "This command changes the default prefix";
-	}
+        return "Change Prefix";
+    }
 
-	@Override
-	public ArrayList<String> getTriggers() {
-		// TODO Auto-generated method stub
-		ArrayList<String> t = new ArrayList<>();
-		t.add("prefix");
-		t.add("pref");
-		t.add("pf");
+    @Override
+    public String whatDoIDo() {
 
-		return t;
-	}
+        return "This command changes the default prefix";
+    }
+
+    @Override
+    public ArrayList<String> getTriggers() {
+
+        ArrayList<String> t = new ArrayList<>();
+        t.add("prefix");
+        t.add("pref");
+        t.add("pf");
+
+        return t;
+    }
 
 }
