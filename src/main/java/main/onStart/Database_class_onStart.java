@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import db.Database;
 import db.DbCommands;
+import objects.ScriptPathPointer;
 
 public class Database_class_onStart implements IOnStart {
 
@@ -11,7 +12,7 @@ public class Database_class_onStart implements IOnStart {
 	public void doYourPart() {
 
 		try {
-			Database db = new Database("H:\\SQLite\\eve_database.db");
+			Database db = new Database(ScriptPathPointer.dbPath);
 			DbCommands db_cmds = new DbCommands(db.getPath());
 
 			db.createNewDB_withWholePath();

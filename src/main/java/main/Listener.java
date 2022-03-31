@@ -17,8 +17,6 @@ import objects.CurrentTextChannel;
 public class Listener extends ListenerAdapter {
 
 	private boolean allower = true;
-	Prefix prefixClass = new Prefix();
-	String prefix = this.prefixClass.getValue();
 
 	public StartUp startUp = new StartUp();
 	String limit = "3";
@@ -54,14 +52,17 @@ public class Listener extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent event) {
 
 		try {
-			if (event.getAuthor().isBot() == false) {
+			if (event.getAuthor().isBot() == false && !containsForbiddenChars(event.getMessage().getContentRaw())) {
 
 				TextChannel re = event.getGuild().getTextChannelById("933515864790159360");
 				MessageChannel eventChannel = event.getChannel();
 				CurrentTextChannel ctch = new CurrentTextChannel(eventChannel.getId());
 				ctch.setIid(eventChannel.getId());
 				if (eventChannel == re || allower) {
-					if (event.getMessage().getContentRaw().startsWith(prefix.concat(" "))) {
+
+					System.out.println(Prefix.getValue());
+					if (event.getMessage().getContentRaw().substring(0, Prefix.getValue().length())
+							.equalsIgnoreCase(Prefix.getValue())) {
 						CommandManager manager = new CommandManager();
 						if (manager.getCommand(event) != null)
 							manager.getCommand(event).doTask(event);
@@ -75,17 +76,27 @@ public class Listener extends ListenerAdapter {
 		}
 	}
 
+	private boolean containsForbiddenChars(String msg) {
+		String[] forbiddenChars = { " ", "	" };
+		for (String string : forbiddenChars) {
+			if (msg.contains(string))
+				return true;
+		}
+		return false;
+
+	}
+
 	private void leaveIfAlone(GuildVoiceLeaveEvent event, GuildVoiceMoveEvent event2, boolean leave) {
 		if (leave) {
 			AudioChannel connectedChannelSelf = event.getGuild().getSelfMember().getVoiceState().getChannel();
 
 			ArrayList<Member> members = new ArrayList<>(connectedChannelSelf.getMembers());
-			
 
 			boolean human = false;
 			for (Member member : members) {
 				if (member.getUser().isBot() == false) {
-					human = true; continue;
+					human = true;
+					continue;
 				}
 			}
 			if (!human) {
@@ -102,7 +113,8 @@ public class Listener extends ListenerAdapter {
 			boolean human = false;
 			for (Member member : members) {
 				if (member.getUser().isBot() == false) {
-					human = true; continue;
+					human = true;
+					continue;
 				}
 			}
 			if (!human) {

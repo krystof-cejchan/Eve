@@ -6,8 +6,6 @@ import java.util.EnumSet;
 
 import javax.security.auth.login.LoginException;
 
-import main.onStart.IOnStart;
-import main.onStart.OnStartManager;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -30,15 +28,16 @@ public class StartUp {
 		APITokenTEST = "OTM2Njc1NTQzNzU0MDg4NTQw.YfQpFA.sVKCrcPurel5KqKyLC-5lk0eS5M";
 
 		jda = JDABuilder.createDefault(APITokenTEST, intents);
-		jda.setActivity(Activity.competing("Hey Eve-ing in " + (jda.build().getGuilds().size() + 1) + " servers"));
+		jda.setActivity(Activity.competing("Hey Eve-ing in " + /*(jda.build().getGuilds().size()) */"X"+ " servers"));
 		jda.enableCache(CacheFlag.VOICE_STATE);
 		jda.setStatus(OnlineStatus.ONLINE);
 		jda.addEventListeners(new Listener());
 		jda.build();
 
-		for (IOnStart iOnStart : new OnStartManager().getListOf_onStartClasses()) {
-			iOnStart.doYourPart();
-		}
+		/*
+		 * for (IOnStart iOnStart : new OnStartManager().getListOf_onStartClasses()) {
+		 * iOnStart.doYourPart(); }
+		 */
 
 	}
 
