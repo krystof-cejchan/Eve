@@ -1,10 +1,10 @@
 package commands;
 
-import java.util.ArrayList;
-
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.ContextException;
+
+import java.util.ArrayList;
 
 public class _Support implements ICommands {
 

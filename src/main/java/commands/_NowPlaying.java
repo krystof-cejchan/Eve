@@ -1,9 +1,9 @@
 package commands;
 
-import java.util.ArrayList;
-
 import audio_player.NowPlayingCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.ArrayList;
 
 public class _NowPlaying implements ICommands {
 

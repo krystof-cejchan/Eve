@@ -1,14 +1,14 @@
 package commands_voice;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import javax.annotation.Nullable;
-
 import _library_class.LibraryClass;
 import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ListeningCommandManager {
     public final static ArrayList<IListeningCommands> commands = new ArrayList<>();
@@ -20,6 +20,10 @@ public class ListeningCommandManager {
         addNewCommand(new _Skip_toNext());
     }
 
+    public static ArrayList<IListeningCommands> getAllCommands() {
+        return commands;
+    }
+
     private void addNewCommand(IListeningCommands Icmd) {
 
         boolean exists = commands.stream().anyMatch((matched) -> matched.getName().equals(Icmd.getName()));
@@ -28,10 +32,6 @@ public class ListeningCommandManager {
             commands.add(Icmd);
         }
 
-    }
-
-    public static ArrayList<IListeningCommands> getAllCommands() {
-        return commands;
     }
 
     /**

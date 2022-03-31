@@ -1,13 +1,13 @@
 package commands_voice;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
 import _library_class.LibraryClass;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import voice_and_listening.LANGUAGES;
 import voice_and_listening.SpeechToText;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class _ChangeDefaultLanguage implements IListeningCommands {
 

@@ -1,16 +1,16 @@
 package commands_voice;
 
-import java.util.ArrayList;
-
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.ArrayList;
 
 public interface IListeningCommands {
 
-	void doTask(MessageReceivedEvent event) throws Exception;
+    void doTask(MessageReceivedEvent event) throws Exception;
 
-	String getName();
+    String getName();
 
-	String whatDoIDo();
+    String whatDoIDo();
 
-	ArrayList<String> getTags();
+    ArrayList<String> getTags();
 }

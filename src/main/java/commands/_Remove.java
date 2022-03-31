@@ -1,21 +1,20 @@
 package commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.concurrent.BlockingQueue;
-
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-
 import _library_class.LibraryClass;
 import audio_player.GuildMusicManager;
 import audio_player.PlayerManager;
 import audio_player.QueueCommand;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.concurrent.BlockingQueue;
 
 public class _Remove implements ICommands {
 

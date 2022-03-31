@@ -4,8 +4,8 @@ import sys
 
 def main():
     sound = str(sys.argv[1])
-  #  lan = str(sys.argv[2])
-    
+    #  lan = str(sys.argv[2])
+
     r = sr.Recognizer()
 
     with sr.AudioFile(sound) as source:

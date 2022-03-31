@@ -1,10 +1,10 @@
 package commands;
 
-import java.util.ArrayList;
-
 import audio_player.NowPlayingCommand;
 import audio_player.SkipCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.ArrayList;
 
 public class _Skip1 implements ICommands {
 

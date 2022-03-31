@@ -1,8 +1,5 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
 import audio_player.StopCommand;
 import commands.CommandManager;
 import net.dv8tion.jda.api.entities.AudioChannel;
@@ -15,6 +12,9 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import objects.CurrentTextChannel;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class Listener extends ListenerAdapter {
 

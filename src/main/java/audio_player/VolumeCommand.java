@@ -1,15 +1,15 @@
 package audio_player;
 
-import javax.annotation.Nullable;
-
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import voice_and_listening.Echo;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 public class VolumeCommand {
     Echo echo = new Echo();
+    private int volumeBeforeMuted = 0;
 
     public void setVolume(MessageReceivedEvent event, int volume) {
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember()).getVoiceState()).getChannel(); // user
@@ -74,8 +74,6 @@ public class VolumeCommand {
             e.printStackTrace();
         }
     }
-
-    private int volumeBeforeMuted = 0;
 
     public void mute(MessageReceivedEvent event) {
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember()).getVoiceState()).getChannel(); // user

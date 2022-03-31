@@ -1,11 +1,6 @@
 package audio_player;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import org.apache.commons.collections4.map.HashedMap;
-
+import _library_class.LibraryClass;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
@@ -13,12 +8,15 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-
-import _library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import org.apache.commons.collections4.map.HashedMap;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class PlayerManager {
 
@@ -33,6 +31,13 @@ public class PlayerManager {
 
         AudioSourceManagers.registerRemoteSources(AUDIOPLAYERMANAGER);
         AudioSourceManagers.registerLocalSource(AUDIOPLAYERMANAGER);
+    }
+
+    public static PlayerManager getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new PlayerManager();
+        }
+        return INSTANCE;
     }
 
     public GuildMusicManager getMusicManager(net.dv8tion.jda.api.entities.Guild guild) {
@@ -137,13 +142,6 @@ public class PlayerManager {
             }
 
         });
-    }
-
-    public static PlayerManager getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new PlayerManager();
-        }
-        return INSTANCE;
     }
 
 }

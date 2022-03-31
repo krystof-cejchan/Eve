@@ -1,10 +1,10 @@
 package commands_voice;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import audio_player.SkipCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class _Skip_toNext implements IListeningCommands {
 

@@ -1,9 +1,9 @@
 package commands;
 
-import java.util.ArrayList;
-
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import voice_and_listening.SpeechToText;
+
+import java.util.ArrayList;
 
 public class _ECHO implements ICommands {
 

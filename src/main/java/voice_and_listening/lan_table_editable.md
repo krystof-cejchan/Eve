@@ -1,6 +1,6 @@
-| Language  	| Country			
+| Language    | Country
 |---------------|--------------------|
-| Arabic        | Saudi Arabia	     |	•	| Hungarian     | Hungary            |	•	| Thai          | Thailand           |
+| Arabic        | Saudi Arabia         |	•	| Hungarian     | Hungary            |	•	| Thai          | Thailand           |
 | Czech         | Czech Republic     |	•	| Indonesian    | Indonesia          |	•	| Turkish       | Turkey             |
 | Danish        | Denmark            |	•	| Italian       | Italy              |	•	| Chinese       | China              |
 | German        | Germany            |	•	| Japanese      | Japan              |	•	| Chinese       | Hong Kong          |

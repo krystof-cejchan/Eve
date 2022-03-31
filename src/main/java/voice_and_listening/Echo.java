@@ -6,121 +6,120 @@ import net.dv8tion.jda.api.audio.CombinedAudio;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
+
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Echo {
-	static double volume = 1f;
-	static boolean isAllowedbyUser = false;
+    static double volume = 1f;
+    static boolean isAllowedbyUser = false;
+    static Guild guild;
 
-	public void onEchoCommand(MessageReceivedEvent event) {
+    public void onEchoCommand(MessageReceivedEvent event) {
 
-		Member member = event.getMember();
+        Member member = event.getMember();
 
-		GuildVoiceState voiceState = member.getVoiceState();
-		AudioChannel channel = voiceState.getChannel();
-		if (channel != null) {
-			connectTo(channel);
-			onConnecting(channel, event.getChannel());
-			isAllowedbyUser = true;
-		} else {
-			onUnknownChannel(event.getChannel(), "your voice channel");
-		}
-	}
+        GuildVoiceState voiceState = member.getVoiceState();
+        AudioChannel channel = voiceState.getChannel();
+        if (channel != null) {
+            connectTo(channel);
+            onConnecting(channel, event.getChannel());
+            isAllowedbyUser = true;
+        } else {
+            onUnknownChannel(event.getChannel(), "your voice channel");
+        }
+    }
 
-	public void stopEchoing() {
-		isAllowedbyUser = false;
-		AudioManager audioManager = guild.getAudioManager();
+    public void stopEchoing() {
+        isAllowedbyUser = false;
+        AudioManager audioManager = guild.getAudioManager();
 
-		// audioManager.setSendingHandler();
+        // audioManager.setSendingHandler();
 
-		audioManager.setReceivingHandler(null);
-		// reset audiosource to null + reset sending audio
-	}
+        audioManager.setReceivingHandler(null);
+        // reset audiosource to null + reset sending audio
+    }
 
-	public void setVolume(int vol) {
-		double toDouble = Double.valueOf(vol);
-		volume = toDouble / 100;
-	}
+    public void setVolume(int vol) {
+        double toDouble = Double.valueOf(vol);
+        volume = toDouble / 100;
+    }
 
-	private void onConnecting(AudioChannel channel, MessageChannel messageChannel) {
-		messageChannel.sendMessage("Connecting to " + channel.getName()).queue();
-	}
+    private void onConnecting(AudioChannel channel, MessageChannel messageChannel) {
+        messageChannel.sendMessage("Connecting to " + channel.getName()).queue();
+    }
 
-	private void onUnknownChannel(MessageChannel channel, String comment) {
-		channel.sendMessage("Unable to connect to ``" + comment + "``, no such channel!").queue();
+    private void onUnknownChannel(MessageChannel channel, String comment) {
+        channel.sendMessage("Unable to connect to ``" + comment + "``, no such channel!").queue();
 
-	}
+    }
 
-	static Guild guild;
+    private void connectTo(AudioChannel channel) {
+        guild = channel.getGuild();
 
-	private void connectTo(AudioChannel channel) {
-		guild = channel.getGuild();
+        AudioManager audioManager = guild.getAudioManager();
 
-		AudioManager audioManager = guild.getAudioManager();
+        EchoHandler handler = new EchoHandler();
 
-		EchoHandler handler = new EchoHandler();
+        audioManager.setSendingHandler(handler);
 
-		audioManager.setSendingHandler(handler);
+        audioManager.setReceivingHandler(handler);
 
-		audioManager.setReceivingHandler(handler);
+        audioManager.openAudioConnection(channel);
 
-		audioManager.openAudioConnection(channel);
+    }
 
-	}
+    public static class EchoHandler implements AudioSendHandler, AudioReceiveHandler {
 
-	public static class EchoHandler implements AudioSendHandler, AudioReceiveHandler {
+        private final Queue<byte[]> queue = new ConcurrentLinkedQueue<>();
+        ArrayList<User> speakingUsers = new ArrayList<>();
 
-		private final Queue<byte[]> queue = new ConcurrentLinkedQueue<>();
+        public boolean canReceiveCombined() {
+            if (queue.size() < 10 || isAllowedbyUser)
+                return true;
 
-		public boolean canReceiveCombined() {
-			if (queue.size() < 10 || isAllowedbyUser)
-				return true;
+            else {
+                return false;
+            }
+        }
 
-			else {
-				return false;
-			}
-		}
+        @Override
+        public void handleCombinedAudio(CombinedAudio combinedAudio) {
 
-		ArrayList<User> speakingUsers = new ArrayList<>();
+            try {
+                byte[] data = combinedAudio.getAudioData(volume);
 
-		@Override
-		public void handleCombinedAudio(CombinedAudio combinedAudio) {
+                /*
+                 * speakingUsers.addAll(combinedAudio.getUsers());
+                 * System.out.println(speakingUsers.size());
+                 */
+                queue.add(data);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
 
-			try {
-				byte[] data = combinedAudio.getAudioData(volume);
+        }
 
-				/*
-				 * speakingUsers.addAll(combinedAudio.getUsers());
-				 * System.out.println(speakingUsers.size());
-				 */
-				queue.add(data);
-			} catch (Exception e) {
-				System.out.println(e);
-			}
+        @Override
+        public boolean canProvide() {
 
-		}
+            return !queue.isEmpty();
+        }
 
-		@Override
-		public boolean canProvide() {
+        @Override
+        public ByteBuffer provide20MsAudio() {
 
-			return !queue.isEmpty();
-		}
+            byte[] data = queue.poll();
+            return data == null ? null : ByteBuffer.wrap(data);
+        }
 
-		@Override
-		public ByteBuffer provide20MsAudio() {
+        @Override
+        public boolean isOpus() {
 
-			byte[] data = queue.poll();
-			return data == null ? null : ByteBuffer.wrap(data);
-		}
+            return false;
+        }
 
-		@Override
-		public boolean isOpus() {
-
-			return false;
-		}
-
-	}
+    }
 }

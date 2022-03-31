@@ -1,18 +1,16 @@
 package commands;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
-import javax.annotation.Nullable;
-
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-
 import _library_class.LibraryClass;
 import audio_player.GuildMusicManager;
 import audio_player.NowPlayingCommand;
 import audio_player.PlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class _FF implements ICommands {
 

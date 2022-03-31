@@ -13,6 +13,15 @@ import java.util.Objects;
 
 public class NowPlayingCommand {
 
+    public static String getTimestamp(long milliseconds) {
+        int seconds = (int) (milliseconds / 1000) % 60;
+        int minutes = (int) ((milliseconds / (1000 * 60)) % 60);
+        int hours = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
+
+        if (hours > 0) return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        else return String.format("%02d:%02d", minutes, seconds);
+    }
+
     public void getNowPlayingTrack(MessageReceivedEvent event) {
 
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember()).getVoiceState()).getChannel(); // user
@@ -56,15 +65,6 @@ public class NowPlayingCommand {
             e.printStackTrace();
         }
 
-    }
-
-    public static String getTimestamp(long milliseconds) {
-        int seconds = (int) (milliseconds / 1000) % 60;
-        int minutes = (int) ((milliseconds / (1000 * 60)) % 60);
-        int hours = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
-
-        if (hours > 0) return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-        else return String.format("%02d:%02d", minutes, seconds);
     }
 
     public AudioTrack getNpAudioTrack(MessageReceivedEvent event) {

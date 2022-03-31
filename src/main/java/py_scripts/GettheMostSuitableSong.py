@@ -1,5 +1,4 @@
 # this python script uses discogs_client library to verify and find the most suitable song
-from re import search
 
 import discogs_client
 import sys
@@ -14,7 +13,7 @@ def main():
             i += 1
 
         d = discogs_client.Client('my_user_agent/1.0', user_token='daRhMyKSYbULWcwtwFOmVPMOfrlpIAsPPFtjdZdI')
-        #deleted token
+        # deleted token
         results = d.search(searchKeys, type='release')
         # print(searchKeys)
         results.per_page = 1  # sets number of shown results per page

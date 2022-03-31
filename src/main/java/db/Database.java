@@ -44,8 +44,8 @@ public class Database {
         if (!db.exists()) {
             @SuppressWarnings("unused")
             Connection conn = null;
-			isConnSuccesfully = true;
-		}
+            isConnSuccesfully = true;
+        }
     }
 
     public void connectToDB() {

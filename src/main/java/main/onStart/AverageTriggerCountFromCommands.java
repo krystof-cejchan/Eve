@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package main.onStart;
 
@@ -11,28 +11,28 @@ import commands.ICommands;
  *
  */
 public class AverageTriggerCountFromCommands implements IOnStart {
-	private int AverageTriggerCountFromCommands;
+    private int AverageTriggerCountFromCommands;
 
-	@Override
-	public void doYourPart() {
-		setAverageTriggerCountFromCommands(calcAverageTriggerCount());
+    @Override
+    public void doYourPart() {
+        setAverageTriggerCountFromCommands(calcAverageTriggerCount());
 
-	}
+    }
 
-	public int getAverageTriggerCountFromCommands() {
-		return AverageTriggerCountFromCommands;
-	}
+    public int getAverageTriggerCountFromCommands() {
+        return AverageTriggerCountFromCommands;
+    }
 
-	public void setAverageTriggerCountFromCommands(int averageTriggerCountFromCommands) {
-		AverageTriggerCountFromCommands = averageTriggerCountFromCommands;
-	}
+    public void setAverageTriggerCountFromCommands(int averageTriggerCountFromCommands) {
+        AverageTriggerCountFromCommands = averageTriggerCountFromCommands;
+    }
 
-	public int calcAverageTriggerCount() {
-		int helper = 0;
-		for (ICommands iCommands : CommandManager.getAllCommands()) {
-			helper += iCommands.getTriggers().size();
-		}
-		return helper / CommandManager.getAllCommands().size();
-	}
+    public int calcAverageTriggerCount() {
+        int helper = 0;
+        for (ICommands iCommands : CommandManager.getAllCommands()) {
+            helper += iCommands.getTriggers().size();
+        }
+        return helper / CommandManager.getAllCommands().size();
+    }
 
 }

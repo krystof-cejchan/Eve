@@ -1,13 +1,12 @@
 package commands;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import _library_class.LibraryClass;
 import main.Prefix;
 import net.dv8tion.jda.api.EmbedBuilder;
-//import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class _Help implements ICommands {
 

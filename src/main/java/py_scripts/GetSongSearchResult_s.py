@@ -1,5 +1,4 @@
 # this python script uses discogs_client library to verify and find the most suitable song
-from re import search
 
 import discogs_client
 import sys
@@ -22,6 +21,7 @@ def main():
     except Exception:
 
         print("-ERROR-")
+
 
 if __name__ == "__main__":
     main()

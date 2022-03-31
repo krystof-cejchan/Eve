@@ -1,15 +1,14 @@
 package audio_player;
 
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.concurrent.BlockingQueue;
-
-import javax.annotation.Nullable;
-
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.concurrent.BlockingQueue;
 
 public class SkipCommand {
     public void skipTrack(MessageReceivedEvent event, boolean msg) {

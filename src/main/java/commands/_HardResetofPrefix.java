@@ -1,10 +1,10 @@
 package commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import main.Prefix;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class _HardResetofPrefix implements ICommands {
 

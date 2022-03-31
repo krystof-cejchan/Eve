@@ -1,39 +1,10 @@
 package commands.commands_others;
 
-import java.time.OffsetDateTime;
-
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.time.OffsetDateTime;
+
 public class Birthday {
-    public String getBirthdayDate(MessageReceivedEvent event) {
-
-        OffsetDateTime date;
-        date = event.getGuild().getTimeCreated();
-        int day = date.getDayOfMonth();
-        int month = date.getMonthValue();
-        int year = date.getYear();
-        String dayS = String.valueOf(day);
-        String monthS = String.valueOf(getMonthName(month));
-        String yearS = String.valueOf(year);
-
-        return dayS + " " + monthS + " " + yearS;
-    }
-
-    public String getBirthdayTime(MessageReceivedEvent event) {
-
-        OffsetDateTime date;
-        date = event.getGuild().getTimeCreated();
-
-        int hour = date.getHour();
-        int minute = date.getMinute();
-        int second = date.getSecond();
-        String hourS = String.valueOf(hour);
-        String minuteS = String.valueOf(minute);
-        String secondS = String.valueOf(second);
-
-        return hourS + ":" + minuteS + ":" + secondS;
-    }
-
     public static String getNormalDate(OffsetDateTime date) {
         int day = date.getDayOfMonth();
         int month = date.getMonthValue();
@@ -72,5 +43,34 @@ public class Birthday {
             case 12 -> "December";
             default -> "N/A";
         };
+    }
+
+    public String getBirthdayDate(MessageReceivedEvent event) {
+
+        OffsetDateTime date;
+        date = event.getGuild().getTimeCreated();
+        int day = date.getDayOfMonth();
+        int month = date.getMonthValue();
+        int year = date.getYear();
+        String dayS = String.valueOf(day);
+        String monthS = String.valueOf(getMonthName(month));
+        String yearS = String.valueOf(year);
+
+        return dayS + " " + monthS + " " + yearS;
+    }
+
+    public String getBirthdayTime(MessageReceivedEvent event) {
+
+        OffsetDateTime date;
+        date = event.getGuild().getTimeCreated();
+
+        int hour = date.getHour();
+        int minute = date.getMinute();
+        int second = date.getSecond();
+        String hourS = String.valueOf(hour);
+        String minuteS = String.valueOf(minute);
+        String secondS = String.valueOf(second);
+
+        return hourS + ":" + minuteS + ":" + secondS;
     }
 }

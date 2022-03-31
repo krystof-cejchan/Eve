@@ -1,9 +1,9 @@
 package commands;
 
-import java.util.ArrayList;
-
 import audio_player.QueueCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.ArrayList;
 
 public class _Queue implements ICommands {
 

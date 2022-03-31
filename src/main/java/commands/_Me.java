@@ -1,11 +1,11 @@
 package commands;
 
-import java.awt.Color;
-import java.util.ArrayList;
-
 import commands.commands_others.Birthday;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class _Me implements ICommands {
 

@@ -1,13 +1,13 @@
 package commands;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
 import _library_class.LibraryClass;
 import memes__php.GetFunctionsFrom_PHP;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class _Memes implements ICommands {
 

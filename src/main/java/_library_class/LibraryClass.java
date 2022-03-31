@@ -1,25 +1,19 @@
 package _library_class;
 
-import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import commands_voice.IListeningCommands;
+import commands_voice.ListeningCommandManager;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import javax.annotation.Nullable;
+import java.awt.*;
+import java.io.*;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.annotation.Nullable;
-
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-
-import commands_voice.IListeningCommands;
-import commands_voice.ListeningCommandManager;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * This Class serves as a Library Class according to the design patterns in Java

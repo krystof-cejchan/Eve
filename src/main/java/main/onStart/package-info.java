@@ -1,5 +1,5 @@
 /**
- * 
+ * @author krystof-cejchan
  */
 /**
  * @author krystof-cejchan
