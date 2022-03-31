@@ -9,15 +9,14 @@ public class _Prefix implements ICommands {
 
 	@Override
 	public void doTask(MessageReceivedEvent event) {
-		Prefix pref = new Prefix();
+		// Prefix pref = new Prefix();
 
 		try {
-			if (/*
-				 * event.getMessage().getContentRaw().split(" ")[1].contains(" ") == false &&
-				 */ event.getMessage().getContentRaw().split(" ")[1].length() >= 1) {
-				pref.setValue(event.getMessage().getContentRaw().split(" ")[1]);
 
-				event.getMessage().reply("Prefix has been changed to " + pref.getValue()).queue();
+			if (event.getMessage().getContentRaw().split(" ")[1].length() >= 1) {
+				Prefix.setValue(event.getMessage().getContentRaw().split(" ")[1]);
+
+				event.getMessage().reply("Prefix has been changed to " + Prefix.getValue()).queue();
 			}
 		} catch (Exception e) {
 		}
@@ -41,7 +40,9 @@ public class _Prefix implements ICommands {
 		// TODO Auto-generated method stub
 		ArrayList<String> t = new ArrayList<>();
 		t.add("prefix");
+		t.add("pref");
 		t.add("pf");
+
 		return t;
 	}
 

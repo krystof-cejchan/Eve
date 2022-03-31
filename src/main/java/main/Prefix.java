@@ -1,15 +1,15 @@
 package main;
 
 public class Prefix {
-	private String value = ";"; // default prefix
+	private static String value = ";"; // default prefix
 
-	public String getValue() {
+	public static String getValue() {
 		return value;
 	}
 
-	public void setValue(String value) {
-		if (value.contains(" ") == false && value.length() >= 1)
-			this.value = value;
+	public static void setValue(String value) {
+		if (/* value.contains(" ") == false && */ value.length() >= 1)
+			Prefix.value = value;
 	}
 
 }
