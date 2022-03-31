@@ -61,7 +61,7 @@ public class Listener extends ListenerAdapter {
 				CurrentTextChannel ctch = new CurrentTextChannel(eventChannel.getId());
 				ctch.setIid(eventChannel.getId());
 				if (eventChannel == re || allower) {
-					if (event.getMessage().getContentRaw().contains(prefix)) {
+					if (event.getMessage().getContentRaw().startsWith(prefix.concat(" "))) {
 						CommandManager manager = new CommandManager();
 						if (manager.getCommand(event) != null)
 							manager.getCommand(event).doTask(event);
@@ -80,11 +80,12 @@ public class Listener extends ListenerAdapter {
 			AudioChannel connectedChannelSelf = event.getGuild().getSelfMember().getVoiceState().getChannel();
 
 			ArrayList<Member> members = new ArrayList<>(connectedChannelSelf.getMembers());
+			
 
 			boolean human = false;
 			for (Member member : members) {
 				if (member.getUser().isBot() == false) {
-					human = true;
+					human = true; continue;
 				}
 			}
 			if (!human) {
@@ -101,7 +102,7 @@ public class Listener extends ListenerAdapter {
 			boolean human = false;
 			for (Member member : members) {
 				if (member.getUser().isBot() == false) {
-					human = true;
+					human = true; continue;
 				}
 			}
 			if (!human) {
