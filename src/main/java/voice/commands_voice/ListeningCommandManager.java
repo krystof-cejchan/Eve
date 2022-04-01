@@ -1,4 +1,4 @@
-package commands_voice;
+package voice.commands_voice;
 
 import _library_class.LibraryClass;
 import net.ricecode.similarity.JaroWinklerStrategy;

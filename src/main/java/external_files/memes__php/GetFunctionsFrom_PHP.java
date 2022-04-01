@@ -1,4 +1,4 @@
-package memes__php;
+package external_files.memes__php;
 
 import _library_class.LibraryClass;
 

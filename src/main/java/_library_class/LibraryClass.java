@@ -1,8 +1,8 @@
 package _library_class;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import commands_voice.IListeningCommands;
-import commands_voice.ListeningCommandManager;
+import voice.commands_voice.IListeningCommands;
+import voice.commands_voice.ListeningCommandManager;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import javax.annotation.Nullable;

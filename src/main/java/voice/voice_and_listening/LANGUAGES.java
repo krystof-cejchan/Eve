@@ -1,4 +1,4 @@
-package voice_and_listening;
+package voice.voice_and_listening;
 
 import java.util.ArrayList;
 import java.util.List;

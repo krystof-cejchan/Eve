@@ -2,7 +2,7 @@ package audio_player;
 
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import voice_and_listening.Echo;
+import voice.voice_and_listening.Echo;
 
 import javax.annotation.Nullable;
 import java.util.Objects;

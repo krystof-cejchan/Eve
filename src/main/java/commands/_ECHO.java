@@ -1,7 +1,7 @@
 package commands;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import voice_and_listening.SpeechToText;
+import voice.voice_and_listening.SpeechToText;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package commands_voice;
+package voice.commands_voice;
 
 import audio_player.SkipCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

@@ -1,10 +1,10 @@
-package commands_voice;
+package voice.commands_voice;
 
 import _library_class.LibraryClass;
 import audio_player.MessageTypes;
 import audio_player.PlayCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import voice_and_listening.SpeechToText;
+import voice.voice_and_listening.SpeechToText;
 
 import java.util.ArrayList;
 import java.util.Arrays;

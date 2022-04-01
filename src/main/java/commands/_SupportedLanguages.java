@@ -3,7 +3,7 @@ package commands;
 import _library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import voice_and_listening.LANGUAGES;
+import voice.voice_and_listening.LANGUAGES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
