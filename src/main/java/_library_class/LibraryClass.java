@@ -209,8 +209,7 @@ public class LibraryClass {
      * @param event        MessageReceivedEvent
      * @param emoteUNICODE unicode of an emote <a href="https://unicode.org/emoji/charts/full-emoji-list.html#:~:text=1-,U%2B1F600,-%F0%9F%98%80"> link to emoji list </a>
      */
-    public static void addReactionToTheMsg(MessageReceivedEvent event, String emoteUNICODE) throws UnsupportedOperationException,
-            net.dv8tion.jda.api.exceptions.InsufficientPermissionException, IllegalArgumentException, IllegalStateException {
+    public static void addReactionToTheMsg(MessageReceivedEvent event, String emoteUNICODE) throws UnsupportedOperationException, net.dv8tion.jda.api.exceptions.InsufficientPermissionException, IllegalArgumentException, IllegalStateException {
 
         event.getMessage().addReaction(emoteUNICODE).queue();
 
@@ -307,8 +306,7 @@ public class LibraryClass {
     public static String getTextFromWebpage(String web_url) {
         try {
             if (!isLink(web_url)) return null;
-            URL url = new URL(web_url);
-            Scanner sc = new Scanner(url.openStream());
+            Scanner sc = new Scanner(new URL(web_url).openStream());
             StringBuilder sb = new StringBuilder();
             while (sc.hasNext()) {
                 sb.append(sc.next());
