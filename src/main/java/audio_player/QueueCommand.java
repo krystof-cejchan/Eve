@@ -58,7 +58,7 @@ public class QueueCommand {
 
         }
         if (queue.isEmpty()) {
-            event.getChannel().sendMessage("Queue is empty like my life").queue();
+            event.getChannel().sendMessage("Queue is empty \uD83D\uDD73").queue();
         }
     }
 
@@ -104,7 +104,7 @@ public class QueueCommand {
 
                 musicManager.SCHEDULER.QUEUE.addAll(audioList);
                 event.getChannel().sendMessage("```diff\n" + "-").append(deletedTitle).append("\nhas been thrown into the void!```").queue();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
 

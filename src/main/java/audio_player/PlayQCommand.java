@@ -8,6 +8,9 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
+/**
+ * plays a queue
+ */
 public class PlayQCommand {
     public void playMusic(MessageReceivedEvent event, String url, boolean isLink) {
         final MessageChannel channel = event.getChannel();
@@ -27,13 +30,13 @@ public class PlayQCommand {
             if (connectedChannel.equals(connectedChannelSelf)) {
 
                 if (isLink) {
-                    loadNPlay(channel, url, event, null, null);
+                    loadNPlay(channel, url, event);
                 }
 
             } else {
                 if (isLink) {
                     vc.Join(event);
-                    loadNPlay(channel, url, event, null, null);
+                    loadNPlay(channel, url, event);
                 }
 
             }
@@ -43,7 +46,7 @@ public class PlayQCommand {
 
     }
 
-    protected void loadNPlay(MessageChannel channel, String url, MessageReceivedEvent event, MessageTypes types, String voice) {
+    protected void loadNPlay(MessageChannel channel, String url, MessageReceivedEvent event) {
         PlayerManager.getInstance().loadAndPlay(channel, url, true, event, null, null);
     }
 

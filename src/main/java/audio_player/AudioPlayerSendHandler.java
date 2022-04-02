@@ -6,6 +6,9 @@ import net.dv8tion.jda.api.audio.AudioSendHandler;
 
 import java.nio.ByteBuffer;
 
+/**
+ * Lava Player set up
+ */
 public class AudioPlayerSendHandler implements AudioSendHandler {
 
     private final AudioPlayer AUDIOPLAYER;

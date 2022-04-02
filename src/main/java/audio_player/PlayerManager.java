@@ -33,6 +33,11 @@ public class PlayerManager {
         AudioSourceManagers.registerLocalSource(AUDIOPLAYERMANAGER);
     }
 
+    /**
+     * Singleton design pattern
+     *
+     * @return instance of the class, if any other instance does not exist
+     */
     public static PlayerManager getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new PlayerManager();
@@ -49,10 +54,27 @@ public class PlayerManager {
         });
     }
 
+    /**
+     * Sends regular message to the text channel as a reply with the new track info
+     *
+     * @param event {@link MessageReceivedEvent}
+     * @param track new track to be added to the queue
+     */
     public void sendRegularMessage(MessageReceivedEvent event, AudioTrack track) {
-        event.getMessage().reply("```yaml\n" + "Adding to queue:").append(track.getInfo().title).append("  #  from: ").append(track.getInfo().author).append(" channel```").queue();
+        event.getMessage().reply("```yaml\n" + "Adding to the queue:").append(track.getInfo().title).append("  #  from: ").append(track.getInfo().author).append(" channel```").queue();
     }
 
+    /**
+     * Creates {@link MessageEmbed} with information regarding user's voice input
+     *
+     * @param track        {@link AudioTrack}
+     * @param usersInput   user's voice input transcribed to text {@link voice.voice_and_listening.SpeechToText}
+     * @param event        {@link MessageReceivedEvent}
+     * @param searchingfor what is bot searching for in youtube (takes usersInput and removes words that are not meant to be involved in the song title ie. "play","by"...)
+     * @return MessageEmbed containing song info and user's input data
+     * @throws IllegalArgumentException if arguments are incorrect
+     * @author krystof-cejchan
+     */
     public MessageEmbed createEmbedMsg(AudioTrack track, String usersInput, MessageReceivedEvent event, String searchingfor) throws IllegalArgumentException {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setDescription("A new song request");
@@ -64,12 +86,29 @@ public class PlayerManager {
         return embedBuilder.build();
     }
 
+    /**
+     * Loads and plays song(s), depending on {@code isQueue}
+     *
+     * @param channel    {@link MessageChannel}
+     * @param url        url or search text
+     * @param isQueue    if true, loads all song from link and adds them all to the queue; if false, it loads only one song <hr>
+     *                   <i>(for instance, if user passes a playlist as a arguments when triggering {@link PlayCommand} but isQueue is false,
+     *                   then only the first song from the playlist will be added to the queue, otherwise all songs will be added)</i><hr>
+     * @param event      {@link MessageReceivedEvent}
+     * @param msgType    {@link MessageTypes}
+     * @param usersInput user's input
+     * @author krystof-cejchan
+     */
     public void loadAndPlay(MessageChannel channel, String url, boolean isQueue, MessageReceivedEvent event, MessageTypes msgType, String usersInput) {
 
         final GuildMusicManager musicManager = this.getMusicManager(event.getGuild());
 
         this.AUDIOPLAYERMANAGER.loadItemOrdered(musicManager, url, new AudioLoadResultHandler() {
 
+            /**
+             * single track loaded
+             * @param track {@link AudioTrack} which is supposed to be adde to the queue
+             */
             @Override
             public void trackLoaded(AudioTrack track) {
                 musicManager.SCHEDULER.queue(track);
@@ -91,24 +130,26 @@ public class PlayerManager {
 
             }
 
+            /**
+             * playlist loaded
+             * @param playlist a list of {@link AudioTrack}-s
+             */
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
 
+                List<AudioTrack> tracks = playlist.getTracks();
                 if (isQueue) {
-                    int addedTracks_count = 0;
-                    List<AudioTrack> tracks = playlist.getTracks();
-                    for (AudioTrack audioTrack : tracks) {
+
+                    /* for (AudioTrack audioTrack : tracks) {
                         musicManager.SCHEDULER.queue(audioTrack);
-                        addedTracks_count++;
-                    }
-                    /*
-                     * tracks.forEach(audioTrack -> { musicManager.SCHEDULER.queue(audioTrack);
-                     * addedTracks_count = addedTracks_count + 1; });
-                     */
-                    channel.sendMessage("Successfully added: " + addedTracks_count + " tracks").queue();
+
+                    }*/
+
+                    tracks.forEach(musicManager.SCHEDULER::queue);
+
+                    channel.sendMessage("Successfully added: " + playlist.getTracks().size() + " tracks").queue();
 
                 } else {
-                    List<AudioTrack> tracks = playlist.getTracks();
                     AudioTrack track = tracks.get(0);
                     musicManager.SCHEDULER.queue(track);
                     switch (msgType) {
@@ -129,12 +170,19 @@ public class PlayerManager {
                 }
             }
 
+            /**
+             * no track with this title or upload under this url was found
+             */
             @Override
             public void noMatches() {
                 channel.sendMessage("Nothing was found for: __" + usersInput + "__").queue();
 
             }
 
+            /**
+             * track could not be loaded
+             * @param exception {@link FriendlyException} this exception will be printed out to the user as an error message
+             */
             @Override
             public void loadFailed(FriendlyException exception) {
                 channel.sendMessage("Failed to load the track" + exception).queue();
