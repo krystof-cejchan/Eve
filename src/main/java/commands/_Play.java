@@ -3,6 +3,7 @@ package commands;
 import _library_class.LibraryClass;
 import audio_player.MessageTypes;
 import audio_player.PlayCommand;
+import main.VoiceChannels;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
@@ -12,7 +13,10 @@ public class _Play implements ICommands {
     @Override
     public void doTask(MessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split(" ");
-
+        if(args.length<=1){
+            new VoiceChannels().Join(event);
+            return;
+        }
         PlayCommand playC = new PlayCommand();
         StringBuilder urlOrSearchKey = new StringBuilder();
 

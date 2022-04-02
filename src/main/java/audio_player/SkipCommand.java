@@ -12,24 +12,23 @@ import java.util.concurrent.BlockingQueue;
 
 public class SkipCommand {
     public void skipTrack(MessageReceivedEvent event, boolean msg) {
-        // event.getChannel();
+
 
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember()).getVoiceState()).getChannel(); // user
 
         @Nullable AudioChannel connectedChannelSelf = Objects.requireNonNull(event.getGuild().getSelfMember().getVoiceState()).getChannel(); // bot
 
-        // new VoiceChannels();
 
         try {
             if (!(connectedChannel == (null)) || !(connectedChannelSelf == (null))) {
-                // uživatel někde je a bot taky
+
                 assert connectedChannel != null;
                 if (connectedChannel.equals(connectedChannelSelf)) {
 
                     final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
                     final AudioPlayer audioPlayer = musicManager.AUDIOPLAYER;
 
-                    // System.out.print(musicManager.SCHEDULER.PLAYER.);
+
                     if (audioPlayer.getPlayingTrack() == null) {
                         event.getChannel().sendMessage("Queue is empty").queue();
                     } else {
@@ -56,27 +55,22 @@ public class SkipCommand {
 
         @Nullable AudioChannel connectedChannelSelf = Objects.requireNonNull(event.getGuild().getSelfMember().getVoiceState()).getChannel(); // bot
 
-        // new VoiceChannels();
 
         try {
             if (!(connectedChannel == (null)) || !(connectedChannelSelf == (null))) {
-                // uživatel někde je a bot taky
                 assert connectedChannel != null;
                 if (connectedChannel.equals(connectedChannelSelf)) {
 
                     final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
                     final AudioPlayer audioPlayer = musicManager.AUDIOPLAYER;
 
-                    // System.out.print(musicManager.SCHEDULER.PLAYER.);
                     if (audioPlayer.getPlayingTrack() == null) {
                         event.getChannel().sendMessage("Queue is empty").queue();
                     } else {
 
-                        int i;
-                        for (i = 0; i < index; i++) {
 
+                        for (int i = 0; i < index; i++) {
                             skipTrack(event, false);
-
                         }
 
                         NowPlayingCommand n = new NowPlayingCommand();
