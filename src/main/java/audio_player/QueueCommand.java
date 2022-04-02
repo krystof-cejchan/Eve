@@ -60,7 +60,7 @@ public class QueueCommand {
 
         }
         if (queue.isEmpty()) {
-            event.getChannel().sendMessage("Queue is empty \uD83D\uDD73").queue();
+            event.getChannel().sendMessage("Queue is empty   ✨***void*** ✨").queue();
         }
     }
 
