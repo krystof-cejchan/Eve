@@ -12,6 +12,12 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * <p style="background-color:Green;">This command fast-forwards current track (in seconds)</p>
+ *
+ * @author krystof-cejchan
+ * {@link ICommands}
+ */
 public class _FF implements ICommands {
 
     @Override
@@ -29,7 +35,7 @@ public class _FF implements ICommands {
 
             try {
                 if (!(connectedChannel == (null)) || !(connectedChannelSelf == (null))) {
-                    // uživatel někde je a bot taky
+
                     assert connectedChannel != null;
                     if (connectedChannel.equals(connectedChannelSelf)) {
 
@@ -60,7 +66,7 @@ public class _FF implements ICommands {
 
                     }
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
         }

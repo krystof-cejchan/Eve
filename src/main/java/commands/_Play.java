@@ -7,7 +7,12 @@ import main.VoiceChannels;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
-
+/**
+ * <p style="background-color:Green;">This command adds a song to the track list</p>
+ *
+ * @author krystof-cejchan
+ * {@link ICommands}
+ */
 public class _Play implements ICommands {
 
     @Override
@@ -42,7 +47,7 @@ public class _Play implements ICommands {
     @Override
     public String whatDoIDo() {
 
-        return "This command adds a song to the tracklist";
+        return "This command adds a song to the track list";
     }
 
     @Override

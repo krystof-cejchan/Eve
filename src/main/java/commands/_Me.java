@@ -7,6 +7,12 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * <p style="background-color:Green;">This command tells you your account details</p>
+ *
+ * @author krystof-cejchan
+ * {@link ICommands}
+ */
 public class _Me implements ICommands {
 
     @Override

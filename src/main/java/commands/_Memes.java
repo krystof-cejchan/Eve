@@ -8,7 +8,12 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
+/**
+ * <p style="background-color:Green;">This command sends a auto-generated meme with you</p>
+ *
+ * @author krystof-cejchan
+ * {@link ICommands}
+ */
 public class _Memes implements ICommands {
 
     /**

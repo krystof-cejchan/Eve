@@ -14,10 +14,6 @@ import java.util.Objects;
 public class PlayQCommand {
     public void playMusic(MessageReceivedEvent event, String url, boolean isLink) {
         final MessageChannel channel = event.getChannel();
-        /*
-         * final Member self = (Member) event.getGuild().getSelfMember(); final
-         * GuildVoiceState selfVoiceState = (GuildVoiceState) self.getVoiceState();
-         */
 
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember()).getVoiceState()).getChannel(); // user
 

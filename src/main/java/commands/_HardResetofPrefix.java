@@ -6,6 +6,12 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * <p style="background-color:Green;">This command hard-resets current prefix to ";" </p>
+ *
+ * @author krystof-cejchan
+ * {@link ICommands}
+ */
 public class _HardResetofPrefix implements ICommands {
 
     @Override

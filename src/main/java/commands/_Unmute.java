@@ -4,7 +4,12 @@ import audio_player.VolumeCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
-
+/**
+ * <p style="background-color:Green;">This command unmutes the bot</p>
+ *
+ * @author krystof-cejchan
+ * {@link ICommands}
+ */
 public class _Unmute implements ICommands {
 
     @Override

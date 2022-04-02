@@ -7,10 +7,21 @@ import voice.voice_and_listening.Echo;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
+/**
+ * volume changing command
+ *
+ * @author krystof-cejchan
+ */
 public class VolumeCommand {
     Echo echo = new Echo();
     private int volumeBeforeMuted = 0;
 
+    /**
+     * set to volume to {@code volume}
+     *
+     * @param event  {@link MessageReceivedEvent}
+     * @param volume a number representing desired volume
+     */
     public void setVolume(MessageReceivedEvent event, int volume) {
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember()).getVoiceState()).getChannel(); // user
 
@@ -47,7 +58,7 @@ public class VolumeCommand {
 
         try {
             if (!(connectedChannel == (null)) || !(connectedChannelSelf == (null))) {
-                // uživatel někde je a bot taky
+
                 assert connectedChannel != null;
                 if (connectedChannel.equals(connectedChannelSelf)) {
                     final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
@@ -75,6 +86,11 @@ public class VolumeCommand {
         }
     }
 
+    /**
+     * mutes the bot (sets volume to 0; it does not mute bot through discord muting feature)
+     *
+     * @param event {@link MessageReceivedEvent}
+     */
     public void mute(MessageReceivedEvent event) {
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember()).getVoiceState()).getChannel(); // user
 
@@ -82,7 +98,7 @@ public class VolumeCommand {
 
         try {
             if (!(connectedChannel == (null)) || !(connectedChannelSelf == (null))) {
-                // uživatel někde je a bot taky
+
                 assert connectedChannel != null;
                 if (connectedChannel.equals(connectedChannelSelf)) {
                     final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
@@ -99,6 +115,11 @@ public class VolumeCommand {
         }
     }
 
+    /**
+     * if muted, umutes the bot back to the volume before muting
+     *
+     * @param event {@link MessageReceivedEvent}
+     */
     public void unmute(MessageReceivedEvent event) {
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember()).getVoiceState()).getChannel(); // user
 
@@ -106,7 +127,7 @@ public class VolumeCommand {
 
         try {
             if (!(connectedChannel == (null)) || !(connectedChannelSelf == (null))) {
-                // uživatel někde je a bot taky
+
                 assert connectedChannel != null;
                 if (connectedChannel.equals(connectedChannelSelf)) {
                     final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
@@ -120,6 +141,12 @@ public class VolumeCommand {
         }
     }
 
+    /**
+     * return current volume
+     *
+     * @param event {@link MessageReceivedEvent}
+     * @return current vol
+     */
     public int getCurrentVolume(MessageReceivedEvent event) {
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
         return musicManager.AUDIOPLAYER.getVolume();

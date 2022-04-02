@@ -5,7 +5,12 @@ import audio_player.PlayQCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
-
+/**
+ * <p style="background-color:Green;">This command adds every song from your playlist to the queue</p>
+ *
+ * @author krystof-cejchan
+ * {@link ICommands}
+ */
 public class _PlayQueue implements ICommands {
 
     @Override

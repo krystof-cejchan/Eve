@@ -4,7 +4,16 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.time.OffsetDateTime;
 
+/**
+ * Birthday class
+ */
 public class Birthday {
+    /**
+     * transform date to String
+     *
+     * @param date {@link OffsetDateTime}
+     * @return OffsetDateTime → String date
+     */
     public static String getNormalDate(OffsetDateTime date) {
         int day = date.getDayOfMonth();
         int month = date.getMonthValue();
@@ -16,6 +25,12 @@ public class Birthday {
         return dayS + " " + monthS + " " + yearS;
     }
 
+    /**
+     * transform time to String
+     *
+     * @param date {@link OffsetDateTime}
+     * @return OffsetDateTime → String time
+     */
     public static String getNormalTime(OffsetDateTime date) {
         int hour = date.getHour();
         int minute = date.getMinute();
@@ -27,6 +42,12 @@ public class Birthday {
         return hourS + ":" + minuteS + ":" + secondS;
     }
 
+    /**
+     * returns month name by its index in the year
+     *
+     * @param monthIndex 1-12 representing months
+     * @return name of a month
+     */
     public static String getMonthName(int monthIndex) {
         return switch (monthIndex) {
             case 1 -> "January";
@@ -45,6 +66,12 @@ public class Birthday {
         };
     }
 
+    /**
+     * get date when {@link net.dv8tion.jda.api.entities.Guild} was created
+     *
+     * @param event used to get information about Guild
+     * @return text value of the date when Guild was created
+     */
     public String getBirthdayDate(MessageReceivedEvent event) {
 
         OffsetDateTime date;
@@ -59,6 +86,12 @@ public class Birthday {
         return dayS + " " + monthS + " " + yearS;
     }
 
+    /**
+     * get time when {@link net.dv8tion.jda.api.entities.Guild} was created
+     *
+     * @param event used to get information about Guild
+     * @return text value of the time when Guild was created
+     */
     public String getBirthdayTime(MessageReceivedEvent event) {
 
         OffsetDateTime date;

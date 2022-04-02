@@ -4,7 +4,12 @@ import audio_player.SkipCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
-
+/**
+ * <p style="background-color:Green;">This command skips to *x.* in the queue</p>
+ *
+ * @author krystof-cejchan
+ * {@link ICommands}
+ */
 public class _SkipTo implements ICommands {
 
     @Override

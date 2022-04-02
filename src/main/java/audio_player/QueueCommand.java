@@ -10,7 +10,17 @@ import net.dv8tion.jda.api.requests.restaction.MessageAction;
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * Queue related matters
+ * Skipping, removing ...
+ */
 public class QueueCommand {
+    /**
+     * Prints out queue to the text channel
+     *
+     * @param event {@link MessageReceivedEvent}
+     * @author krystof-cejchan
+     */
     @SuppressWarnings("all")
     public void getQueue(MessageReceivedEvent event) {
         MessageChannel channel = event.getChannel();
@@ -64,6 +74,13 @@ public class QueueCommand {
         }
     }
 
+    /**
+     * Removes an item from the queue by index
+     *
+     * @param event {@link MessageReceivedEvent}
+     * @param index what item should be removed
+     * @author krystof-cejchan
+     */
     public void removeFromQueue(MessageReceivedEvent event, int index) {
 
         GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
@@ -90,6 +107,13 @@ public class QueueCommand {
         }
     }
 
+    /**
+     * If possible, removes a track by its title
+     *
+     * @param event  {@link MessageReceivedEvent}
+     * @param aTrack {@link AudioTrack} this track gets removed from the QUEUE, since the queue is just a list of {@link AudioTrack}s, if aTrack equals any item from the QUEUE, it gets removed
+     * @author krystof-cejchan
+     */
     public void removeFromQueuebyName(MessageReceivedEvent event, AudioTrack aTrack) {
 
         GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());

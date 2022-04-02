@@ -9,7 +9,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
+/**
+ * <p style="background-color:Green;"></p>
+ *
+ * @author krystof-cejchan
+ * {@link ICommands}
+ */
 public class _SupportedLanguages implements ICommands {
 
     @Override

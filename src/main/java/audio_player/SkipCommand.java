@@ -10,7 +10,17 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * Skipping a track or more tracks
+ */
 public class SkipCommand {
+    /**
+     * Skips only the following track
+     *
+     * @param event {@link MessageReceivedEvent}
+     * @param msg   if true, bot will send a message to the text channel informing users about skipping song; false, bot will skip a song without letting the user know
+     * @author krystof-cejchan
+     */
     public void skipTrack(MessageReceivedEvent event, boolean msg) {
 
 
@@ -50,6 +60,13 @@ public class SkipCommand {
 
     }
 
+    /**
+     * Skips to the track with index in the queue
+     *
+     * @param event {@link MessageReceivedEvent}
+     * @param index a number referring to the song in the queue
+     * @author krystof-cejchan
+     */
     public void skipTrackTo(MessageReceivedEvent event, int index) {
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember()).getVoiceState()).getChannel(); // user
 

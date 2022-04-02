@@ -7,11 +7,16 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
+/**
+ * Resume command
+ */
 public class ResumeCommand {
-
+    /**
+     * resume music, if paused <br>
+     * see {@link StopCommand}
+     * @param event {@link MessageReceivedEvent}
+     */
     public void resumeMusic(MessageReceivedEvent event) {
-
-        //event.getChannel();
 
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember()).getVoiceState()).getChannel();
 

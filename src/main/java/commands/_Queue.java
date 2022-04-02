@@ -4,7 +4,12 @@ import audio_player.QueueCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
-
+/**
+ * <p style="background-color:Green;">This command informs you about the upcoming tracks</p>
+ *
+ * @author krystof-cejchan
+ * {@link ICommands}
+ */
 public class _Queue implements ICommands {
 
     @Override

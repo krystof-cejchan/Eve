@@ -4,7 +4,12 @@ import _library_class.LibraryClass;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
-
+/**
+ * <p style="background-color:Green;">This command guesses your "length"</p>
+ *
+ * @author krystof-cejchan
+ * {@link ICommands}
+ */
 public class _Pp implements ICommands {
 
     @Override

@@ -15,7 +15,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
-
+/**
+ * <p style="background-color:Green;">This command removes *x.* track from the queue</p>
+ *
+ * @author krystof-cejchan
+ * {@link ICommands}
+ */
 public class _Remove implements ICommands {
 
     @Override

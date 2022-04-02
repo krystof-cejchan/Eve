@@ -5,7 +5,12 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.ContextException;
 
 import java.util.ArrayList;
-
+/**
+ * <p style="background-color:Green;">This command sends the developers your message</p>
+ *
+ * @author krystof-cejchan
+ * {@link ICommands}
+ */
 public class _Support implements ICommands {
 
     @Override

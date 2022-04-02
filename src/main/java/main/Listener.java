@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import objects.CurrentTextChannel;
+import objects.MessageReceivedEvent_StaticCustomClass;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class Listener extends ListenerAdapter {
     public void onGuildVoiceLeave(@NotNull GuildVoiceLeaveEvent event) {
         try {
             leaveIfAlone(event, null, true);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
     }
@@ -43,7 +44,7 @@ public class Listener extends ListenerAdapter {
     public void onGuildVoiceMove(@NotNull GuildVoiceMoveEvent event) {
         try {
             leaveIfAlone(null, event, false);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -59,7 +60,7 @@ public class Listener extends ListenerAdapter {
                 boolean allower = true;
                 if (eventChannel == re || allower) {
 
-                    System.out.println(Prefix.getValue());
+                    MessageReceivedEvent_StaticCustomClass.setEvent(event);
                     if (event.getMessage().getContentRaw().substring(0, Prefix.getValue().length())
                             .equalsIgnoreCase(Prefix.getValue())) {
                         CommandManager manager = new CommandManager();

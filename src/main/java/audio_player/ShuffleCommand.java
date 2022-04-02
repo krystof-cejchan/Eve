@@ -2,8 +2,15 @@ package audio_player;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+/**
+ * randomly mixes the current queue
+ */
 public class ShuffleCommand {
-
+    /**
+     * shuffles the queue
+     *
+     * @param event {@link MessageReceivedEvent}
+     */
     public void getShuffle(MessageReceivedEvent event) {
 
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
