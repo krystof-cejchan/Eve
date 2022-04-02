@@ -1,5 +1,6 @@
 package audio_player;
 
+import _library_class.Global_Values;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 
 public class QueueCommand {
-
+    @SuppressWarnings("all")
     public void getQueue(MessageReceivedEvent event) {
         MessageChannel channel = event.getChannel();
 
@@ -26,17 +27,18 @@ public class QueueCommand {
         }
         if (!queue.isEmpty()) {
 
-            int shownTrackCount = 30;
+            int shownTrackCount = Global_Values.shownTrackCount;
             final int trackCount = Math.min(queue.size(), shownTrackCount);
             final ArrayList<AudioTrack> trackList = new ArrayList<>(queue);
 
             MessageAction messageAction = channel.sendMessage("**QUEUE**\n");
 
+
             for (int i = 0; i < trackCount; i++) {
                 AudioTrack track = trackList.get(i);
                 AudioTrackInfo info = track.getInfo();
                 int ii = i + 1;
-                messageAction.append("*").append(String.valueOf(ii)).append("*").append(".").append(" `").append(info.title).append("` \n").queue();
+                messageAction.append("*").append(String.valueOf(ii)).append("*").append(".").append(" `").append(info.title).append("` \n");
             }
 
             int restCountTrack = trackList.size() - shownTrackCount;
@@ -78,7 +80,7 @@ public class QueueCommand {
 
                 musicManager.SCHEDULER.QUEUE.addAll(audioList);
                 event.getChannel().sendMessage("```diff\n" + "-").append(deletedTitle).append("\nhas been thrown into the void!```").queue();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
 
