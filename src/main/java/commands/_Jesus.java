@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.util.ArrayList;
 
 /**
- * <p style="background-color:Green;">This command sends you swiftly to Jesus</p>
+ * <p style="background-color:Green; color:Black">This command sends you swiftly to Jesus</p>
  *
  * @author krystof-cejchan
  * {@link ICommands}

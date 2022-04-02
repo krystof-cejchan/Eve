@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 /**
- * <p style="background-color:Green;"></p>
+ * <p style="background-color:Green; color:Black">This command sends a list of all supported languages that bot is able to understand</p>
  *
  * @author krystof-cejchan
  * {@link ICommands}

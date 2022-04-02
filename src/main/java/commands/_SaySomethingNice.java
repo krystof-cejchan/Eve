@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
 /**
- * <p style="background-color:Green;">I'll tell you somethin' nice</p>
+ * <p style="background-color:Green; color:Black">I'll tell you somethin' nice</p>
  *
  * @author krystof-cejchan
  * {@link ICommands}

@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
 /**
- * <p style="background-color:Green;">This command mutes the bot, but the currently playing song will carry on playing!</p>
+ * <p style="background-color:Green; color:Black">This command mutes the bot, but the currently playing song will carry on playing!</p>
  *
  * @author krystof-cejchan
  * {@link ICommands}

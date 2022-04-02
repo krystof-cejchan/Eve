@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * <p style="background-color:Green;">This command tells you your account details</p>
+ * <p style="background-color:Green; color:Black">This command tells you your account details</p>
  *
  * @author krystof-cejchan
  * {@link ICommands}

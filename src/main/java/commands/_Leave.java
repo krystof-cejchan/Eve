@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.util.ArrayList;
 
 /**
- * <p style="background-color:Green;">This command forces the bot to leave your voice channel and discard the song queue</p>
+ * <p style="background-color:Green; color:Black">This command forces the bot to leave your voice channel and discard the song queue</p>
  *
  * @author krystof-cejchan
  * {@link ICommands}

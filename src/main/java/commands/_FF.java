@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * <p style="background-color:Green;">This command fast-forwards current track (in seconds)</p>
+ * <p style="background-color:Green; color:Black">This command fast-forwards current track (in seconds)</p>
  *
  * @author krystof-cejchan
  * {@link ICommands}
@@ -45,8 +45,8 @@ public class _FF implements ICommands {
                         if (audioPlayer.getPlayingTrack() != null) {
                             long dur = audioPlayer.getPlayingTrack().getDuration();
                             int pos = (int) audioPlayer.getPlayingTrack().getPosition();
-                            if (audioPlayer.getPlayingTrack()
-                                    .getDuration() > audioPlayer.getPlayingTrack().getPosition() + ff)// if statement
+                            if (audioPlayer.getPlayingTrack().getDuration()
+                                    > audioPlayer.getPlayingTrack().getPosition() + ff)// if statement
                             {
                                 audioPlayer.getPlayingTrack()
                                         .setPosition(audioPlayer.getPlayingTrack().getPosition() + ff);

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * <p style="background-color:Green;">This command sends you a list of all commands</p>
+ * <p style="background-color:Green; color:Black">This command sends you a list of all commands</p>
  *
  * @author krystof-cejchan
  * {@link ICommands}
@@ -43,18 +43,19 @@ public class _Help implements ICommands {
                                 allTriggers.append(Prefix.getValue()).append(trigger).append("   ");
                             }
 
-                            embedBuilder.addField("**" + CommandManager.getCommandbyId(w).getName() + "**  :  ", CommandManager.getCommandbyId(w).whatDoIDo() + "\n" + allTriggers, true);
+                            embedBuilder.addField("**" + CommandManager.getCommandbyId(w).getName() + "**  :  ",
+                                    CommandManager.getCommandbyId(w).whatDoIDo() + "\n" + allTriggers, true);
                             counter++;
                         } else {
                             embedBuilder.setColor(LibraryClass.getRandomColor());
                             // embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + "
                             // commands:");
                             embedBuilder.setTitle("Showing " + counter + " commands");
-                            counter = 0;
+                            //counter = 0;
                             event.getMessage().replyEmbeds(embedBuilder.build()).queue();
                             embedBuilder.clear();
 
-                            counter++;
+                           // counter++;
                             return;
                         }
                     }

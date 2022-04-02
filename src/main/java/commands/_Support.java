@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.exceptions.ContextException;
 
 import java.util.ArrayList;
 /**
- * <p style="background-color:Green;">This command sends the developers your message</p>
+ * <p style="background-color:Green; color:Black">This command sends the developers your message</p>
  *
  * @author krystof-cejchan
  * {@link ICommands}

@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
 /**
- * <p style="background-color:Green;">This command adds a song to the track list</p>
+ * <p style="background-color:Green; color:Black">This command adds a song to the track list</p>
  *
  * @author krystof-cejchan
  * {@link ICommands}

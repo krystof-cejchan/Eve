@@ -6,7 +6,7 @@ import voice.voice_and_listening.SpeechToText;
 import java.util.ArrayList;
 
 /**
- * <p style="background-color:Green;">This command joins Eve to your voice channel who will listen to your voice command for a short period of time</p>
+ * <p style="background-color:Green; color:Black" >This command joins Eve to your voice channel who will listen to your voice command for a short period of time</p>
  *
  * @author krystof-cejchan
  * {@link ICommands}

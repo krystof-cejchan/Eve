@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.util.ArrayList;
 
 /**
- * <p style="background-color:Green;">This command forces the bot to join a voice channel. Write the title of the voice channel, if you don't want the bot to join you.</p>
+ * <p style="background-color:Green; color:Black">This command forces the bot to join a voice channel. Write the title of the voice channel, if you don't want the bot to join you.</p>
  *
  * @author krystof-cejchan
  * {@link ICommands}

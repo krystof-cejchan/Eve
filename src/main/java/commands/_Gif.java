@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.util.ArrayList;
 
 /**
- * <p style="background-color:Green;">This Command sends you a gif depending on your keyword</p>
+ * <p style="background-color:Green; color:Black">This Command sends you a gif depending on your keyword</p>
  *
  * @author krystof-cejchan
  * {@link ICommands}

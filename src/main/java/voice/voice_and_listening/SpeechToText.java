@@ -1,8 +1,7 @@
 package voice.voice_and_listening;
 
+import _library_class.Global_Values;
 import _library_class.LibraryClass;
-import voice.commands_voice.IListeningCommands;
-import voice.commands_voice.ListeningCommandManager;
 import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 import net.dv8tion.jda.api.audio.CombinedAudio;
@@ -13,6 +12,8 @@ import objects.CurrentTextChannel;
 import objects.MessageReceivedEvent_CustomClass;
 import objects.ScriptPathPointer;
 import objects.SoundFile;
+import voice.commands_voice.IListeningCommands;
+import voice.commands_voice.ListeningCommandManager;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
@@ -123,7 +124,7 @@ public class SpeechToText {
     public static class EchoHandler implements AudioSendHandler, AudioReceiveHandler {
 
         // ArrayList<Boolean> talkingMemeberGuard = new ArrayList<>();
-        final int MAX_VALUE = 100;
+        final int MAX_VALUE = Global_Values.MAX_VALUE;
         private final Queue<byte[]> queue = new ConcurrentLinkedQueue<>();
         public boolean isAllowedToCarryOn = true;
         ArrayList<Integer> talkingMembersCount = new ArrayList<>();

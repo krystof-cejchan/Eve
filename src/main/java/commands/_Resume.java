@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
 /**
- * <p style="background-color:Green;">This command resumes the currently paused song</p>
+ * <p style="background-color:Green; color:Black">This command resumes the currently paused song</p>
  *
  * @author krystof-cejchan
  * {@link ICommands}

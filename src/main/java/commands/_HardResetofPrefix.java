@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * <p style="background-color:Green;">This command hard-resets current prefix to ";" </p>
+ * <p style="background-color:Green; color:Black">This command hard-resets current prefix to ";" </p>
  *
  * @author krystof-cejchan
  * {@link ICommands}
