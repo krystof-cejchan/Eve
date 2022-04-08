@@ -1,7 +1,6 @@
 package voice.voice_and_listening;
 
 import _library_class.Global_Values;
-import _library_class.LibraryClass;
 import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 import net.dv8tion.jda.api.audio.CombinedAudio;
@@ -29,6 +28,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static _library_class.LibraryClass.runPyScript;
 
 public class SpeechToText {
     public static MessageReceivedEvent_CustomClass msgEvent;
@@ -83,7 +84,7 @@ public class SpeechToText {
 
     public String getTranscription() {
 
-        String rawString = LibraryClass.runPyScript(ScriptPathPointer.soundFile2Text, SoundFile.getWholePath() + " " + Language.lang);
+        String rawString = runPyScript(ScriptPathPointer.soundFile2Text, SoundFile.getWholePath() + " " + Language.lang);
         assert rawString != null;
         byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
 
@@ -172,7 +173,7 @@ public class SpeechToText {
 
                         Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId())).sendMessage(transcription_original).queue();
                         if (!((SpeechToText.Language.getLang().equals("en-GB") || SpeechToText.Language.getLang().equals("en-US")))) {
-                            transcription_finalVersion = LibraryClass.runPyScript(ScriptPathPointer.translator, transcription_original);
+                            transcription_finalVersion = runPyScript(ScriptPathPointer.translator, transcription_original);
                             assert transcription_finalVersion != null;
                             Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId())).sendMessage(transcription_finalVersion).queue();
                         } else {

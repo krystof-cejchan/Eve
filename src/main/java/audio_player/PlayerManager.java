@@ -185,7 +185,7 @@ public class PlayerManager {
              */
             @Override
             public void loadFailed(FriendlyException exception) {
-                channel.sendMessage("Failed to load the track" + exception).queue();
+                channel.sendMessage("Failed to load the track" + exception +"\nTry again later.\uD83D\uDE1F\uD83D\uDE1F").queue();
 
             }
 
