@@ -9,7 +9,7 @@ def main():
         while i < len(sys.argv):
             txt = txt + sys.argv[i] + " "
             i += 1
-            # tak python má hodně zajímavou syntax
+
         print(GoogleTranslator(source='auto', target='en').translate(txt))
 
     except Exception as err:

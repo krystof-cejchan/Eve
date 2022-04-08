@@ -2,6 +2,7 @@ package main;
 
 import audio_player.StopCommand;
 import commands.CommandManager;
+import commands.commands_others.GifSender;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;

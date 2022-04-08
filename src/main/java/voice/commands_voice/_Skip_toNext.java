@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class _Skip_toNext implements IListeningCommands {
 
     @Override
-    public void doTask(MessageReceivedEvent event) throws Exception {
+    public void doTask(MessageReceivedEvent event, String usersInput) throws Exception {
         try {
             SkipCommand skip = new SkipCommand();
 
@@ -29,6 +29,11 @@ public class _Skip_toNext implements IListeningCommands {
     @Override
     public String whatDoIDo() {
         return "This command skips one track in the queue";
+    }
+
+    @Override
+    public Boolean isParamRequired() {
+        return false;
     }
 
     @Override

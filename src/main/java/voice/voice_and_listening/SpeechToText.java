@@ -37,9 +37,9 @@ public class SpeechToText {
     private static String text = "";
     private static final List<byte[]> rescievedBytes = new ArrayList<>();
 
-    public static String getChannelId() {
+   /* public static String getChannelId() {
         return channelId;
-    }
+    }*/
 
     private static void getWavFile(File outFile, byte[] decodedData) throws IOException {
         AudioFormat format = new AudioFormat(48000.0f, 16, 2, true, true);
@@ -123,11 +123,10 @@ public class SpeechToText {
 
     public static class EchoHandler implements AudioSendHandler, AudioReceiveHandler {
 
-        // ArrayList<Boolean> talkingMemeberGuard = new ArrayList<>();
         final int MAX_VALUE = Global_Values.MAX_VALUE;
         private final Queue<byte[]> queue = new ConcurrentLinkedQueue<>();
         public boolean isAllowedToCarryOn = true;
-        ArrayList<Integer> talkingMembersCount = new ArrayList<>();
+        ArrayList<Boolean> talkingMembersCount = new ArrayList<>();
 
         public boolean canReceiveCombined() {
 
@@ -140,11 +139,11 @@ public class SpeechToText {
 
             guild.getAudioManager();
 
-            rescievedBytes.add(combinedAudio.getAudioData(1.5f));// 1.0 → 100%
+            rescievedBytes.add(combinedAudio.getAudioData(1.12f));// 1.0 → 100%
 
-            if (combinedAudio.getUsers().contains(msgEvent.getEvent().getAuthor())) talkingMembersCount.add(1);
+            if (combinedAudio.getUsers().contains(msgEvent.getEvent().getAuthor())) talkingMembersCount.add(true);
 
-            else talkingMembersCount.add(0);
+            else talkingMembersCount.add(false);
 
             if (talkingMembersCount.size() > MAX_VALUE) {
                 if (isAllowedToCarryOn && haveUsersStoppedTalking(talkingMembersCount)) {
@@ -168,42 +167,46 @@ public class SpeechToText {
 
                         getWavFile(file, decodedData);
                         SpeechToText StT = new SpeechToText();
-                        String transcription = StT.getTranscription();
-                        Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId())).sendMessage(transcription).queue();
+                        final String transcription_original = StT.getTranscription();
+                        String transcription_finalVersion;
+
+                        Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId())).sendMessage(transcription_original).queue();
                         if (!((SpeechToText.Language.getLang().equals("en-GB") || SpeechToText.Language.getLang().equals("en-US")))) {
-                            transcription = LibraryClass.runPyScript(ScriptPathPointer.translator, transcription);
-                            assert transcription != null;
-                            Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId())).sendMessage(transcription).queue();
+                            transcription_finalVersion = LibraryClass.runPyScript(ScriptPathPointer.translator, transcription_original);
+                            assert transcription_finalVersion != null;
+                            Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId())).sendMessage(transcription_finalVersion).queue();
+                        } else {
+                            transcription_finalVersion = transcription_original;
                         }
 
-                        System.out.println(transcription); // CurrentTextChannel ctch = new CurrentTextChannel();
+                        System.out.println(transcription_finalVersion);
 
-                        SpeechToText.setText(transcription);
+                        SpeechToText.setText(transcription_finalVersion);
                         ListeningCommandManager listeningCommandManager = new ListeningCommandManager();
-                        // System.out.println("");
-                        IListeningCommands command = listeningCommandManager.getCommand(transcription);
-                        if (command != null) command.doTask(msgEvent.getEvent());
 
-                        else {
+                        IListeningCommands command = listeningCommandManager.getCommand(transcription_finalVersion);
 
+                        if (command != null) {
+                            if (command.isParamRequired())
+                                command.doTask(msgEvent.getEvent(), transcription_original);
+
+                            else
+                                command.doTask(msgEvent.getEvent(), null);
+                        } else {
                             msgEvent.getEvent().getMessage().reply("There's been an error\nCommand either does not exist or I couldn't understand you").queue();
                         }
 
-                        // audioManager.closeAudioConnection();
                         if (haveUsersStoppedTalking(talkingMembersCount)) isAllowedToCarryOn = false;
 
-                        System.out.println("its done aint it");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
-
         }
 
-        // if (combinedAudio.getUsers().contains(msgEvent.getEvent().getAuthor()))
 
-        // talkingMembersCount.add(1); System.out.println("mluvíš"); }
+
 
         /*
          * /*@Override public void handleUserAudio(@Nonnull UserAudio userAudio) {
@@ -293,28 +296,25 @@ public class SpeechToText {
 
         /**
          * Checks if users have stopped talking
+         * if list contains true (meaning that user has spoken recently) then false will be returned becase users have not stopped talking
          *
-         * @param list of talking members {@link #talkingMembersCount}
+         * @param list of talking members {@link #talkingMembersCount} when user speaks → true is added to the {@link #talkingMembersCount}; else false
          * @return true if last {@link #MAX_VALUE} (100 as default) is 0 <br>
          * else false
          * @author krystof-cejchan
          */
-        private boolean haveUsersStoppedTalking(ArrayList<Integer> list) {
+        private boolean haveUsersStoppedTalking(ArrayList<Boolean> list) {
 
-            int count = 0;
             try {
                 for (int y = list.size() - MAX_VALUE; y < list.size(); y++) {
-
-                    count += list.get(y);
+                    if (list.get(y)) return false;
                 }
-
-                if (count == 0) return true;
 
             } catch (Exception e) {
                 e.printStackTrace();
 
             }
-            return false;
+            return true;
 
         }
 

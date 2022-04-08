@@ -1,6 +1,6 @@
 package commands;
 
-import main.GifSender;
+import commands.commands_others.GifSender;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;

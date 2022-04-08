@@ -4,6 +4,7 @@ import _library_class.LibraryClass;
 import audio_player.MessageTypes;
 import audio_player.PlayCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import objects.ScriptPathPointer;
 import voice.voice_and_listening.SpeechToText;
 
 import java.util.ArrayList;
@@ -17,14 +18,15 @@ import java.util.Arrays;
 public class _PlaySong implements IListeningCommands {
 
     @Override
-    public void doTask(MessageReceivedEvent event) throws Exception {
+    public void doTask(MessageReceivedEvent event, String usersInput) throws Exception {
 
-        String text = SpeechToText.getText();
-        String[] args = text.split(" ");
+
+        assert usersInput != null;
+        String[] args = usersInput.split(" ");
 
         PlayCommand playCommand = new PlayCommand();
         event.getChannel().sendMessage("Searching for " + extracttheSong(args)).queue();
-        playCommand.playMusic(event, extracttheSong(args), false, MessageTypes.EMBED_MESSAGE, text);
+        playCommand.playMusic(event, extracttheSong(args), false, MessageTypes.EMBED_MESSAGE, usersInput);
 
     }
 
@@ -36,6 +38,11 @@ public class _PlaySong implements IListeningCommands {
     @Override
     public String whatDoIDo() {
         return "This command adds a track to the queue or plays it right away";
+    }
+
+    @Override
+    public Boolean isParamRequired() {
+        return true;
     }
 
     @Override
@@ -62,13 +69,15 @@ public class _PlaySong implements IListeningCommands {
         /* .toLowerCase() */
         ArrayList<String> searchWords = new ArrayList<>(Arrays.asList(args));
 
-
-        for (String forbidden : forbiddenWords()) {
-
-            searchWords.removeIf(currWord -> currWord.equalsIgnoreCase(forbidden));
-
-        }
         System.out.println(searchWords);
+        for (String forbidden : forbiddenWords()) {
+            System.out.println(searchWords);
+            if (!(SpeechToText.Language.getLang().equals("en-GB") || SpeechToText.Language.getLang().equals("en-US")))
+                searchWords.removeIf(currWord -> LibraryClass.runPyScript(ScriptPathPointer.translator, currWord).equalsIgnoreCase(forbidden));
+            else
+                searchWords.removeIf(currWord -> currWord.equalsIgnoreCase(forbidden));
+        }
+
         return LibraryClass.getStringFromArrayOfStrings_withSpaces(searchWords);
 
         /*

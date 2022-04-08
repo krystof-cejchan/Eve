@@ -40,16 +40,26 @@ public class SkipCommand {
 
 
                     if (audioPlayer.getPlayingTrack() == null) {
-                        event.getChannel().sendMessage("Queue is empty").queue();
-                    } else {
-
-                        BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
-                        ArrayList<AudioTrack> audioList = new ArrayList<>(queue);
-                        // String nextTrackName = audioList.get(0).getInfo().title;
-                        if (msg)
-                            event.getChannel().sendMessage("Skipped to the next song!\n**" + audioList.get(0).getInfo().title/* title of the following track */ + "**").queue();
-                        musicManager.SCHEDULER.nextTrack();
+                        event.getChannel().sendMessage("Queue is empty!").queue();
+                        return;
                     }
+                    System.out.println(musicManager.SCHEDULER.QUEUE.size());
+                    if (musicManager.SCHEDULER.QUEUE.size() < 1) {
+                        event.getChannel().sendMessage("Skipping the only song in your queue!").queue();
+                        musicManager.AUDIOPLAYER.stopTrack();
+                        return;
+                    }
+
+                    BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
+
+                    ArrayList<AudioTrack> audioList = new ArrayList<>(queue);
+                    // String nextTrackName = audioList.get(0).getInfo().title;
+                    if (msg)
+                        event.getChannel().sendMessage("Skipped to the next song! ```fix\n" +
+                                audioList.get(0).getInfo().title/* title of the following track */ + "\n" +
+                                "```").queue();
+                    musicManager.SCHEDULER.nextTrack();
+
 
                 }
 

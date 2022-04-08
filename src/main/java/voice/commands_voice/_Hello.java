@@ -10,7 +10,7 @@ public class _Hello implements IListeningCommands {
 
 
     @Override
-    public void doTask(MessageReceivedEvent event) {
+    public void doTask(MessageReceivedEvent event, String usersInput) {
 
         event.getMessage().reply("Hello " + Objects.requireNonNull(event.getGuild().getMember(event.getAuthor())).getNickname()).queue();
     }
@@ -23,6 +23,11 @@ public class _Hello implements IListeningCommands {
     @Override
     public String whatDoIDo() {
         return "This command answers a simple hello";
+    }
+
+    @Override
+    public Boolean isParamRequired() {
+        return false;
     }
 
     @Override
