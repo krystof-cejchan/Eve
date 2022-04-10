@@ -1,5 +1,6 @@
 package main;
 
+import _library_class.LibraryClass;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -14,7 +15,8 @@ import java.util.EnumSet;
 public class StartUp {
     static JDABuilder jda;
 
-    public static void main(String[] args) throws LoginException, SQLException, IOException {
+    public static void main(String[] args) throws Exception {
+//LibraryClass.givenPythonInterpreter_whenPrintExecuted_thenOutputDisplayed();
         EnumSet<GatewayIntent> intents = EnumSet.of(
 
                 GatewayIntent.GUILD_MESSAGES,

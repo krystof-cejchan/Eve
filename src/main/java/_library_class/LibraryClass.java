@@ -2,6 +2,7 @@ package _library_class;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import org.apache.commons.exec.*;
 import voice.commands_voice.IListeningCommands;
 import voice.commands_voice.ListeningCommandManager;
 
@@ -9,6 +10,7 @@ import javax.annotation.Nullable;
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
@@ -19,6 +21,7 @@ import java.util.regex.Pattern;
  * This Class serves as a Library Class according to the design patterns in Java
  * All methods in this class are defined as static, so that they can be called
  * without creating an instance of this class
+ * @author krystof-cejchan
  */
 public class LibraryClass {
     /**
@@ -270,6 +273,65 @@ public class LibraryClass {
             e.printStackTrace();
             return "";
         }
+    }
+
+    public static void givenPythonInterpreter_whenPrintExecuted_thenOutputDisplayed() throws IOException {
+   /*     ByteArrayOutputStream stdout = new ByteArrayOutputStream();
+        PipedOutputStream outputStream = new PipedOutputStream();
+        PipedInputStream pis = new PipedInputStream(outputStream);
+        PumpStreamHandler psh = new PumpStreamHandler(stdout);
+        CommandLine cmdLine = new CommandLine("python");
+
+        cmdLine.addArguments("C:/Users/kryst/git/repository3/discordbottest/src/main/java/external_files/py_scripts/soundfiletotext.py H:/523281151561826315.wav cs-CZ");
+
+        DefaultExecuteResultHandler resultHandler = new DefaultExecuteResultHandler();
+
+        ExecuteWatchdog watchdog = new ExecuteWatchdog(60*1000);
+        Executor executor = new DefaultExecutor();
+        executor.setStreamHandler(psh);
+        executor.setExitValue(1);
+        executor.setWatchdog(watchdog);
+        executor.execute(cmdLine, resultHandler);
+       resultHandler.waitFor();
+        System.out.println(stdout);
+        BufferedReader br = new BufferedReader(new InputStreamReader(pis, StandardCharsets.UTF_8));
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        while((line = br.readLine()) != null) {
+            sb.append(line+"\n");
+        }
+        pis.close();
+        String a = sb.toString();
+        System.out.println(a);*/
+        Executor executor = new DefaultExecutor();
+        CommandLine cmdLine =new CommandLine("python");
+
+        cmdLine.addArguments("C:/Users/kryst/git/repository3/discordbottest/src/main/java/external_files/py_scripts/soundfiletotext.py H:/523281151561826315.wav cs-CZ");
+
+        ExecuteWatchdog watchdog = new ExecuteWatchdog(60*1000);
+            executor.setWatchdog(watchdog);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PipedOutputStream outputStream1 = new PipedOutputStream();
+        PipedInputStream pis = new PipedInputStream(outputStream1);
+        //ByteArrayOutputStream errorStream = new ByteArrayOutputStream();
+        PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream1);
+        executor.setStreamHandler(streamHandler);
+        int ret = executor.execute(cmdLine);
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(pis, StandardCharsets.UTF_8));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while((line = br.readLine()) != null) {
+            sb.append(line).append("\n");
+        }
+        pis.close();
+        String stdout = sb.toString();
+        byte[] bytes = stdout.getBytes(StandardCharsets.UTF_8);
+
+        String utf8EncodedString = new String(bytes, StandardCharsets.UTF_8);
+
+        System.out.println(utf8EncodedString);
     }
 
     @SuppressWarnings("unused")

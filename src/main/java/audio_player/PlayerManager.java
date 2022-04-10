@@ -1,5 +1,6 @@
 package audio_player;
 
+import _library_class.DiscordRelated_LibraryClass;
 import _library_class.LibraryClass;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
@@ -185,7 +186,8 @@ public class PlayerManager {
              */
             @Override
             public void loadFailed(FriendlyException exception) {
-                channel.sendMessage("Failed to load the track" + exception +"\nTry again later.\uD83D\uDE1F\uD83D\uDE1F").queue();
+                channel.sendMessage("Failed to load the track" + exception + "\nTry again later.\uD83D\uDE1F\uD83D\uDE1F").queue();
+                DiscordRelated_LibraryClass.sendDevMsg(event, "load song failed - msg: " + event.getMessage().getContentRaw(), false);
 
             }
 
