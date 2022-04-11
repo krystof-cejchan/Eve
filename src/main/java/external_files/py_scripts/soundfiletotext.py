@@ -10,16 +10,24 @@ def main():
 
     with sr.AudioFile(sound) as source:
         r.adjust_for_ambient_noise(source)
-
-        print("Converting Audio To Text ... ")
-
         audio = r.listen(source)
 
     try:
-        print("Converted Audio Is : \n" + r.recognize_google(audio, language=str(sys.argv[2])))
+        output = str(r.recognize_google(audio, language=str(sys.argv[2])))
+        #  output_encoded = output.encode("utf-8")
+
+        if output.isalnum():
+            print(output)
+
+            #  print(output.isalnum())
+            #  print('11/04/2022'.isalnum())
+
+        else:
+            print(output.encode("utf-8"))
+
 
     except Exception as e:
-        print("-ERROR-")
+        print("-ERROR-",e)
 
 
 if __name__ == "__main__":
