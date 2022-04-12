@@ -1,15 +1,11 @@
 package main;
 
-import _library_class.LibraryClass;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
-import javax.security.auth.login.LoginException;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.EnumSet;
 
 public class StartUp {
@@ -17,6 +13,7 @@ public class StartUp {
 
     public static void main(String[] args) throws Exception {
 //LibraryClass.givenPythonInterpreter_whenPrintExecuted_thenOutputDisplayed();
+        // System.out.println(RunAndCheckPythonScriptEncoding.runAndCheck());
         EnumSet<GatewayIntent> intents = EnumSet.of(
 
                 GatewayIntent.GUILD_MESSAGES,

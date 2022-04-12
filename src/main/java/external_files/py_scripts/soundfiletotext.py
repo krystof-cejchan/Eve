@@ -2,6 +2,7 @@ import speech_recognition as sr
 import sys
 
 
+# py C:\\Users\\vecer\\IdeaProjects\\Eve\\src\\main\\java\\external_files\\py_scripts\\soundfiletotext.py C:\\Users\\vecer\\Music\\sample.wav cs-CZ
 def main():
     sound = str(sys.argv[1])
     #  lan = str(sys.argv[2])
@@ -23,7 +24,10 @@ def main():
             #  print('11/04/2022'.isalnum())
 
         else:
-            print(output.encode("utf-8"))
+            #print(output.encode("utf-8"))
+            ascii_values = [ord(character) for character in output]
+            print(*ascii_values)
+            # prints the output in ascii values without , or []
 
 
     except Exception as e:
