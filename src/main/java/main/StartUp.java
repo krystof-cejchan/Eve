@@ -1,5 +1,6 @@
 package main;
 
+import main.onStart.OnStartManager;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -12,8 +13,17 @@ public class StartUp {
     static JDABuilder jda;
 
     public static void main(String[] args) throws Exception {
-//LibraryClass.givenPythonInterpreter_whenPrintExecuted_thenOutputDisplayed();
-        // System.out.println(RunAndCheckPythonScriptEncoding.runAndCheck());
+
+        new OnStartManager().getListOf_onStartClasses().forEach(iClass -> {
+            try {
+                iClass.doYourPart();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.exit(-1);
+            }
+            System.out.println("All checked");
+        });
+
         EnumSet<GatewayIntent> intents = EnumSet.of(
 
                 GatewayIntent.GUILD_MESSAGES,
@@ -33,10 +43,6 @@ public class StartUp {
         jda.addEventListeners(new Listener());
         jda.build();
 
-        /*
-         * for (IOnStart iOnStart : new OnStartManager().getListOf_onStartClasses()) {
-         * iOnStart.doYourPart(); }
-         */
 
     }
 

@@ -3,7 +3,7 @@ package objects;
 import _library_class.LibraryClass;
 
 @SuppressWarnings("unused")
-public class ScriptPathPointer{
+public class ScriptPathPointer {
 
     public static String translator = LibraryClass
             .getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/translator_pyscript.html");

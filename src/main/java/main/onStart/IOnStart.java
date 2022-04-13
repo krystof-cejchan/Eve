@@ -1,7 +1,5 @@
 package main.onStart;
 
 public interface IOnStart {
-
-    public void doYourPart();
-
+    void doYourPart() throws Exception;
 }
