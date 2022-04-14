@@ -20,12 +20,13 @@ public class ScriptFiles extends ScriptPathPointer {
     }
 
 
-    public ScriptFiles(String translatorPath, String soundFile2TextPath, String dbPath_Path) {
+  /*  public ScriptFiles(String translatorPath, String soundFile2TextPath, String dbPath_Path) {
         this.translator = new File(translatorPath);
         this.soundFile2Text = new File(soundFile2TextPath);
 
         allFilesAvailable = new File[]{translator, soundFile2Text};
     }
+*/
 
     /**
      * constructor without any params

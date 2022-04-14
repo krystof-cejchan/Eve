@@ -12,10 +12,6 @@ public class ScriptFileCheckUp extends ScriptFiles implements IOnStart {
         super(translator, soundFile2Text, dbPath);
     }
 
-    public ScriptFileCheckUp(String translatorPath, String soundFile2TextPath, String dbPath_Path) {
-        super(translatorPath, soundFile2TextPath, dbPath_Path);
-    }
-
     public ScriptFileCheckUp(ScriptFilesLocation scriptFilesLocation) {
         super(scriptFilesLocation);
     }

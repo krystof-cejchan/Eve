@@ -11,6 +11,7 @@ import objects.CurrentTextChannel;
 import objects.MessageReceivedEvent_CustomClass;
 import objects.ScriptPathPointer;
 import objects.SoundFile;
+import voice.PythonASCII_Decoding;
 import voice.commands_voice.IListeningCommands;
 import voice.commands_voice.ListeningCommandManager;
 
@@ -84,7 +85,8 @@ public class SpeechToText {
 
     public String getTranscription() {
 
-        String rawString = runPyScript(ScriptPathPointer.soundFile2Text, SoundFile.getWholePath() + " " + Language.lang);
+        String rawString = PythonASCII_Decoding.decodeASCIItext(
+                runPyScript(ScriptPathPointer.soundFile2Text, SoundFile.getWholePath() + " " + Language.lang));
         assert rawString != null;
         byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
 

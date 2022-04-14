@@ -26,7 +26,7 @@ public class ListeningCommandManager {
 
     private void addNewCommand(IListeningCommands Icmd) {
 
-        boolean exists = commands.stream().anyMatch((matched) -> matched.getName().equals(Icmd.getName()));
+        boolean exists = commands.stream().anyMatch(matched -> matched.getName().equals(Icmd.getName()));
 
         if (!exists) {
             commands.add(Icmd);
