@@ -11,10 +11,13 @@ public class PythonASCII_Decoding {
      * <strong>equals to </strong><u>change the language to Czech language</u>
      *
      * @param asciiEncodedText text encoded in ascii
-     * @return decoded ascii
+     * @return decoded text from ascii
      */
     public static String decodeASCIItext(String asciiEncodedText) {
         try {
+            if (asciiEncodedText == null || !asciiEncodedText.chars().allMatch(Character::isAlphabetic))
+                return asciiEncodedText;
+
 
             //String rawString = LibraryClass.runPyScript("C:\\Users\\vecer\\IdeaProjects\\Eve\\src\\main\\java\\external_files\\py_scripts\\soundfiletotext.py", "C:\\Users\\vecer\\Music\\sample.wav cs-CZ");
             String[] ascii = asciiEncodedText.split(" ");

@@ -16,4 +16,5 @@ public interface IListeningCommands {
     Boolean isParamRequired();
 
     ArrayList<String> getTags();
+
 }

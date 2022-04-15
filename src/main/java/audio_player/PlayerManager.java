@@ -32,6 +32,7 @@ public class PlayerManager {
 
         AudioSourceManagers.registerRemoteSources(AUDIOPLAYERMANAGER);
         AudioSourceManagers.registerLocalSource(AUDIOPLAYERMANAGER);
+
     }
 
     /**
@@ -108,7 +109,7 @@ public class PlayerManager {
 
             /**
              * single track loaded
-             * @param track {@link AudioTrack} which is supposed to be adde to the queue
+             * @param track {@link AudioTrack} which is supposed to be added to the queue
              */
             @Override
             public void trackLoaded(AudioTrack track) {

@@ -11,6 +11,7 @@ import objects.CurrentTextChannel;
 import objects.MessageReceivedEvent_CustomClass;
 import objects.ScriptPathPointer;
 import objects.SoundFile;
+import org.jetbrains.annotations.NotNull;
 import voice.PythonASCII_Decoding;
 import voice.commands_voice.IListeningCommands;
 import voice.commands_voice.ListeningCommandManager;
@@ -24,10 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static _library_class.LibraryClass.runPyScript;
@@ -84,14 +82,18 @@ public class SpeechToText {
     }
 
     public String getTranscription() {
+        try {
+            if (PythonASCII_Decoding.decodeASCIItext(runPyScript(ScriptPathPointer.soundFile2Text, SoundFile.getWholePath() + " " + Language.lang)) == null)
+                return null;
+            String rawString = PythonASCII_Decoding.decodeASCIItext(runPyScript(ScriptPathPointer.soundFile2Text, SoundFile.getWholePath() + " " + Language.lang));
+            assert rawString != null;
+            byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
 
-        String rawString = PythonASCII_Decoding.decodeASCIItext(
-                runPyScript(ScriptPathPointer.soundFile2Text, SoundFile.getWholePath() + " " + Language.lang));
-        assert rawString != null;
-        byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
-
-        return new String(bytes, StandardCharsets.UTF_8);
-
+            return new String(bytes, StandardCharsets.UTF_8);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void onConnecting(AudioChannel channel, MessageChannel messageChannel) {
@@ -126,83 +128,87 @@ public class SpeechToText {
 
     public static class EchoHandler implements AudioSendHandler, AudioReceiveHandler {
 
+        final Timer TIMER = new Timer();
         final int MAX_VALUE = Global_Values.MAX_VALUE;
+        final int MAX_SEC_AUDIO_RECORDING = Global_Values.MAX_SEC_AUDIO_RECORDING;
         private final Queue<byte[]> queue = new ConcurrentLinkedQueue<>();
         public boolean isAllowedToCarryOn = true;
         ArrayList<Boolean> talkingMembersCount = new ArrayList<>();
 
-        public boolean canReceiveCombined() {
 
+        public boolean canReceiveCombined() {
             return queue.size() < 10;
         }
 
         @Override
-        public void handleCombinedAudio(CombinedAudio combinedAudio) {
+        public void handleCombinedAudio(@NotNull CombinedAudio combinedAudio) {
             // includeUserInCombinedAudio(msgEvent.getEvent().getAuthor());
+            if (isAllowedToCarryOn) {
+                guild.getAudioManager();
 
-            guild.getAudioManager();
+                rescievedBytes.add(combinedAudio.getAudioData(1.12f));// 1.0 → 100%
 
-            rescievedBytes.add(combinedAudio.getAudioData(1.12f));// 1.0 → 100%
+                if (combinedAudio.getUsers().contains(msgEvent.getEvent().getAuthor())) talkingMembersCount.add(true);
 
-            if (combinedAudio.getUsers().contains(msgEvent.getEvent().getAuthor())) talkingMembersCount.add(true);
+                else talkingMembersCount.add(false);
 
-            else talkingMembersCount.add(false);
-
-            if (talkingMembersCount.size() > MAX_VALUE) {
-                if (isAllowedToCarryOn && haveUsersStoppedTalking(talkingMembersCount)) {
-                    try {
-                        System.out.println(combinedAudio.getUsers().size());
-                        int size = 0;
-                        for (byte[] bs : rescievedBytes) {
-                            size += bs.length;
-                        }
-                        byte[] decodedData = new byte[size];
-                        int i = 0;
-                        for (byte[] bs : rescievedBytes) {
-                            for (byte b : bs) {
-                                decodedData[i++] = b;
+                if (talkingMembersCount.size() > MAX_VALUE) {
+                    if (isAllowedToCarryOn && haveUsersStoppedTalking(talkingMembersCount)) {
+                        try {
+                            System.out.println(combinedAudio.getUsers().size());
+                            int size = 0;
+                            for (byte[] bs : rescievedBytes) {
+                                size += bs.length;
                             }
+                            byte[] decodedData = new byte[size];
+                            int i = 0;
+                            for (byte[] bs : rescievedBytes) {
+                                for (byte b : bs) {
+                                    decodedData[i++] = b;
+                                }
+                            }
+
+                            SoundFile.setTitle(msgEvent.getEvent().getGuild().getId());
+
+                            File file = new File(SoundFile.getWholePath());
+
+                            getWavFile(file, decodedData);
+                            SpeechToText StT = new SpeechToText();
+                            final String transcription_original = StT.getTranscription();
+                            String transcription_finalVersion;
+
+                            Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId())).sendMessage(transcription_original).queue();
+                            if (!((SpeechToText.Language.getLang().equals("en-GB") || SpeechToText.Language.getLang().equals("en-US")))) {
+                                transcription_finalVersion = runPyScript(ScriptPathPointer.translator, transcription_original);
+                                assert transcription_finalVersion != null;
+                                Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId())).sendMessage(transcription_finalVersion).queue();
+                            } else {
+                                transcription_finalVersion = transcription_original;
+                            }
+
+                            System.out.println(transcription_finalVersion);
+
+                            SpeechToText.setText(transcription_finalVersion);
+                            ListeningCommandManager listeningCommandManager = new ListeningCommandManager();
+
+                            IListeningCommands command = listeningCommandManager.getCommand(transcription_finalVersion);
+
+                            if (command != null) {
+                                if (command.isParamRequired()) {
+
+                                    if (!transcription_original.isEmpty() && !transcription_original.isBlank())
+                                        command.doTask(msgEvent.getEvent(), transcription_original);
+
+                                } else command.doTask(msgEvent.getEvent(), null);
+                            } else {
+                                msgEvent.getEvent().getMessage().reply("There's been an error\nCommand either does not exist or I couldn't understand you").queue();
+                            }
+
+                            if (haveUsersStoppedTalking(talkingMembersCount)) isAllowedToCarryOn = false;
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-
-                        SoundFile.setTitle(msgEvent.getEvent().getGuild().getId());
-
-                        File file = new File(SoundFile.getWholePath());
-
-                        getWavFile(file, decodedData);
-                        SpeechToText StT = new SpeechToText();
-                        final String transcription_original = StT.getTranscription();
-                        String transcription_finalVersion;
-
-                        Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId())).sendMessage(transcription_original).queue();
-                        if (!((SpeechToText.Language.getLang().equals("en-GB") || SpeechToText.Language.getLang().equals("en-US")))) {
-                            transcription_finalVersion = runPyScript(ScriptPathPointer.translator, transcription_original);
-                            assert transcription_finalVersion != null;
-                            Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId())).sendMessage(transcription_finalVersion).queue();
-                        } else {
-                            transcription_finalVersion = transcription_original;
-                        }
-
-                        System.out.println(transcription_finalVersion);
-
-                        SpeechToText.setText(transcription_finalVersion);
-                        ListeningCommandManager listeningCommandManager = new ListeningCommandManager();
-
-                        IListeningCommands command = listeningCommandManager.getCommand(transcription_finalVersion);
-
-                        if (command != null) {
-                            if (command.isParamRequired())
-                                command.doTask(msgEvent.getEvent(), transcription_original);
-
-                            else
-                                command.doTask(msgEvent.getEvent(), null);
-                        } else {
-                            msgEvent.getEvent().getMessage().reply("There's been an error\nCommand either does not exist or I couldn't understand you").queue();
-                        }
-
-                        if (haveUsersStoppedTalking(talkingMembersCount)) isAllowedToCarryOn = false;
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
                 }
             }
@@ -322,4 +328,6 @@ public class SpeechToText {
         }
 
     }
+
+
 }

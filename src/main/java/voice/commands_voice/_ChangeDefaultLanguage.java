@@ -2,7 +2,7 @@ package voice.commands_voice;
 
 import _library_class.LibraryClass;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import voice.voice_and_listening.LANGUAGES;
+import enums.LANGUAGES.LANGUAGES;
 import voice.voice_and_listening.SpeechToText;
 
 import java.util.ArrayList;
