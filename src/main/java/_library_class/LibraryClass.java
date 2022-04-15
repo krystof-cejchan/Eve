@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
  * This Class serves as a Library Class according to the design patterns in Java
  * All methods in this class are defined as static, so that they can be called
  * without creating an instance of this class
+ *
  * @author krystof-cejchan
  */
 public class LibraryClass {
@@ -111,8 +112,7 @@ public class LibraryClass {
     public static IListeningCommands isUserInputVerySimilarToTags(String input) {
         for (IListeningCommands I : ListeningCommandManager.getAllCommands()) {
             try {
-                ArrayList<String> words = new ArrayList<>();
-                Collections.addAll(words, input.toLowerCase().split(" "));
+                ArrayList<String> words = new ArrayList<>(Arrays.asList(input.toLowerCase().split(" ")));
                 if (compareTwoArrays(I.getTags(), words)) {
                     return I;
                 }
@@ -304,12 +304,12 @@ public class LibraryClass {
         String a = sb.toString();
         System.out.println(a);*/
         Executor executor = new DefaultExecutor();
-        CommandLine cmdLine =new CommandLine("python");
+        CommandLine cmdLine = new CommandLine("python");
 
         cmdLine.addArguments("C:/Users/kryst/git/repository3/discordbottest/src/main/java/external_files/py_scripts/soundfiletotext.py H:/523281151561826315.wav cs-CZ");
 
-        ExecuteWatchdog watchdog = new ExecuteWatchdog(60*1000);
-            executor.setWatchdog(watchdog);
+        ExecuteWatchdog watchdog = new ExecuteWatchdog(60 * 1000);
+        executor.setWatchdog(watchdog);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PipedOutputStream outputStream1 = new PipedOutputStream();
@@ -322,7 +322,7 @@ public class LibraryClass {
         BufferedReader br = new BufferedReader(new InputStreamReader(pis, StandardCharsets.UTF_8));
         StringBuilder sb = new StringBuilder();
         String line;
-        while((line = br.readLine()) != null) {
+        while ((line = br.readLine()) != null) {
             sb.append(line).append("\n");
         }
         pis.close();

@@ -49,8 +49,8 @@ public class _PlaySong implements IListeningCommands {
     public ArrayList<String> getTags() {
         ArrayList<String> t = new ArrayList<>();
         t.add("play");
-        t.add("play song");
-        t.add("song");
+      /*  t.add("play song");
+        t.add("song");*/
         t.add("track");
 
         return t;

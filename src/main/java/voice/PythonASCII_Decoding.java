@@ -15,7 +15,7 @@ public class PythonASCII_Decoding {
      */
     public static String decodeASCIItext(String asciiEncodedText) {
         try {
-            if (asciiEncodedText == null || !asciiEncodedText.chars().allMatch(Character::isAlphabetic))
+            if (asciiEncodedText == null || (asciiEncodedText.chars().anyMatch(Character::isLetter)))
                 return asciiEncodedText;
 
 
