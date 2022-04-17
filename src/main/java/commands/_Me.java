@@ -1,10 +1,10 @@
 package commands;
 
+import _library_class.LibraryClass;
 import commands.commands_others.Birthday;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +22,7 @@ public class _Me implements ICommands {
         net.dv8tion.jda.api.entities.Member user = event.getMember();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         // embedBuilder.setAuthor(user.getNickname(), user.getAsMention(), null);
-        embedBuilder.setColor(new Color(255, 215, 0));
+        embedBuilder.setColor(LibraryClass.getRandomColor());
         assert user != null;
         embedBuilder.addField("UserName", user.getAsMention(), false);
         embedBuilder.addField("ID", user.getId(), false);

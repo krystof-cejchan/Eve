@@ -1,5 +1,6 @@
 package audio_player;
 
+import _library_class.LibraryClass;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
@@ -65,7 +66,7 @@ public class NowPlayingCommand {
                         EmbedBuilder embed = new EmbedBuilder();
                         embed.setTitle("NOW PLAYING");
                         embed.setAuthor(event.getAuthor().getName(), null, event.getAuthor().getAvatarUrl());
-                        embed.setColor(Color.yellow);
+                        embed.setColor(LibraryClass.getRandomColor());
                         embed.addField("Title:", info.title, false);
                         embed.addField("By:", info.author, false);
                         embed.addField("Duration", position + "  /  " + duration + " \nTime left: " + timeLeft, false);
