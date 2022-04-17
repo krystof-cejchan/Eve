@@ -1,7 +1,7 @@
 package voice.commands_voice;
 
 import _library_class.LibraryClass;
-import audio_player.MessageTypes;
+import enums.MessageTypes;
 import audio_player.PlayCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import objects.ScriptPathPointer;
@@ -47,14 +47,11 @@ public class _PlaySong implements IListeningCommands {
 
     @Override
     public ArrayList<String> getTags() {
-        ArrayList<String> t = new ArrayList<>();
-        t.add("play");
-      /*  t.add("play song");
-        t.add("song");*/
-        t.add("track");
+        return new ArrayList<>(Arrays.asList
 
-        return t;
+                ("play", "play song", "play track"));
     }
+
 
     /**
      * this function tries to extract a song name from String[] @param args

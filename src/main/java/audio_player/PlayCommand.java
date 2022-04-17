@@ -1,5 +1,6 @@
 package audio_player;
 
+import enums.MessageTypes;
 import main.VoiceChannels;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.MessageChannel;
