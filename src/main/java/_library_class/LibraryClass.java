@@ -2,6 +2,10 @@ package _library_class;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.ricecode.similarity.JaroWinklerStrategy;
+import net.ricecode.similarity.SimilarityStrategy;
+import net.ricecode.similarity.StringSimilarityService;
+import net.ricecode.similarity.StringSimilarityServiceImpl;
 import org.apache.commons.exec.*;
 import voice.commands_voice.IListeningCommands;
 import voice.commands_voice.ListeningCommandManager;
@@ -110,17 +114,34 @@ public class LibraryClass {
      */
     @Nullable
     public static IListeningCommands isUserInputVerySimilarToTags(String input) {
-        for (IListeningCommands I : ListeningCommandManager.getAllCommands()) {
+        if (input == null || input.isEmpty() || input.isBlank())
+            return null;
+
+        ArrayList<String> words = new ArrayList<>(Arrays.asList(input.toLowerCase().split(" ")));
+        ArrayList<Double> tempResults = new ArrayList<>();
+        HashMap<IListeningCommands, Double> map = new HashMap<>();
+        SimilarityStrategy strategy = new JaroWinklerStrategy();
+        StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
+        for (IListeningCommands IListeningCmd : ListeningCommandManager.getAllCommands()) {
             try {
-                ArrayList<String> words = new ArrayList<>(Arrays.asList(input.toLowerCase().split(" ")));
-                if (compareTwoArrays(I.getTags(), words)) {
-                    return I;
+                double tempResult_FORLOOP = 0;
+                if (compareTwoArrays(IListeningCmd.getTags(), words)) {
+                    for (int i = 0; i < IListeningCmd.getTags().size(); i++) {
+                        tempResult_FORLOOP += service.score(IListeningCmd.getTags().get(i), input);
+                    }
+                    tempResults.add(tempResult_FORLOOP / IListeningCmd.getTags().size());
+                    map.put(IListeningCmd, averageOfDoubleArray(tempResults));
                 }
+
             } catch (Exception e) {
                 return null;
             }
         }
-        return null;
+
+        if (getTheMostSuitableItemFromAHashMap(map) != null)
+            return getTheMostSuitableItemFromAHashMap(map);
+        else
+            return null;
     }
 
     /**
@@ -135,9 +156,11 @@ public class LibraryClass {
         double highest = 0;
 
         for (IListeningCommands I : ListeningCommandManager.getAllCommands()) {
-            if (map.get(I) > highest) {
-                highest = map.get(I);
-                ImostLikelyToBe = I;
+            if (map.containsKey(I)) {
+                if (map.get(I) > highest) {
+                    highest = map.get(I);
+                    ImostLikelyToBe = I;
+                }
             }
         }
         //double minSimilarity = 0.45;

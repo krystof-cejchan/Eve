@@ -10,6 +10,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static _library_class.LibraryClass.isUserInputVerySimilarToTags;
+
+
 public class ListeningCommandManager {
     public final static ArrayList<IListeningCommands> commands = new ArrayList<>();
 
@@ -57,8 +60,8 @@ public class ListeningCommandManager {
     public IListeningCommands getCommand(String usersVoiceInput) {
 
         try {
-            if (LibraryClass.isUserInputVerySimilarToTags(usersVoiceInput) != null)
-                return LibraryClass.isUserInputVerySimilarToTags(usersVoiceInput);
+            if (isUserInputVerySimilarToTags(usersVoiceInput) != null)
+                return isUserInputVerySimilarToTags(usersVoiceInput);
 
             HashMap<IListeningCommands, Double> suitabilityMap = new HashMap<>();
             /*
