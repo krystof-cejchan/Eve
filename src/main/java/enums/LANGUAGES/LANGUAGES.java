@@ -3,12 +3,17 @@ package enums.LANGUAGES;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Language enum represents all languages users can use to communicate with the bot
+ * <a href="https://github.com/krystof-cejchan/Eve/blob/776a6cf9ce57f1f1317ff54deeb64814e9202266/src/main/java/enums/LANGUAGES/LANGUAGES-table.md"> Table of all languages </a>
+ */
 public enum LANGUAGES {
-    arabic, czech, danish, german, greek, englisha/* Australia */, englishuk/* The UK */, englishus/* The USA */,
-    spanish, finnish, french, hebrew, hindi, hungarian, indonesian, italian, japanese, korean, dutch, norwegian, polish,
-    portuguese, romanian, russian, slovak, swedish, thai, turkish, chinese/* regular */, chinesehk/* honk kong */,
-    chineset/* taiwan */;
+    arabic, czech, danish, german, greek, englisha/* Australia */, englishuk/* The UK */, englishus/* The USA */, spanish, finnish, french, hebrew, hindi, hungarian, indonesian, italian, japanese, korean, dutch, norwegian, polish, portuguese, romanian, russian, slovak, swedish, thai, turkish, chinese/* regular */, chinesehk/* honk kong */, chineset/* taiwan */;
 
+    /**
+     * @param LANG Language
+     * @return BCP 47 as text
+     */
     public static String getShortLang(LANGUAGES LANG) {
         return switch (LANG) {
             case arabic -> "ar-SA";
@@ -45,6 +50,10 @@ public enum LANGUAGES {
         };
     }
 
+    /**
+     * @param shortLan BCP 47 language tag as a String
+     * @return LANGUAGES as Enum
+     */
     public static LANGUAGES getProperLanFromShort(String shortLan) {
 
         return switch (shortLan) {
@@ -84,6 +93,10 @@ public enum LANGUAGES {
 
     }
 
+    /**
+     * @param LANG {@link LANGUAGES}
+     * @return text of proper language
+     */
     public static String getProperLanguage(LANGUAGES LANG) {
         return switch (LANG) {
             case arabic -> "Arabic";
@@ -120,6 +133,10 @@ public enum LANGUAGES {
         };
     }
 
+    /**
+     * @param LANG {@link LANGUAGES}
+     * @return Language flag emoji as String
+     */
     public static String getLangFlag(LANGUAGES LANG) {
         return switch (LANG) {
             case arabic -> "🇸🇦";
@@ -157,6 +174,9 @@ public enum LANGUAGES {
         };
     }
 
+    /**
+     * @return all {@link LANGUAGES} as String saved {@link List}
+     */
     public static List<String> getAllEnums() {
         List<String> enums = new ArrayList<>();
         for (LANGUAGES language : LANGUAGES.values()) {
