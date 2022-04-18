@@ -20,6 +20,7 @@ import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * This Class serves as a Library Class according to the design patterns in Java
@@ -51,6 +52,42 @@ public class LibraryClass {
     }
 
     /**
+     * @param listA list of strings
+     * @param listB list of strings
+     * @return true, if a word from all the string in an array matches another word from all the strings from another array
+     * @throws PatternSyntaxException if cannot split(" ")
+     */
+    public static boolean compareItemsInTwoArrays(ArrayList<String> listA, ArrayList<String> listB) throws PatternSyntaxException {
+
+        for (String s : listA) {
+            for (String value : listB) {
+                for (int i = 0; i < s.split(" ").length; i++) {
+                    for (int j = 0; j < value.split(" ").length; j++) {
+                        if (s.split(" ")[i].equalsIgnoreCase(value.split(" ")[j])) return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static Integer[] whereAreItemsInTwoArraysTheSame(ArrayList<String> listA, ArrayList<String> listB) throws PatternSyntaxException {
+        ArrayList<Integer> where = new ArrayList<>();
+        for (String s : listA) {
+            for (String value : listB) {
+                for (int i = 0; i < s.split(" ").length; i++) {
+                    for (int j = 0; j < value.split(" ").length; j++) {
+                        if (s.split(" ")[i].equalsIgnoreCase(value.split(" ")[j])) where.add(listB.indexOf(value));
+                    }
+                }
+            }
+        }
+
+        return where.toArray(new Integer[0]);
+    }
+
+    /**
      * @param listA ArrayList1
      * @param listB ArrayList2
      * @return index as Integer from listB where listA matches listB
@@ -69,6 +106,21 @@ public class LibraryClass {
 
         return null;
 
+    }
+
+    public static Integer[] whereAreTwoArraysTheSame_AllPos(ArrayList<String> listA, ArrayList<String> listB) {
+        ArrayList<Integer> allPos = new ArrayList<>();
+        for (String s : listA) {
+            for (int j = 0; j < listB.size(); j++) {
+                if (s.equalsIgnoreCase(listB.get(j))) {
+                    allPos.add(j);
+                }
+
+            }
+
+        }
+
+        return allPos.toArray(new Integer[0]);
     }
 
     /**
@@ -114,8 +166,7 @@ public class LibraryClass {
      */
     @Nullable
     public static IListeningCommands isUserInputVerySimilarToTags(String input) {
-        if (input == null || input.isEmpty() || input.isBlank())
-            return null;
+        if (input == null || input.isEmpty() || input.isBlank()) return null;
 
         ArrayList<String> words = new ArrayList<>(Arrays.asList(input.toLowerCase().split(" ")));
         ArrayList<Double> tempResults = new ArrayList<>();
@@ -140,8 +191,7 @@ public class LibraryClass {
 
         if (getTheMostSuitableIListeningCommandFromAHashMap(map) != null)
             return getTheMostSuitableIListeningCommandFromAHashMap(map);
-        else
-            return null;
+        else return null;
     }
 
     /**
@@ -176,7 +226,7 @@ public class LibraryClass {
      * @param queue of audiotracks
      * @return {@link AudioTrack} which is the most suitable from the map
      */
-    public static AudioTrack getTheMostSuitableAudioTrackFromAHashMap(HashMap<AudioTrack, Double> map, BlockingQueue<AudioTrack> queue) {
+    public static AudioTrack getTheMostSuitableAudioTrackFromAHashMap(HashMap<AudioTrack, Double> map, BlockingQueue<AudioTrack> queue, double minimalSimilarity) {
         AudioTrack ImostLikelyToBe = null;
         double highest = 0;
 
@@ -186,8 +236,9 @@ public class LibraryClass {
                 ImostLikelyToBe = I;
             }
         }
-        double minSimilarity = 0.1;
-        if (highest >= minSimilarity) {
+
+
+        if (highest >= minimalSimilarity) {
             return ImostLikelyToBe;
         } else {
             return null;
@@ -243,9 +294,7 @@ public class LibraryClass {
      */
     public static String getStringFromArrayOfStrings_withSpaces(ArrayList<String> array) {
         StringBuilder ret_val = new StringBuilder();
-        for (String string : array) {
-            ret_val.append(string).append(" ");
-        }
+        array.forEach(item -> ret_val.append(item).append(" "));
         return ret_val.toString();
     }
 

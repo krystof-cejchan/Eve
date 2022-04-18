@@ -62,9 +62,7 @@ public class SkipCommand {
                     ArrayList<AudioTrack> audioList = new ArrayList<>(queue);
                     // String nextTrackName = audioList.get(0).getInfo().title;
                     if (msg)
-                        event.getChannel().sendMessage("Skipped to the next song! ```fix\n" +
-                                audioList.get(0).getInfo().title/* title of the following track */ + "\n" +
-                                "```").queue();
+                        event.getChannel().sendMessage("Skipped to the next song! ```fix\n" + audioList.get(0).getInfo().title/* title of the following track */ + "\n" + "```").queue();
                     musicManager.SCHEDULER.nextTrack();
 
 
@@ -130,50 +128,73 @@ public class SkipCommand {
      * @throws NullPointerException in case that the track does not suit any of the tracks in the arraylist
      */
     public void skipToTrackbyTitle(MessageReceivedEvent event, String usersInput) throws NullPointerException {
-        ArrayList<String> text = new ArrayList<>(Arrays.asList(usersInput.split(" ")).subList(1, Arrays.asList(usersInput.split(" ")).size()));
-
-        SimilarityStrategy strategy = new JaroWinklerStrategy();
-        StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
-        GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
-        BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
-        HashMap<AudioTrack, Double> similarityMap = new HashMap<>();
-
-        for (AudioTrack track : queue) {
-            similarityMap.put(track, service.score(track.getInfo().title,
-                    LibraryClass.getStringFromArrayOfStrings_withSpaces(text)));
-
-
-        }
-        if (LibraryClass.getTheMostSuitableAudioTrackFromAHashMap(similarityMap, queue) != null) {
-            AudioTrack audioTrack = LibraryClass.getTheMostSuitableAudioTrackFromAHashMap(similarityMap, queue);
-
+        try {
+            BlockingQueue<AudioTrack> queue = PlayerManager.getInstance().getMusicManager(event.getGuild()).SCHEDULER.QUEUE;
 
             if (!queue.isEmpty()) {
+                ArrayList<String> text = new ArrayList<>(Arrays.asList(usersInput.split(" ")).subList(1, Arrays.asList(usersInput.split(" ")).size()));
 
-                try {
-                    ArrayList<AudioTrack> audioList = new ArrayList<>(queue);
-                    assert audioTrack != null;
-                    String toSkippedTrack = audioTrack.getInfo().title;
-                    skipTrackTo(event, getIndex(audioList, audioTrack) + 1);
-                    event.getChannel().sendMessage("Skipped to " + toSkippedTrack).queue();
-                } catch (Exception ignored) {
+                SimilarityStrategy strategy = new JaroWinklerStrategy();
+                StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
 
+                HashMap<AudioTrack, Double> similarityMap = new HashMap<>();
+                event.getChannel().sendMessage(LibraryClass.getStringFromArrayOfStrings_withSpaces(text)).queue();
+                ArrayList<String> queue2trackTitle = new ArrayList<>();
+                for (AudioTrack a : queue) {
+                    queue2trackTitle.add(a.getInfo().title);
                 }
 
+                if (LibraryClass.compareItemsInTwoArrays(text, queue2trackTitle)) {
+                    if (LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle).length < 2) {
+                        skipTrackTo(event, LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle)[0] + 1);
+                        return;
+                    }
+                    for (int i = 0; i < LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle).length; i++) {
+
+                        similarityMap.put(new ArrayList<>(queue).get(LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle)[i]),
+                                service.score(queue2trackTitle.get(LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle)[i]),
+                                        LibraryClass.getStringFromArrayOfStrings_withSpaces(text)));
+                    }
+                } else {
+                    event.getChannel().sendMessage("Please provide a keyword with a word which is contained in the song title").queue();
+                    return;
+                    //  queue.forEach(audioTrack -> similarityMap.put(audioTrack, service.score(audioTrack.getInfo().title, LibraryClass.getStringFromArrayOfStrings_withSpaces(text))));
+                }
+
+                if (LibraryClass.getTheMostSuitableAudioTrackFromAHashMap(similarityMap, queue, 0) != null) {
+                    AudioTrack audioTrack = LibraryClass.getTheMostSuitableAudioTrackFromAHashMap(similarityMap, queue, 0);
+
+
+                    try {
+                        ArrayList<AudioTrack> audioList = new ArrayList<>(queue);
+                        assert audioTrack != null;
+                        String toSkippedTrack = audioTrack.getInfo().title;
+                        int index = getIndexOfTheTrackFromTheQueue(audioList, audioTrack);
+                        skipTrackTo(event, index + 1);
+                        event.getChannel().sendMessage(String.valueOf(index + 1)).queue();
+                        event.getChannel().sendMessage("Skipped to " + toSkippedTrack).queue();
+                    } catch (Exception ignored) {
+
+                    }
+
+                } else {
+                    event.getChannel().sendMessage("No specific song matches your keyword **or** there are more song titles containing this keyword").queue();
+                }
             } else {
                 event.getChannel().sendMessage("Queue seems to be empty").queue();
             }
-
+        } catch (NullPointerException e) {
+            event.getChannel().sendMessage("No specific song matches your keyword").queue();
+            e.printStackTrace();
         }
 
 
     }
 
-    private int getIndex(ArrayList<AudioTrack> audioList, AudioTrack audioTrack) {
+    private int getIndexOfTheTrackFromTheQueue(ArrayList<AudioTrack> audioList, AudioTrack audioTrack) {
         int startOfSubArray = 0;
         for (AudioTrack track : audioList) {
-            if (!track.equals(audioTrack))
-                startOfSubArray++;
+            if (!track.equals(audioTrack)) startOfSubArray++;
             else {
                 return startOfSubArray;
             }
