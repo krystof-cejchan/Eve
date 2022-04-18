@@ -138,8 +138,8 @@ public class LibraryClass {
             }
         }
 
-        if (getTheMostSuitableItemFromAHashMap(map) != null)
-            return getTheMostSuitableItemFromAHashMap(map);
+        if (getTheMostSuitableIListeningCommandFromAHashMap(map) != null)
+            return getTheMostSuitableIListeningCommandFromAHashMap(map);
         else
             return null;
     }
@@ -151,7 +151,7 @@ public class LibraryClass {
      * @return IListeningCommands if possible, otherwise null
      */
     @Nullable
-    public static IListeningCommands getTheMostSuitableItemFromAHashMap(HashMap<IListeningCommands, Double> map) {
+    public static IListeningCommands getTheMostSuitableIListeningCommandFromAHashMap(HashMap<IListeningCommands, Double> map) {
         IListeningCommands ImostLikelyToBe = null;
         double highest = 0;
 
@@ -176,7 +176,7 @@ public class LibraryClass {
      * @param queue of audiotracks
      * @return {@link AudioTrack} which is the most suitable from the map
      */
-    public static AudioTrack getTheMostSuitableItemFromAHashMap(HashMap<AudioTrack, Double> map, BlockingQueue<AudioTrack> queue) {
+    public static AudioTrack getTheMostSuitableAudioTrackFromAHashMap(HashMap<AudioTrack, Double> map, BlockingQueue<AudioTrack> queue) {
         AudioTrack ImostLikelyToBe = null;
         double highest = 0;
 
@@ -194,15 +194,14 @@ public class LibraryClass {
         }
     }
 
-    /**
+    /*
      * used for song search optimalization
      *
      * @param map of String and Integer
      * @return words with most hits (a song)
      * @author krystof-cejchan
      */
-    @SuppressWarnings("unused")
-    public static String getTheMostSuitableStringFromAHashMap(HashMap<String, Integer> map) {
+   /* public static String getTheMostSuitableStringFromAHashMap(HashMap<String, Integer> map) {
         int top = 0;
         String chosen = null;
         for (HashMap.Entry<String, Integer> entry : map.entrySet()) {
@@ -212,6 +211,27 @@ public class LibraryClass {
             }
 
         }
+        return chosen;
+    }*/
+
+    /**
+     * used to get index of the song which is most likely to be the one user meant
+     * <b>if method return -1, it means that no key is worth returning</b>
+     *
+     * @param map {@link HashMap} consisting of Integer and Double
+     * @return Key from the hashmap where the value was the highest and greater than 0.4
+     */
+    public static int getTheMostSuitableItemIndexFromAHashMap(HashMap<Integer, Double> map) {
+        double top = 0;
+        int chosen = -1;
+        for (HashMap.Entry<Integer, Double> entry : map.entrySet()) {
+
+            if (entry.getValue() > top && entry.getValue() > .4) {
+                chosen = entry.getKey();
+            }
+
+        }
+
         return chosen;
     }
 

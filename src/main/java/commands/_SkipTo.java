@@ -1,9 +1,11 @@
 package commands;
 
+import audio_player.QueueCommand;
 import audio_player.SkipCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
+
 /**
  * <p style="background-color:Green; color:Black">This command skips to *x.* in the queue</p>
  *
@@ -17,11 +19,19 @@ public class _SkipTo implements ICommands {
         String[] args = event.getMessage().getContentRaw().split(" ");
 
         try {
+
             if (args.length > 1) {
                 SkipCommand s = new SkipCommand();
-                s.skipTrackTo(event, Integer.parseInt(args[1]));
-            }
+                QueueCommand queueCommand = new QueueCommand();
+                if (event.getMessage().getContentRaw().matches(".*\\d.*"))// check for numbers
+                {
+                    s.skipTrackTo(event, Integer.parseInt(args[1]));
 
+                } else {
+
+                    s.skipToTrackbyTitle(event, event.getMessage().getContentRaw());
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

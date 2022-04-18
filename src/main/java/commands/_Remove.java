@@ -49,7 +49,7 @@ public class _Remove implements ICommands {
 
                     }
                     queueCommand.removeFromQueuebyName(event,
-                            LibraryClass.getTheMostSuitableItemFromAHashMap(similarityMap, queue));
+                            LibraryClass.getTheMostSuitableAudioTrackFromAHashMap(similarityMap, queue));
                 }
 
             }

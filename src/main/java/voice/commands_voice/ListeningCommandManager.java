@@ -92,8 +92,8 @@ public class ListeningCommandManager {
 
             }
 
-            System.out.println(LibraryClass.getTheMostSuitableItemFromAHashMap(suitabilityMap));
-            return LibraryClass.getTheMostSuitableItemFromAHashMap(suitabilityMap);
+            System.out.println(LibraryClass.getTheMostSuitableIListeningCommandFromAHashMap(suitabilityMap));
+            return LibraryClass.getTheMostSuitableIListeningCommandFromAHashMap(suitabilityMap);
 
         } catch (Exception e) {
             e.printStackTrace();

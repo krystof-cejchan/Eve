@@ -1,12 +1,19 @@
 package audio_player;
 
+import _library_class.LibraryClass;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.ricecode.similarity.JaroWinklerStrategy;
+import net.ricecode.similarity.SimilarityStrategy;
+import net.ricecode.similarity.StringSimilarityService;
+import net.ricecode.similarity.StringSimilarityServiceImpl;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
@@ -113,4 +120,66 @@ public class SkipCommand {
         }
 
     }
+
+    /**
+     * skips to the song which is the most suitable one from the user's input
+     * uses skipTrackTo
+     *
+     * @param event      {@link MessageReceivedEvent}
+     * @param usersInput user's input
+     * @throws NullPointerException in case that the track does not suit any of the tracks in the arraylist
+     */
+    public void skipToTrackbyTitle(MessageReceivedEvent event, String usersInput) throws NullPointerException {
+        ArrayList<String> text = new ArrayList<>(Arrays.asList(usersInput.split(" ")).subList(1, Arrays.asList(usersInput.split(" ")).size()));
+
+        SimilarityStrategy strategy = new JaroWinklerStrategy();
+        StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
+        GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
+        BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
+        HashMap<AudioTrack, Double> similarityMap = new HashMap<>();
+
+        for (AudioTrack track : queue) {
+            similarityMap.put(track, service.score(track.getInfo().title,
+                    LibraryClass.getStringFromArrayOfStrings_withSpaces(text)));
+
+
+        }
+        if (LibraryClass.getTheMostSuitableAudioTrackFromAHashMap(similarityMap, queue) != null) {
+            AudioTrack audioTrack = LibraryClass.getTheMostSuitableAudioTrackFromAHashMap(similarityMap, queue);
+
+
+            if (!queue.isEmpty()) {
+
+                try {
+                    ArrayList<AudioTrack> audioList = new ArrayList<>(queue);
+                    assert audioTrack != null;
+                    String toSkippedTrack = audioTrack.getInfo().title;
+                    skipTrackTo(event, getIndex(audioList, audioTrack) + 1);
+                    event.getChannel().sendMessage("Skipped to " + toSkippedTrack).queue();
+                } catch (Exception ignored) {
+
+                }
+
+            } else {
+                event.getChannel().sendMessage("Queue seems to be empty").queue();
+            }
+
+        }
+
+
+    }
+
+    private int getIndex(ArrayList<AudioTrack> audioList, AudioTrack audioTrack) {
+        int startOfSubArray = 0;
+        for (AudioTrack track : audioList) {
+            if (!track.equals(audioTrack))
+                startOfSubArray++;
+            else {
+                return startOfSubArray;
+            }
+        }
+        return -1;
+    }
+
 }
+
