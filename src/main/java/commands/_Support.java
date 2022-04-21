@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.ContextException;
 
 import java.util.ArrayList;
+
 /**
  * <p style="background-color:Green; color:Black">This command sends the developers your message</p>
  *

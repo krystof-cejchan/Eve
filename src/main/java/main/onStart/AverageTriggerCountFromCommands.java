@@ -20,7 +20,6 @@ public class AverageTriggerCountFromCommands implements IOnStart {
     }
 
 
-
     public int getAverageTriggerCountFromCommands() {
         return AverageTriggerCountFromCommands;
     }

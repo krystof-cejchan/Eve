@@ -4,6 +4,7 @@ import audio_player.VolumeCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
+
 /**
  * <p style="background-color:Green; color:Black">This command changes current volume of the bot</p>
  *

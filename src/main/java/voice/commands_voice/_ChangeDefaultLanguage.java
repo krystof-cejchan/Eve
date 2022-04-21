@@ -1,8 +1,8 @@
 package voice.commands_voice;
 
 import _library_class.LibraryClass;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import enums.LANGUAGES.LANGUAGES;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import voice.voice_and_listening.SpeechToText;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class _ChangeDefaultLanguage implements IListeningCommands {
 
         try {
 
-            if (usersInput!=null) {
+            if (usersInput != null) {
 
                 String[] words = usersInput.split("\\s");
                 ArrayList<String> wordsArray = new ArrayList<>();

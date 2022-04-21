@@ -76,6 +76,21 @@ public class SpeechToText {
                 connectTo(channel);
             }
 
+
+            AudioManager audioManager = channel.getGuild().getAudioManager();
+            if (audioManager.getReceivingHandler() != null) {
+                event.getChannel().sendMessage("I'm listening ...").queue();
+            } else {
+                boolean sentMsg = false;
+                while (audioManager.getReceivingHandler() == null) {
+                    if (!sentMsg) {
+                        event.getChannel().sendMessage("Warming up, gimme a moment").queue();
+                        sentMsg = true;
+                    }
+                }
+                event.getChannel().sendMessage("I'm listening ...").queue();
+            }
+
         } else {
             event.getChannel().sendMessage("You are nowhere to be found *sad noises*").queue();
         }

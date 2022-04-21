@@ -1,9 +1,9 @@
 package commands;
 
 import _library_class.LibraryClass;
+import enums.LANGUAGES.LANGUAGES;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import enums.LANGUAGES.LANGUAGES;
 
 import java.util.ArrayList;
 import java.util.Arrays;

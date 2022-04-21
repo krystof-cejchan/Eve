@@ -55,7 +55,7 @@ public class _Help implements ICommands {
                             event.getMessage().replyEmbeds(embedBuilder.build()).queue();
                             embedBuilder.clear();
 
-                           // counter++;
+                            // counter++;
                             return;
                         }
                     }

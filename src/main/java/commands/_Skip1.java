@@ -5,6 +5,7 @@ import audio_player.SkipCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
+
 /**
  * <p style="background-color:Green; color:Black">This command skips one track in the queue</p>
  *

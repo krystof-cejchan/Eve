@@ -44,6 +44,7 @@ public class QueueCommand {
             MessageAction messageAction = channel.sendMessage("**QUEUE**\n");
 
 
+            messageAction.append("__").append("Currently playing").append("__").append(":").append(" `").append(musicManager.SCHEDULER.PLAYER.getPlayingTrack().getInfo().title).append("` \n");
             for (int i = 0; i < trackCount; i++) {
                 AudioTrack track = trackList.get(i);
                 AudioTrackInfo info = track.getInfo();

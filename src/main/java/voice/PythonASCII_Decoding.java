@@ -27,7 +27,6 @@ public class PythonASCII_Decoding {
             }
 
             StringBuilder str = new StringBuilder();
-
             for (int i : asciiNumbers) {
                 str.append((char) i);
             }

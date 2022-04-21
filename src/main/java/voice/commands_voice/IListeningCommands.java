@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface IListeningCommands {
 
-    void doTask(MessageReceivedEvent event,@Nullable String usersInput) throws Exception;
+    void doTask(MessageReceivedEvent event, @Nullable String usersInput) throws Exception;
 
     String getName();
 

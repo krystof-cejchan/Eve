@@ -4,6 +4,7 @@ import audio_player.ResumeCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
+
 /**
  * <p style="background-color:Green; color:Black">This command resumes the currently paused song</p>
  *

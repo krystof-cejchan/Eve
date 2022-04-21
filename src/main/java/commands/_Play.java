@@ -1,12 +1,13 @@
 package commands;
 
 import _library_class.LibraryClass;
-import enums.MessageTypes;
 import audio_player.PlayCommand;
+import enums.MessageTypes;
 import main.VoiceChannels;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
+
 /**
  * <p style="background-color:Green; color:Black">This command adds a song to the track list</p>
  *
@@ -18,7 +19,7 @@ public class _Play implements ICommands {
     @Override
     public void doTask(MessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split(" ");
-        if(args.length<=1){
+        if (args.length <= 1) {
             new VoiceChannels().Join(event);
             return;
         }

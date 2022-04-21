@@ -9,7 +9,6 @@ import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import javax.annotation.Nullable;
-import java.awt.*;
 import java.util.Objects;
 
 /**
@@ -23,7 +22,7 @@ public class NowPlayingCommand {
      * @param milliseconds milliseconds
      * @return meaningful time value according to format<br> {@code .format("%02d:%02d:%02d", hours, minutes, seconds)} or {@code .format("%02d:%02d", minutes, seconds)}
      */
-    public static String getTimestamp(long milliseconds) {
+    private static String getTimestamp(long milliseconds) {
         int seconds = (int) (milliseconds / 1000) % 60;
         int minutes = (int) ((milliseconds / (1000 * 60)) % 60);
         int hours = (int) ((milliseconds / (1000 * 60 * 60)) % 24);

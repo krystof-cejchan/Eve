@@ -32,14 +32,15 @@ public class TrackScheduler extends AudioEventAdapter {
 
     /**
      * when a track comes to an end
-     * @param player {@link AudioPlayer}
-     * @param track {@link AudioTrack}
+     *
+     * @param player    {@link AudioPlayer}
+     * @param track     {@link AudioTrack}
      * @param endReason {@link AudioTrackEndReason}
      */
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
         if (endReason.mayStartNext) {
             nextTrack();
-           LetUsersKnowOfPlayingNextTrack.informAboutPlayingNextTrack(MessageReceivedEvent_StaticCustomClass.getEvent());
+            LetUsersKnowOfPlayingNextTrack.informAboutPlayingNextTrack(MessageReceivedEvent_StaticCustomClass.getEvent());
         }
     }
 

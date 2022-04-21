@@ -21,7 +21,6 @@ public class GetFunctionsFrom_PHP {
                 sb.append(sc.next());
             }
             String result = sb.toString();
-            System.out.println(result);
             sc.close();
             return result.replaceAll("<[^>]*>", "");
         } catch (IOException e) {

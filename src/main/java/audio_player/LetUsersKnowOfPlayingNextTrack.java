@@ -1,6 +1,5 @@
 package audio_player;
 
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
@@ -12,7 +11,7 @@ public class LetUsersKnowOfPlayingNextTrack {
      *
      * @param event {@link MessageReceivedEvent}
      */
-   public static void informAboutPlayingNextTrack(MessageReceivedEvent event) {
-       event.getChannel().sendMessage("Playing next song: **" + new NowPlayingCommand().getNpAudioTrack(event).getInfo().title + "**").queue();
+    public static void informAboutPlayingNextTrack(MessageReceivedEvent event) {
+        event.getChannel().sendMessage("Playing next song: **" + new NowPlayingCommand().getNpAudioTrack(event).getInfo().title + "**").queue();
     }
 }

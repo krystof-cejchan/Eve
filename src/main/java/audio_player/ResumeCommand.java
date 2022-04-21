@@ -14,6 +14,7 @@ public class ResumeCommand {
     /**
      * resume music, if paused <br>
      * see {@link StopCommand}
+     *
      * @param event {@link MessageReceivedEvent}
      */
     public void resumeMusic(MessageReceivedEvent event) {

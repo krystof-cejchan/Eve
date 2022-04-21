@@ -1,8 +1,8 @@
 package voice.commands_voice;
 
 import _library_class.LibraryClass;
-import enums.MessageTypes;
 import audio_player.PlayCommand;
+import enums.MessageTypes;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import objects.ScriptPathPointer;
 import voice.voice_and_listening.SpeechToText;
