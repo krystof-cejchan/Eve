@@ -1,6 +1,8 @@
 package voice.voice_and_listening;
 
 import _library_class.Global_Values;
+import commands.commands_voice.IListeningCommands;
+import commands.commands_voice.ListeningCommandManager;
 import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 import net.dv8tion.jda.api.audio.CombinedAudio;
@@ -13,8 +15,6 @@ import objects.ScriptPathPointer;
 import objects.SoundFile;
 import org.jetbrains.annotations.NotNull;
 import voice.PythonASCII_Decoding;
-import commands.commands_voice.IListeningCommands;
-import commands.commands_voice.ListeningCommandManager;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
@@ -105,7 +105,7 @@ public class SpeechToText {
             byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
 
             return new String(bytes, StandardCharsets.UTF_8);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IOException e) {
             e.printStackTrace();
             return null;
         }

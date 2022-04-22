@@ -1,10 +1,7 @@
 package objects;
 
 import java.io.IOException;
-import java.nio.file.FileStore;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.*;
 import java.util.ArrayList;
 
 public class SoundFile {
@@ -25,26 +22,39 @@ public class SoundFile {
         SoundFile.title = title;
     }
 
-    public static String getWholePath() {
-        return "H:\\" + getTitle() + ".wav";
+    public static String getWholePath() throws IOException {
+        return Directories.getthePath() + "\\" + getTitle() + ".wav";
     }
 
     static public class Directories {
-        public static ArrayList<FileStore> getAllAvaiableFireStores() throws IOException {
+        public static ArrayList<FileStore> getAllAvaiableFireStores() {
             ArrayList<FileStore> stores = new ArrayList<>();
-            for (Path root : FileSystems.getDefault().getRootDirectories()) {
-                stores.add(Files.getFileStore(root));
-            }
+            FileSystems.getDefault().getRootDirectories().forEach(root -> {
+                try {
+                    stores.add(Files.getFileStore(root));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
             return stores;
         }
 
         public static FileStore getTheFirstFireStore() throws IOException {
             for (Path root : FileSystems.getDefault().getRootDirectories()) {
-                return (Files.getFileStore(root));
+                if (!Files.getFileStore(root).isReadOnly() && Files.isWritable(root))
+                    return Files.getFileStore(root);
             }
             throw new IOException("No disk was found");
 
         }
+
+        public static String getTheFirstDiskLetter() throws IOException {
+            return getTheFirstFireStore().toString().replaceAll("\\(", "").replaceAll("\\)", "");
+        }
+        public static Path getthePath() throws IOException {
+            return Paths.get(getTheFirstDiskLetter() + "\\USERS_INPUT_AUDIO");
+        }
+
 
     }
 }

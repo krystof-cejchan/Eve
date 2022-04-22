@@ -1,14 +1,14 @@
 package _library_class;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import commands.commands_voice.IListeningCommands;
+import commands.commands_voice.ListeningCommandManager;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
 import org.apache.commons.exec.*;
-import commands.commands_voice.IListeningCommands;
-import commands.commands_voice.ListeningCommandManager;
 
 import javax.annotation.Nullable;
 import java.awt.*;

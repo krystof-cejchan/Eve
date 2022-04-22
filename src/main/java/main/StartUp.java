@@ -1,11 +1,13 @@
 package main;
 
 import main.onStart.OnStartManager;
+import main.pre_SetUp.preSetUpManager;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import objects.SoundFile;
 
 import java.util.EnumSet;
 
@@ -13,6 +15,16 @@ public class StartUp {
     static JDABuilder jda;
 
     public static void main(String[] args) throws Exception {
+
+        new preSetUpManager().getPreSetUps().forEach(setUp -> {
+            try {
+                setUp.GetReady();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.exit(-1);
+            }
+            System.out.println("All set up");
+        });
 
         new OnStartManager().getListOf_onStartClasses().forEach(iClass -> {
             try {
@@ -23,6 +35,8 @@ public class StartUp {
             }
             System.out.println("All checked");
         });
+
+        System.out.println(SoundFile.Directories.getTheFirstDiskLetter());
 
         EnumSet<GatewayIntent> intents = EnumSet.of(
 

@@ -11,6 +11,7 @@ public class OnStartManager {
 
         // listOf_onStartClasses.add(new Database_class_onStart());
         listOf_onStartClasses.add(new ScriptFileCheckUp(ScriptFilesLocation.fromLOCAL));
+        listOf_onStartClasses.add(new areSoundFilesReady());
     }
 
     public ArrayList<IOnStart> getListOf_onStartClasses() {

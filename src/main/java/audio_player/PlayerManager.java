@@ -1,7 +1,7 @@
 package audio_player;
 
-import _library_class.SendPrivateMsgToDev;
 import _library_class.LibraryClass;
+import _library_class.SendPrivateMsgToDev;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
