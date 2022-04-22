@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class GifSender {
 
-    public String call_me(String searchKey, String outputLimit) throws Exception {
+    public String getExtractedGif(String searchKey, String outputLimit) throws Exception {
 
         String url = "https://g.tenor.com/v1/search?q=" + searchKey + "&key=VOGDG7F3VEIJ&limit=" + outputLimit
                 + "&media_filter=minimal&locale=cs&contentfilter=off";

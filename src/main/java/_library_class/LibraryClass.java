@@ -7,8 +7,8 @@ import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
 import org.apache.commons.exec.*;
-import voice.commands_voice.IListeningCommands;
-import voice.commands_voice.ListeningCommandManager;
+import commands.commands_voice.IListeningCommands;
+import commands.commands_voice.ListeningCommandManager;
 
 import javax.annotation.Nullable;
 import java.awt.*;

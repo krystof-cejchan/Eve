@@ -75,6 +75,7 @@ public class QueueCommand {
         }
     }
 
+
     /**
      * Removes an item from the queue by index
      *
@@ -140,5 +141,4 @@ public class QueueCommand {
             event.getChannel().sendMessage("Queue seems to be empty").queue();
         }
     }
-
 }

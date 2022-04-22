@@ -1,16 +1,25 @@
-package _library_class;
+package _library_class
 
-public class Global_Values {
+object Global_Values {
     /**
-     * {@link audio_player.QueueCommand}
+     * [audio_player.QueueCommand]
      */
-    public static int shownTrackCount = 30;
+    @JvmField
+    var shownTrackCount = 30
+
     /**
-     * {@link voice.voice_and_listening.SpeechToText}
+     * [voice.voice_and_listening.SpeechToText]
      */
-    public final static int MAX_VALUE = 100;
+    const val MAX_VALUE = 100
+
     /**
-     * {@link voice.voice_and_listening.SpeechToText}
+     * [voice.voice_and_listening.SpeechToText]
      */
-    public static final int MAX_SEC_AUDIO_RECORDING = 8;
+    const val MAX_SEC_AUDIO_RECORDING = 8
+
+    /**
+     * [main.Listener]
+     */
+    const val ALLOW_NOT_IN_TEST_MODE = true
+
 }

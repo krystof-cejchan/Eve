@@ -1,5 +1,7 @@
 package main;
 
+
+import _library_class.Global_Values;
 import audio_player.StopCommand;
 import commands.CommandManager;
 import commands.commands_others.GifSender;
@@ -27,7 +29,7 @@ public class Listener extends ListenerAdapter {
     public void sendGif(String key, String limit, MessageReceivedEvent event) {
         try {
 
-            String zprava = gifs.call_me(key, limit);
+            String zprava = gifs.getExtractedGif(key, limit);
             event.getMessage().reply((zprava)).queue();
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,10 +58,9 @@ public class Listener extends ListenerAdapter {
 
                 TextChannel re = event.getGuild().getTextChannelById("933515864790159360");
                 MessageChannel eventChannel = event.getChannel();
-                CurrentTextChannel ctch = new CurrentTextChannel(eventChannel.getId());
-                ctch.setIid(eventChannel.getId());
-                boolean allower = true;
-                if (eventChannel == re || allower) {
+                CurrentTextChannel currTxtChannel = new CurrentTextChannel(eventChannel.getId());
+                currTxtChannel.setIid(eventChannel.getId());
+                if (eventChannel == re || Global_Values.ALLOW_NOT_IN_TEST_MODE) {
 
                     MessageReceivedEvent_StaticCustomClass.setEvent(event);
                     if (event.getMessage().getContentRaw().substring(0, Prefix.getValue().length())

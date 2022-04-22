@@ -1,7 +1,7 @@
-package _library_class;
+package _library_class
 
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
+import net.dv8tion.jda.api.entities.PrivateChannel
 
 /**
  * Contains only discord related stuff
@@ -11,21 +11,18 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
  *
  * @author krystof-cejchan
  */
-public class DiscordRelated_LibraryClass {
+object SendPrivateMsgToDev {
     /**
      * sends a message to the developer
      *
-     * @param event {@link MessageReceivedEvent}
+     * @param event [MessageReceivedEvent]
      */
-    public static void sendDevMsg(MessageReceivedEvent event, String msg, boolean auth) {
+    @JvmStatic
+    fun sendDevMsg(event: MessageReceivedEvent, msg: String?, auth: Boolean) {
         if (auth) {
-            if (event.getAuthor().isBot())
-                return;
-
+            if (event.author.isBot) return
         }
-        User dev = event.getJDA().getUserById("348358747825111040");
-
-        assert dev != null;
-        dev.openPrivateChannel().flatMap(channel -> channel.sendMessage(msg)).queue();
+        val dev = event.jda.getUserById("348358747825111040")!!
+        dev.openPrivateChannel().flatMap { channel: PrivateChannel -> channel.sendMessage(msg!!) }.queue()
     }
 }

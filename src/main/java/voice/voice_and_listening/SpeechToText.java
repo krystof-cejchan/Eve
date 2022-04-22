@@ -13,8 +13,8 @@ import objects.ScriptPathPointer;
 import objects.SoundFile;
 import org.jetbrains.annotations.NotNull;
 import voice.PythonASCII_Decoding;
-import voice.commands_voice.IListeningCommands;
-import voice.commands_voice.ListeningCommandManager;
+import commands.commands_voice.IListeningCommands;
+import commands.commands_voice.ListeningCommandManager;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;

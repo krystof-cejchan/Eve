@@ -37,7 +37,7 @@ public class _ChangeDefaultLanguage implements IListeningCommands {
                                 + LANGUAGES.getLangFlag(
                                 LANGUAGES.getProperLanFromShort(SpeechToText.Language.getLang()))
                                 + "**").queue();
-                        
+
                     } catch (IllegalArgumentException | NullPointerException e) {
                         event.getChannel()
                                 .sendMessage(

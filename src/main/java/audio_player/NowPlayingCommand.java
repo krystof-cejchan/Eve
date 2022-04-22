@@ -22,7 +22,7 @@ public class NowPlayingCommand {
      * @param milliseconds milliseconds
      * @return meaningful time value according to format<br> {@code .format("%02d:%02d:%02d", hours, minutes, seconds)} or {@code .format("%02d:%02d", minutes, seconds)}
      */
-    private static String getTimestamp(long milliseconds) {
+    public static String getTimestamp(long milliseconds) {
         int seconds = (int) (milliseconds / 1000) % 60;
         int minutes = (int) ((milliseconds / (1000 * 60)) % 60);
         int hours = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
