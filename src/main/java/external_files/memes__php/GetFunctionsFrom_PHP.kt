@@ -1,32 +1,29 @@
-package external_files.memes__php;
+package external_files.memes__php
 
-import _library_class.LibraryClass;
+import _library_class.LibraryClass
+import java.io.IOException
+import java.net.URL
+import java.util.*
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Scanner;
-
-public class GetFunctionsFrom_PHP {
-
-    public static String getCount(String weburl) {
+object GetFunctionsFrom_PHP {
+    @JvmStatic
+    fun getCount(Wurl: String?): String? {
         // http://eveuwu.g6.cz/memes/IMemes.php?&getFunctionCount
-
-        try {
-            if (!LibraryClass.isLink(weburl))
-                weburl = "http://eveuwu.g6.cz/memes/IMemes.php?&getFunctionCount";
-            URL url = new URL(weburl);
-            Scanner sc = new Scanner(url.openStream());
-            StringBuilder sb = new StringBuilder();
+        var weburl = Wurl
+        return try {
+            if (!LibraryClass.isLink(weburl)) weburl = "http://eveuwu.g6.cz/memes/IMemes.php?&getFunctionCount"
+            val url = URL(weburl)
+            val sc = Scanner(url.openStream())
+            val sb = StringBuilder()
             while (sc.hasNext()) {
-                sb.append(sc.next());
+                sb.append(sc.next())
             }
-            String result = sb.toString();
-            sc.close();
-            return result.replaceAll("<[^>]*>", "");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            val result = sb.toString()
+            sc.close()
+            result.replace("<[^>]*>".toRegex(), "")
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
         }
-
     }
 }

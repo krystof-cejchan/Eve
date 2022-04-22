@@ -1,14 +1,10 @@
 package _library_class
 
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.entities.PrivateChannel
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 
 /**
- * Contains only discord related stuff
- * This Class serves as a Library Class according to the design patterns in Java
- * All methods in this class are defined as static, so that they can be called
- * without creating an instance of this class
- *
+ * an object containing one method which sends a message to the dev
  * @author krystof-cejchan
  */
 object SendPrivateMsgToDev {
