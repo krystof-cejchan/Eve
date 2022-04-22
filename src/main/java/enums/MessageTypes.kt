@@ -1,19 +1,16 @@
-package enums;
+package enums
 
 /**
- * Enums for message types <br>
- * Regular message → <i>{@code EG_MESSAGE}</i><br>
- * Embed message → <i>{@code EMBED_MESSAGE}</i>
+ * Enums for message types <br></br>
+ * Regular message → *`EG_MESSAGE`*<br></br>
+ * Embed message → *`EMBED_MESSAGE`*
  *
  * @author krystof-cejchan
  * @since 02/04/22
  */
-public enum MessageTypes {
-
+enum class MessageTypes {
     REG_MESSAGE, EMBED_MESSAGE;
 
-    public MessageTypes[] getAll() {
-        return MessageTypes.values();
-    }
-
+    val all: Array<MessageTypes>
+        get() = values()
 }

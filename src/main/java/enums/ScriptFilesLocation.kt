@@ -1,5 +1,5 @@
-package enums;
+package enums
 
-public enum ScriptFilesLocation {
+enum class ScriptFilesLocation {
     fromLOCAL, fromWEB
 }
