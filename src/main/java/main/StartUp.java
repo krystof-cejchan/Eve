@@ -1,6 +1,5 @@
 package main;
 
-import database_SQLite.queries.CreateNewTable;
 import main.onStart.OnStartManager;
 import main.pre_SetUp.preSetUpManager;
 import net.dv8tion.jda.api.JDABuilder;
@@ -8,7 +7,8 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import objects.SoundFile;
+import objects.SoundFiles.DeleteAllSoundAudioFiles;
+import objects.SoundFiles.SoundFile;
 
 import java.util.EnumSet;
 
@@ -16,10 +16,6 @@ public class StartUp {
     static JDABuilder jda;
 
     public static void main(String[] args) throws Exception {
-
-        CreateNewTable createNewTable = new CreateNewTable();
-        createNewTable.createNewTable();
-
 
         new preSetUpManager().getPreSetUps().forEach(setUp -> {
             try {

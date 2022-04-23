@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.managers.AudioManager;
 import objects.CurrentTextChannel;
 import objects.MessageReceivedEvent_CustomClass;
 import objects.ScriptPathPointer;
-import objects.SoundFile;
+import objects.SoundFiles.SoundFile;
 import org.jetbrains.annotations.NotNull;
 import voice.PythonASCII_Decoding;
 

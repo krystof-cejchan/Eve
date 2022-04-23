@@ -1,4 +1,4 @@
-package objects;
+package objects.SoundFiles;
 
 import java.io.IOException;
 import java.nio.file.*;

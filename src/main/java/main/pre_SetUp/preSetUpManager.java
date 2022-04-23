@@ -1,5 +1,7 @@
 package main.pre_SetUp;
 
+import database_SQLite.queries.CreateNewTable;
+
 import java.util.ArrayList;
 
 public class preSetUpManager {
@@ -7,6 +9,7 @@ public class preSetUpManager {
 
     public preSetUpManager() {
         preSetUps.add(new CreateFolderForUsersAudioInputs());
+        preSetUps.add(new CreateNewTable());
     }
 
     public ArrayList<IPreSetUp> getPreSetUps() {

@@ -1,10 +1,11 @@
 package database_SQLite.queries;
 
 import database_SQLite.DatabaseManager;
+import main.pre_SetUp.IPreSetUp;
 
 import java.sql.SQLException;
 
-public class CreateNewTable extends DatabaseManager {
+public class CreateNewTable extends DatabaseManager implements IPreSetUp {
     /*
     CREATE TABLE "audio_file_locations" (
 	"id"	INTEGER NOT NULL UNIQUE,
@@ -25,4 +26,12 @@ public class CreateNewTable extends DatabaseManager {
         new CommitQuery().commitThisQuery(query);
     }
 
+    @Override
+    public void GetReady() {
+        try {
+            createNewTable();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
