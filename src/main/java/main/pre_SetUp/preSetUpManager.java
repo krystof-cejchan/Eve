@@ -6,7 +6,7 @@ public class preSetUpManager {
     private final ArrayList<IPreSetUp> preSetUps = new ArrayList<>();
 
     public preSetUpManager() {
-        preSetUps.add(new CreateFolder_forUsersAudioInputs());
+        preSetUps.add(new CreateFolderForUsersAudioInputs());
     }
 
     public ArrayList<IPreSetUp> getPreSetUps() {

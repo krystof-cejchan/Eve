@@ -1,5 +1,7 @@
 package main;
 
+import database_SQLite.queries.CreateNewTable;
+import database_SQLite.queries.InsertValuesToTable;
 import main.onStart.OnStartManager;
 import main.pre_SetUp.preSetUpManager;
 import net.dv8tion.jda.api.JDABuilder;
@@ -15,6 +17,10 @@ public class StartUp {
     static JDABuilder jda;
 
     public static void main(String[] args) throws Exception {
+
+        CreateNewTable createNewTable = new CreateNewTable();
+        createNewTable.createNewTable();
+
 
         new preSetUpManager().getPreSetUps().forEach(setUp -> {
             try {
