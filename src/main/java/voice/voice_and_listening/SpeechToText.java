@@ -3,6 +3,8 @@ package voice.voice_and_listening;
 import _library_class.Global_Values;
 import commands.commands_voice.IListeningCommands;
 import commands.commands_voice.ListeningCommandManager;
+import database_SQLite.queries.InsertValuesToTable;
+import jnr.ffi.annotations.In;
 import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 import net.dv8tion.jda.api.audio.CombinedAudio;
@@ -25,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -41,10 +44,12 @@ public class SpeechToText {
         return channelId;
     }*/
 
-    private static void getWavFile(File outFile, byte[] decodedData) throws IOException {
+    private static void getWavFile(File outFile, byte[] decodedData) throws IOException, SQLException, ClassNotFoundException {
         AudioFormat format = new AudioFormat(48000.0f, 16, 2, true, true);
 
         AudioSystem.write(new AudioInputStream(new ByteArrayInputStream(decodedData), format, decodedData.length), AudioFileFormat.Type.WAVE, outFile);
+
+        new InsertValuesToTable().insertValuesToTable(outFile.getAbsolutePath());
     }
 
     public static String getText() {
