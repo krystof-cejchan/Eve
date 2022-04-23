@@ -1,7 +1,6 @@
 package main;
 
 import database_SQLite.queries.CreateNewTable;
-import database_SQLite.queries.InsertValuesToTable;
 import main.onStart.OnStartManager;
 import main.pre_SetUp.preSetUpManager;
 import net.dv8tion.jda.api.JDABuilder;

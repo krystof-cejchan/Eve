@@ -51,6 +51,7 @@ public class SoundFile {
         public static String getTheFirstDiskLetter() throws IOException {
             return getTheFirstFireStore().toString().replaceAll("\\(", "").replaceAll("\\)", "");
         }
+
         public static Path getthePath() throws IOException {
             return Paths.get(getTheFirstDiskLetter() + "\\USERS_INPUT_AUDIO");
         }

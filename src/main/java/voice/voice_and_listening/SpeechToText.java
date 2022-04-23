@@ -4,7 +4,6 @@ import _library_class.Global_Values;
 import commands.commands_voice.IListeningCommands;
 import commands.commands_voice.ListeningCommandManager;
 import database_SQLite.queries.InsertValuesToTable;
-import jnr.ffi.annotations.In;
 import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 import net.dv8tion.jda.api.audio.CombinedAudio;
