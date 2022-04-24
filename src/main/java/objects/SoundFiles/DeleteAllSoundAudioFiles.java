@@ -1,5 +1,6 @@
 package objects.SoundFiles;
 
+import database_SQLite.queries.RemoveRecord;
 import database_SQLite.queries.RetrieveData;
 
 import java.io.File;
@@ -12,11 +13,12 @@ public class DeleteAllSoundAudioFiles {
         for (String path : paths) {
             File soundFile = new File(path);
             if (soundFile.exists() && soundFile.isFile()) {
-                if (soundFile.delete())
+                if (soundFile.delete()) {
                     System.out.println(soundFile.getName() + " deleted");
-                else {
+                    new RemoveRecord().removeRecordFromDatabasebyRecord(null, path);
+                } else
                     System.out.println(soundFile.getName() + " failed to be deleted");
-                }
+
             }
         }
 

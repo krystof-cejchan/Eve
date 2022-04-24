@@ -110,11 +110,9 @@ public class Listener extends ListenerAdapter {
         } else {
             AudioChannel connectedChannelSelf = Objects.requireNonNull(event2.getGuild().getSelfMember().getVoiceState()).getChannel();
 
-            assert connectedChannelSelf != null;
-            ArrayList<Member> members = new ArrayList<>(connectedChannelSelf.getMembers());
-
             boolean human = false;
-            for (Member member : members) {
+            assert connectedChannelSelf != null;
+            for (Member member : connectedChannelSelf.getMembers()) {
                 if (!member.getUser().isBot()) {
                     human = true;
                 }
