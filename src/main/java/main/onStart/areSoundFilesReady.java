@@ -1,6 +1,6 @@
 package main.onStart;
 
-import objects.SoundFiles.SoundFile;
+import objects.sound_files.SoundFile;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Files;

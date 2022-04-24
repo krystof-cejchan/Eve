@@ -13,7 +13,8 @@ import net.dv8tion.jda.api.managers.AudioManager;
 import objects.CurrentTextChannel;
 import objects.MessageReceivedEvent_CustomClass;
 import objects.ScriptPathPointer;
-import objects.SoundFiles.SoundFile;
+import objects.sound_files.DeleteSoundAudioFilesFromSystemAndDatabase;
+import objects.sound_files.SoundFile;
 import org.jetbrains.annotations.NotNull;
 import voice.PythonASCII_Decoding;
 
@@ -44,6 +45,14 @@ public class SpeechToText {
     }*/
 
     private static void getWavFile(File outFile, byte[] decodedData) throws IOException, SQLException, ClassNotFoundException {
+        /*
+        float sampleRate = 16000; // 8000,11025,16000,22050,44100,48000
+        int sampleSizeInBits = 16; // 8,16
+        int channels = 1; // 1,2
+        boolean signed = true; // true,false
+        boolean bigEndian = false; // true,false
+        AudioFormat af = new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
+        */
         AudioFormat format = new AudioFormat(48000.0f, 16, 2, true, true);
 
         AudioSystem.write(new AudioInputStream(new ByteArrayInputStream(decodedData), format, decodedData.length), AudioFileFormat.Type.WAVE, outFile);
@@ -108,8 +117,10 @@ public class SpeechToText {
             assert rawString != null;
             byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
 
+            DeleteSoundAudioFilesFromSystemAndDatabase.delete1SoundFileFromSystemAndDatabase(SoundFile.getWholePath());
+
             return new String(bytes, StandardCharsets.UTF_8);
-        } catch (NullPointerException | IOException e) {
+        } catch (NullPointerException | SQLException | IOException e) {
             e.printStackTrace();
             return null;
         }

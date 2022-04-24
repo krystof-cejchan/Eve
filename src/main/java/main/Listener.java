@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import objects.CurrentTextChannel;
 import objects.MessageReceivedEvent_StaticCustomClass;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -88,8 +89,9 @@ public class Listener extends ListenerAdapter {
 
     }
 
-    private void leaveIfAlone(GuildVoiceLeaveEvent event, GuildVoiceMoveEvent event2, boolean leave) {
+    private void leaveIfAlone(@Nullable GuildVoiceLeaveEvent event, @Nullable GuildVoiceMoveEvent event2, boolean leave) {
         if (leave) {
+            assert event != null;
             AudioChannel connectedChannelSelf = Objects.requireNonNull(event.getGuild().getSelfMember().getVoiceState()).getChannel();
 
             assert connectedChannelSelf != null;
@@ -108,6 +110,7 @@ public class Listener extends ListenerAdapter {
                 leaveVC.Leave(event);
             }
         } else {
+            assert event2 != null;
             AudioChannel connectedChannelSelf = Objects.requireNonNull(event2.getGuild().getSelfMember().getVoiceState()).getChannel();
 
             boolean human = false;

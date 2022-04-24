@@ -1,6 +1,6 @@
 package main.pre_SetUp
 
-import objects.SoundFiles.SoundFile.Directories
+import objects.sound_files.SoundFile.Directories
 import java.io.IOException
 import java.nio.file.Files
 
