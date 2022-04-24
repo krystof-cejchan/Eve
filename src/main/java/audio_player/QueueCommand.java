@@ -1,6 +1,6 @@
 package audio_player;
 
-import _library_class.Global_Values;
+import _library_class.GlobalValues;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -37,7 +37,7 @@ public class QueueCommand {
         }
         if (!queue.isEmpty()) {
 
-            int shownTrackCount = Global_Values.shownTrackCount;
+            int shownTrackCount = GlobalValues.shownTrackCount;
             final int trackCount = Math.min(queue.size(), shownTrackCount);
             final ArrayList<AudioTrack> trackList = new ArrayList<>(queue);
 

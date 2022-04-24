@@ -1,6 +1,6 @@
 package voice.voice_and_listening;
 
-import _library_class.Global_Values;
+import _library_class.GlobalValues;
 import commands.commands_voice.IListeningCommands;
 import commands.commands_voice.ListeningCommandManager;
 import database_SQLite.queries.InsertValuesToTable;
@@ -159,8 +159,8 @@ public class SpeechToText {
     public static class EchoHandler implements AudioSendHandler, AudioReceiveHandler {
 
         final Timer TIMER = new Timer();
-        final int MAX_VALUE = Global_Values.MAX_VALUE;
-        final int MAX_SEC_AUDIO_RECORDING = Global_Values.MAX_SEC_AUDIO_RECORDING;
+        final int MAX_VALUE = GlobalValues.MAX_VALUE;
+        final int MAX_SEC_AUDIO_RECORDING = GlobalValues.MAX_SEC_AUDIO_RECORDING;
         private final Queue<byte[]> queue = new ConcurrentLinkedQueue<>();
         public boolean isAllowedToCarryOn = true;
         ArrayList<Boolean> talkingMembersCount = new ArrayList<>();

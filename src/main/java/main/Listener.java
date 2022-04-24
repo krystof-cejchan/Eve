@@ -1,7 +1,7 @@
 package main;
 
 
-import _library_class.Global_Values;
+import _library_class.GlobalValues;
 import audio_player.StopCommand;
 import commands.CommandManager;
 import commands.commands_others.GifSender;
@@ -61,7 +61,7 @@ public class Listener extends ListenerAdapter {
                 MessageChannel eventChannel = event.getChannel();
                 CurrentTextChannel currTxtChannel = new CurrentTextChannel(eventChannel.getId());
                 currTxtChannel.setIid(eventChannel.getId());
-                if (eventChannel == re || Global_Values.ALLOW_NOT_IN_TEST_MODE) {
+                if (eventChannel == re || GlobalValues.ALLOW_NOT_IN_TEST_MODE) {
 
                     MessageReceivedEvent_StaticCustomClass.setEvent(event);
                     if (event.getMessage().getContentRaw().substring(0, Prefix.getValue().length())
