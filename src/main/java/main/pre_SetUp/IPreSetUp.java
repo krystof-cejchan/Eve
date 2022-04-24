@@ -1,5 +1,7 @@
 package main.pre_SetUp;
 
+import java.io.IOException;
+
 public interface IPreSetUp {
-    void GetReady();
+    void GetReady() throws IOException;
 }
