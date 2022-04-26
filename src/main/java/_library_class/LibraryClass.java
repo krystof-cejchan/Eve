@@ -347,7 +347,7 @@ public class LibraryClass {
     public static String runPyScript(String fullPath, @Nullable String arguments) {
         try {
             String s;
-            Process p = Runtime.getRuntime().exec("py " + fullPath + " " + arguments);
+            Process p = Runtime.getRuntime().exec("python " + fullPath + " " + arguments);
 
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 

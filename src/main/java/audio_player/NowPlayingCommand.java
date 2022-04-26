@@ -20,7 +20,8 @@ public class NowPlayingCommand {
 
     /**
      * @param milliseconds milliseconds
-     * @return meaningful time value according to format<br> {@code .format("%02d:%02d:%02d", hours, minutes, seconds)} or {@code .format("%02d:%02d", minutes, seconds)}
+     * @return meaningful time value according to format<br> {@code .format("%02d:%02d:%02d", hours, minutes, seconds)}
+     * or {@code .format("%02d:%02d", minutes, seconds)}
      */
     public static String getTimestamp(long milliseconds) {
         int seconds = (int) (milliseconds / 1000) % 60;
