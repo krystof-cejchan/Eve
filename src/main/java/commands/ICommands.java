@@ -32,4 +32,6 @@ public interface ICommands {
      * @return what triggers executing this command
      */
     ArrayList<String> getTriggers();
+
+
 }

@@ -1,4 +1,4 @@
-package database_SQLite.queries;
+package database_SQLite.file_database.queries;
 
 import database_SQLite.DatabaseManager;
 

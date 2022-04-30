@@ -1,6 +1,6 @@
-package database_SQLite.connection;
+package database_SQLite.analytics.connection;
 
-import database_SQLite.creation.CreationOfDatabase;
+import database_SQLite.analytics.creation.CreationOfDatabase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,15 +12,15 @@ import java.sql.SQLException;
  * @author krystof-cejchan
  */
 public class ConnectToDatabase extends CreationOfDatabase {
+
+
     /**
      * Connects to the database and returns {@link Connection}
      * used in classes extending this one
      *
      * @return Connection that is used in classes extending this one
-     * @throws SQLException           for db errors
-     * @throws ClassNotFoundException for  Class.forName("org.sqlite.JDBC");
      */
-    public Connection connectToDatabase() throws SQLException, ClassNotFoundException {
+    public Connection connectToDatabase() {
         try {
             Class.forName("org.sqlite.JDBC");
             return DriverManager.getConnection("jdbc:sqlite:" + getFullPath());

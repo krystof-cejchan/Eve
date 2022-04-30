@@ -1,4 +1,4 @@
-package database_SQLite.queries;
+package database_SQLite.file_database.queries;
 
 import database_SQLite.DatabaseManager;
 import main.pre_SetUp.IPreSetUp;
@@ -6,13 +6,15 @@ import main.pre_SetUp.IPreSetUp;
 import java.sql.SQLException;
 
 public class CreateNewTable extends DatabaseManager implements IPreSetUp {
+
+
     /*
-    CREATE TABLE "audio_file_locations" (
-	"id"	INTEGER NOT NULL UNIQUE,
-	"path"	TEXT NOT NULL UNIQUE,
-	PRIMARY KEY("id" AUTOINCREMENT)
-);
-     */
+            CREATE TABLE "audio_file_locations" (
+            "id"	INTEGER NOT NULL UNIQUE,
+            "path"	TEXT NOT NULL UNIQUE,
+            PRIMARY KEY("id" AUTOINCREMENT)
+        );
+             */
     public void createNewTable() throws SQLException {
 
         String query = """

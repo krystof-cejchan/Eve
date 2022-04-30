@@ -1,4 +1,4 @@
-package database_SQLite.creation;
+package database_SQLite.file_database.creation;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,8 +6,9 @@ import java.io.IOException;
 public class CreationOfDatabase {
     private final String path;
 
-    public CreationOfDatabase() {
-        this.path = "src/main/java/database_SQLite/file_database.db";
+    public CreationOfDatabase(/*@Nullable String path*/) {
+        // this.path = Objects.requireNonNullElse(path, "src/main/java/database_SQLite/file_database.db");
+        this.path = "./src/main/java/database_SQLite/file_database/file_database.db";
     }
 
     public String getPath() {

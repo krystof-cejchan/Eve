@@ -1,4 +1,4 @@
-package database_SQLite.queries;
+package database_SQLite.file_database.queries;
 
 import database_SQLite.DatabaseManager;
 
@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class CommitQuery extends DatabaseManager {
+
+
     /**
      * Commits a query and closes the database connection
      *

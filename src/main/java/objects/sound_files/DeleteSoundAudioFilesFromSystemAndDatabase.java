@@ -1,7 +1,7 @@
 package objects.sound_files;
 
-import database_SQLite.queries.RemoveRecord;
-import database_SQLite.queries.RetrieveData;
+import database_SQLite.file_database.queries.RemoveRecord;
+import database_SQLite.file_database.queries.RetrieveData;
 
 import java.io.File;
 import java.sql.SQLException;

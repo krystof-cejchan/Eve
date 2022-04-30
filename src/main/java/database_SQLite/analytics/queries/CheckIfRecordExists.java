@@ -1,4 +1,4 @@
-package database_SQLite.queries;
+package database_SQLite.analytics.queries;
 
 import database_SQLite.DatabaseManager;
 
@@ -7,12 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class CheckIfRecordExists extends DatabaseManager {
+
+
     public boolean doesRecordExist(@Nullable String table, @Nullable String column, String value) throws SQLException, ClassNotFoundException {
-//SELECT * FROM audio_file_locations WHERE path = 'D:\USERS_INPUT_AUDIO\52328115156182631'
         if (table == null)
-            table = "audio_file_locations";
+            table = "commands";
         if (column == null)
-            column = "path";
+            throw new SQLException("column must not be null or empty");
 
         PreparedStatement prepared = super.connectToDatabase().prepareStatement("SELECT * FROM " + table + " WHERE " + column + " = ?;");
         prepared.setString(1, value);

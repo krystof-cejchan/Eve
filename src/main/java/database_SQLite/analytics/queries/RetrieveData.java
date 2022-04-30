@@ -1,37 +1,43 @@
-package database_SQLite.queries;
+package database_SQLite.analytics.queries;
 
 import database_SQLite.DatabaseManager;
 
 import javax.annotation.Nullable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RetrieveData extends DatabaseManager {
+
+
     public void printOutAll(@Nullable String table) throws SQLException, ClassNotFoundException {
         if (table == null)
-            table = "audio_file_locations";
+            table = "commands";
         String query = "SELECT * FROM " + table + ";";
 
 
         PreparedStatement prepared = super.connectToDatabase().prepareStatement(query);
         ResultSet resultSet = prepared.executeQuery();
-        ArrayList<String> resultsDB = new ArrayList<>();
+        ResultSetMetaData metadata = resultSet.getMetaData();
+        int columnCount = metadata.getColumnCount();
         while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            String path = resultSet.getString("path");
-            System.out.println(id + " " + path);
-        }
-        resultSet.close();
-        super.closeConnectionToDabase(connectToDatabase());
-        System.out.println("---END---");
+            for (int i = 1; i <= columnCount; i++) {
+                System.out.println(resultSet.getString(i));
+            }
 
+            resultSet.close();
+            super.closeConnectionToDabase(connectToDatabase());
+            System.out.println("---END---");
+
+        }
     }
 
-    public ArrayList<String> getCertainDataFromDb(@Nullable String table, String[] columns) throws SQLException, ClassNotFoundException {
+    public ArrayList<String> getCertainDataFromDb(@Nullable String table, String[] columns) throws
+            SQLException, ClassNotFoundException {
         if (table == null)
-            table = "audio_file_locations";
+            table = "commands";
         String query = "SELECT * FROM " + table + ";";
 
 

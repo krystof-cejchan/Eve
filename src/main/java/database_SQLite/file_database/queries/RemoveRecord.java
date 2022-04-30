@@ -1,4 +1,4 @@
-package database_SQLite.queries;
+package database_SQLite.file_database.queries;
 
 import database_SQLite.DatabaseManager;
 
@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 import java.sql.SQLException;
 
 public class RemoveRecord extends DatabaseManager {
+
 
     public void removeRecordFromDatabasebyID(@Nullable String table, int id) throws SQLException {
         if (table == null)

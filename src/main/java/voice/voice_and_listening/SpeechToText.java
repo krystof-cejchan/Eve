@@ -3,7 +3,7 @@ package voice.voice_and_listening;
 import _library_class.GlobalValues;
 import commands.commands_voice.IListeningCommands;
 import commands.commands_voice.ListeningCommandManager;
-import database_SQLite.queries.InsertValuesToTable;
+import database_SQLite.file_database.queries.InsertValuesToTable;
 import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 import net.dv8tion.jda.api.audio.CombinedAudio;
@@ -34,11 +34,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static _library_class.LibraryClass.runPyScript;
 
 public class SpeechToText {
+    private static final List<byte[]> rescievedBytes = new ArrayList<>();
     public static MessageReceivedEvent_CustomClass msgEvent;
     public static String channelId;
     static Guild guild;
     private static String text = "";
-    private static final List<byte[]> rescievedBytes = new ArrayList<>();
 
    /* public static String getChannelId() {
         return channelId;

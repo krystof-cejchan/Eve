@@ -1,6 +1,6 @@
 package main.pre_SetUp;
 
-import database_SQLite.queries.CreateNewTable;
+import database_SQLite.file_database.queries.CreateNewTable;
 
 import java.util.ArrayList;
 
