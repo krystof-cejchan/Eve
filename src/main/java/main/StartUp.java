@@ -1,6 +1,7 @@
 package main;
 
 
+import database_SQLite.analytics.usage.AddNewRecord;
 import main.onStart.OnStartManager;
 import main.pre_SetUp.preSetUpManager;
 import net.dv8tion.jda.api.JDABuilder;
@@ -16,7 +17,7 @@ public class StartUp {
     static JDABuilder jda;
 
     public static void main(String[] args) throws Exception {
-
+         new AddNewRecord().getAllColumns().forEach(System.out::println);
         new preSetUpManager().getPreSetUps().forEach(setUp -> {
             try {
                 setUp.GetReady();
@@ -52,9 +53,10 @@ public class StartUp {
 
 
         jda = JDABuilder.createDefault(APITokenTEST, intents);
-        jda.setActivity(Activity.competing("Hey Eve-ing in " + /*(jda.build().getGuilds().size()) */"X" + " servers"));
+        //jda.setActivity(Activity.competing("Hey!"));
         jda.enableCache(CacheFlag.VOICE_STATE);
         jda.setStatus(OnlineStatus.ONLINE);
+        jda.setActivity(Activity.playing(";hey!"));
         jda.addEventListeners(new Listener());
         jda.build();
 

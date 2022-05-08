@@ -1,6 +1,6 @@
 package database_SQLite.analytics.queries;
 
-import database_SQLite.DatabaseManager;
+import database_SQLite.analytics.DatabaseManager;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -18,14 +18,14 @@ public class CommitQuery extends DatabaseManager {
         PreparedStatement statement = null;
         try {
             statement = super.connectToDatabase().prepareStatement(query);
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         assert statement != null;
         statement.execute();
         try {
             super.closeConnectionToDabase(super.connectToDatabase());
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

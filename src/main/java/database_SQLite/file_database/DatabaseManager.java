@@ -1,4 +1,4 @@
-package database_SQLite;
+package database_SQLite.file_database;
 
 import database_SQLite.file_database.connection.ConnectToDatabase;
 

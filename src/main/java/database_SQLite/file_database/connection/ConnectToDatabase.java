@@ -25,12 +25,13 @@ public class ConnectToDatabase extends CreationOfDatabase {
     public Connection connectToDatabase() throws SQLException, ClassNotFoundException {
         try {
             Class.forName("org.sqlite.JDBC");
+            //System.out.println("db ok"+getFullPath());
             return DriverManager.getConnection("jdbc:sqlite:" + getFullPath());
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(-1);
         }
-        System.out.println("db ok");
+
         return null;
 
     }

@@ -1,6 +1,6 @@
 package database_SQLite.analytics.queries;
 
-import database_SQLite.DatabaseManager;
+import database_SQLite.analytics.DatabaseManager;
 
 import javax.annotation.Nullable;
 import java.sql.SQLException;

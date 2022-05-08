@@ -8,7 +8,8 @@ public class CreationOfDatabase {
 
     public CreationOfDatabase(/*@Nullable String path*/) {
         // this.path = Objects.requireNonNullElse(path, "src/main/java/database_SQLite/file_database.db");
-        this.path = "./src/main/java/database_SQLite/analytics/analyticdata.db";
+        this.path = "src/main/java/database_SQLite/analytics/analyticdata.db";
+        System.out.println(getFullPath());
     }
 
     public String getPath() {
@@ -25,4 +26,13 @@ public class CreationOfDatabase {
             dbFile.createNewFile();
 
     }
+    /*CREATE TABLE "commands" (
+	"id"	INTEGER NOT NULL UNIQUE,
+	"command_name"	TEXT,
+	"command_type"	TEXT DEFAULT 'n/a',
+	"command_specification"	TEXT DEFAULT 'n/a',
+	"time"	TEXT DEFAULT 'n/a',
+	"guild_from_id"	INTEGER DEFAULT 0,
+	PRIMARY KEY("id" AUTOINCREMENT)
+)*/
 }

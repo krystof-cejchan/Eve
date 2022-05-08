@@ -8,7 +8,7 @@ public class CreationOfDatabase {
 
     public CreationOfDatabase(/*@Nullable String path*/) {
         // this.path = Objects.requireNonNullElse(path, "src/main/java/database_SQLite/file_database.db");
-        this.path = "./src/main/java/database_SQLite/file_database/file_database.db";
+        this.path = "src/main/java/database_SQLite/file_database/file_database.db";
     }
 
     public String getPath() {

@@ -317,7 +317,7 @@ public class LibraryClass {
      * @param includeTime whether time should be added to the date or not
      * @return Date in form of String
      */
-    @SuppressWarnings("unused")
+
     public static String getCurrentDate(boolean includeTime) {
         String format = "dd-MM-yyyy";
         if (includeTime) format += " HH_mm_ss";

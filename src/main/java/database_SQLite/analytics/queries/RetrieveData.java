@@ -1,6 +1,6 @@
 package database_SQLite.analytics.queries;
 
-import database_SQLite.DatabaseManager;
+import database_SQLite.analytics.DatabaseManager;
 
 import javax.annotation.Nullable;
 import java.sql.PreparedStatement;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class RetrieveData extends DatabaseManager {
 
 
-    public void printOutAll(@Nullable String table) throws SQLException, ClassNotFoundException {
+    public void printOutAll(@Nullable String table) throws SQLException {
         if (table == null)
             table = "commands";
         String query = "SELECT * FROM " + table + ";";
@@ -35,7 +35,7 @@ public class RetrieveData extends DatabaseManager {
     }
 
     public ArrayList<String> getCertainDataFromDb(@Nullable String table, String[] columns) throws
-            SQLException, ClassNotFoundException {
+            SQLException {
         if (table == null)
             table = "commands";
         String query = "SELECT * FROM " + table + ";";

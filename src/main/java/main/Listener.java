@@ -67,8 +67,12 @@ public class Listener extends ListenerAdapter {
                     if (event.getMessage().getContentRaw().substring(0, Prefix.getValue().length())
                             .equalsIgnoreCase(Prefix.getValue())) {
                         CommandManager manager = new CommandManager();
-                        if (manager.getCommand(event) != null)
+                        if (manager.getCommand(event) != null) {
                             Objects.requireNonNull(manager.getCommand(event)).doTask(event);
+                           /* new AddNewRecord().addNewRecordToDatabase_onNewCommandReceived(
+                                    Objects.requireNonNull(manager.getCommand(event)).getName(), event.getMessage(),
+                                    MessageType_VOICE_TEXT.TEXT);*/
+                        }
                     }
 
                 }
