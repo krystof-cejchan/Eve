@@ -1,6 +1,7 @@
 package database_SQLite.analytics.queries;
 
 import database_SQLite.analytics.DatabaseManager;
+import org.sqlite.SQLiteException;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -21,12 +22,19 @@ public class CommitQuery extends DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         assert statement != null;
-        statement.execute();
+
         try {
-            super.closeConnectionToDabase(super.connectToDatabase());
-        } catch (SQLException e) {
+            statement.execute();
+            super.connectToDatabase().close();
+        } catch (SQLiteException e) {
             e.printStackTrace();
+        } finally {
+            if (!connectToDatabase().isClosed())
+                connectToDatabase().close();
+            statement.execute();
+
         }
     }
 }

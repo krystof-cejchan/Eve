@@ -17,4 +17,8 @@ public class GlobalValues {
      * [audio_player.QueueCommand]
      */
     public static int shownTrackCount = 30;
+    /**
+     * {@link commands.admin.IAdmin}
+     */
+    public static String adminPrefix = "$$$";
 }

@@ -21,7 +21,9 @@ public class Echo {
 
         Member member = event.getMember();
 
+        assert member != null;
         GuildVoiceState voiceState = member.getVoiceState();
+        assert voiceState != null;
         AudioChannel channel = voiceState.getChannel();
         if (channel != null) {
             connectTo(channel);
@@ -77,12 +79,7 @@ public class Echo {
         ArrayList<User> speakingUsers = new ArrayList<>();
 
         public boolean canReceiveCombined() {
-            if (queue.size() < 10 || isAllowedbyUser)
-                return true;
-
-            else {
-                return false;
-            }
+            return queue.size() < 10 || isAllowedbyUser;
         }
 
         @Override

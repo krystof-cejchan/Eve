@@ -26,7 +26,7 @@ public class RetrieveData extends DatabaseManager {
             System.out.println(id + " " + path);
         }
         resultSet.close();
-        super.closeConnectionToDabase(connectToDatabase());
+        super.connectToDatabase().close();
         System.out.println("---END---");
 
     }
@@ -46,7 +46,7 @@ public class RetrieveData extends DatabaseManager {
             }
         }
         resultSet.close();
-        super.closeConnectionToDabase(connectToDatabase());
+        super.connectToDatabase().close();
         System.out.println("data retrieved");
         return resultsDB;
 

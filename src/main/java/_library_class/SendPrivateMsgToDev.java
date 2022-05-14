@@ -17,6 +17,8 @@ public class SendPrivateMsgToDev {
      * sends a message to the developer
      *
      * @param event {@link MessageReceivedEvent}
+     * @param msg   message to be sent
+     * @param auth  if <b>true</b>→bots are not allowed to send msg; <br> <b>false</b>→anyone can send the msg<hr>
      */
     public static void sendDevMsg(MessageReceivedEvent event, String msg, boolean auth) {
         if (auth) {

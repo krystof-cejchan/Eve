@@ -1,5 +1,6 @@
 package audio_player;
 
+import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import voice.voice_and_listening.Echo;
@@ -37,14 +38,33 @@ public class VolumeCommand {
                         event.getMessage().reply("Please, provide Volume value within range from 0 to 200").queue();
                         return;
                     }
-                    final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
-                    event.getChannel().sendMessage("Volume: *" + musicManager.AUDIOPLAYER.getVolume() + " → " + volume + "*").queue();
-                    musicManager.AUDIOPLAYER.setVolume(volume);
 
+                    final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
+                    if (musicManager.AUDIOPLAYER.getVolume() == volume) {
+                        event.getMessage().reply("```Volume has not been changed \nCurrent volume is set to "
+                                + musicManager.AUDIOPLAYER.getVolume() + "```").queue();
+                        return;
+                    }
+                    MessageBuilder msgBuilder = new MessageBuilder();
+                    msgBuilder.append("```diff\n");
+                    if (musicManager.AUDIOPLAYER.getVolume() > volume) {
+                        msgBuilder.append("- Volume has been decreased \uD83D\uDD09\n");
+                    } else {
+                        msgBuilder.append("+ Volume has been increased \uD83D\uDD0A\n");
+                    }
+                    msgBuilder.append("from  ").append(String.valueOf(musicManager.AUDIOPLAYER.getVolume())).append("  to  ").append(String.valueOf(volume));
+                    msgBuilder.append("\n```");
+
+                    musicManager.AUDIOPLAYER.setVolume(volume);
                     // echoVolume
                     echo.setVolume(volume);
+
+
+                    event.getMessage().reply(msgBuilder.build()).queue();
                 }
+
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

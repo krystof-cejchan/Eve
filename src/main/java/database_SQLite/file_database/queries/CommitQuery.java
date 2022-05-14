@@ -24,7 +24,7 @@ public class CommitQuery extends DatabaseManager {
         assert statement != null;
         statement.execute();
         try {
-            super.closeConnectionToDabase(super.connectToDatabase());
+            super.connectToDatabase().close();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

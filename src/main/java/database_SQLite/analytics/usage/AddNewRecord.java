@@ -5,6 +5,7 @@ import database_SQLite.analytics.queries.InsertValuesToTable;
 import enums.MessageType_VOICE_TEXT;
 import main.Prefix;
 import net.dv8tion.jda.api.entities.Message;
+import org.sqlite.SQLiteException;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -14,14 +15,53 @@ import java.util.ArrayList;
 import static _library_class.LibraryClass.getCurrentDate;
 
 public class AddNewRecord extends InsertValuesToTable {
-    public void addNewRecordToDatabase_onNewCommandReceived(String commandName, Message msg, MessageType_VOICE_TEXT voice_text)
-            throws SQLException, ClassNotFoundException {
-        super.insertValuesToTable(null, "'" + commandName + "'" + "," + "'" + voice_text.toString()
-                + "'" + "," + "'" + msg.getContentRaw()
-                .replace(Prefix.getValue(), "")
-                .substring(0, msg.getContentRaw().indexOf(" ")) + "'" + "," + "'" +
-                getCurrentDate(false) + "'" + "," + "'"
-                + msg.getGuild().getId() + " " + msg.getGuild().getName() + "'");
+    public void addNewRecordToDatabase_onNewCommandReceived(String commandName, Message msg,
+                                                            MessageType_VOICE_TEXT voice_text) throws SQLException {
+        boolean moreThanOne = false;
+        try {
+
+            if (msg.getContentRaw().split(" ").length > 1) {
+                moreThanOne = true;
+                insertValuesToTable(null, "'" + commandName + "'" + "," + "'" + voice_text.toString()
+                        + "'" + "," + "'" + msg.getContentRaw()
+                        .replace(Prefix.getValue(), "")
+                        .substring(0, msg.getContentRaw().indexOf(" ")) + "'" + "," + "'" +
+                        getCurrentDate(false) + "'" + "," + "'"
+                        + msg.getGuild().getId() + " " + msg.getGuild().getName() + "';");
+            } else {
+                insertValuesToTable(null, "'" + commandName + "'" + "," + "'" + voice_text.toString()
+                        + "'" + "," + "'" + msg.getContentRaw()
+                        .replace(Prefix.getValue(), "") + "'" + "," + "'" +
+                        getCurrentDate(false) + "'" + "," + "'"
+                        + msg.getGuild().getId() + " " + msg.getGuild().getName() + "'");
+
+            }
+
+        } catch (SQLiteException sqlException) {
+            sqlException.printStackTrace();
+
+        } finally {
+            connectToDatabase().close();
+            try {
+                if (moreThanOne) {
+                    insertValuesToTable(null, "'" + commandName + "'" + "," + "'" + voice_text.toString()
+                            + "'" + "," + "'" + msg.getContentRaw()
+                            .replace(Prefix.getValue(), "")
+                            .substring(0, msg.getContentRaw().indexOf(" ")) + "'" + "," + "'" +
+                            getCurrentDate(false) + "'" + "," + "'"
+                            + msg.getGuild().getId() + " " + msg.getGuild().getName() + "';");
+                } else {
+                    insertValuesToTable(null, "'" + commandName + "'" + "," + "'" + voice_text.toString()
+                            + "'" + "," + "'" + msg.getContentRaw()
+                            .replace(Prefix.getValue(), "") + "'" + "," + "'" +
+                            getCurrentDate(false) + "'" + "," + "'"
+                            + msg.getGuild().getId() + " " + msg.getGuild().getName() + "'");
+
+                }
+            } catch (SQLiteException e) {
+                e.printStackTrace();
+            }
+        }
       /*  getAllColumns().forEach(column -> {
             try {
                 switch (column) {

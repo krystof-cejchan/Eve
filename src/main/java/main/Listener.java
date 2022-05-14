@@ -4,7 +4,8 @@ package main;
 import _library_class.GlobalValues;
 import audio_player.StopCommand;
 import commands.CommandManager;
-import commands.commands_others.GifSender;
+import commands.admin.AdminCommandManager;
+import commands.admin.IAdmin;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -23,19 +24,6 @@ import java.util.Objects;
 
 public class Listener extends ListenerAdapter {
 
-
-    GifSender gifs = new GifSender();
-
-    @SuppressWarnings("unused")
-    public void sendGif(String key, String limit, MessageReceivedEvent event) {
-        try {
-
-            String zprava = gifs.getExtractedGif(key, limit);
-            event.getMessage().reply((zprava)).queue();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void onGuildVoiceLeave(@NotNull GuildVoiceLeaveEvent event) {
         try {
@@ -68,20 +56,35 @@ public class Listener extends ListenerAdapter {
                             .equalsIgnoreCase(Prefix.getValue())) {
                         CommandManager manager = new CommandManager();
                         if (manager.getCommand(event) != null) {
-                            Objects.requireNonNull(manager.getCommand(event)).doTask(event);
-                           /* new AddNewRecord().addNewRecordToDatabase_onNewCommandReceived(
+                            try {
+                                Objects.requireNonNull(manager.getCommand(event)).doTask(event);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                          /* new AddNewRecord().addNewRecordToDatabase_onNewCommandReceived(
                                     Objects.requireNonNull(manager.getCommand(event)).getName(), event.getMessage(),
                                     MessageType_VOICE_TEXT.TEXT);*/
                         }
                     }
 
+                    if (IAdmin.isVerified(event) && event.getMessage().getContentRaw()
+                            .startsWith(IAdmin.adminPrefix())) {
+
+
+                        AdminCommandManager adminCommandManager = new AdminCommandManager();
+                        if (adminCommandManager.getCommand(event.getMessage().getContentRaw()) != null)
+                            adminCommandManager.getCommand(event.getMessage().getContentRaw()).commitAdminOperation(event);
+
+                    }
                 }
+
             }
+
         } catch (Exception e) {
-            // command was not found
             e.printStackTrace();
         }
     }
+
 
     private boolean containsForbiddenChars(String msg) {
         String[] forbiddenChars = {" ", "	"};
@@ -93,7 +96,8 @@ public class Listener extends ListenerAdapter {
 
     }
 
-    private void leaveIfAlone(@Nullable GuildVoiceLeaveEvent event, @Nullable GuildVoiceMoveEvent event2, boolean leave) {
+    private void leaveIfAlone(@Nullable GuildVoiceLeaveEvent event, @Nullable GuildVoiceMoveEvent event2,
+                              boolean leave) {
         if (leave) {
             assert event != null;
             AudioChannel connectedChannelSelf = Objects.requireNonNull(event.getGuild().getSelfMember().getVoiceState()).getChannel();

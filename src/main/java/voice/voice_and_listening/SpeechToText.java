@@ -53,7 +53,7 @@ public class SpeechToText {
         boolean bigEndian = false; // true,false
         AudioFormat af = new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
         */
-        AudioFormat format = new AudioFormat(48000.0f, 16, 2, true, true);
+        AudioFormat format = new AudioFormat(48000f, 16, 2, true, true);
 
         AudioSystem.write(new AudioInputStream(new ByteArrayInputStream(decodedData), format, decodedData.length), AudioFileFormat.Type.WAVE, outFile);
 

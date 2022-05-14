@@ -8,17 +8,16 @@ import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
-import org.apache.commons.exec.*;
 
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -106,21 +105,6 @@ public class LibraryClass {
 
         return null;
 
-    }
-
-    public static Integer[] whereAreTwoArraysTheSame_AllPos(ArrayList<String> listA, ArrayList<String> listB) {
-        ArrayList<Integer> allPos = new ArrayList<>();
-        for (String s : listA) {
-            for (int j = 0; j < listB.size(); j++) {
-                if (s.equalsIgnoreCase(listB.get(j))) {
-                    allPos.add(j);
-                }
-
-            }
-
-        }
-
-        return allPos.toArray(new Integer[0]);
     }
 
     /**
@@ -266,27 +250,6 @@ public class LibraryClass {
     }*/
 
     /**
-     * used to get index of the song which is most likely to be the one user meant
-     * <b>if method return -1, it means that no key is worth returning</b>
-     *
-     * @param map {@link HashMap} consisting of Integer and Double
-     * @return Key from the hashmap where the value was the highest and greater than 0.4
-     */
-    public static int getTheMostSuitableItemIndexFromAHashMap(HashMap<Integer, Double> map) {
-        double top = 0;
-        int chosen = -1;
-        for (HashMap.Entry<Integer, Double> entry : map.entrySet()) {
-
-            if (entry.getValue() > top && entry.getValue() > .4) {
-                chosen = entry.getKey();
-            }
-
-        }
-
-        return chosen;
-    }
-
-    /**
      * transforms a String array to continuous text with spaces
      *
      * @param array ArrayList of String
@@ -304,10 +267,11 @@ public class LibraryClass {
      * @param event        MessageReceivedEvent
      * @param emoteUNICODE unicode of an emote <a href="https://unicode.org/emoji/charts/full-emoji-list.html#:~:text=1-,U%2B1F600,-%F0%9F%98%80"> link to emoji list </a>
      */
-    public static void addReactionToTheMsg(MessageReceivedEvent event, String emoteUNICODE) throws UnsupportedOperationException, net.dv8tion.jda.api.exceptions.InsufficientPermissionException, IllegalArgumentException, IllegalStateException {
+    public static void addReactionToTheMsg(MessageReceivedEvent event, String emoteUNICODE)
+            throws UnsupportedOperationException, net.dv8tion.jda.api.exceptions.InsufficientPermissionException,
+            IllegalArgumentException, IllegalStateException {
 
         event.getMessage().addReaction(emoteUNICODE).queue();
-
 
     }
 
@@ -324,17 +288,6 @@ public class LibraryClass {
         System.out.println(format);
         SimpleDateFormat formatter = new SimpleDateFormat(format);
         return formatter.format(new Date(System.currentTimeMillis()));
-    }
-
-    @SuppressWarnings("unused")
-    public static void ADD_Text2File(String path, String str) throws IOException, NullPointerException {
-        if (path == null) path = "H:\\lst_of_existing_sound_files.txt";
-
-        BufferedWriter writer = new BufferedWriter(new FileWriter(path, true));
-        writer.append("\n");
-        writer.append(str);
-
-        writer.close();
     }
 
     /**
@@ -367,75 +320,6 @@ public class LibraryClass {
         }
     }
 
-    public static void givenPythonInterpreter_whenPrintExecuted_thenOutputDisplayed() throws IOException {
-   /*     ByteArrayOutputStream stdout = new ByteArrayOutputStream();
-        PipedOutputStream outputStream = new PipedOutputStream();
-        PipedInputStream pis = new PipedInputStream(outputStream);
-        PumpStreamHandler psh = new PumpStreamHandler(stdout);
-        CommandLine cmdLine = new CommandLine("python");
-
-        cmdLine.addArguments("C:/Users/kryst/git/repository3/discordbottest/src/main/java/external_files/py_scripts/soundfiletotext.py H:/523281151561826315.wav cs-CZ");
-
-        DefaultExecuteResultHandler resultHandler = new DefaultExecuteResultHandler();
-
-        ExecuteWatchdog watchdog = new ExecuteWatchdog(60*1000);
-        Executor executor = new DefaultExecutor();
-        executor.setStreamHandler(psh);
-        executor.setExitValue(1);
-        executor.setWatchdog(watchdog);
-        executor.execute(cmdLine, resultHandler);
-       resultHandler.waitFor();
-        System.out.println(stdout);
-        BufferedReader br = new BufferedReader(new InputStreamReader(pis, StandardCharsets.UTF_8));
-        StringBuilder sb = new StringBuilder();
-        String line = null;
-        while((line = br.readLine()) != null) {
-            sb.append(line+"\n");
-        }
-        pis.close();
-        String a = sb.toString();
-        System.out.println(a);*/
-        Executor executor = new DefaultExecutor();
-        CommandLine cmdLine = new CommandLine("python");
-
-        cmdLine.addArguments("C:/Users/kryst/git/repository3/discordbottest/src/main/java/external_files/py_scripts/soundfiletotext.py H:/523281151561826315.wav cs-CZ");
-
-        ExecuteWatchdog watchdog = new ExecuteWatchdog(60 * 1000);
-        executor.setWatchdog(watchdog);
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PipedOutputStream outputStream1 = new PipedOutputStream();
-        PipedInputStream pis = new PipedInputStream(outputStream1);
-        //ByteArrayOutputStream errorStream = new ByteArrayOutputStream();
-        PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream1);
-        executor.setStreamHandler(streamHandler);
-        int ret = executor.execute(cmdLine);
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(pis, StandardCharsets.UTF_8));
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = br.readLine()) != null) {
-            sb.append(line).append("\n");
-        }
-        pis.close();
-        String stdout = sb.toString();
-        byte[] bytes = stdout.getBytes(StandardCharsets.UTF_8);
-
-        String utf8EncodedString = new String(bytes, StandardCharsets.UTF_8);
-
-        System.out.println(utf8EncodedString);
-    }
-
-    @SuppressWarnings("unused")
-    public static boolean areTwoArrayValuesEqual(ArrayList<?> a, ArrayList<?> b) {
-        for (Object objectB : b) {
-            for (Object objectA : a) {
-                if (objectB == objectA || objectB.equals(objectA)) return true;
-            }
-        }
-
-        return false;
-    }
 
     /**
      * checks whether param is link or not
@@ -445,9 +329,7 @@ public class LibraryClass {
      */
     public static boolean isLink(String link) {
         String urlRegex = "((http://|https://)?(www.)?(([a-zA-Z0-9-]){2,}\\.){1,4}([a-zA-Z]){2,6}(/([a-zA-Z-_/.0-9#:?=&;,]*)?)?)";
-        Pattern pattern = Pattern.compile(urlRegex);
-        Matcher matcher = pattern.matcher(link);
-        return matcher.find();
+        return Pattern.compile(urlRegex).matcher(link).find();
 
     }
 
