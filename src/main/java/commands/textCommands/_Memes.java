@@ -2,7 +2,7 @@ package commands.textCommands;
 
 import _library_class.LibraryClass;
 import commands.ICommands;
-import external_files.memes__php.GetFunctionsFromPHP;
+import external_files.memes__php.GetFunctionsFrom_PHP;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -37,7 +37,7 @@ public class _Memes implements ICommands {
         String website = "http://eveuwu.g6.cz/memes/IMemes.php";
         String _GET_profpic1 = "?&profpic1=";
         int max = Integer
-                .parseInt(Objects.requireNonNull(GetFunctionsFromPHP.getCount("http://eveuwu.g6.cz/memes/IMemes.php?&getFunctionCount")));
+                .parseInt(Objects.requireNonNull(GetFunctionsFrom_PHP.getCount("http://eveuwu.g6.cz/memes/IMemes.php?&getFunctionCount")));
         String _GET_rnd = "&rnd=" + LibraryClass.generateRandomInt(1, max);
         String distinguisher = "&" + event.getMessage().getId();
 
