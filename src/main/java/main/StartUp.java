@@ -1,9 +1,11 @@
 package main;
 
 
-import database_SQLite.analytics.usage.AddNewRecord;
+import commands.commands_slash.SlashCommandListener;
 import main.onStart.OnStartManager;
+import main.onStart.addingSlashCommandsToGuilds;
 import main.pre_SetUp.preSetUpManager;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -14,10 +16,10 @@ import objects.sound_files.SoundFile;
 import java.util.EnumSet;
 
 public class StartUp {
-    static JDABuilder jda;
+    public static JDA publicJDA;
 
     public static void main(String[] args) throws Exception {
-         new AddNewRecord().getAllColumns().forEach(System.out::println);
+
         new preSetUpManager().getPreSetUps().forEach(setUp -> {
             try {
                 setUp.GetReady();
@@ -44,7 +46,10 @@ public class StartUp {
 
                 GatewayIntent.GUILD_MESSAGES,
 
-                GatewayIntent.GUILD_VOICE_STATES);
+                GatewayIntent.GUILD_VOICE_STATES,
+
+                GatewayIntent.GUILD_EMOJIS);
+
 
         @SuppressWarnings("unused")
         String APITokenTEST = "OTM2Njc1NTQzNzU0MDg4NTQw.YfQpFA.sVKCrcPurel5KqKyLC-5lk0eS5M";
@@ -52,15 +57,20 @@ public class StartUp {
         String APITokenMAIN = "OTMzNDgyMTE1MDM3ODEwNzI5.YeiK9w.Qy3vSVFx5zQ8MsjL0jHVbLmrMXs";
 
 
-        jda = JDABuilder.createDefault(APITokenTEST, intents);
+        JDABuilder jda = JDABuilder.createDefault(APITokenTEST, intents);
         //jda.setActivity(Activity.competing("Hey!"));
+        jda.setRawEventsEnabled(true);
         jda.enableCache(CacheFlag.VOICE_STATE);
         jda.setStatus(OnlineStatus.ONLINE);
         jda.setActivity(Activity.playing(";hey!"));
-        jda.addEventListeners(new Listener());
-        jda.build();
+        jda.addEventListeners(new Listener(), new SlashCommandListener());
+        publicJDA = jda.build().awaitReady();
+        //jda.build().awaitReady();
 
+
+        addingSlashCommandsToGuilds.addSlashCommandsToTheGuilds();
 
     }
+
 
 }
