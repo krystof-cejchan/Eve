@@ -1,9 +1,11 @@
 package audio_player;
 
+import _library_class.LibraryClass;
 import enums.MessageTypes;
 import main.VoiceChannels;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import javax.annotation.Nullable;
@@ -36,18 +38,18 @@ public class PlayCommand {
 
                         event.getMessage().reply("Spotify is not supported yet").queue();
 
-                    } else loadNPlay(channel, url, event, messageTypes, voice);
+                    } else loadNPlay(channel, url, event, null, messageTypes, voice);
                 } else {
-                    loadNPlay(channel, "ytsearch:" + url, event, messageTypes, voice);
+                    loadNPlay(channel, "ytsearch:" + url, event, null, messageTypes, voice);
                 }
 
             } else {
 
                 vc.Join(event);
                 if (isLink) {
-                    loadNPlay(channel, url, event, messageTypes, voice);
+                    loadNPlay(channel, url, event, null, messageTypes, voice);
                 } else {
-                    loadNPlay(channel, "ytsearch:" + url, event, messageTypes, voice);
+                    loadNPlay(channel, "ytsearch:" + url, event, null, messageTypes, voice);
                 }
 
             }
@@ -57,18 +59,52 @@ public class PlayCommand {
 
     }
 
+    public void playMusicFromSlash(SlashCommandInteractionEvent event, String url, MessageTypes messageTypes) {
+        final MessageChannel channel = event.getChannel();
+        final boolean isLink = LibraryClass.isLink(url);
+        @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember())
+                .getVoiceState()).getChannel(); // user
+
+        @Nullable AudioChannel connectedChannelSelf = Objects.requireNonNull(Objects.requireNonNull(event.getGuild())
+                .getSelfMember().getVoiceState()).getChannel(); // bot
+
+        VoiceChannels vc = new VoiceChannels();
+
+        if (!(connectedChannel == (null))) {
+            if (!connectedChannel.equals(connectedChannelSelf))
+                vc.joinSlash(event);
+            if (isLink) {
+
+                if (url.contains("spotify.com")) {
+
+                    event.reply("Spotify is not supported yet").queue();
+
+                } else loadNPlay(channel, url, null, event, messageTypes, null);
+            } else {
+                loadNPlay(channel, "ytsearch:" + url, null, event, messageTypes, null);
+            }
+
+
+        } else {
+            event.reply("where r u? 🥺").queue();
+        }
+
+    }
+
     /**
      * Add the track to the queue
      *
      * @param channel {@link MessageChannel}
      * @param url     Song url/title
-     * @param event   {@link MessageReceivedEvent}
+     * @param event1  {@link MessageReceivedEvent}
+     * @param event2  {@link SlashCommandInteractionEvent}
      * @param type    {@link MessageTypes} what type of message should be sent to the user as a reply
      * @param voice   {@link voice.voice_and_listening.SpeechToText} user's voice input
      * @author krystof-cejchan
      */
-    protected void loadNPlay(MessageChannel channel, String url, MessageReceivedEvent event, MessageTypes type, String voice) {
-        PlayerManager.getInstance().loadAndPlay(channel, url, false, event, type, voice);
+    protected void loadNPlay(MessageChannel channel, String url, MessageReceivedEvent event1,
+                             SlashCommandInteractionEvent event2, MessageTypes type, String voice) {
+        PlayerManager.getInstance().loadAndPlay(channel, url, false, event1, event2, type, voice);
     }
 
 }

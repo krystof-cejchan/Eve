@@ -6,8 +6,6 @@ import commands.commands_slash.SlashCommandManager;
 import main.StartUp;
 import net.dv8tion.jda.api.entities.Guild;
 
-import java.util.Locale;
-
 public class addingSlashCommandsToGuilds {
     public static void addSlashCommandsToTheGuilds() {
         SlashCommandManager slashCommandManager = new SlashCommandManager();
@@ -15,7 +13,15 @@ public class addingSlashCommandsToGuilds {
             System.out.println(guild);
             for (ISlashCommands iSlashCommands : slashCommandManager.getAllCommands()) {
                 System.out.println(slashCommandManager.getAllCommands());
-                guild.upsertCommand(iSlashCommands.getName().toLowerCase(Locale.ROOT), iSlashCommands.getDescription()).queue();
+
+                if (!iSlashCommands.takesArguments())
+                    guild.upsertCommand(iSlashCommands.getName().toLowerCase(), iSlashCommands.getDescription()).queue();
+
+                else {
+                    guild.upsertCommand(iSlashCommands.getName(), iSlashCommands.getDescription())
+                            .addOptions(iSlashCommands.getOptionData()).queue();
+
+                }
 
             }
         }

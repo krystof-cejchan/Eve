@@ -7,6 +7,9 @@ import org.jetbrains.annotations.NotNull;
 public class SlashCommandListener extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        new __test__().executeSlashCommand(event);
+        System.out.println(event.getName());
+        SlashCommandManager slashCommandManager = new SlashCommandManager();
+        if (slashCommandManager.getSlashCommand(event) != null)
+            slashCommandManager.getSlashCommand(event).executeSlashCommand(event);
     }
 }

@@ -1,11 +1,14 @@
 package commands.commands_slash;
 
+import audio_player.PlayCommand;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import org.jetbrains.annotations.Nullable;
 
-public class __test__ implements ISlashCommands {
+import java.util.Objects;
 
-
+public class PlaySong implements ISlashCommands {
     /**
      * Executes the command
      *
@@ -13,7 +16,10 @@ public class __test__ implements ISlashCommands {
      */
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        slashEvent.reply("This is just a quick test reply").queue();
+        new PlayCommand().playMusicFromSlash(slashEvent,
+                Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()))).getAsString(),
+                null);
+
     }
 
     /**
@@ -21,7 +27,7 @@ public class __test__ implements ISlashCommands {
      */
     @Override
     public String getDescription() {
-        return "testík";
+        return "Play a track";
     }
 
     /**
@@ -29,12 +35,12 @@ public class __test__ implements ISlashCommands {
      */
     @Override
     public String getName() {
-        return "uwuTEST";
+        return "play_uwu";
     }
 
     @Override
     public boolean takesArguments() {
-        return false;
+        return true;
     }
 
     /**
@@ -42,16 +48,17 @@ public class __test__ implements ISlashCommands {
      *
      * @return OptionData
      */
+    @Nullable
     @Override
     public OptionData getOptionData() {
-        return null;
+        return new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()), "paste track url or title", true);
     }
 
+    @Nullable
     @Override
     public String getArgName() {
-        return null;
+        return "track";
     }
-
 
     @Override
     public boolean isGuildOnly() {

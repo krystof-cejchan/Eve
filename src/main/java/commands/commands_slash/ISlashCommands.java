@@ -1,6 +1,9 @@
 package commands.commands_slash;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+
+import javax.annotation.Nullable;
 
 public interface ISlashCommands {
     /**
@@ -20,5 +23,21 @@ public interface ISlashCommands {
      */
     String getName();
 
+
+    boolean takesArguments();
+
+    /**
+     * options for slash commands
+     *
+     * @return OptionData
+     */
+    @Nullable
+    OptionData getOptionData();
+
+    @Nullable
+    String getArgName();
+
     boolean isGuildOnly();
+
+
 }

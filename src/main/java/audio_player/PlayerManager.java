@@ -13,9 +13,11 @@ import enums.MessageTypes;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.apache.commons.collections4.map.HashedMap;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -97,103 +99,179 @@ public class PlayerManager {
      * @param isQueue    if true, loads all song from link and adds them all to the queue; if false, it loads only one song <hr>
      *                   <i>(for instance, if user passes a playlist as a arguments when triggering {@link PlayCommand} but isQueue is false,
      *                   then only the first song from the playlist will be added to the queue, otherwise all songs will be added)</i><hr>
-     * @param event      {@link MessageReceivedEvent}
+     * @param event1     {@link MessageReceivedEvent}
+     * @param event2     {@link SlashCommandInteractionEvent}
      * @param msgType    {@link MessageTypes}
      * @param usersInput user's input
      * @author krystof-cejchan
      */
-    public void loadAndPlay(MessageChannel channel, String url, boolean isQueue, MessageReceivedEvent event, MessageTypes msgType, String usersInput) {
+    public void loadAndPlay(MessageChannel channel, String url, boolean isQueue, @Nullable MessageReceivedEvent event1,
+                            @Nullable SlashCommandInteractionEvent event2, @Nullable MessageTypes msgType, String usersInput) {
+        if (event1 != null && event2 == null) {
+            final GuildMusicManager musicManager = this.getMusicManager(event1.getGuild());
 
-        final GuildMusicManager musicManager = this.getMusicManager(event.getGuild());
+            this.AUDIOPLAYERMANAGER.loadItemOrdered(musicManager, url, new AudioLoadResultHandler() {
 
-        this.AUDIOPLAYERMANAGER.loadItemOrdered(musicManager, url, new AudioLoadResultHandler() {
-
-            /**
-             * single track loaded
-             * @param track {@link AudioTrack} which is supposed to be added to the queue
-             */
-            @Override
-            public void trackLoaded(AudioTrack track) {
-                musicManager.SCHEDULER.queue(track);
-                switch (msgType) {
-                    case EMBED_MESSAGE:
-                        event.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput, event, url)).queue();
-                        break;
-                    case REG_MESSAGE:
-                        sendRegularMessage(event, track);
-                        break;
-                    default:
-                        try {
-                            sendRegularMessage(event, track);
+                /**
+                 * single track loaded
+                 *
+                 * @param track {@link AudioTrack} which is supposed to be added to the queue
+                 */
+                @Override
+                public void trackLoaded(AudioTrack track) {
+                    musicManager.SCHEDULER.queue(track);
+                    switch (Objects.requireNonNull(msgType)) {
+                        case EMBED_MESSAGE:
+                            event1.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput, event1, url)).queue();
                             break;
-                        } catch (Exception e) {
-                            event.getChannel().sendMessage("There's been an error").queue();
-                        }
+                        case REG_MESSAGE:
+                            sendRegularMessage(event1, track);
+                            break;
+                        default:
+                            try {
+                                sendRegularMessage(event1, track);
+                                break;
+                            } catch (Exception e) {
+                                event1.getChannel().sendMessage("There's been an error").queue();
+                            }
+                    }
+
                 }
 
-            }
+                /**
+                 * playlist loaded
+                 *
+                 * @param playlist a list of {@link AudioTrack}-s
+                 */
+                @Override
+                public void playlistLoaded(AudioPlaylist playlist) {
 
-            /**
-             * playlist loaded
-             * @param playlist a list of {@link AudioTrack}-s
-             */
-            @Override
-            public void playlistLoaded(AudioPlaylist playlist) {
-
-                List<AudioTrack> tracks = playlist.getTracks();
-                if (isQueue) {
+                    List<AudioTrack> tracks = playlist.getTracks();
+                    if (isQueue) {
 
                     /* for (AudioTrack audioTrack : tracks) {
                         musicManager.SCHEDULER.queue(audioTrack);
 
                     }*/
 
-                    tracks.forEach(musicManager.SCHEDULER::queue);
+                        tracks.forEach(musicManager.SCHEDULER::queue);
 
-                    channel.sendMessage("Successfully added: " + playlist.getTracks().size() + " tracks").queue();
+                        channel.sendMessage("Successfully added: " + playlist.getTracks().size() + " tracks").queue();
 
-                } else {
-                    AudioTrack track = tracks.get(0);
-                    musicManager.SCHEDULER.queue(track);
-                    switch (msgType) {
-                        case EMBED_MESSAGE:
-                            event.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput, event, url)).queue();
-                            break;
-                        case REG_MESSAGE:
-                            sendRegularMessage(event, track);
-                            break;
-                        default:
-                            try {
-                                sendRegularMessage(event, track);
+                    } else {
+                        AudioTrack track = tracks.get(0);
+                        musicManager.SCHEDULER.queue(track);
+                        switch (Objects.requireNonNull(msgType)) {
+                            case EMBED_MESSAGE:
+                                event1.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput, event1, url)).queue();
                                 break;
-                            } catch (Exception e) {
-                                event.getChannel().sendMessage("There's been an error").queue();
-                            }
+                            case REG_MESSAGE:
+                                sendRegularMessage(event1, track);
+                                break;
+                            default:
+                                try {
+                                    sendRegularMessage(event1, track);
+                                    break;
+                                } catch (Exception e) {
+                                    event1.getChannel().sendMessage("There's been an error").queue();
+                                }
+                        }
                     }
                 }
-            }
 
-            /**
-             * no track with this title or upload under this url was found
-             */
-            @Override
-            public void noMatches() {
-                channel.sendMessage("Nothing was found for: __" + usersInput + "__").queue();
+                /**
+                 * no track with this title or upload under this url was found
+                 */
+                @Override
+                public void noMatches() {
+                    channel.sendMessage("Nothing was found for: __" + usersInput + "__").queue();
 
-            }
+                }
 
-            /**
-             * track could not be loaded
-             * @param exception {@link FriendlyException} this exception will be printed out to the user as an error message
-             */
-            @Override
-            public void loadFailed(FriendlyException exception) {
-                channel.sendMessage("Failed to load the track" + exception + "\nTry again later.\uD83D\uDE1F\uD83D\uDE1F").queue();
-                SendPrivateMsgToDev.sendDevMsg(event, "load song failed - msg: " + event.getMessage().getContentRaw(), false);
+                /**
+                 * track could not be loaded
+                 * @param exception {@link FriendlyException} this exception will be printed out to the user as an error message
+                 */
+                @Override
+                public void loadFailed(FriendlyException exception) {
+                    channel.sendMessage("Failed to load the track" + exception + "\nTry again later.\uD83D\uDE1F\uD83D\uDE1F").queue();
+                    SendPrivateMsgToDev.sendDevMsg(event1, "load song failed - msg: " + event1.getMessage().getContentRaw(), false);
 
-            }
+                }
 
-        });
+            });
+        }
+
+        if (event1 == null && event2 != null) {//Slash command
+
+            final GuildMusicManager musicManager = this.getMusicManager(Objects.requireNonNull(event2.getGuild()));
+
+            this.AUDIOPLAYERMANAGER.loadItemOrdered(musicManager, url, new AudioLoadResultHandler() {
+
+                /**
+                 * single track loaded
+                 *
+                 * @param track {@link AudioTrack} which is supposed to be added to the queue
+                 */
+                @Override
+                public void trackLoaded(AudioTrack track) {
+                    musicManager.SCHEDULER.queue(track);
+                    event2.reply(track.getInfo().title + " has been added to the queue!").queue();
+
+                }
+
+                /**
+                 * playlist loaded
+                 *
+                 * @param playlist a list of {@link AudioTrack}-s
+                 */
+                @Override
+                public void playlistLoaded(AudioPlaylist playlist) {
+
+                    List<AudioTrack> tracks = playlist.getTracks();
+                    if (isQueue) {
+
+                    /* for (AudioTrack audioTrack : tracks) {
+                        musicManager.SCHEDULER.queue(audioTrack);
+
+                    }*/
+
+                        tracks.forEach(musicManager.SCHEDULER::queue);
+
+                        event2.reply("Successfully added: " + playlist.getTracks().size() + " tracks").queue();
+
+                    } else {
+                        AudioTrack track = tracks.get(0);
+                        event2.reply(track.getInfo().title + " has been added to the queue!").queue();
+                        musicManager.SCHEDULER.queue(track);
+                    }
+                }
+
+                /**
+                 * no track with this title or upload under this url was found
+                 */
+                @Override
+                public void noMatches() {
+                    event2.reply("Nothing was found for: __" + usersInput + "__").queue();
+
+                }
+
+                /**
+                 * track could not be loaded
+                 * @param exception {@link FriendlyException} this exception will be printed out to the user as an error message
+                 */
+                @Override
+                public void loadFailed(FriendlyException exception) {
+                    event2.reply("Failed to load the track" + exception + "\nTry again later.\uD83D\uDE1F\uD83D\uDE1F").queue();
+
+                }
+
+            });
+        }
+
     }
-
 }
+
+
+
+

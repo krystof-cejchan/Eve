@@ -43,7 +43,7 @@ public class PlayQCommand {
     }
 
     protected void loadNPlay(MessageChannel channel, String url, MessageReceivedEvent event) {
-        PlayerManager.getInstance().loadAndPlay(channel, url, true, event, null, null);
+        PlayerManager.getInstance().loadAndPlay(channel, url, true, event, null, null, null);
     }
 
 }
