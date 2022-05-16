@@ -2,8 +2,9 @@ package main;
 
 
 import commands.commands_slash.SlashCommandListener;
+import main.afterStartUp.AfterStartUpManager;
+import main.afterStartUp.IAfterStartUp;
 import main.onStart.OnStartManager;
-import main.onStart.addingSlashCommandsToGuilds;
 import main.pre_SetUp.preSetUpManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -68,7 +69,8 @@ public class StartUp {
         //jda.build().awaitReady();
 
 
-        addingSlashCommandsToGuilds.addSlashCommandsToTheGuilds();
+        new AfterStartUpManager().getiAfterStartUpArrayList().forEach(IAfterStartUp::doAfterStartUp);
+
 
     }
 

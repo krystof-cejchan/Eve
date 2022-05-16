@@ -1,4 +1,4 @@
-package main.onStart;
+package main.afterStartUp;
 
 
 import commands.commands_slash.ISlashCommands;
@@ -6,8 +6,8 @@ import commands.commands_slash.SlashCommandManager;
 import main.StartUp;
 import net.dv8tion.jda.api.entities.Guild;
 
-public class addingSlashCommandsToGuilds {
-    public static void addSlashCommandsToTheGuilds() {
+public class AddingSlashCommandsToGuilds implements IAfterStartUp {
+    protected void addSlashCommandsToTheGuilds() {
         SlashCommandManager slashCommandManager = new SlashCommandManager();
         for (Guild guild : StartUp.publicJDA.getGuilds()) {
             System.out.println(guild);
@@ -25,5 +25,10 @@ public class addingSlashCommandsToGuilds {
 
             }
         }
+    }
+
+    @Override
+    public void doAfterStartUp() {
+        addSlashCommandsToTheGuilds();
     }
 }
