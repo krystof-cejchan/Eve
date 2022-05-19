@@ -1,7 +1,7 @@
 package objects;
 
 
-import enums.ScriptFilesLocation;
+import enums_and_annotations.enums.ScriptFilesLocation;
 
 import java.io.File;
 

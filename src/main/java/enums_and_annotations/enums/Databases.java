@@ -1,4 +1,4 @@
-package enums;
+package enums_and_annotations.enums;
 
 public enum Databases {
     COMMANDS_ANALYTICS, SOUNDFILES;

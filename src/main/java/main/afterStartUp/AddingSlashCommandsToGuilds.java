@@ -3,6 +3,7 @@ package main.afterStartUp;
 
 import commands.commands_slash.ISlashCommands;
 import commands.commands_slash.SlashCommandManager;
+import enums_and_annotations.annotations.Slash;
 import main.StartUp;
 import net.dv8tion.jda.api.entities.Guild;
 
@@ -13,6 +14,11 @@ public class AddingSlashCommandsToGuilds implements IAfterStartUp {
             System.out.println(guild);
             for (ISlashCommands iSlashCommands : slashCommandManager.getAllCommands()) {
                 System.out.println(slashCommandManager.getAllCommands());
+                if (iSlashCommands.getClass().isAnnotationPresent(Slash.class))
+                    continue;
+
+                if (!iSlashCommands.getClass().getAnnotation(Slash.class).active())
+                    continue;
 
                 if (!iSlashCommands.takesArguments())
                     guild.upsertCommand(iSlashCommands.getName().toLowerCase(), iSlashCommands.getDescription()).queue();
@@ -22,6 +28,7 @@ public class AddingSlashCommandsToGuilds implements IAfterStartUp {
                             .addOptions(iSlashCommands.getOptionData()).queue();
 
                 }
+
 
             }
         }

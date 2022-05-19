@@ -2,7 +2,7 @@ package database_SQLite.analytics.usage;
 
 
 import database_SQLite.analytics.queries.InsertValuesToTable;
-import enums.MessageType_VOICE_TEXT;
+import enums_and_annotations.enums.MessageType_VOICE_TEXT;
 import main.Prefix;
 import net.dv8tion.jda.api.entities.Message;
 import org.sqlite.SQLiteException;

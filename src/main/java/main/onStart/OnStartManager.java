@@ -1,6 +1,6 @@
 package main.onStart;
 
-import enums.ScriptFilesLocation;
+import enums_and_annotations.enums.ScriptFilesLocation;
 
 import java.util.ArrayList;
 

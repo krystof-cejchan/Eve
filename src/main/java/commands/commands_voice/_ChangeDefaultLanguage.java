@@ -1,7 +1,7 @@
 package commands.commands_voice;
 
 import _library_class.LibraryClass;
-import enums.LANGUAGES.LANGUAGES;
+import enums_and_annotations.enums.LANGUAGES.LANGUAGES;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import voice.voice_and_listening.SpeechToText;
 

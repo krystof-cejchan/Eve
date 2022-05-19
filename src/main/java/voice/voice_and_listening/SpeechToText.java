@@ -11,11 +11,12 @@ import net.dv8tion.jda.api.audio.CombinedAudio;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.exceptions.RateLimitedException;
 import net.dv8tion.jda.api.managers.AudioManager;
 import objects.CurrentTextChannel;
+import objects.MemeberWhoTriggeredEchoCommand;
 import objects.MessageReceivedEvent_CustomClass;
 import objects.ScriptPathPointer;
-import objects.sound_files.DeleteSoundAudioFilesFromSystemAndDatabase;
 import objects.sound_files.SoundFile;
 import org.jetbrains.annotations.NotNull;
 import voice.PythonASCII_Decoding;
@@ -73,7 +74,7 @@ public class SpeechToText {
     }
 
     public void onEchoCommand(MessageReceivedEvent event) {
-
+        MemeberWhoTriggeredEchoCommand.setMember(event.getMember());
         Member member = event.getMember();
         msgEvent = new MessageReceivedEvent_CustomClass(event);
         EchoHandler echoH = new EchoHandler();
@@ -114,12 +115,11 @@ public class SpeechToText {
         }
     }
 
-    public void onEchoSlashCommand(SlashCommandInteractionEvent event) throws NullPointerException {
-
-        MessageReceivedEvent messageReceivedEvent = new MessageReceivedEvent(StartUp.publicJDA,1,
-                event.getMessageChannel().retrieveMessageById(event.getMessageChannel().getLatestMessageId()).complete());
+    public void onEchoSlashCommand(SlashCommandInteractionEvent event) throws NullPointerException, RateLimitedException {
+        MemeberWhoTriggeredEchoCommand.setMember(event.getMember());
         Member member = event.getMember();
-        msgEvent = new MessageReceivedEvent_CustomClass(messageReceivedEvent);
+        msgEvent = new MessageReceivedEvent_CustomClass(new MessageReceivedEvent(StartUp.publicJDA, 1,
+                event.getMessageChannel().retrieveMessageById(event.getMessageChannel().getLatestMessageId()).complete()));
         EchoHandler echoH = new EchoHandler();
         echoH.isAllowedToCarryOn = true;
         rescievedBytes.clear();
@@ -228,7 +228,8 @@ public class SpeechToText {
 
                 rescievedBytes.add(combinedAudio.getAudioData(1.12f));// 1.0 → 100%
 
-                if (combinedAudio.getUsers().contains(msgEvent.getEvent().getAuthor())) talkingMembersCount.add(true);
+                if (combinedAudio.getUsers().contains(MemeberWhoTriggeredEchoCommand.getMember().getUser()))
+                    talkingMembersCount.add(true);
 
                 else talkingMembersCount.add(false);
 
@@ -251,6 +252,7 @@ public class SpeechToText {
                             SoundFile.setTitle(msgEvent.getEvent().getGuild().getId());
 
                             File file = new File(SoundFile.getWholePath());
+                            System.out.println(SoundFile.getWholePath());
 
                             getWavFile(file, decodedData);
                             SpeechToText StT = new SpeechToText();
@@ -362,7 +364,7 @@ public class SpeechToText {
 
         @Override
         public boolean includeUserInCombinedAudio(User user) {
-            return user.equals(msgEvent.getEvent().getAuthor());
+            return user.equals(MemeberWhoTriggeredEchoCommand.getMember().getUser());
         }
 
         @Override

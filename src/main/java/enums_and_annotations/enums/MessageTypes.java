@@ -1,4 +1,4 @@
-package enums;
+package enums_and_annotations.enums;
 
 /**
  * Enums for message types <br>

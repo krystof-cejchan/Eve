@@ -3,7 +3,7 @@ package commands.textCommands;
 import _library_class.LibraryClass;
 import audio_player.PlayCommand;
 import commands.ICommands;
-import enums.MessageTypes;
+import enums_and_annotations.enums.MessageTypes;
 import main.VoiceChannels;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
