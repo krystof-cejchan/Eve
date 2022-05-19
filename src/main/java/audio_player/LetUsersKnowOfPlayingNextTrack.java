@@ -12,6 +12,7 @@ public class LetUsersKnowOfPlayingNextTrack {
      * @param event {@link MessageReceivedEvent}
      */
     public static void informAboutPlayingNextTrack(MessageReceivedEvent event) {
-        event.getChannel().sendMessage("Playing next song: **" + new NowPlayingCommand().getNpAudioTrack(event).getInfo().title + "**").queue();
+        event.getChannel().sendMessage("Playing next song: **" + new NowPlayingCommand()
+                .getNpAudioTrack(event).getInfo().title + "**").queue();
     }
 }

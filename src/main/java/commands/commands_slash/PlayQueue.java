@@ -1,6 +1,7 @@
 package commands.commands_slash;
 
-import audio_player.PlayCommand;
+import _library_class.LibraryClass;
+import audio_player.PlayQCommand;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -9,34 +10,21 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class PlaySong implements ISlashCommands {
-    /**
-     * Executes the command
-     *
-     * @param slashEvent {@link SlashCommandInteractionEvent}
-     */
+public class PlayQueue implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        new PlayCommand().playMusicFromSlash(slashEvent,
-                Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()))).getAsString(),
-                null);
-
+        String arg = Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()))).getAsString();
+        new PlayQCommand().playMusicFromSlash(slashEvent, arg, LibraryClass.isLink(arg));
     }
 
-    /**
-     * @return description of the command
-     */
     @Override
     public @NotNull String getDescription() {
-        return "Play a track";
+        return "Plays each song from playlist";
     }
 
-    /**
-     * @return name of the command
-     */
     @Override
     public @NotNull String getName() {
-        return "play_uwu";
+        return "playqueue_uwu";
     }
 
     @Override
@@ -44,25 +32,21 @@ public class PlaySong implements ISlashCommands {
         return true;
     }
 
-    /**
-     * options for slash commands
-     *
-     * @return OptionData
-     */
     @Nullable
     @Override
     public OptionData getOptionData() {
-        return new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()), "paste track url or title", true);
+        return new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()), "paste tracks' url",
+                true);
     }
 
     @Nullable
     @Override
     public String getArgName() {
-        return "track";
+        return "tracks";
     }
 
     @Override
     public boolean isGuildOnly() {
-        return false;
+        return true;
     }
 }

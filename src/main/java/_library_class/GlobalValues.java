@@ -12,7 +12,7 @@ public class GlobalValues {
     /**
      * [main.Listener]
      */
-    public static final boolean ALLOW_NOT_IN_TEST_MODE = true;
+    public static final boolean ALLOW_NOT_IN_TEST_MODE = false;
     /**
      * [audio_player.QueueCommand]
      */

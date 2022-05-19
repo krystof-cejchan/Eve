@@ -31,9 +31,9 @@ public class StartUp {
             System.out.println("All set up");
         });
 
-        new OnStartManager().getListOf_onStartClasses().forEach(iClass -> {
+        new OnStartManager().getListOf_onStartClasses().forEach(onStart -> {
             try {
-                iClass.doYourPart();
+                onStart.doYourPart();
             } catch (Exception e) {
                 e.printStackTrace();
                 System.exit(-1);
@@ -68,9 +68,12 @@ public class StartUp {
         publicJDA = jda.build().awaitReady();
         //jda.build().awaitReady();
 
-
-        new AfterStartUpManager().getiAfterStartUpArrayList().forEach(IAfterStartUp::doAfterStartUp);
-
+        try {
+            new AfterStartUpManager().getiAfterStartUpArrayList().forEach(IAfterStartUp::doAfterStartUp);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
 
     }
 

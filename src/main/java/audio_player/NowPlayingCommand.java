@@ -40,9 +40,11 @@ public class NowPlayingCommand {
      */
     public void getNowPlayingTrack(MessageReceivedEvent event) {
 
-        @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember()).getVoiceState()).getChannel(); // user
+        @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember())
+                .getVoiceState()).getChannel(); // user
 
-        @Nullable AudioChannel connectedChannelSelf = Objects.requireNonNull(event.getGuild().getSelfMember().getVoiceState()).getChannel(); // bot
+        @Nullable AudioChannel connectedChannelSelf = Objects.requireNonNull(event.getGuild().getSelfMember()
+                .getVoiceState()).getChannel(); // bot
 
         try {
             if (!(connectedChannel == (null)) || !(connectedChannelSelf == (null))) {

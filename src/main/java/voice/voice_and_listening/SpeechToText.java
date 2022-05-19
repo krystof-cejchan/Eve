@@ -4,10 +4,12 @@ import _library_class.GlobalValues;
 import commands.commands_voice.IListeningCommands;
 import commands.commands_voice.ListeningCommandManager;
 import database_SQLite.file_database.queries.InsertValuesToTable;
+import main.StartUp;
 import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 import net.dv8tion.jda.api.audio.CombinedAudio;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
 import objects.CurrentTextChannel;
@@ -44,7 +46,8 @@ public class SpeechToText {
         return channelId;
     }*/
 
-    private static void getWavFile(File outFile, byte[] decodedData) throws IOException, SQLException, ClassNotFoundException {
+    private static void getWavFile(File outFile, byte[] decodedData) throws IOException, SQLException,
+            ClassNotFoundException {
         /*
         float sampleRate = 16000; // 8000,11025,16000,22050,44100,48000
         int sampleSizeInBits = 16; // 8,16
@@ -55,7 +58,8 @@ public class SpeechToText {
         */
         AudioFormat format = new AudioFormat(48000f, 16, 2, true, true);
 
-        AudioSystem.write(new AudioInputStream(new ByteArrayInputStream(decodedData), format, decodedData.length), AudioFileFormat.Type.WAVE, outFile);
+        AudioSystem.write(new AudioInputStream(new ByteArrayInputStream(decodedData), format, decodedData.length),
+                AudioFileFormat.Type.WAVE, outFile);
 
         new InsertValuesToTable().insertValuesToTable(outFile.getAbsolutePath());
     }
@@ -80,7 +84,8 @@ public class SpeechToText {
         GuildVoiceState voiceState = member.getVoiceState();
         assert voiceState != null;
         AudioChannel channel = voiceState.getChannel(); // user
-        AudioChannel connectedChannelSelf = Objects.requireNonNull(event.getGuild().getSelfMember().getVoiceState()).getChannel(); // bot
+        AudioChannel connectedChannelSelf = Objects.requireNonNull(event.getGuild().getSelfMember()
+                .getVoiceState()).getChannel(); // bot
         if (channel != null) {
             if (!channel.equals(connectedChannelSelf)) {
                 connectTo(channel);
@@ -109,18 +114,63 @@ public class SpeechToText {
         }
     }
 
+    public void onEchoSlashCommand(SlashCommandInteractionEvent event) throws NullPointerException {
+
+        MessageReceivedEvent messageReceivedEvent = new MessageReceivedEvent(StartUp.publicJDA,1,
+                event.getMessageChannel().retrieveMessageById(event.getMessageChannel().getLatestMessageId()).complete());
+        Member member = event.getMember();
+        msgEvent = new MessageReceivedEvent_CustomClass(messageReceivedEvent);
+        EchoHandler echoH = new EchoHandler();
+        echoH.isAllowedToCarryOn = true;
+        rescievedBytes.clear();
+        channelId = event.getChannel().getId();
+        assert member != null;
+        GuildVoiceState voiceState = member.getVoiceState();
+        assert voiceState != null;
+        AudioChannel channel = voiceState.getChannel(); // user
+        AudioChannel connectedChannelSelf = Objects.requireNonNull(Objects.requireNonNull(event.getGuild()).getSelfMember()
+                .getVoiceState()).getChannel(); // bot
+        if (channel != null) {
+            if (!channel.equals(connectedChannelSelf)) {
+                connectTo(channel);
+                onConnecting(channel, event.getChannel());
+            } else
+                connectTo(channel);
+
+
+            AudioManager audioManager = channel.getGuild().getAudioManager();
+            if (audioManager.getReceivingHandler() != null) {
+                event.getChannel().sendMessage("I'm listening ...").queue();
+            } else {
+                boolean sentMsg = false;
+                while (audioManager.getReceivingHandler() == null) {
+                    if (!sentMsg) {
+                        event.getChannel().sendMessage("Warming up, gimme a moment").queue();
+                        sentMsg = true;
+                    }
+                }
+                event.getChannel().sendMessage("I'm listening ...").queue();
+            }
+
+        } else {
+            event.getChannel().sendMessage("You are nowhere to be found *sad noises*").queue();
+        }
+    }
+
     public String getTranscription() {
         try {
-            if (PythonASCII_Decoding.decodeASCIItext(runPyScript(ScriptPathPointer.soundFile2Text, SoundFile.getWholePath() + " " + Language.lang)) == null)
+            if (PythonASCII_Decoding.decodeASCIItext(runPyScript(ScriptPathPointer.soundFile2Text,
+                    SoundFile.getWholePath() + " " + Language.lang)) == null)
                 return null;
-            String rawString = PythonASCII_Decoding.decodeASCIItext(runPyScript(ScriptPathPointer.soundFile2Text, SoundFile.getWholePath() + " " + Language.lang));
+            String rawString = PythonASCII_Decoding.decodeASCIItext(runPyScript(ScriptPathPointer.soundFile2Text,
+                    SoundFile.getWholePath() + " " + Language.lang));
             assert rawString != null;
             byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
 
-            DeleteSoundAudioFilesFromSystemAndDatabase.delete1SoundFileFromSystemAndDatabase(SoundFile.getWholePath());
+            //DeleteSoundAudioFilesFromSystemAndDatabase.delete1SoundFileFromSystemAndDatabase(SoundFile.getWholePath());
 
             return new String(bytes, StandardCharsets.UTF_8);
-        } catch (NullPointerException | SQLException | IOException e) {
+        } catch (NullPointerException | IOException e) {
             e.printStackTrace();
             return null;
         }
@@ -207,11 +257,14 @@ public class SpeechToText {
                             final String transcription_original = StT.getTranscription();
                             String transcription_finalVersion;
 
-                            Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId())).sendMessage(transcription_original).queue();
-                            if (!((SpeechToText.Language.getLang().equals("en-GB") || SpeechToText.Language.getLang().equals("en-US")))) {
+                            Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId()))
+                                    .sendMessage(transcription_original).queue();
+                            if (!((SpeechToText.Language.getLang().equals("en-GB") || SpeechToText.Language.getLang()
+                                    .equals("en-US")))) {
                                 transcription_finalVersion = runPyScript(ScriptPathPointer.translator, transcription_original);
                                 assert transcription_finalVersion != null;
-                                Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId())).sendMessage(transcription_finalVersion).queue();
+                                Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId()))
+                                        .sendMessage(transcription_finalVersion).queue();
                             } else {
                                 transcription_finalVersion = transcription_original;
                             }
@@ -231,7 +284,9 @@ public class SpeechToText {
 
                                 } else command.doTask(msgEvent.getEvent(), null);
                             } else {
-                                msgEvent.getEvent().getMessage().reply("There's been an error\nCommand either does not exist or I couldn't understand you").queue();
+                                msgEvent.getEvent().getMessage()
+                                        .reply("There's been an error\nCommand either does not" +
+                                                " exist or I couldn't understand you").queue();
                             }
 
                             if (haveUsersStoppedTalking(talkingMembersCount)) isAllowedToCarryOn = false;

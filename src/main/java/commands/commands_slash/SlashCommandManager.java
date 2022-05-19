@@ -10,6 +10,9 @@ public class SlashCommandManager {
     public SlashCommandManager() {
         //addNewCommand(new __test__());
         addNewCommand(new PlaySong());
+        addNewCommand(new PlayQueue());
+        addNewCommand(new Join());
+        addNewCommand(new Hey());
     }
 
     public ArrayList<ISlashCommands> getAllCommands() {

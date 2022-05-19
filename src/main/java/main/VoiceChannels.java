@@ -57,7 +57,9 @@ public class VoiceChannels {
 
             audioManager.openAudioConnection(connectedChannel);
 
-            event.getChannel().sendMessage("Connected to the voice channel!").queue();
+            event.reply("*Connected to the voice channel!*").queue();
+        } else {
+            event.reply("Where r u? \uD83E\uDD7A").queue();
         }
 
     }

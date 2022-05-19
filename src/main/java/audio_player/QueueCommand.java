@@ -44,12 +44,14 @@ public class QueueCommand {
             MessageAction messageAction = channel.sendMessage("**QUEUE**\n");
 
 
-            messageAction.append("__").append("Currently playing").append("__").append(":").append(" `").append(musicManager.SCHEDULER.PLAYER.getPlayingTrack().getInfo().title).append("` \n");
+            messageAction.append("__").append("Currently playing").append("__").append(":").append(" `")
+                    .append(musicManager.SCHEDULER.PLAYER.getPlayingTrack().getInfo().title).append("` \n");
             for (int i = 0; i < trackCount; i++) {
                 AudioTrack track = trackList.get(i);
                 AudioTrackInfo info = track.getInfo();
                 int ii = i + 1;
-                messageAction.append("*").append(String.valueOf(ii)).append("*").append(".").append(" `").append(info.title).append("` \n");
+                messageAction.append("*").append(String.valueOf(ii)).append("*").append(".").append(" `")
+                        .append(info.title).append("` \n");
             }
 
             int restCountTrack = trackList.size() - shownTrackCount;
@@ -98,7 +100,8 @@ public class QueueCommand {
                 musicManager.SCHEDULER.QUEUE.clear();
 
                 musicManager.SCHEDULER.QUEUE.addAll(audioList);
-                event.getChannel().sendMessage("```diff\n" + "-").append(deletedTitle).append("\nhas been thrown into the void!```").queue();
+                event.getChannel().sendMessage("```diff\n" + "-")
+                        .append(deletedTitle).append("\nhas been thrown into the void!```").queue();
             } catch (Exception ignored) {
 
             }

@@ -2,6 +2,7 @@ package commands.commands_slash;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -16,13 +17,15 @@ public interface ISlashCommands {
     /**
      * @return description of the command
      */
+    @NotNull
     String getDescription();
 
     /**
      * @return name of the command
      */
-    String getName();
+    @NotNull
 
+    String getName();
 
     boolean takesArguments();
 

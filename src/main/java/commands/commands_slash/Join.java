@@ -1,36 +1,25 @@
 package commands.commands_slash;
 
+import main.VoiceChannels;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class __test__ implements ISlashCommands {
-
-
-    /**
-     * Executes the command
-     *
-     * @param slashEvent {@link SlashCommandInteractionEvent}
-     */
+public class Join implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        slashEvent.reply("This is just a quick test reply").queue();
+        new VoiceChannels().joinSlash(slashEvent);
     }
 
-    /**
-     * @return description of the command
-     */
     @Override
     public @NotNull String getDescription() {
-        return "testík";
+        return "Join User's voice channel";
     }
 
-    /**
-     * @return name of the command
-     */
     @Override
     public @NotNull String getName() {
-        return "uwuTEST";
+        return "join_me";
     }
 
     @Override
@@ -38,24 +27,20 @@ public class __test__ implements ISlashCommands {
         return false;
     }
 
-    /**
-     * options for slash commands
-     *
-     * @return OptionData
-     */
+    @Nullable
     @Override
     public OptionData getOptionData() {
         return null;
     }
 
+    @Nullable
     @Override
     public String getArgName() {
         return null;
     }
 
-
     @Override
     public boolean isGuildOnly() {
-        return false;
+        return true;
     }
 }

@@ -3,34 +3,23 @@ package commands.commands_slash;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import voice.voice_and_listening.SpeechToText;
 
-public class __test__ implements ISlashCommands {
-
-
-    /**
-     * Executes the command
-     *
-     * @param slashEvent {@link SlashCommandInteractionEvent}
-     */
+public class Hey implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        slashEvent.reply("This is just a quick test reply").queue();
+        new SpeechToText().onEchoSlashCommand(slashEvent);
     }
 
-    /**
-     * @return description of the command
-     */
     @Override
     public @NotNull String getDescription() {
-        return "testík";
+        return "Listening to your voice to trigger a command";
     }
 
-    /**
-     * @return name of the command
-     */
     @Override
     public @NotNull String getName() {
-        return "uwuTEST";
+        return "hey";
     }
 
     @Override
@@ -38,24 +27,20 @@ public class __test__ implements ISlashCommands {
         return false;
     }
 
-    /**
-     * options for slash commands
-     *
-     * @return OptionData
-     */
+    @Nullable
     @Override
     public OptionData getOptionData() {
         return null;
     }
 
+    @Nullable
     @Override
     public String getArgName() {
         return null;
     }
 
-
     @Override
     public boolean isGuildOnly() {
-        return false;
+        return true;
     }
 }

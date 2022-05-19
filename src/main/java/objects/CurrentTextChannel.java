@@ -12,7 +12,7 @@ public class CurrentTextChannel {
         return id;
     }
 
-    public void setIid(String id) {
+    public static void setIid(String id) {
         CurrentTextChannel.id = id;
     }
 
