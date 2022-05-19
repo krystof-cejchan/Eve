@@ -2,6 +2,7 @@ package commands.commands_slash;
 
 import _library_class.LibraryClass;
 import audio_player.PlayQCommand;
+import enums_and_annotations.annotations.Slash;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -10,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
+@Slash()
 public class PlayQueue implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {

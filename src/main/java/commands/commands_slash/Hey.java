@@ -1,15 +1,22 @@
 package commands.commands_slash;
 
+import enums_and_annotations.annotations.Slash;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.exceptions.RateLimitedException;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import voice.voice_and_listening.SpeechToText;
 
+@Slash()
 public class Hey implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        new SpeechToText().onEchoSlashCommand(slashEvent);
+        try {
+            new SpeechToText().onEchoSlashCommand(slashEvent);
+        } catch (RateLimitedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -43,4 +50,6 @@ public class Hey implements ISlashCommands {
     public boolean isGuildOnly() {
         return true;
     }
+
+
 }

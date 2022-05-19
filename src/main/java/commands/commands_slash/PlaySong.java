@@ -1,6 +1,7 @@
 package commands.commands_slash;
 
 import audio_player.PlayCommand;
+import enums_and_annotations.annotations.Slash;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -9,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
+@Slash()
 public class PlaySong implements ISlashCommands {
     /**
      * Executes the command
