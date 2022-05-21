@@ -5,10 +5,16 @@ import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInterac
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import org.apache.commons.lang3.StringUtils
 
+/**
+ * defined as Listener class in StartUp
+ */
 class AutocompleteSongs : ListenerAdapter() {
     private val songs = ArrayList<String>()
 
-
+    /**
+     * triggered when user tries to use CommandAutoCompleteInteractionEvent
+     *
+     */
     override fun onCommandAutoCompleteInteraction(event: CommandAutoCompleteInteractionEvent) {
         if (event.name == "skiptosongbyname" && event.focusedOption.name == "tracktitle") {
 
@@ -19,19 +25,26 @@ class AutocompleteSongs : ListenerAdapter() {
                 val list: List<String> = ArrayList(GetWholePlaylist.getSongsTitles(event.guild))
                 songs.addAll(list)
             }
+            val subPartOfSongs = ArrayList<String>()
+
             songs.let { song ->
-                event.replyChoiceStrings(song.filter {
-                    //it.contains(event.focusedOption.value, ignoreCase = true)
-                    StringUtils.containsAnyIgnoreCase(it, event.focusedOption.value)
-
-                }).queue()
-
-                //event.replyChoiceStrings(songs).queue()
-
-
-                //event.replyChoiceStrings("a").queue()
+                subPartOfSongs.addAll(song.filter {
+                    StringUtils.containsAnyIgnoreCase(
+                        it,
+                        event.focusedOption.value
+                    )
+                })
             }
+
+            if (subPartOfSongs.isEmpty())
+                songs.let { subPartOfSongs.addAll(songs) }
+
+
+            event.replyChoiceStrings(subPartOfSongs).queue()
+
+
         }
+
     }
 }
 
