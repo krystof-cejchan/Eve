@@ -216,7 +216,7 @@ public class PlayerManager {
                 @Override
                 public void trackLoaded(AudioTrack track) {
                     musicManager.SCHEDULER.queue(track);
-                    event2.reply(track.getInfo().title + " has been added to the queue!").queue();
+                    event2.reply("**" + track.getInfo().title + "** has been added to the queue!").queue();
 
                 }
 

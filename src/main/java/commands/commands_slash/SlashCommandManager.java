@@ -13,6 +13,11 @@ public class SlashCommandManager {
         addNewCommand(new PlayQueue());
         addNewCommand(new Join());
         addNewCommand(new Hey());
+        addNewCommand(new Skip_full());
+        addNewCommand(new Skip_toSongbyTitle());
+
+
+        commands.sort((commands1, commands2) -> commands1.getName().compareToIgnoreCase(commands2.getName()));
     }
 
     public ArrayList<ISlashCommands> getAllCommands() {

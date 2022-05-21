@@ -24,9 +24,9 @@ public class _Skip1 implements ICommands {
                 for (int i = 0; i < Integer.parseInt(args[1]); i++) {
                     skip.skipTrack(event, false);
                 }
-                NowPlayingCommand n = new NowPlayingCommand();
                 event.getChannel()
-                        .sendMessage("Successfully skipped to: \n**" + n.getNpAudioTrack(event).getInfo().title + "**")
+                        .sendMessage("Successfully skipped to: \n**" + new NowPlayingCommand()
+                                .getNpAudioTrack(event).getInfo().title + "**")
                         .queue();
             } else {
 

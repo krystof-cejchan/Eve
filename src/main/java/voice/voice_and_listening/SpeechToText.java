@@ -369,13 +369,11 @@ public class SpeechToText {
 
         @Override
         public boolean canProvide() {
-
             return !queue.isEmpty();
         }
 
         @Override
         public ByteBuffer provide20MsAudio() {
-
             byte[] data = queue.poll();
             return data == null ? null : ByteBuffer.wrap(data);
         }
@@ -386,9 +384,6 @@ public class SpeechToText {
             return false;
         }
 
-        /*
-         * @Override public boolean canReceiveUser() {          * stub return AudioReceiveHandler.super.canReceiveUser(); }
-         */
 
         /**
          * Checks if users have stopped talking

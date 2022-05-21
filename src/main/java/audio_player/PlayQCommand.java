@@ -66,7 +66,7 @@ public class PlayQCommand {
 
             } else {
                 if (isLink) {
-                    vc.joinSlash(event);
+                    vc.joinSlash(event, false);
                     loadNPlay(channel, url, null, event);
                 }
 

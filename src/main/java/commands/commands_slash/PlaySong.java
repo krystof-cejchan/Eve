@@ -30,7 +30,7 @@ public class PlaySong implements ISlashCommands {
      */
     @Override
     public @NotNull String getDescription() {
-        return "Play a track";
+        return "Plays a track";
     }
 
     /**
@@ -38,7 +38,7 @@ public class PlaySong implements ISlashCommands {
      */
     @Override
     public @NotNull String getName() {
-        return "play_uwu";
+        return "playsong";
     }
 
     @Override
@@ -54,13 +54,14 @@ public class PlaySong implements ISlashCommands {
     @Nullable
     @Override
     public OptionData getOptionData() {
-        return new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()), "paste track url or title", true);
+        return new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()), "paste track url or title",
+                true, true);
     }
 
     @Nullable
     @Override
     public String getArgName() {
-        return "track";
+        return "song";
     }
 
     @Override

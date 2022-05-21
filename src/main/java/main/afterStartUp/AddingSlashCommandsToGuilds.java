@@ -14,18 +14,19 @@ public class AddingSlashCommandsToGuilds implements IAfterStartUp {
             System.out.println(guild);
             for (ISlashCommands iSlashCommands : slashCommandManager.getAllCommands()) {
                 System.out.println(slashCommandManager.getAllCommands());
-                if (iSlashCommands.getClass().isAnnotationPresent(Slash.class))
+
+                if (iSlashCommands.getClass().isAnnotationPresent(Slash.class) && iSlashCommands.getClass().getAnnotation(Slash.class) != null)
                     continue;
 
-                if (!iSlashCommands.getClass().getAnnotation(Slash.class).active())
-                    continue;
+                //if (!iSlashCommands.getClass().getAnnotation(Slash.class).active()) continue;
+
 
                 if (!iSlashCommands.takesArguments())
                     guild.upsertCommand(iSlashCommands.getName().toLowerCase(), iSlashCommands.getDescription()).queue();
 
                 else {
-                    guild.upsertCommand(iSlashCommands.getName(), iSlashCommands.getDescription())
-                            .addOptions(iSlashCommands.getOptionData()).queue();
+                    guild.upsertCommand(iSlashCommands.getName(),
+                            iSlashCommands.getDescription()).addOptions(iSlashCommands.getOptionData()).queue();
 
                 }
 

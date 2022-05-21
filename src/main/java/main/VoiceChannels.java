@@ -41,7 +41,7 @@ public class VoiceChannels {
 
     }
 
-    public void joinSlash(SlashCommandInteractionEvent event) {
+    public void joinSlash(SlashCommandInteractionEvent event, boolean msg) {
         AudioChannel channel = Objects.requireNonNull(Objects.requireNonNull(event.getMember()).getVoiceState()).getChannel();
         if (channel != null) {
             if (!Objects.requireNonNull(event.getGuild()).getSelfMember().hasPermission(channel, Permission.VOICE_CONNECT)) {
@@ -56,8 +56,8 @@ public class VoiceChannels {
             AudioManager audioManager = event.getGuild().getAudioManager();
 
             audioManager.openAudioConnection(connectedChannel);
-
-            event.reply("*Connected to the voice channel!*").queue();
+            if (msg)
+                event.reply("*Connected to the voice channel!*").queue();
         } else {
             event.reply("Where r u? \uD83E\uDD7A").queue();
         }

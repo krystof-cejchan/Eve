@@ -1,6 +1,7 @@
 package main;
 
 
+import commands.commands_slash.AutocompleteSongs;
 import commands.commands_slash.SlashCommandListener;
 import main.afterStartUp.AfterStartUpManager;
 import main.afterStartUp.IAfterStartUp;
@@ -59,12 +60,13 @@ public class StartUp {
 
 
         JDABuilder jda = JDABuilder.createDefault(APITokenTEST, intents);
+
         //jda.setActivity(Activity.competing("Hey!"));
         jda.setRawEventsEnabled(true);
         jda.enableCache(CacheFlag.VOICE_STATE);
         jda.setStatus(OnlineStatus.ONLINE);
         jda.setActivity(Activity.playing(";hey!"));
-        jda.addEventListeners(new Listener(), new SlashCommandListener());
+        jda.addEventListeners(new Listener(), new SlashCommandListener(), new AutocompleteSongs());
         publicJDA = jda.build().awaitReady();
         //jda.build().awaitReady();
 

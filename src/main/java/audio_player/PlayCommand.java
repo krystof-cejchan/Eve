@@ -72,7 +72,7 @@ public class PlayCommand {
 
         if (!(connectedChannel == (null))) {
             if (!connectedChannel.equals(connectedChannelSelf))
-                vc.joinSlash(event);
+                vc.joinSlash(event,false);
             if (isLink) {
 
                 if (url.contains("spotify.com")) {

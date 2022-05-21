@@ -151,9 +151,7 @@ public class SkipCommand {
                     }
                     for (int i = 0; i < LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle).length; i++) {
 
-                        similarityMap.put(new ArrayList<>(queue).get(LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle)[i]),
-                                service.score(queue2trackTitle.get(LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle)[i]),
-                                        LibraryClass.getStringFromArrayOfStrings_withSpaces(text)));
+                        similarityMap.put(new ArrayList<>(queue).get(LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle)[i]), service.score(queue2trackTitle.get(LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle)[i]), LibraryClass.getStringFromArrayOfStrings_withSpaces(text)));
                     }
                 } else {
                     event.getChannel().sendMessage("Please provide a keyword with a word which is contained in the song title").queue();
@@ -192,14 +190,14 @@ public class SkipCommand {
     }
 
     private int getIndexOfTheTrackFromTheQueue(ArrayList<AudioTrack> audioList, AudioTrack audioTrack) {
-        int startOfSubArray = 0;
+       /* int startOfSubArray = 0;
         for (AudioTrack track : audioList) {
             if (!track.equals(audioTrack)) startOfSubArray++;
-            else {
-                return startOfSubArray;
-            }
-        }
-        return -1;
+            else return startOfSubArray;
+
+        }*/
+        return audioList.indexOf(audioTrack);
+
     }
 
 }
