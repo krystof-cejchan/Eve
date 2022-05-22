@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.Guild;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.BlockingQueue;
 
 public class SkipToTitle {
@@ -29,7 +30,7 @@ public class SkipToTitle {
 
     private static int getSongIndex(ArrayList<AudioTrack> list, String title) throws NullPointerException {
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getInfo().title.equalsIgnoreCase(title)) return i;
+            if (list.get(i).getInfo().title.toLowerCase().contains(title.toLowerCase(Locale.ROOT))) return i;
         }
         throw new NullPointerException(title + " is not included in the list");
     }
