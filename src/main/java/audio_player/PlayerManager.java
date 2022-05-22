@@ -9,7 +9,8 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import enums_and_annotations.enums.MessageTypes;
+import enums_annotations_exceptions.enums.MessageTypes;
+import enums_annotations_exceptions.exceptions.NoTrackMatch;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -216,8 +217,7 @@ public class PlayerManager {
                 @Override
                 public void trackLoaded(AudioTrack track) {
                     musicManager.SCHEDULER.queue(track);
-                    event2.reply("**" + track.getInfo().title + "** has been added to the queue!").queue();
-
+                    event2.reply("**" + track.getInfo().title + "** was successfully added").queue();
                 }
 
                 /**
@@ -230,20 +230,14 @@ public class PlayerManager {
 
                     List<AudioTrack> tracks = playlist.getTracks();
                     if (isQueue) {
-
-                    /* for (AudioTrack audioTrack : tracks) {
-                        musicManager.SCHEDULER.queue(audioTrack);
-
-                    }*/
-
                         tracks.forEach(musicManager.SCHEDULER::queue);
-
-                        event2.reply("Successfully added: " + playlist.getTracks().size() + " tracks").queue();
+                        event2.reply("**" + tracks.size() + "** tracks were successfully added").queue();
 
                     } else {
                         AudioTrack track = tracks.get(0);
-                        event2.reply(track.getInfo().title + " has been added to the queue!").queue();
                         musicManager.SCHEDULER.queue(track);
+                        event2.reply("**" + track.getInfo().title + "** was successfully added").queue();
+
                     }
                 }
 
@@ -252,7 +246,12 @@ public class PlayerManager {
                  */
                 @Override
                 public void noMatches() {
-                    event2.reply("Nothing was found for: __" + usersInput + "__").queue();
+                    try {
+                        event2.reply("Nothing matches your input :(").queue();
+                        throw new NoTrackMatch("nothing matches");
+                    } catch (NoTrackMatch e) {
+                        e.printStackTrace();
+                    }
 
                 }
 
@@ -262,7 +261,8 @@ public class PlayerManager {
                  */
                 @Override
                 public void loadFailed(FriendlyException exception) {
-                    event2.reply("Failed to load the track" + exception + "\nTry again later.\uD83D\uDE1F\uD83D\uDE1F").queue();
+                    event2.reply("There has been an error while loading your track").queue();
+                    exception.printStackTrace();
 
                 }
 

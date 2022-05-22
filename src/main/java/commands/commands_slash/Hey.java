@@ -1,6 +1,6 @@
 package commands.commands_slash;
 
-import enums_and_annotations.annotations.Slash;
+import enums_annotations_exceptions.annotations.Slash;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.exceptions.RateLimitedException;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;

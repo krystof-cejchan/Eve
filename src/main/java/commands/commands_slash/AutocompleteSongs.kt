@@ -18,13 +18,10 @@ class AutocompleteSongs : ListenerAdapter() {
     override fun onCommandAutoCompleteInteraction(event: CommandAutoCompleteInteractionEvent) {
         if (event.name == "skiptosongbyname" && event.focusedOption.name == "tracktitle") {
 
-            if (GetWholePlaylist.getPlayList(event.guild).size > 25) {
-                val list: List<String> = ArrayList(GetWholePlaylist.getSongsTitles(event.guild).subList(0, 25 - 1))
-                songs.addAll(list)
-            } else {
-                val list: List<String> = ArrayList(GetWholePlaylist.getSongsTitles(event.guild))
-                songs.addAll(list)
-            }
+
+            val list: List<String> = ArrayList(GetWholePlaylist.getSongsTitles(event.guild))
+            songs.addAll(list)
+
             val subPartOfSongs = ArrayList<String>()
 
             songs.let { song ->
@@ -39,8 +36,15 @@ class AutocompleteSongs : ListenerAdapter() {
             if (subPartOfSongs.isEmpty())
                 songs.let { subPartOfSongs.addAll(songs) }
 
+            if (subPartOfSongs.size >= 24) {
+                val helper = ArrayList<String>(subPartOfSongs)
+                subPartOfSongs.clear()
 
-            event.replyChoiceStrings(subPartOfSongs).queue()
+                subPartOfSongs.addAll(helper.subList(0, 25 - 1))
+            }
+
+
+            event.replyChoiceStrings(subPartOfSongs.distinct().toList()).queue()
 
 
         }

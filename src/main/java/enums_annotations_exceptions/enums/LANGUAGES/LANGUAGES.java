@@ -1,4 +1,4 @@
-package enums_and_annotations.enums.LANGUAGES;
+package enums_annotations_exceptions.enums.LANGUAGES;
 
 import java.util.ArrayList;
 import java.util.List;

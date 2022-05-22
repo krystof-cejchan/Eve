@@ -1,4 +1,4 @@
-package enums_and_annotations.annotations;
+package enums_annotations_exceptions.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

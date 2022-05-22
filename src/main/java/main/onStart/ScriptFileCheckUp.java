@@ -1,6 +1,6 @@
 package main.onStart;
 
-import enums_and_annotations.enums.ScriptFilesLocation;
+import enums_annotations_exceptions.enums.ScriptFilesLocation;
 import objects.ScriptFiles;
 
 import java.io.File;

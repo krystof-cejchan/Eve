@@ -2,7 +2,7 @@ package commands.textCommands;
 
 import _library_class.LibraryClass;
 import commands.ICommands;
-import enums_and_annotations.enums.LANGUAGES.LANGUAGES;
+import enums_annotations_exceptions.enums.LANGUAGES.LANGUAGES;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 

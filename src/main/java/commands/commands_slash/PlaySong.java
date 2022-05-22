@@ -1,7 +1,7 @@
 package commands.commands_slash;
 
 import audio_player.PlayCommand;
-import enums_and_annotations.annotations.Slash;
+import enums_annotations_exceptions.annotations.Slash;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -19,8 +19,17 @@ public class PlaySong implements ISlashCommands {
      */
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        new PlayCommand().playMusicFromSlash(slashEvent,
-                Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()))).getAsString(),
+
+       /* boolean finish = new Play_PURE().playMusic(slashEvent.getGuild(), GetUsersVoiceChannels.usersAudioChannel(Objects.requireNonNull(slashEvent.getMember())),
+                GetUsersVoiceChannels.botsAudioChannel(slashEvent.getGuild()),
+                Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()))).getAsString(), false);
+
+        if (finish)
+            slashEvent.reply("Track was added; **" + GetCurrentTrack.getTrack(slashEvent.getGuild()) + "**").queue();
+        else
+            slashEvent.reply("Track was not added successfully").queue();*/
+        new PlayCommand().playMusicFromSlash(slashEvent, Objects.requireNonNull(slashEvent.getOption
+                        (Objects.requireNonNull(getArgName()))).getAsString(),
                 null);
 
     }
@@ -55,7 +64,7 @@ public class PlaySong implements ISlashCommands {
     @Override
     public OptionData getOptionData() {
         return new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()), "paste track url or title",
-                true, true);
+                true, false);
     }
 
     @Nullable

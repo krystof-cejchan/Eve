@@ -2,7 +2,7 @@ package commands.commands_slash;
 
 import _library_class.LibraryClass;
 import audio_player.PlayQCommand;
-import enums_and_annotations.annotations.Slash;
+import enums_annotations_exceptions.annotations.Slash;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -26,7 +26,7 @@ public class PlayQueue implements ISlashCommands {
 
     @Override
     public @NotNull String getName() {
-        return "playqueue_uwu";
+        return "playqueue";
     }
 
     @Override

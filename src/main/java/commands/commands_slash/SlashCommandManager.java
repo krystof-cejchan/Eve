@@ -25,9 +25,11 @@ public class SlashCommandManager {
     }
 
     private void addNewCommand(ISlashCommands Icmd) {
+        boolean exists = commands.stream().anyMatch(match -> match.equals(Icmd));
 
-        if (commands.stream().noneMatch(matched -> matched.getName().equals(Icmd.getName()))) {
+        if (!exists) {
             commands.add(Icmd);
+            System.out.println(Icmd);
         }
 
     }
