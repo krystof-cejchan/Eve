@@ -1,55 +1,54 @@
 package commands.commands_slash;
 
+import _library_class.LibraryClass;
+import audio_player.PlayQCommand;
 import enums_annotations_exceptions.annotations.Slash;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.exceptions.RateLimitedException;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import voice.voice_and_listening.SpeechToText;
+
+import java.util.Objects;
 
 @Slash()
-public class Hey implements ISlashCommands {
+public class PlayQueueSLASH implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        try {
-            new SpeechToText().onEchoSlashCommand(slashEvent);
-        } catch (RateLimitedException e) {
-            e.printStackTrace();
-        }
+        String arg = Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()))).getAsString();
+        new PlayQCommand().playMusicFromSlash(slashEvent, arg, LibraryClass.isLink(arg));
     }
 
     @Override
     public @NotNull String getDescription() {
-        return "Listening to your voice to trigger a command";
+        return "Plays each song from playlist";
     }
 
     @Override
     public @NotNull String getName() {
-        return "hey";
+        return "playqueue";
     }
 
     @Override
     public boolean takesArguments() {
-        return false;
+        return true;
     }
 
     @Nullable
     @Override
     public OptionData getOptionData() {
-        return null;
+        return new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()), "paste tracks' url",
+                true);
     }
 
     @Nullable
     @Override
     public String getArgName() {
-        return null;
+        return "tracks";
     }
 
     @Override
     public boolean isGuildOnly() {
         return true;
     }
-
-
 }

@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Slash()
-public class Join implements ISlashCommands {
+public class JoinSLASH implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
         new VoiceChannels().joinSlash(slashEvent, true);

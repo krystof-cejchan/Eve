@@ -9,12 +9,13 @@ public class SlashCommandManager {
 
     public SlashCommandManager() {
         //addNewCommand(new __test__());
-        addNewCommand(new PlaySong());
-        addNewCommand(new PlayQueue());
-        addNewCommand(new Join());
-        addNewCommand(new Hey());
-        addNewCommand(new Skip_full());
-        addNewCommand(new Skip_toSongbyTitle());
+        addNewCommand(new PlaySongSLASH());
+        addNewCommand(new PlayQueueSLASH());
+        addNewCommand(new JoinSLASH());
+        addNewCommand(new HeySLASH());
+        addNewCommand(new Skip_fullSLASH());
+        addNewCommand(new Skip_toSongbyTitleSLASH());
+        addNewCommand(new QueueSLASH());
 
 
         commands.sort((commands1, commands2) -> commands1.getName().compareToIgnoreCase(commands2.getName()));

@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class Skip_full implements ISlashCommands {
+public class Skip_fullSLASH implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
         if (slashEvent.getOption(Objects.requireNonNull(getArgName())) != null) {

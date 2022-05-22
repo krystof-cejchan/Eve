@@ -13,7 +13,7 @@ import java.util.Objects;
 import static commands._pure_commands.subparts.GetUsersVoiceChannels.botsAudioChannel;
 import static commands._pure_commands.subparts.GetUsersVoiceChannels.usersAudioChannel;
 
-public class Skip_toSongbyTitle implements ISlashCommands {
+public class Skip_toSongbyTitleSLASH implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
         SkipToTitle.skipToTrackbyTitle(usersAudioChannel(Objects.requireNonNull(slashEvent.getMember())),
@@ -43,7 +43,8 @@ public class Skip_toSongbyTitle implements ISlashCommands {
     @Nullable
     @Override
     public OptionData getOptionData() {
-        return new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()), "title of the song to be skipped to",
+        return new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()),
+                "title of the song to be skipped to  (discord does not allow to show more than 25 results)",
                 true, true);
     }
 

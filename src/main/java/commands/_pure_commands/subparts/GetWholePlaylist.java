@@ -16,10 +16,10 @@ public class GetWholePlaylist {
     }
 
     public static ArrayList<String> getSongsTitles(Guild guild) {
-        GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
-        BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
+        //GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
+        //BlockingQueue<AudioTrack> queue = musicManager.SCHEDULER.QUEUE;
         ArrayList<String> list = new ArrayList<>();
-        for (AudioTrack a : queue) {
+        for (AudioTrack a : getPlayList(guild)) {
             System.out.println(a.getInfo().title);
             list.add(a.getInfo().title);
         }

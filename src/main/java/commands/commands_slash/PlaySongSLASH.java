@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 @Slash()
-public class PlaySong implements ISlashCommands {
+public class PlaySongSLASH implements ISlashCommands {
     /**
      * Executes the command
      *
