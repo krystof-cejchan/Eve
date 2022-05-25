@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.annotation.Nullable;
 
+import commands.textCommands.*;
 import main.Prefix;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class CommandManager {
 	public final static ArrayList<ICommands> commands = new ArrayList<>();
 
-	public CommandManager() throws IOException {
+	public CommandManager() {
 		addNewCommand(new _Help());
 		addNewCommand(new _Prefix());
 		addNewCommand(new _EmotionalDamage());
@@ -86,8 +87,8 @@ public class CommandManager {
 
 		try {
 			String[] args = event.getMessage().getContentRaw().split(" ");
-			Prefix pref = new Prefix();
-			if (args[0].startsWith(pref.getValue())) {
+
+			if (args[0].startsWith(Prefix.getValue())) {
 
 				for (ICommands iCommands : commands) {
 
@@ -108,7 +109,7 @@ public class CommandManager {
 		} catch (
 
 		Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 			return null;
 		}
 

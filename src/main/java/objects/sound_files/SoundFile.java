@@ -53,7 +53,7 @@ public class SoundFile {
         }
 
         public static Path getthePath() throws IOException {
-            return Paths.get(getTheFirstDiskLetter() + "\\USERS_INPUT_AUDIO");
+            return Paths.get(getTheFirstDiskLetter().replace("VirtualDisk ","")+ "\\USERS_INPUT_AUDIO");
         }
 
 

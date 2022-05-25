@@ -8,8 +8,8 @@ import java.io.FileNotFoundException;
 
 public class ScriptFileCheckUp extends ScriptFiles implements IOnStart {
 
-    public ScriptFileCheckUp(File translator, File soundFile2Text, File dbPath) {
-        super(translator, soundFile2Text, dbPath);
+    public ScriptFileCheckUp(File translator, File soundFile2Text, File dbPath, File ytSearch) {
+        super(translator, soundFile2Text, ytSearch, dbPath);
     }
 
     public ScriptFileCheckUp(ScriptFilesLocation scriptFilesLocation) {

@@ -64,7 +64,7 @@ public class PlaySongSLASH implements ISlashCommands {
     @Override
     public OptionData getOptionData() {
         return new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()), "paste track url or title",
-                true, false);
+                true, true);
     }
 
     @Nullable
