@@ -1,9 +1,12 @@
-package main.afterStartUp;
+package main.afterStartUp
 
-import net.dv8tion.jda.api.entities.Guild;
+import main.StartUp
 
-public class DeletingAllSlashCommandsFromAllGuilds implements IAfterStartUp{
-    @Override
-    public void doAfterStartUp() {
+class DeletingAllSlashCommandsFromAllGuilds : IAfterStartUp {
+    override fun doAfterStartUp() {
+        // SlashCommandManager slashCommandManager = new SlashCommandManager();
+        for (guild in StartUp.publicJDA.guilds) {
+            guild.updateCommands()
+        }
     }
 }

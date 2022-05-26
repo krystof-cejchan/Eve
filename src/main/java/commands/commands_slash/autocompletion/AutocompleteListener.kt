@@ -14,10 +14,24 @@ class AutocompleteListener : ListenerAdapter() {
      *
      */
     override fun onCommandAutoCompleteInteraction(event: CommandAutoCompleteInteractionEvent) {
-       // if (getCommand(event)?.equals(null) == false)
-        println("it")
-            getCommand(event)?.getStringChoices(event)?.distinct()
-                ?.let { event.replyChoiceStrings(it.toList()).queue() }
+        // if (getCommand(event)?.equals(null) == false)
+
+        getCommand(event)?.getStringChoices(event)?.distinct()
+            ?.let {
+
+                if (it.isNotEmpty()) {
+
+                    if (it.contains(""))
+                        for (song in it) {
+                            if (song.isNullOrEmpty())
+                                it.drop(it.indexOf(song))
+                        }
+
+                    event.replyChoiceStrings(it.toList()).queue()
+
+
+                }
+            }
 
     }
 

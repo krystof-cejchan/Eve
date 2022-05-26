@@ -1,25 +1,32 @@
 package commands.commands_slash;
 
-import commands._pure_commands.Queue_PURE;
+import enums_annotations_exceptions.annotations.Slash;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.exceptions.RateLimitedException;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import voice.voice_and_listening.SpeechToText;
 
-public class QueueSLASH implements ISlashCommands {
+@Slash()
+public class HeySlash implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        slashEvent.reply(Queue_PURE.getQueueAndReturnItAsReadyMessage(slashEvent.getGuild())).queue();
+        try {
+            new SpeechToText().onEchoSlashCommand(slashEvent);
+        } catch (RateLimitedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public @NotNull String getDescription() {
-        return "Shows queue of songs";
+        return "Listening to your voice to trigger a command";
     }
 
     @Override
     public @NotNull String getName() {
-        return "queue";
+        return "hey";
     }
 
     @Override
@@ -43,4 +50,6 @@ public class QueueSLASH implements ISlashCommands {
     public boolean isGuildOnly() {
         return true;
     }
+
+
 }

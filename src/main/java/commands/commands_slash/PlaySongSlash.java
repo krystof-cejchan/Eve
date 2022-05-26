@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 @Slash()
-public class PlaySongSLASH implements ISlashCommands {
+public class PlaySongSlash implements ISlashCommands {
     /**
      * Executes the command
      *
@@ -64,7 +64,7 @@ public class PlaySongSLASH implements ISlashCommands {
     @Override
     public OptionData getOptionData() {
         return new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()), "paste track url or title",
-                true, true);
+                true, false);
     }
 
     @Nullable

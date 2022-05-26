@@ -7,6 +7,7 @@ public class AfterStartUpManager {
 
     public AfterStartUpManager() {
         addToArray(new AddingSlashCommandsToGuilds());
+        //  addToArray(new DeletingAllSlashCommandsFromAllGuilds());
 
     }
 

@@ -1,50 +1,51 @@
-package commands.commands_slash;
+package commands.commands_slash.volume;
 
-import _library_class.LibraryClass;
-import audio_player.PlayQCommand;
-import enums_annotations_exceptions.annotations.Slash;
+import commands.commands_slash.ISlashCommands;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-@Slash()
-public class PlayQueueSLASH implements ISlashCommands {
+import static commands._pure_commands.Volume_PURE.setVolumeUpOrDown;
+import static commands._pure_commands.subparts.GetCurrentVolume.getVolume;
+import static enums_annotations_exceptions.enums.VolumeUpDown.DOWN;
+
+public class VolumeDownSlash implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        String arg = Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()))).getAsString();
-        new PlayQCommand().playMusicFromSlash(slashEvent, arg, LibraryClass.isLink(arg));
+        int oldVol = getVolume(slashEvent.getGuild());
+        setVolumeUpOrDown(slashEvent.getGuild(), DOWN);
+        slashEvent.replyEmbeds(VolumeCustomSLASH.embed.get(Objects.requireNonNull(slashEvent.getMember()),
+                slashEvent.getGuild(), oldVol)).queue();
     }
 
     @Override
     public @NotNull String getDescription() {
-        return "Plays each song from playlist";
+        return "decrease volume by 10";
     }
 
     @Override
     public @NotNull String getName() {
-        return "playqueue";
+        return "volumedown";
     }
 
     @Override
     public boolean takesArguments() {
-        return true;
+        return false;
     }
 
     @Nullable
     @Override
     public OptionData getOptionData() {
-        return new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()), "paste tracks' url",
-                true);
+        return null;
     }
 
     @Nullable
     @Override
     public String getArgName() {
-        return "tracks";
+        return null;
     }
 
     @Override
@@ -52,3 +53,5 @@ public class PlayQueueSLASH implements ISlashCommands {
         return true;
     }
 }
+
+

@@ -1,5 +1,8 @@
 package commands.commands_slash;
 
+import commands.commands_slash.volume.VolumeCustomSLASH;
+import commands.commands_slash.volume.VolumeDownSlash;
+import commands.commands_slash.volume.VolumeUpSlash;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.util.ArrayList;
@@ -8,15 +11,16 @@ public class SlashCommandManager {
     private final ArrayList<ISlashCommands> commands = new ArrayList<>();
 
     public SlashCommandManager() {
-        //addNewCommand(new __test__());
-        addNewCommand(new PlaySongSLASH());
-        addNewCommand(new PlayQueueSLASH());
-        addNewCommand(new JoinSLASH());
-        addNewCommand(new HeySLASH());
-        addNewCommand(new Skip_fullSLASH());
-        addNewCommand(new Skip_toSongbyTitleSLASH());
-        addNewCommand(new QueueSLASH());
-
+        addNewCommand(new PlaySongSlash());
+        addNewCommand(new PlayQueueSlash());
+        addNewCommand(new JoinSlash());
+        addNewCommand(new HeySlash());
+        addNewCommand(new Skip_fullSlash());
+        addNewCommand(new Skip_toSongbyTitleSlash());
+        addNewCommand(new QueueSlash());
+        addNewCommand(new VolumeCustomSLASH());
+        addNewCommand(new VolumeUpSlash());
+        addNewCommand(new VolumeDownSlash());
 
         commands.sort((commands1, commands2) -> commands1.getName().compareToIgnoreCase(commands2.getName()));
     }

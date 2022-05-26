@@ -1,27 +1,25 @@
 package commands.commands_slash;
 
-import enums_annotations_exceptions.annotations.Slash;
-import main.VoiceChannels;
+import commands._pure_commands.Queue_PURE;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@Slash()
-public class JoinSLASH implements ISlashCommands {
+public class QueueSlash implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        new VoiceChannels().joinSlash(slashEvent, true);
+        slashEvent.reply(Queue_PURE.getQueueAndReturnItAsReadyMessage(slashEvent.getGuild())).queue();
     }
 
     @Override
     public @NotNull String getDescription() {
-        return "Join User's voice channel";
+        return "Shows queue of songs";
     }
 
     @Override
     public @NotNull String getName() {
-        return "join_me";
+        return "queue";
     }
 
     @Override

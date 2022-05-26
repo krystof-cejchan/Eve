@@ -2,7 +2,7 @@ package commands.commands_slash.autocompletion.classes
 
 import commands._pure_commands.subparts.GetWholePlaylist
 import commands.commands_slash.ISlashCommands
-import commands.commands_slash.Skip_toSongbyTitleSLASH
+import commands.commands_slash.Skip_toSongbyTitleSlash
 import commands.commands_slash.autocompletion.IAutoCompletion
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent
 import org.apache.commons.lang3.StringUtils
@@ -41,6 +41,6 @@ class SongQueueAutoCompletion : IAutoCompletion {
 
 
     override fun representativeCommand(): ISlashCommands {
-        return Skip_toSongbyTitleSLASH()
+        return Skip_toSongbyTitleSlash()
     }
 }

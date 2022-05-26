@@ -44,7 +44,7 @@ public class ScriptFiles extends ScriptPathPointer {
         } else {
             this.translator = new File("./src/main/java/external_files/py_scripts/translator.py");
             this.soundFile2Text = new File("./src/main/java/external_files/py_scripts/soundfiletotext.py");
-            this.ytSearch = new File("./src/main/java/external_files/py_scripts/ytsearch.py");
+            this.ytSearch = new File("src/main/java/external_files/py_scripts/ytsearch.py");
 
 
         }

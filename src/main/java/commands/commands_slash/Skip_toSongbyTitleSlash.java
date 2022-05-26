@@ -13,7 +13,7 @@ import java.util.Objects;
 import static commands._pure_commands.subparts.GetUsersVoiceChannels.botsAudioChannel;
 import static commands._pure_commands.subparts.GetUsersVoiceChannels.usersAudioChannel;
 
-public class Skip_toSongbyTitleSLASH implements ISlashCommands {
+public class Skip_toSongbyTitleSlash implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
         SkipToTitle.skipToTrackbyTitle(usersAudioChannel(Objects.requireNonNull(slashEvent.getMember())),
