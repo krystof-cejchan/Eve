@@ -11,7 +11,8 @@ public class Volume_PURE {
     public static void setVolumeTo(final Guild guild, final int vol) {
         if (vol > 200 || vol < 0) return;
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
-        musicManager.AUDIOPLAYER.setVolume(vol);
+        if (!(musicManager.AUDIOPLAYER.getVolume() == vol))
+            musicManager.AUDIOPLAYER.setVolume(vol);
     }
 
     public static void setVolumeUpOrDown(Guild guild, VolumeUpDown upOrDown) {
