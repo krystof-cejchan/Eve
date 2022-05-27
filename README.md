@@ -1,4 +1,4 @@
-# Discord Java Bot
+# Eve - Bot for discord servers
 
 **A Discord Bot with a wide range of capabilities, starting from simple command responding through music playing to
 speech-control.**
