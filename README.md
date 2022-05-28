@@ -1,4 +1,4 @@
-# 💞Eva (っ◔◡◔)っ
+# 💞Eve (っ◔◡◔)っ
 *A Discord Bot with a wide range of capabilities, starting from simple command responding through music playing to
 speech-control.*
 
