@@ -12,16 +12,20 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import enums_annotations_exceptions.enums.MessageTypes;
 import enums_annotations_exceptions.exceptions.NoTrackMatch;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.apache.commons.collections4.map.HashedMap;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.BlockingQueue;
 
 public class PlayerManager {
 
@@ -217,7 +221,9 @@ public class PlayerManager {
                 @Override
                 public void trackLoaded(AudioTrack track) {
                     musicManager.SCHEDULER.queue(track);
-                    event2.reply("**" + track.getInfo().title + "** was successfully added").queue();
+                    //event2.reply("**" + track.getInfo().title + "** was successfully added").queue();
+                    event2.replyEmbeds(newSongAddedThroughSlash(Objects.requireNonNull(event2.getMember()),
+                            track, musicManager.SCHEDULER.QUEUE).build()).queue();
                 }
 
                 /**
@@ -227,7 +233,6 @@ public class PlayerManager {
                  */
                 @Override
                 public void playlistLoaded(AudioPlaylist playlist) {
-
                     List<AudioTrack> tracks = playlist.getTracks();
                     if (isQueue) {
                         tracks.forEach(musicManager.SCHEDULER::queue);
@@ -236,8 +241,8 @@ public class PlayerManager {
                     } else {
                         AudioTrack track = tracks.get(0);
                         musicManager.SCHEDULER.queue(track);
-                        event2.reply("**" + track.getInfo().title + "** was successfully added").queue();
-
+                        event2.replyEmbeds(newSongAddedThroughSlash(Objects.requireNonNull(event2.getMember()),
+                                track, musicManager.SCHEDULER.QUEUE).build()).queue();
                     }
                 }
 
@@ -270,7 +275,31 @@ public class PlayerManager {
         }
 
     }
+
+    private EmbedBuilder newSongAddedThroughSlash(@NotNull Member author, @NotNull AudioTrack audioTrackToBeAddedToQ,
+                                                  @NotNull BlockingQueue<AudioTrack> queue) {
+        EmbedBuilder builder = new EmbedBuilder()
+                .setColor(LibraryClass.getRandomColor())
+                /* .setAuthor(author.getNickname(),
+                         "", author.getAvatarUrl())*/
+                .setTitle("New Track has been added to the Queue:")
+                .addField("Title", audioTrackToBeAddedToQ.getInfo().title, true)
+                .addField("Author", audioTrackToBeAddedToQ.getInfo().author, true)
+                .addField("TimeLine:", "Length " + (NowPlayingCommand.getTimestamp(audioTrackToBeAddedToQ
+                        .getDuration())), false);
+
+        System.out.println("tu " + new ArrayList<>(queue).indexOf(audioTrackToBeAddedToQ));
+        return (
+
+                (String.valueOf(new ArrayList<>(queue).indexOf(audioTrackToBeAddedToQ)).isEmpty()
+                        ? builder
+                        : builder
+                        .addField("Position in queue", String.valueOf(new ArrayList<>(queue).indexOf(audioTrackToBeAddedToQ) + 1),
+                                true))
+        );
+    }
 }
+
 
 
 

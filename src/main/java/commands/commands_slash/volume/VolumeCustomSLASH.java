@@ -70,13 +70,13 @@ public class VolumeCustomSLASH implements ISlashCommands {
     static class embed {
         static MessageEmbed get(Member author, Guild guild, int oldVol) {
             int newVol = getVolume(guild);
-            String increasedOrDecresed = (newVol > oldVol ? "increased" : "decreased");
+            String increasedOrDecreased = (newVol > oldVol ? "increased" : "decreased");
             EmbedBuilder builder = new EmbedBuilder();
             builder.setColor(LibraryClass.getRandomColor());
             builder.setTitle("Volume controller");
             builder.addField("Volume before: ", String.valueOf(oldVol), true);
             builder.addField("New Volume: ", String.valueOf(newVol), true);
-            builder.addField("", "Volume has " + increasedOrDecresed + " by " + Math.abs(newVol - oldVol), false);
+            builder.addField("", "Volume has " + increasedOrDecreased + " by " + Math.abs(newVol - oldVol), false);
             //builder.setFooter("",author.getAvatarUrl());
             return builder.build();
         }
