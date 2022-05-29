@@ -64,7 +64,8 @@ public class Poke extends Support implements ISlashCommands {
     @Nullable
     @Override
     public OptionData getOptionData() {
-        return new OptionData(OptionType.MENTIONABLE, Objects.requireNonNull(getArgName()), "tag a user whom you want to POKE!", true, false);
+        return new OptionData(OptionType.MENTIONABLE, Objects.requireNonNull(getArgName()),
+                "tag a user whom you want to POKE!", true, false);
     }
 
     @Nullable
