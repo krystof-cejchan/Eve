@@ -11,6 +11,7 @@ public class AutoCompleteManager {
     public AutoCompleteManager() {
         addNewAutoComplete(new SongQueueAutoCompletion());
         addNewAutoComplete(new SongSearchAutoCompletion());
+       // addNewAutoComplete(new MemberPokeAutoCompletion());
     }
 
     private void addNewAutoComplete(IAutoCompletion autoCompletion) {

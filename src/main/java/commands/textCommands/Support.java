@@ -37,7 +37,7 @@ public class Support implements ICommands {
         }
     }
 
-    private void sendPrivateMessage(User user, String content) throws ContextException {
+    protected void sendPrivateMessage(User user, String content) throws ContextException {
 
         if (user.isBot())
             return;
