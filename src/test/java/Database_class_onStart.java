@@ -1,6 +1,6 @@
 import db.Database;
 import db.DbCommands;
-import main.onStart.IOnStart;
+import main.onstart.IOnStart;
 import objects.ScriptPathPointer;
 
 import java.io.IOException;

@@ -1,47 +1,45 @@
 package commands;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import javax.annotation.Nullable;
-
 import commands.textCommands.*;
-import main.Prefix;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
 
 public class CommandManager {
 	public final static ArrayList<ICommands> commands = new ArrayList<>();
 
 	public CommandManager() {
-		addNewCommand(new _Help());
-		addNewCommand(new _Prefix());
-		addNewCommand(new _EmotionalDamage());
-		addNewCommand(new _Jesus());
-		addNewCommand(new _Gif());
-		addNewCommand(new _Pp());
-		addNewCommand(new _SaySomethingNice());
-		addNewCommand(new _ServerInfo());
-		addNewCommand(new _Support());
-		addNewCommand(new _Me());
-		addNewCommand(new _Join());
-		addNewCommand(new _Leave());
-		addNewCommand(new _Play());
-		addNewCommand(new _PlayQueue());
-		addNewCommand(new _Queue());
-		addNewCommand(new _Skip1());
-		addNewCommand(new _SkipTo());
-		addNewCommand(new _FF());
-		addNewCommand(new _Remove());
-		addNewCommand(new _NowPlaying());
-		addNewCommand(new _Shuffle());
-		addNewCommand(new _Pause());
-		addNewCommand(new _Resume());
-		addNewCommand(new _Stop());
-		addNewCommand(new _Volume());
-		addNewCommand(new _Mute());
-		addNewCommand(new _Unmute());
-		addNewCommand(new _ECHO());
-		addNewCommand(new _SupportedLanguages());
-		addNewCommand(new _Memes());
+		addNewCommand(new Help());
+		addNewCommand(new Prefix());
+		addNewCommand(new EmotionalDamage());
+		addNewCommand(new Jesus());
+		addNewCommand(new Gif());
+		addNewCommand(new Pp());
+		addNewCommand(new SaySomethingNice());
+		addNewCommand(new ServerInfo());
+		addNewCommand(new Support());
+		addNewCommand(new Me());
+		addNewCommand(new Join());
+		addNewCommand(new Leave());
+		addNewCommand(new Play());
+		addNewCommand(new PlayQueue());
+		addNewCommand(new Queue());
+		addNewCommand(new SkipOne());
+		addNewCommand(new SkipTo());
+		addNewCommand(new Ff());
+		addNewCommand(new Remove());
+		addNewCommand(new NowPlaying());
+		addNewCommand(new Shuffle());
+		addNewCommand(new Pause());
+		addNewCommand(new Resume());
+		addNewCommand(new Stop());
+		addNewCommand(new Volume());
+		addNewCommand(new Mute());
+		addNewCommand(new Unmute());
+		addNewCommand(new EchoText());
+		addNewCommand(new SupportedLanguages());
+		addNewCommand(new Memes());
 
 		/*
 		 * CommandManager.getClassesFromPackage("commands").forEach((CLASS_var) -> { try
@@ -88,7 +86,7 @@ public class CommandManager {
 		try {
 			String[] args = event.getMessage().getContentRaw().split(" ");
 
-			if (args[0].startsWith(Prefix.getValue())) {
+			if (args[0].startsWith(main.Prefix.getValue())) {
 
 				for (ICommands iCommands : commands) {
 

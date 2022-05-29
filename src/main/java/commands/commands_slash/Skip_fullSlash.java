@@ -1,7 +1,7 @@
 package commands.commands_slash;
 
-import commands._pure_commands.Skip_PURE;
-import commands._pure_commands.subparts.GetCurrentTrack;
+import commands.purecommands.SkipPure;
+import commands.purecommands.subparts.GetCurrentTrack;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -14,12 +14,12 @@ public class Skip_fullSlash implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
         if (slashEvent.getOption(Objects.requireNonNull(getArgName())) != null) {
-            Skip_PURE.skipTrackTo(Objects.requireNonNull(Objects.requireNonNull(slashEvent.getMember()).getVoiceState()).getChannel(),
+            SkipPure.skipTrackTo(Objects.requireNonNull(Objects.requireNonNull(slashEvent.getMember()).getVoiceState()).getChannel(),
                     Objects.requireNonNull(Objects.requireNonNull(slashEvent.getGuild()).getSelfMember()
                             .getVoiceState()).getChannel(), slashEvent.getGuild(),
                     Objects.requireNonNull(slashEvent.getOption(getArgName())).getAsInt());
         } else {
-            Skip_PURE.skipTrackTo(Objects.requireNonNull(Objects.requireNonNull(slashEvent.getMember()).getVoiceState()).getChannel(),
+            SkipPure.skipTrackTo(Objects.requireNonNull(Objects.requireNonNull(slashEvent.getMember()).getVoiceState()).getChannel(),
                     Objects.requireNonNull(Objects.requireNonNull(slashEvent.getGuild()).getSelfMember()
                             .getVoiceState()).getChannel(), slashEvent.getGuild(),
                     null);

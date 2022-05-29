@@ -12,7 +12,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static _library_class.LibraryClass.getCurrentDate;
+import static library_class.LibraryClass.getCurrentDate;
 
 public class AddNewRecord extends InsertValuesToTable {
     public void addNewRecordToDatabase_onNewCommandReceived(String commandName, Message msg,

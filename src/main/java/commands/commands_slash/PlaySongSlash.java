@@ -1,6 +1,6 @@
 package commands.commands_slash;
 
-import audio_player.PlayCommand;
+import audioplayer.PlayCommand;
 import enums_annotations_exceptions.annotations.Slash;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;

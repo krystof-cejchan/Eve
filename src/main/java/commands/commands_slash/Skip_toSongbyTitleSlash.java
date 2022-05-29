@@ -1,7 +1,7 @@
 package commands.commands_slash;
 
-import commands._pure_commands.SkipToTitle;
-import commands._pure_commands.subparts.GetCurrentTrack;
+import commands.purecommands.SkipToTitle;
+import commands.purecommands.subparts.GetCurrentTrack;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -10,8 +10,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-import static commands._pure_commands.subparts.GetUsersVoiceChannels.botsAudioChannel;
-import static commands._pure_commands.subparts.GetUsersVoiceChannels.usersAudioChannel;
+import static commands.purecommands.subparts.GetUsersVoiceChannels.botsAudioChannel;
+import static commands.purecommands.subparts.GetUsersVoiceChannels.usersAudioChannel;
 
 public class Skip_toSongbyTitleSlash implements ISlashCommands {
     @Override

@@ -1,6 +1,6 @@
 package commands.admin;
 
-import _library_class.GlobalValues;
+import library_class.GlobalValues;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**

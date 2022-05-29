@@ -1,6 +1,6 @@
 package commands.commands_slash;
 
-import commands._pure_commands.Queue_PURE;
+import commands.purecommands.QueuePure;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 public class QueueSlash implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        slashEvent.reply(Queue_PURE.getQueueAndReturnItAsReadyMessage(slashEvent.getGuild())).queue();
+        slashEvent.reply(QueuePure.getQueueAndReturnItAsReadyMessage(slashEvent.getGuild())).queue();
     }
 
     @Override

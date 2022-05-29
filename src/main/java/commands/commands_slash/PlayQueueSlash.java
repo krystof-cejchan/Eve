@@ -1,8 +1,8 @@
 package commands.commands_slash;
 
-import _library_class.LibraryClass;
-import audio_player.PlayQCommand;
+import audioplayer.PlayQCommand;
 import enums_annotations_exceptions.annotations.Slash;
+import library_class.LibraryClass;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;

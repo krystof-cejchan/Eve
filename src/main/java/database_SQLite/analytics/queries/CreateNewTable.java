@@ -1,7 +1,7 @@
 package database_SQLite.analytics.queries;
 
 import database_SQLite.analytics.DatabaseManager;
-import main.pre_SetUp.IPreSetUp;
+import main.pre_setup.IPreSetUp;
 
 import java.sql.SQLException;
 

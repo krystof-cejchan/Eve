@@ -1,12 +1,12 @@
 package main;
 
 
-import commands.commands_slash.autocompletion.AutocompleteListener;
 import commands.commands_slash.SlashCommandListener;
-import main.afterStartUp.AfterStartUpManager;
-import main.afterStartUp.IAfterStartUp;
-import main.onStart.OnStartManager;
-import main.pre_SetUp.preSetUpManager;
+import commands.commands_slash.autocompletion.AutocompleteListener;
+import main.after_startup.AfterStartUpManager;
+import main.after_startup.IAfterStartUp;
+import main.onstart.OnStartManager;
+import main.pre_setup.preSetUpManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;

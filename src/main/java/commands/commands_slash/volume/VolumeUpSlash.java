@@ -8,8 +8,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-import static commands._pure_commands.Volume_PURE.setVolumeUpOrDown;
-import static commands._pure_commands.subparts.GetCurrentVolume.getVolume;
+import static commands.purecommands.VolumePure.setVolumeUpOrDown;
+import static commands.purecommands.subparts.GetCurrentVolume.getVolume;
 import static enums_annotations_exceptions.enums.VolumeUpDown.UP;
 
 public class VolumeUpSlash implements ISlashCommands {

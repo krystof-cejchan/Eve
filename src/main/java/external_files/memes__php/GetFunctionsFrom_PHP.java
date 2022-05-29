@@ -1,6 +1,6 @@
 package external_files.memes__php;
 
-import _library_class.LibraryClass;
+import library_class.LibraryClass;
 
 import java.io.IOException;
 import java.net.URL;

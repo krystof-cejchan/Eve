@@ -1,11 +1,11 @@
 package main;
 
 
-import _library_class.GlobalValues;
-import audio_player.StopCommand;
+import audioplayer.StopCommand;
 import commands.CommandManager;
 import commands.admin.AdminCommandManager;
 import commands.admin.IAdmin;
+import library_class.GlobalValues;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;

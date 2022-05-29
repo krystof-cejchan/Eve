@@ -1,9 +1,9 @@
 package voice.voice_and_listening;
 
-import _library_class.GlobalValues;
 import commands.commands_voice.IListeningCommands;
 import commands.commands_voice.ListeningCommandManager;
 import database_SQLite.file_database.queries.InsertValuesToTable;
+import library_class.GlobalValues;
 import main.StartUp;
 import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
@@ -19,7 +19,7 @@ import objects.MessageReceivedEvent_CustomClass;
 import objects.ScriptPathPointer;
 import objects.sound_files.SoundFile;
 import org.jetbrains.annotations.NotNull;
-import voice.PythonASCII_Decoding;
+import voice.PythonASCIIDecoding;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
@@ -34,7 +34,7 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static _library_class.LibraryClass.runPyScript;
+import static library_class.LibraryClass.runPyScript;
 
 public class SpeechToText {
     private static final List<byte[]> rescievedBytes = new ArrayList<>();
@@ -159,10 +159,10 @@ public class SpeechToText {
 
     public String getTranscription() {
         try {
-            if (PythonASCII_Decoding.decodeASCIItext(runPyScript(ScriptPathPointer.soundFile2Text,
+            if (PythonASCIIDecoding.decodeASCIItext(runPyScript(ScriptPathPointer.soundFile2Text,
                     SoundFile.getWholePath() + " " + Language.lang)) == null)
                 return null;
-            String rawString = PythonASCII_Decoding.decodeASCIItext(runPyScript(ScriptPathPointer.soundFile2Text,
+            String rawString = PythonASCIIDecoding.decodeASCIItext(runPyScript(ScriptPathPointer.soundFile2Text,
                     SoundFile.getWholePath() + " " + Language.lang));
             assert rawString != null;
             byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);

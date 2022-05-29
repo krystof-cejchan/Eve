@@ -1,6 +1,6 @@
 package commands.commands_others
 
-import _library_class.LibraryClass
+import library_class.LibraryClass
 
 /**
  * A class generating gifs sendEmotionalDamage, sendJesus

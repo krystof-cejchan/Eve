@@ -1,8 +1,8 @@
 package commands.commands_slash.volume;
 
-import _library_class.LibraryClass;
-import commands._pure_commands.Volume_PURE;
 import commands.commands_slash.ISlashCommands;
+import commands.purecommands.VolumePure;
+import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -15,14 +15,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-import static commands._pure_commands.subparts.GetCurrentVolume.getVolume;
+import static commands.purecommands.subparts.GetCurrentVolume.getVolume;
 
 public class VolumeCustomSLASH implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
         try {
             int oldVol = getVolume(slashEvent.getGuild());
-            Volume_PURE.setVolumeTo(slashEvent.getGuild(),
+            VolumePure.setVolumeTo(slashEvent.getGuild(),
                     Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()))).getAsInt());
 
 

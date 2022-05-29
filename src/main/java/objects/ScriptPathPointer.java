@@ -1,6 +1,6 @@
 package objects;
 
-import _library_class.LibraryClass;
+import library_class.LibraryClass;
 
 @SuppressWarnings("unused")
 public class ScriptPathPointer {

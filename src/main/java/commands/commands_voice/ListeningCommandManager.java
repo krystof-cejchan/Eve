@@ -1,6 +1,6 @@
 package commands.commands_voice;
 
-import _library_class.LibraryClass;
+import library_class.LibraryClass;
 import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
@@ -10,17 +10,17 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static _library_class.LibraryClass.isUserInputVerySimilarToTags;
+import static library_class.LibraryClass.isUserInputVerySimilarToTags;
 
 
 public class ListeningCommandManager {
     public final static ArrayList<IListeningCommands> commands = new ArrayList<>();
 
     public ListeningCommandManager() {
-        addNewCommand(new _ChangeDefaultLanguage());
-        addNewCommand(new _Hello());
-        addNewCommand(new _PlaySong());
-        addNewCommand(new _Skip_toNext());
+        addNewCommand(new ChangeDefaultLanguageVoice());
+        addNewCommand(new HelloVoice());
+        addNewCommand(new PlaySongVoice());
+        addNewCommand(new SkipToNextSongVoice());
     }
 
     public static ArrayList<IListeningCommands> getAllCommands() {
