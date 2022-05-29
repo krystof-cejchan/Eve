@@ -21,7 +21,7 @@ public class StartUp {
     public static JDA publicJDA;
 
     public static void main(String[] args) throws Exception {
-
+    //System.out.println(PlaySongVoice.ForbiddenWords.getForbiddenWordsTranslated());
         new preSetUpManager().getPreSetUps().forEach(setUp -> {
             try {
                 setUp.GetReady();

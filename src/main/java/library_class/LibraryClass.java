@@ -8,6 +8,7 @@ import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
+import voice.PythonASCIIDecoding;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -18,7 +19,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -302,7 +302,7 @@ public class LibraryClass {
         try {
             String s;
             Process p = Runtime.getRuntime().exec("python " + fullPath + " " + arguments);
-            p.waitFor(5, TimeUnit.SECONDS);
+            //p.waitFor(5, TimeUnit.SECONDS);
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
             new BufferedReader(new InputStreamReader(p.getErrorStream()));
@@ -313,9 +313,9 @@ public class LibraryClass {
                 output = s;
 
 
-            System.out.println("out " + output);
+            System.out.println(PythonASCIIDecoding.decodeASCIItext("out " + output));
             return /*PythonASCII_Decoding.decodeASCIItext*/(output);
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
 
             e.printStackTrace();
             return "";

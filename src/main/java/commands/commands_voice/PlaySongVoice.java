@@ -1,6 +1,7 @@
 package commands.commands_voice;
 
 import audioplayer.PlayCommand;
+import enums_annotations_exceptions.enums.LANGUAGES.LANGUAGES;
 import enums_annotations_exceptions.enums.MessageTypes;
 import library_class.LibraryClass;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -9,6 +10,7 @@ import voice.voice_and_listening.SpeechToText;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * @author krystof-cejchan
@@ -71,8 +73,7 @@ public class PlaySongVoice implements IListeningCommands {
             System.out.println(searchWords);
             if (!(SpeechToText.Language.getLang().equals("en-GB") || SpeechToText.Language.getLang().equals("en-US")))
                 searchWords.removeIf(currWord -> LibraryClass.runPyScript(ScriptPathPointer.translator, currWord).equalsIgnoreCase(forbidden));
-            else
-                searchWords.removeIf(currWord -> currWord.equalsIgnoreCase(forbidden));
+            else searchWords.removeIf(currWord -> currWord.equalsIgnoreCase(forbidden));
         }
 
         return LibraryClass.getStringFromArrayOfStrings_withSpaces(searchWords);
@@ -98,13 +99,30 @@ public class PlaySongVoice implements IListeningCommands {
          */
     }
 
-    private ArrayList<String> forbiddenWords() {
+    public static ArrayList<String> forbiddenWords() {
         ArrayList<String> forbidden = new ArrayList<>();
         forbidden.add("play");
         forbidden.add("by");
         // forbidden.add("");
         return forbidden;
 
+    }
+
+    public static class ForbiddenWords {
+        public static HashMap<String, ArrayList<String>> getForbiddenWordsTranslated() {
+            HashMap<String, ArrayList<String>> hashMap = new HashMap<>();
+            ArrayList<String> argList = new ArrayList<>();
+            for (LANGUAGES language : LANGUAGES.values()) {
+                System.out.println(language);
+                for (String forbiddenWord : PlaySongVoice.forbiddenWords()) {
+                    argList.add(LibraryClass.runPyScript(ScriptPathPointer.customTranslator,
+                            LANGUAGES.getShortLang(language)
+                                    .substring(0, LANGUAGES.getShortLang(language).indexOf("-")) + " en " + forbiddenWord));
+                }
+                hashMap.put(LANGUAGES.getShortLang(language), argList);
+            }
+            return hashMap;
+        }
     }
 
 }
