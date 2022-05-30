@@ -2,22 +2,24 @@ package commands.commands_slash;
 
 import commands.purecommands.SkipPure;
 import commands.purecommands.subparts.GetCurrentTrack;
+import enums_annotations_exceptions.enums.Arguments;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Skip_fullSlash implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        if (slashEvent.getOption(Objects.requireNonNull(getArgName())) != null) {
+        if (slashEvent.getOption(Objects.requireNonNull(Objects.requireNonNull(getArgName()).get(0))) != null) {
             SkipPure.skipTrackTo(Objects.requireNonNull(Objects.requireNonNull(slashEvent.getMember()).getVoiceState()).getChannel(),
                     Objects.requireNonNull(Objects.requireNonNull(slashEvent.getGuild()).getSelfMember()
                             .getVoiceState()).getChannel(), slashEvent.getGuild(),
-                    Objects.requireNonNull(slashEvent.getOption(getArgName())).getAsInt());
+                    Objects.requireNonNull(slashEvent.getOption(getArgName().get(0))).getAsInt());
         } else {
             SkipPure.skipTrackTo(Objects.requireNonNull(Objects.requireNonNull(slashEvent.getMember()).getVoiceState()).getChannel(),
                     Objects.requireNonNull(Objects.requireNonNull(slashEvent.getGuild()).getSelfMember()
@@ -43,21 +45,19 @@ public class Skip_fullSlash implements ISlashCommands {
     }
 
     @Override
-    public boolean takesArguments() {
-        return true;
+    public @NotNull Arguments takesArguments() {
+        return Arguments.ONE;
     }
 
-    @Nullable
     @Override
-    public OptionData getOptionData() {
-        return new OptionData(OptionType.INTEGER, Objects.requireNonNull(getArgName()),
-                "index of the track you wish to skip to; if left empty, one track will be skipped", false);
+    public List<OptionData> getOptionData() {
+        return new ArrayList<>(List.of(new OptionData(OptionType.INTEGER, Objects.requireNonNull(Objects.requireNonNull(getArgName()).get(0)),
+                "index of the track you wish to skip to; if left empty, one track will be skipped", false)));
     }
 
-    @Nullable
     @Override
-    public String getArgName() {
-        return "index";
+    public List<String> getArgName() {
+        return new ArrayList<>(List.of("index"));
     }
 
     @Override

@@ -1,10 +1,12 @@
 package commands.commands_slash;
 
 import commands.purecommands.QueuePure;
+import enums_annotations_exceptions.enums.Arguments;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class QueueSlash implements ISlashCommands {
     @Override
@@ -23,19 +25,17 @@ public class QueueSlash implements ISlashCommands {
     }
 
     @Override
-    public boolean takesArguments() {
-        return false;
+    public @NotNull Arguments takesArguments() {
+        return Arguments.NONE;
     }
 
-    @Nullable
     @Override
-    public OptionData getOptionData() {
+    public List<OptionData> getOptionData() {
         return null;
     }
 
-    @Nullable
     @Override
-    public String getArgName() {
+    public List<String> getArgName() {
         return null;
     }
 

@@ -2,6 +2,7 @@ package commands.commands_slash.volume;
 
 import commands.commands_slash.ISlashCommands;
 import commands.purecommands.VolumePure;
+import enums_annotations_exceptions.enums.Arguments;
 import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -11,8 +12,9 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static commands.purecommands.subparts.GetCurrentVolume.getVolume;
@@ -22,8 +24,9 @@ public class VolumeCustomSLASH implements ISlashCommands {
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
         try {
             int oldVol = getVolume(slashEvent.getGuild());
-            VolumePure.setVolumeTo(slashEvent.getGuild(),
-                    Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()))).getAsInt());
+
+            VolumePure.setVolumeTo(slashEvent.getGuild(), (int) Objects.requireNonNull(slashEvent.getOption(Objects
+                    .requireNonNull(Objects.requireNonNull(getArgName()).get(0)))).getAsDouble());
 
 
             slashEvent.replyEmbeds(embed.get(Objects.requireNonNull(slashEvent.getMember()), slashEvent.getGuild(), oldVol)).queue();
@@ -44,22 +47,21 @@ public class VolumeCustomSLASH implements ISlashCommands {
     }
 
     @Override
-    public boolean takesArguments() {
-        return true;
+    public @NotNull Arguments takesArguments() {
+        return Arguments.ONE;
     }
 
-    @Nullable
     @Override
-    public OptionData getOptionData() {
-        return new OptionData(OptionType.INTEGER, Objects.requireNonNull(getArgName()),
-                "enter an integer number",
-                true, false);
+    public List<OptionData> getOptionData() {
+        return new ArrayList<>(List.of(new OptionData(OptionType.NUMBER, Objects.requireNonNull(Objects.requireNonNull
+                (getArgName()).get(0)),
+                "enter an integer number from 0 - 200 (150 recommended)",
+                true, false).setMinValue(0).setMaxValue(200)));
     }
 
-    @Nullable
     @Override
-    public String getArgName() {
-        return "volume";
+    public List<String> getArgName() {
+        return new ArrayList<>(List.of("volume"));
     }
 
     @Override
@@ -76,8 +78,10 @@ public class VolumeCustomSLASH implements ISlashCommands {
             builder.setTitle("Volume controller");
             builder.addField("Volume before: ", String.valueOf(oldVol), true);
             builder.addField("New Volume: ", String.valueOf(newVol), true);
-            builder.addField("", "Volume has " + increasedOrDecreased + " by " + Math.abs(newVol - oldVol), false);
-            //builder.setFooter("",author.getAvatarUrl());
+            builder.addField("", "Volume has " + increasedOrDecreased + " by " + Math.abs(newVol - oldVol),
+                    false);
+            builder.setFooter(author.getNickname() + " [" + author.getUser().getName() + "]",
+                    author.getEffectiveAvatarUrl());
             return builder.build();
         }
     }

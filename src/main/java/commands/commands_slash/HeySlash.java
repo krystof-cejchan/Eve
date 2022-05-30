@@ -1,12 +1,14 @@
 package commands.commands_slash;
 
 import enums_annotations_exceptions.annotations.Slash;
+import enums_annotations_exceptions.enums.Arguments;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.exceptions.RateLimitedException;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import voice.voice_and_listening.SpeechToText;
+
+import java.util.List;
 
 @Slash()
 public class HeySlash implements ISlashCommands {
@@ -30,19 +32,17 @@ public class HeySlash implements ISlashCommands {
     }
 
     @Override
-    public boolean takesArguments() {
-        return false;
+    public @NotNull Arguments takesArguments() {
+        return Arguments.NONE;
     }
 
-    @Nullable
     @Override
-    public OptionData getOptionData() {
+    public List<OptionData> getOptionData() {
         return null;
     }
 
-    @Nullable
     @Override
-    public String getArgName() {
+    public List<String> getArgName() {
         return null;
     }
 

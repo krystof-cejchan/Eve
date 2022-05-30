@@ -6,13 +6,16 @@ import commands.commands_slash.SlashCommandManager;
 import main.StartUp;
 import net.dv8tion.jda.api.entities.Guild;
 
+import java.util.Objects;
+
 public class AddingSlashCommandsToGuilds implements IAfterStartUp {
     protected void addSlashCommandsToTheGuilds() {
         SlashCommandManager slashCommandManager = new SlashCommandManager();
         for (Guild guild : StartUp.publicJDA.getGuilds()) {
 
             System.out.println(guild);
-            //guild.updateCommands().queue();
+            if (library_class.GlobalValues.resetSlashCommands)
+                guild.updateCommands().queue();
 
             for (ISlashCommands iSlashCommands : slashCommandManager.getAllCommands()) {
                 System.out.println(slashCommandManager.getAllCommands());
@@ -22,13 +25,17 @@ public class AddingSlashCommandsToGuilds implements IAfterStartUp {
 
                 //if (!iSlashCommands.getClass().getAnnotation(Slash.class).active()) continue;
 
+                switch (iSlashCommands.takesArguments()) {
+                    case NONE -> guild.upsertCommand(iSlashCommands.getName().toLowerCase(), iSlashCommands.getDescription())
+                            .queue();
 
-                if (!iSlashCommands.takesArguments())
-                    guild.upsertCommand(iSlashCommands.getName().toLowerCase(), iSlashCommands.getDescription()).queue();
+                    case ONE -> guild.upsertCommand(iSlashCommands.getName().toLowerCase(), iSlashCommands.getDescription())
+                            .addOptions(Objects.requireNonNull(iSlashCommands.getOptionData()).get(0)).queue();
 
-                else {
-                    guild.upsertCommand(iSlashCommands.getName().toLowerCase(),
-                            iSlashCommands.getDescription()).addOptions(iSlashCommands.getOptionData()).queue();
+                    case MULTIPLE -> guild.upsertCommand(iSlashCommands.getName().toLowerCase(), iSlashCommands
+                            .getDescription()).addOptions(Objects.requireNonNull(iSlashCommands.getOptionData())).queue();
+
+                    default -> throw new NullPointerException("slash command takes unknown number of arguments/options");
 
                 }
 

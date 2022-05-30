@@ -2,12 +2,14 @@ package commands.commands_slash;
 
 import audioplayer.PlayCommand;
 import enums_annotations_exceptions.annotations.Slash;
+import enums_annotations_exceptions.enums.Arguments;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Slash()
@@ -29,7 +31,7 @@ public class PlaySongSlash implements ISlashCommands {
         else
             slashEvent.reply("Track was not added successfully").queue();*/
         new PlayCommand().playMusicFromSlash(slashEvent, Objects.requireNonNull(slashEvent.getOption
-                        (Objects.requireNonNull(getArgName()))).getAsString(),
+                        (Objects.requireNonNull(getArgName()).get(0))).getAsString(),
                 null);
 
     }
@@ -51,8 +53,8 @@ public class PlaySongSlash implements ISlashCommands {
     }
 
     @Override
-    public boolean takesArguments() {
-        return true;
+    public @NotNull Arguments takesArguments() {
+        return Arguments.ONE;
     }
 
     /**
@@ -60,17 +62,16 @@ public class PlaySongSlash implements ISlashCommands {
      *
      * @return OptionData
      */
-    @Nullable
     @Override
-    public OptionData getOptionData() {
-        return new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()), "paste track url or title",
-                true, false);
+    public List<OptionData> getOptionData() {
+        return new ArrayList<>(List.of(new OptionData(OptionType.STRING, Objects.requireNonNull(Objects.requireNonNull(getArgName())
+                .get(0)), "paste track url or title",
+                true, false)));
     }
 
-    @Nullable
     @Override
-    public String getArgName() {
-        return "song";
+    public List<String> getArgName() {
+        return new ArrayList<>(List.of("song"));
     }
 
     @Override

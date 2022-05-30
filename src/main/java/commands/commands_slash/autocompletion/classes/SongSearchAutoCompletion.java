@@ -26,10 +26,9 @@ public class SongSearchAutoCompletion implements IAutoCompletion {
 
         while (!task.isDone()) {System.out.println("wait");}
 */
-        ArrayList<String> songs = new ArrayList<>(List.of(runPyScript(new ScriptFiles(ScriptFilesLocation.fromLOCAL)
-                .getYtSearch().getAbsolutePath(), event.getFocusedOption().getValue()).split("\n")));
 
-        return songs;
+        return new ArrayList<>(List.of(runPyScript(new ScriptFiles(ScriptFilesLocation.fromLOCAL)
+                .getYtSearch().getAbsolutePath(), event.getFocusedOption().getValue()).split("\n")));
     }
 
     @Override

@@ -1,10 +1,12 @@
 package commands.commands_slash;
 
+
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public interface ISlashCommands {
     /**
@@ -24,10 +26,10 @@ public interface ISlashCommands {
      * @return name of the command
      */
     @NotNull
-
     String getName();
 
-    boolean takesArguments();
+    @NotNull
+    enums_annotations_exceptions.enums.Arguments takesArguments();
 
     /**
      * options for slash commands
@@ -35,10 +37,12 @@ public interface ISlashCommands {
      * @return OptionData
      */
     @Nullable
-    OptionData getOptionData();
+    List<OptionData> getOptionData();
 
     @Nullable
-    String getArgName();
+    List<String> getArgName();
+
+
 
     boolean isGuildOnly();
 

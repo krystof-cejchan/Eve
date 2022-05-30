@@ -16,9 +16,14 @@ public class GlobalValues {
     /**
      * [audio_player.QueueCommand]
      */
-    public static int shownTrackCount = 30;
+    public static final int shownTrackCount = 30;
     /**
      * {@link commands.admin.IAdmin}
      */
-    public static String adminPrefix = "$$$";
+    public static final String adminPrefix = "$$$";
+    /**
+     * {@link main.after_startup.AddingSlashCommandsToGuilds}
+     */
+    public static final boolean resetSlashCommands = false;
+
 }

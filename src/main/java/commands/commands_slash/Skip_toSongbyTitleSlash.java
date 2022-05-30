@@ -2,12 +2,14 @@ package commands.commands_slash;
 
 import commands.purecommands.SkipToTitle;
 import commands.purecommands.subparts.GetCurrentTrack;
+import enums_annotations_exceptions.enums.Arguments;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static commands.purecommands.subparts.GetUsersVoiceChannels.botsAudioChannel;
@@ -18,8 +20,8 @@ public class Skip_toSongbyTitleSlash implements ISlashCommands {
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
         SkipToTitle.skipToTrackbyTitle(usersAudioChannel(Objects.requireNonNull(slashEvent.getMember())),
                 botsAudioChannel(slashEvent.getGuild()),
-                slashEvent.getGuild(), Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName())))
-                        .getAsString());
+                slashEvent.getGuild(), Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(Objects
+                        .requireNonNull(getArgName()).get(0)))).getAsString());
 
         slashEvent.reply("Skipped to **" + Objects.requireNonNull(GetCurrentTrack.getTrack(slashEvent.getGuild()))
                 .getInfo().title + "**").queue();
@@ -36,22 +38,21 @@ public class Skip_toSongbyTitleSlash implements ISlashCommands {
     }
 
     @Override
-    public boolean takesArguments() {
-        return true;
+    public @NotNull Arguments takesArguments() {
+        return Arguments.ONE;
     }
 
-    @Nullable
     @Override
-    public OptionData getOptionData() {
-        return new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()),
-                "title of the song to be skipped to  (discord does not allow to show more than 25 results)",
-                true, true);
+    public List<OptionData> getOptionData() {
+        return new ArrayList<>(List.of(new OptionData(OptionType.STRING, Objects.requireNonNull(Objects.requireNonNull(
+                        getArgName())
+                .get(0)), "title of the song to be skipped to  (discord does not allow to show more than 25 results)",
+                true, true)));
     }
 
-    @Nullable
     @Override
-    public String getArgName() {
-        return "tracktitle";
+    public List<String> getArgName() {
+        return new ArrayList<>(List.of("tracktitle"));
     }
 
     @Override

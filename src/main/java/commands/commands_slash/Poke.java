@@ -1,6 +1,7 @@
 package commands.commands_slash;
 
 import commands.textCommands.Support;
+import enums_annotations_exceptions.enums.Arguments;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
@@ -11,23 +12,36 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Poke extends Support implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        Member member = Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()))).getAsMember();
+        Member member = Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()).get(0))).getAsMember();
+        String content = null;
         try {
-            Role role = Objects.requireNonNull(slashEvent.getOption(getArgName())).getAsRole();
+            content = slashEvent.getOption(getArgName().get(1)).getAsString();
+        } catch (NullPointerException ignored) {
+            //parameter was not set
+            //no need to handle exception
+        }
+
+
+        try {
+            Role role = Objects.requireNonNull(slashEvent.getOption(getArgName().get(0))).getAsRole();
             MessageBuilder builder = new MessageBuilder();
             builder.append("Poke sent to:```ini\n[");
             for (Member m : Objects.requireNonNull(slashEvent.getGuild()).getMembers()) {
                 if (m.getRoles().contains(role)) {
-                    sendMsg(slashEvent, m);
+                    System.out.println(m);
+
+                    sendMsg(slashEvent, m, content);
                     builder.append(m.getEffectiveName()).append("\t");
                 }
             }
-            slashEvent.reply(builder.replaceLast("\t","").append("]\n```").build()).queue();
+            slashEvent.reply(builder.replaceLast("\t", "").append("]\n```").build()).queue();
 
         } catch (IllegalStateException ignored) {
 
@@ -37,7 +51,7 @@ public class Poke extends Support implements ISlashCommands {
         }
         try {
             if (member != null) {
-                sendMsg(slashEvent, member);
+                sendMsg(slashEvent, member, content);
                 slashEvent.reply(member.getEffectiveName() + " was poked").queue();
             }
         } catch (ContextException e) {
@@ -57,21 +71,21 @@ public class Poke extends Support implements ISlashCommands {
     }
 
     @Override
-    public boolean takesArguments() {
-        return true;
+    public @NotNull Arguments takesArguments() {
+        return Arguments.MULTIPLE;
     }
 
-    @Nullable
     @Override
-    public OptionData getOptionData() {
-        return new OptionData(OptionType.MENTIONABLE, Objects.requireNonNull(getArgName()),
-                "tag a user whom you want to POKE!", true, false);
+    public List<OptionData> getOptionData() {
+        return new ArrayList<>(List.of(new OptionData(OptionType.MENTIONABLE, Objects.requireNonNull(Objects.requireNonNull(getArgName()).get(0)),
+                        "tag a user whom you want to POKE!", true, false)
+                , new OptionData(OptionType.STRING, Objects.requireNonNull(Objects.requireNonNull(getArgName()).get(1)),
+                        "write custom message to the user", false, false)));
     }
 
-    @Nullable
     @Override
-    public String getArgName() {
-        return "member";
+    public List<String> getArgName() {
+        return new ArrayList<>(List.of("member", "custom_message"));
     }
 
     @Override
@@ -79,8 +93,14 @@ public class Poke extends Support implements ISlashCommands {
         return true;
     }
 
-    private void sendMsg(SlashCommandInteractionEvent event, Member member) throws ContextException {
-        sendPrivateMessage(member.getUser(), "Hey!\n" + Objects.requireNonNull(event.getMember()).getEffectiveName()
-                + " needs you to join " + Objects.requireNonNull(event.getGuild()).getName());
+    private void sendMsg(SlashCommandInteractionEvent event, Member member, @Nullable String content)
+            throws ContextException {
+        if (content == null) {
+            content = "Hey!\n" + Objects.requireNonNull(event.getMember()).getEffectiveName()
+                    + " needs you to join " + Objects.requireNonNull(event.getGuild()).getName();
+        }
+
+        sendPrivateMessage(member.getUser(), content + "\n*//Sent & Poked by " + member.getUser().getAsMention() + " from '" +
+                Objects.requireNonNull(event.getGuild()).getName() + "'*");
     }
 }
