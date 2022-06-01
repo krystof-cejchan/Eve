@@ -42,6 +42,7 @@ public class Support implements ICommands {
         if (user.isBot())
             return;
 
+
         user.openPrivateChannel().flatMap(channel -> channel.sendMessage(content)).queue();
 
     }

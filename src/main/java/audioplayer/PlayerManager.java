@@ -8,7 +8,7 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import enums_annotations_exceptions.enums.MessageTypes;
-import enums_annotations_exceptions.exceptions.NoTrackMatch;
+import enums_annotations_exceptions.exceptions.NoTrackMatchException;
 import library_class.LibraryClass;
 import library_class.SendPrivateMsgToDev;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -255,8 +255,8 @@ public class PlayerManager {
                 public void noMatches() {
                     try {
                         event2.reply("Nothing matches your input :(").queue();
-                        throw new NoTrackMatch("nothing matches");
-                    } catch (NoTrackMatch e) {
+                        throw new NoTrackMatchException("nothing matches");
+                    } catch (NoTrackMatchException e) {
                         e.printStackTrace();
                     }
 

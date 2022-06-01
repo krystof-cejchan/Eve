@@ -15,7 +15,6 @@ public class GetUsersVoiceChannels {
     }
 
     public static AudioChannel botsAudioChannel(Guild guild) {
-
         return (Objects.requireNonNull(Objects.requireNonNull(guild).getSelfMember().getVoiceState())).getChannel();
     }
 
