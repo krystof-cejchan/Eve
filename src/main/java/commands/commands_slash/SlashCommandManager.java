@@ -22,6 +22,7 @@ public class SlashCommandManager {
         addNewCommand(new VolumeUpSlash());
         addNewCommand(new VolumeDownSlash());
         addNewCommand(new Poke());
+        addNewCommand(new NowPlaying());
 
         commands.sort((commands1, commands2) -> commands1.getName().compareToIgnoreCase(commands2.getName()));
     }

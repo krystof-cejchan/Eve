@@ -73,7 +73,6 @@ public class NowPlayingCommand {
                         embed.addField("By:", info.author, false);
                         embed.addField("Duration", position + "  /  " + duration + " \nTime left: " + timeLeft, false);
                         event.getChannel().sendMessageEmbeds(embed.build()).queue();
-                        embed.clear();
                     }
 
                 }

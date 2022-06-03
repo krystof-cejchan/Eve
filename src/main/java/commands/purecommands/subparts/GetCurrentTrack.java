@@ -12,6 +12,8 @@ import javax.annotation.Nullable;
 public class GetCurrentTrack {
     @Nullable
     public static AudioTrack getTrack(Guild guild) {
+
         return PlayerManager.getInstance().getMusicManager(guild).AUDIOPLAYER.getPlayingTrack();
+
     }
 }
