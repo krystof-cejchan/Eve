@@ -113,7 +113,7 @@ public class Poke extends PokeFrame implements ISlashCommands {
                     .flatMap(succ -> event.getChannel().sendMessageEmbeds(new EmbedBuilder().setColor(
                                     new Color(102, 255, 0))
                             .addField("Poke has been sent!! \uD83D\uDE07",
-                                    "*" + Objects.requireNonNull(event.getMember())
+                                    '*' + Objects.requireNonNull(event.getMember())
                                             .getUser().getName() + "* has just triggered '" + this.getName() + "' command",
                                     false)
                             .setFooter(getNormalDateAndTime(currentDateTime(true),
@@ -122,7 +122,7 @@ public class Poke extends PokeFrame implements ISlashCommands {
                     .onErrorFlatMap(CANNOT_SEND_TO_USER::test,
                             (err) -> event.getChannel().sendMessageEmbeds(new EmbedBuilder().setColor(Color.RED)
                                     .addField("Poke has failed!! \uD83D\uDE23",
-                                            "*" + Objects.requireNonNull(event.getMember())
+                                            '*' + Objects.requireNonNull(event.getMember())
                                                     .getUser().getName() + "* has just triggered '" + this.getName() + "' command",
                                             false)
                                     .setFooter(getNormalDateAndTime(currentDateTime(true),

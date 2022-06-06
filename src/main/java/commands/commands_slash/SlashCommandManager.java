@@ -29,6 +29,11 @@ public class SlashCommandManager {
        // commands.sort((commands1, commands2) -> commands1.getName().compareToIgnoreCase(commands2.getName()));
     }
 
+   // public static Set<Class> findAllClassesUsingReflectionsLibrary(String packageName) {
+   //     Reflections reflections = new Reflections(packageName, new SubTypesScanner(false));
+   //     return new HashSet<>(reflections.getSubTypesOf(Object.class));
+   // }
+
     public ArrayList<ISlashCommands> getAllCommands() {
         return commands;
     }
