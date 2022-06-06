@@ -1,5 +1,5 @@
 package enums_annotations_exceptions.enums;
 
-public enum Arguments {
+public enum ArgumentSlashCommandCount {
     NONE,ONE,MULTIPLE
 }

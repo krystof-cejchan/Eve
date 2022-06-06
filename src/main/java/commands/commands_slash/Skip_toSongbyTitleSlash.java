@@ -2,7 +2,7 @@ package commands.commands_slash;
 
 import commands.purecommands.SkipToTitle;
 import commands.purecommands.subparts.GetCurrentTrack;
-import enums_annotations_exceptions.enums.Arguments;
+import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -38,8 +38,8 @@ public class Skip_toSongbyTitleSlash implements ISlashCommands {
     }
 
     @Override
-    public @NotNull Arguments takesArguments() {
-        return Arguments.ONE;
+    public @NotNull ArgumentSlashCommandCount takesArguments() {
+        return ArgumentSlashCommandCount.ONE;
     }
 
     @Override
@@ -57,6 +57,11 @@ public class Skip_toSongbyTitleSlash implements ISlashCommands {
 
     @Override
     public boolean isGuildOnly() {
+        return true;
+    }
+
+    @Override
+    public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return true;
     }
 }

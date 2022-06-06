@@ -296,16 +296,19 @@ public class PlayerManager {
                          "", author.getAvatarUrl())*/
                 .setTitle("New Track has been added to the Queue:")
                 .addField("Title", audioTrackToBeAddedToQ.getInfo().title, true)
-                .addField("Author", audioTrackToBeAddedToQ.getInfo().author, true)
+                .addField("Author/Channel", audioTrackToBeAddedToQ.getInfo().author, true)
                 .addField("TimeLine:", "Length " + (NowPlayingCommand.getTimestamp(audioTrackToBeAddedToQ
-                        .getDuration())), false);
+                        .getDuration())), false)
+                .addField("Source URL", "[Link to the source](" + audioTrackToBeAddedToQ.getInfo().uri + ")",
+                        true)
+                .setFooter(author.getUser().getAsTag(), author.getEffectiveAvatarUrl());
 
         return (
-
                 (String.valueOf(new ArrayList<>(queue).indexOf(audioTrackToBeAddedToQ)).isEmpty()
                         ? builder
                         : builder
-                        .addField("Position in queue", String.valueOf(new ArrayList<>(queue).indexOf(audioTrackToBeAddedToQ) + 1),
+                        .addField("Position", new ArrayList<>(queue).indexOf(audioTrackToBeAddedToQ) + 1
+                                        + ". in the queue",
                                 true))
         );
     }

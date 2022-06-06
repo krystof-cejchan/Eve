@@ -1,6 +1,6 @@
 package commands.commands_slash;
 
-import enums_annotations_exceptions.enums.Arguments;
+import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import enums_annotations_exceptions.exceptions.UserCannotBeReachedThroughPrivateMessageException;
 import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -56,8 +56,8 @@ public class Poke extends PokeFrame implements ISlashCommands {
     }
 
     @Override
-    public @NotNull Arguments takesArguments() {
-        return Arguments.MULTIPLE;
+    public @NotNull ArgumentSlashCommandCount takesArguments() {
+        return ArgumentSlashCommandCount.MULTIPLE;
     }
 
     @Override
@@ -76,6 +76,11 @@ public class Poke extends PokeFrame implements ISlashCommands {
     @Override
     public boolean isGuildOnly() {
         return true;
+    }
+
+    @Override
+    public boolean isUserRequiredToBeInTheSameChannelAsBot() {
+        return false;
     }
 
     /**

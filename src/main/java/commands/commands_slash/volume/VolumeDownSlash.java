@@ -1,7 +1,7 @@
 package commands.commands_slash.volume;
 
 import commands.commands_slash.ISlashCommands;
-import enums_annotations_exceptions.enums.Arguments;
+import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
@@ -33,8 +33,8 @@ public class VolumeDownSlash implements ISlashCommands {
     }
 
     @Override
-    public @NotNull Arguments takesArguments() {
-        return Arguments.NONE;
+    public @NotNull ArgumentSlashCommandCount takesArguments() {
+        return ArgumentSlashCommandCount.NONE;
     }
 
     @Override
@@ -49,6 +49,11 @@ public class VolumeDownSlash implements ISlashCommands {
 
     @Override
     public boolean isGuildOnly() {
+        return true;
+    }
+
+    @Override
+    public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return true;
     }
 }

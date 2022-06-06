@@ -1,7 +1,7 @@
 package commands.commands_slash;
 
 import enums_annotations_exceptions.annotations.Slash;
-import enums_annotations_exceptions.enums.Arguments;
+import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import main.VoiceChannels;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -27,8 +27,8 @@ public class JoinSlash implements ISlashCommands {
     }
 
     @Override
-    public @NotNull Arguments takesArguments() {
-        return Arguments.NONE;
+    public @NotNull ArgumentSlashCommandCount takesArguments() {
+        return ArgumentSlashCommandCount.NONE;
     }
 
     @Override
@@ -44,5 +44,10 @@ public class JoinSlash implements ISlashCommands {
     @Override
     public boolean isGuildOnly() {
         return true;
+    }
+
+    @Override
+    public boolean isUserRequiredToBeInTheSameChannelAsBot() {
+        return false;
     }
 }

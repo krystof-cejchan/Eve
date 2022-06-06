@@ -2,7 +2,7 @@ package commands.commands_slash.volume;
 
 import commands.commands_slash.ISlashCommands;
 import commands.purecommands.VolumePure;
-import enums_annotations_exceptions.enums.Arguments;
+import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -47,8 +47,8 @@ public class VolumeCustomSLASH implements ISlashCommands {
     }
 
     @Override
-    public @NotNull Arguments takesArguments() {
-        return Arguments.ONE;
+    public @NotNull ArgumentSlashCommandCount takesArguments() {
+        return ArgumentSlashCommandCount.ONE;
     }
 
     @Override
@@ -66,6 +66,11 @@ public class VolumeCustomSLASH implements ISlashCommands {
 
     @Override
     public boolean isGuildOnly() {
+        return true;
+    }
+
+    @Override
+    public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return true;
     }
 

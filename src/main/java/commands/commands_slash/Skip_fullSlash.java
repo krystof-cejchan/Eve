@@ -2,7 +2,7 @@ package commands.commands_slash;
 
 import commands.purecommands.SkipPure;
 import commands.purecommands.subparts.GetCurrentTrack;
-import enums_annotations_exceptions.enums.Arguments;
+import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -36,17 +36,17 @@ public class Skip_fullSlash implements ISlashCommands {
 
     @Override
     public @NotNull String getDescription() {
-        return "skips to a certain song by its index";
+        return "skips to a certain song by its index or if no index is provided then 1 track will be skipped";
     }
 
     @Override
     public @NotNull String getName() {
-        return "skiptoindex";
+        return "skipto";
     }
 
     @Override
-    public @NotNull Arguments takesArguments() {
-        return Arguments.ONE;
+    public @NotNull ArgumentSlashCommandCount takesArguments() {
+        return ArgumentSlashCommandCount.ONE;
     }
 
     @Override
@@ -62,6 +62,11 @@ public class Skip_fullSlash implements ISlashCommands {
 
     @Override
     public boolean isGuildOnly() {
+        return true;
+    }
+
+    @Override
+    public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return true;
     }
 }

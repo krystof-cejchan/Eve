@@ -23,8 +23,10 @@ public class SlashCommandManager {
         addNewCommand(new VolumeDownSlash());
         addNewCommand(new Poke());
         addNewCommand(new NowPlaying());
+        addNewCommand(new FastForwardFrom0akaSetTrackPositionToX());
+        addNewCommand(new FastForward());
 
-        commands.sort((commands1, commands2) -> commands1.getName().compareToIgnoreCase(commands2.getName()));
+       // commands.sort((commands1, commands2) -> commands1.getName().compareToIgnoreCase(commands2.getName()));
     }
 
     public ArrayList<ISlashCommands> getAllCommands() {

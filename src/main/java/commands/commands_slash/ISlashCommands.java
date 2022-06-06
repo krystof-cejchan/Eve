@@ -1,6 +1,7 @@
 package commands.commands_slash;
 
 
+import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
@@ -29,7 +30,7 @@ public interface ISlashCommands {
     String getName();
 
     @NotNull
-    enums_annotations_exceptions.enums.Arguments takesArguments();
+    ArgumentSlashCommandCount takesArguments();
 
     /**
      * options for slash commands
@@ -45,6 +46,8 @@ public interface ISlashCommands {
 
 
     boolean isGuildOnly();
+
+    boolean isUserRequiredToBeInTheSameChannelAsBot();
 
 
 }

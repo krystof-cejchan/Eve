@@ -4,7 +4,7 @@ import audioplayer.NowPlayingCommand;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import commands.purecommands.subparts.GetCurrentTrack;
-import enums_annotations_exceptions.enums.Arguments;
+import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -48,8 +48,8 @@ public class NowPlaying implements ISlashCommands {
 
     @NotNull
     @Override
-    public Arguments takesArguments() {
-        return Arguments.NONE;
+    public ArgumentSlashCommandCount takesArguments() {
+        return ArgumentSlashCommandCount.NONE;
     }
 
     @Nullable
@@ -67,5 +67,10 @@ public class NowPlaying implements ISlashCommands {
     @Override
     public boolean isGuildOnly() {
         return true;
+    }
+
+    @Override
+    public boolean isUserRequiredToBeInTheSameChannelAsBot() {
+        return false;
     }
 }
