@@ -28,14 +28,14 @@ public class Play implements ICommands {
         StringBuilder urlOrSearchKey = new StringBuilder();
 
         if (LibraryClass.isLink(args[1])) {
-            playC.playMusic(event, args[1], true, MessageTypes.REG_MESSAGE, null);
+            playC.playMusic(event, args[1], true, MessageTypes.REG_MESSAGE, null,false);
 
         } else {
             for (int i = 1; i < args.length; i++) {
                 urlOrSearchKey.append(args[i]).append(" ");
 
             }
-            playC.playMusic(event, urlOrSearchKey.toString(), false, MessageTypes.REG_MESSAGE, null);
+            playC.playMusic(event, urlOrSearchKey.toString(), false, MessageTypes.REG_MESSAGE, null,false);
         }
 
     }

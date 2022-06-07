@@ -65,7 +65,7 @@ public class StartUp {
         jda.setRawEventsEnabled(true);
         jda.enableCache(CacheFlag.VOICE_STATE);
         jda.setStatus(OnlineStatus.ONLINE);
-        jda.setActivity(Activity.playing(";hey!"));
+        jda.setActivity(Activity.watching("\uD835\uDDE8\uD835\uDE04\uD835\uDDE8"));
         jda.addEventListeners(new Listener(), new SlashCommandListener(), new AutocompleteListener());
         publicJDA = jda.build().awaitReady();
         //jda.build().awaitReady();

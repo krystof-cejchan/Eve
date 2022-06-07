@@ -28,7 +28,7 @@ public class PlaySongVoice implements IListeningCommands {
 
         PlayCommand playCommand = new PlayCommand();
         event.getChannel().sendMessage("Searching for " + extracttheSong(args)).queue();
-        playCommand.playMusic(event, extracttheSong(args), false, MessageTypes.EMBED_MESSAGE, usersInput);
+        playCommand.playMusic(event, extracttheSong(args), false, MessageTypes.EMBED_MESSAGE, usersInput,false);
 
     }
 

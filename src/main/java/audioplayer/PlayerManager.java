@@ -71,7 +71,8 @@ public class PlayerManager {
      * @param track new track to be added to the queue
      */
     public void sendRegularMessage(MessageReceivedEvent event, AudioTrack track) {
-        event.getMessage().reply("```yaml\n" + "Adding to the queue:").append(track.getInfo().title).append("  #  from: ").append(track.getInfo().author).append(" channel```").queue();
+        event.getMessage().reply("```yaml\n" + "Adding to the queue:").append(track.getInfo().title)
+                .append("  #  from: ").append(track.getInfo().author).append(" channel```").queue();
     }
 
     /**
@@ -85,7 +86,8 @@ public class PlayerManager {
      * @throws IllegalArgumentException if arguments are incorrect
      * @author krystof-cejchan
      */
-    public MessageEmbed createEmbedMsg(AudioTrack track, String usersInput, MessageReceivedEvent event, String searchingfor) throws IllegalArgumentException {
+    public MessageEmbed createEmbedMsg(AudioTrack track, String usersInput, MessageReceivedEvent event,
+                                       String searchingfor) throws IllegalArgumentException {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setDescription("A new song request");
         embedBuilder.setAuthor(Objects.requireNonNull(event.getGuild().getMember(event.getAuthor())).getNickname(),
@@ -101,19 +103,21 @@ public class PlayerManager {
     /**
      * Loads and plays song(s), depending on {@code isQueue}
      *
-     * @param channel    {@link MessageChannel}
-     * @param url        url or search text
-     * @param isQueue    if true, loads all song from link and adds them all to the queue; if false, it loads only one song <hr>
-     *                   <i>(for instance, if user passes a playlist as a arguments when triggering {@link PlayCommand} but isQueue is false,
-     *                   then only the first song from the playlist will be added to the queue, otherwise all songs will be added)</i><hr>
-     * @param event1     {@link MessageReceivedEvent}
-     * @param event2     {@link SlashCommandInteractionEvent}
-     * @param msgType    {@link MessageTypes}
-     * @param usersInput user's input
+     * @param channel         {@link MessageChannel}
+     * @param url             url or search text
+     * @param isQueue         if true, loads all song from link and adds them all to the queue; if false, it loads only one song <hr>
+     *                        <i>(for instance, if user passes a playlist as a arguments when triggering {@link PlayCommand} but isQueue is false,
+     *                        then only the first song from the playlist will be added to the queue, otherwise all songs will be added)</i><hr>
+     * @param event1          {@link MessageReceivedEvent}
+     * @param event2          {@link SlashCommandInteractionEvent}
+     * @param msgType         {@link MessageTypes}
+     * @param usersInput      user's input
+     * @param playImmediately whether song should be played immediately
      * @author krystof-cejchan
      */
     public void loadAndPlay(MessageChannel channel, String url, boolean isQueue, @Nullable MessageReceivedEvent event1,
-                            @Nullable SlashCommandInteractionEvent event2, @Nullable MessageTypes msgType, String usersInput) {
+                            @Nullable SlashCommandInteractionEvent event2, @Nullable MessageTypes msgType, String usersInput,
+                            boolean playImmediately) {
         if (event1 != null && event2 == null) {
             final GuildMusicManager musicManager = this.getMusicManager(event1.getGuild());
 
@@ -237,12 +241,41 @@ public class PlayerManager {
                 public void playlistLoaded(AudioPlaylist playlist) {
                     List<AudioTrack> tracks = playlist.getTracks();
                     if (isQueue) {
-                        tracks.forEach(musicManager.SCHEDULER::queue);
-                        event2.reply("**" + tracks.size() + "** tracks were successfully added").queue();
+                        StringBuilder stringBuilder = new StringBuilder("**" + tracks.size() + "** tracks were successfully added");
+                        if (!playImmediately) {
+                            tracks.forEach(musicManager.SCHEDULER::queue);
+                        } else {
+                            List<AudioTrack> q = new ArrayList<>(musicManager.SCHEDULER.QUEUE);
+                            for (int i = 0; i < tracks.size(); i++) {
+                                q.add(i, tracks.get(i));
+                            }
+                            musicManager.SCHEDULER.QUEUE.clear();
+                            musicManager.SCHEDULER.QUEUE.addAll(q);
+                            if (musicManager.AUDIOPLAYER.getPlayingTrack() != tracks.get(0))
+                                musicManager.SCHEDULER.nextTrack();
+
+                        }
+                        (playImmediately
+                                ?
+                                event2.reply(stringBuilder.append(" and moved before all other tracks").toString())
+                                :
+                                event2.reply(stringBuilder.toString())
+                        ).queue();
 
                     } else {
                         AudioTrack track = tracks.get(0);
-                        musicManager.SCHEDULER.queue(track);
+
+                        if (playImmediately) {
+                            List<AudioTrack> q = new ArrayList<>(musicManager.SCHEDULER.QUEUE);
+                            q.add(0, track);
+                            musicManager.SCHEDULER.QUEUE.clear();
+                            musicManager.SCHEDULER.QUEUE.addAll(q);
+                            if (musicManager.AUDIOPLAYER.getPlayingTrack() != track)
+                                musicManager.SCHEDULER.nextTrack();
+
+                        } else
+                            musicManager.SCHEDULER.queue(track);
+
                         event2.replyEmbeds(newSongAddedThroughSlash(Objects.requireNonNull(event2.getMember()),
                                 track, musicManager.SCHEDULER.QUEUE).build()).queue();
                     }

@@ -5,10 +5,12 @@ import commands.commands_slash.volume.VolumeDownSlash;
 import commands.commands_slash.volume.VolumeUpSlash;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 public class SlashCommandManager {
-    private final ArrayList<ISlashCommands> commands = new ArrayList<>();
+    private @Nonnull
+    final ArrayList<ISlashCommands> commands = new ArrayList<>();
 
     public SlashCommandManager() {
         addNewCommand(new PlaySongSlash());
@@ -25,27 +27,24 @@ public class SlashCommandManager {
         addNewCommand(new NowPlaying());
         addNewCommand(new FastForwardFrom0akaSetTrackPositionToX());
         addNewCommand(new FastForward());
+        addNewCommand(new PlayImmediately());
+        addNewCommand(new PlayQImmediately());
 
-       // commands.sort((commands1, commands2) -> commands1.getName().compareToIgnoreCase(commands2.getName()));
+        // commands.sort((commands1, commands2) -> commands1.getName().compareToIgnoreCase(commands2.getName()));
     }
 
-   // public static Set<Class> findAllClassesUsingReflectionsLibrary(String packageName) {
-   //     Reflections reflections = new Reflections(packageName, new SubTypesScanner(false));
-   //     return new HashSet<>(reflections.getSubTypesOf(Object.class));
-   // }
+    // public static Set<Class> findAllClassesUsingReflectionsLibrary(String packageName) {
+    //     Reflections reflections = new Reflections(packageName, new SubTypesScanner(false));
+    //     return new HashSet<>(reflections.getSubTypesOf(Object.class));
+    // }
 
     public ArrayList<ISlashCommands> getAllCommands() {
         return commands;
     }
 
     private void addNewCommand(ISlashCommands Icmd) {
-        boolean exists = commands.stream().anyMatch(match -> match.equals(Icmd));
-
-        if (!exists) {
+        if (commands.stream().noneMatch(match -> match.equals(Icmd)))
             commands.add(Icmd);
-            System.out.println(Icmd);
-        }
-
     }
 
     /**

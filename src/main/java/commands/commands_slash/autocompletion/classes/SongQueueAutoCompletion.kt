@@ -13,7 +13,6 @@ class SongQueueAutoCompletion : IAutoCompletion {
         val songs = ArrayList<String>()
         val list: List<String> = ArrayList(GetWholePlaylist.getSongsTitles(event.guild))
         songs.addAll(list)
-
         val subPartOfSongs = ArrayList<String>()
 
         songs.let { song ->

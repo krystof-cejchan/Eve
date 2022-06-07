@@ -21,7 +21,8 @@ public class PlayCommand {
      * @param messageTypes {@link MessageTypes} what type of message should be sent to the user as a reply
      * @param voice        {@link voice.voice_and_listening.SpeechToText} user's voice input
      */
-    public void playMusic(MessageReceivedEvent event, String url, boolean isLink, MessageTypes messageTypes, String voice) {
+    public void playMusic(MessageReceivedEvent event, String url, boolean isLink, MessageTypes messageTypes, String voice
+            , boolean playImmediately) {
         final MessageChannel channel = event.getChannel();
 
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember()).getVoiceState()).getChannel(); // user
@@ -38,18 +39,18 @@ public class PlayCommand {
 
                         event.getMessage().reply("Spotify is not supported yet").queue();
 
-                    } else loadNPlay(channel, url, event, null, messageTypes, voice);
+                    } else loadNPlay(channel, url, event, null, messageTypes, voice, playImmediately);
                 } else {
-                    loadNPlay(channel, "ytsearch:" + url, event, null, messageTypes, voice);
+                    loadNPlay(channel, "ytsearch:" + url, event, null, messageTypes, voice, playImmediately);
                 }
 
             } else {
 
                 vc.Join(event);
                 if (isLink) {
-                    loadNPlay(channel, url, event, null, messageTypes, voice);
+                    loadNPlay(channel, url, event, null, messageTypes, voice, playImmediately);
                 } else {
-                    loadNPlay(channel, "ytsearch:" + url, event, null, messageTypes, voice);
+                    loadNPlay(channel, "ytsearch:" + url, event, null, messageTypes, voice, playImmediately);
                 }
 
             }
@@ -59,7 +60,8 @@ public class PlayCommand {
 
     }
 
-    public void playMusicFromSlash(SlashCommandInteractionEvent event, String url, MessageTypes messageTypes) {
+    public void playMusicFromSlash(SlashCommandInteractionEvent event, String url, MessageTypes messageTypes,
+                                   boolean playImmediately) {
         final MessageChannel channel = event.getChannel();
         final boolean isLink = LibraryClass.isLink(url);
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember())
@@ -72,16 +74,16 @@ public class PlayCommand {
 
         if (!(connectedChannel == (null))) {
             if (!connectedChannel.equals(connectedChannelSelf))
-                vc.joinSlash(event,false);
+                vc.joinSlash(event, false);
             if (isLink) {
 
                 if (url.contains("spotify.com")) {
 
                     event.reply("Spotify is not supported yet").queue();
 
-                } else loadNPlay(channel, url, null, event, messageTypes, null);
+                } else loadNPlay(channel, url, null, event, messageTypes, null, playImmediately);
             } else {
-                loadNPlay(channel, "ytsearch:" + url, null, event, messageTypes, null);
+                loadNPlay(channel, "ytsearch:" + url, null, event, messageTypes, null, playImmediately);
             }
 
 
@@ -103,8 +105,8 @@ public class PlayCommand {
      * @author krystof-cejchan
      */
     protected void loadNPlay(MessageChannel channel, String url, MessageReceivedEvent event1,
-                             SlashCommandInteractionEvent event2, MessageTypes type, String voice) {
-        PlayerManager.getInstance().loadAndPlay(channel, url, false, event1, event2, type, voice);
+                             SlashCommandInteractionEvent event2, MessageTypes type, String voice, boolean playImmediately) {
+        PlayerManager.getInstance().loadAndPlay(channel, url, false, event1, event2, type, voice, playImmediately);
     }
 
 }

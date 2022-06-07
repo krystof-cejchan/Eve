@@ -21,18 +21,9 @@ public class PlaySongSlash implements ISlashCommands {
      */
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-
-       /* boolean finish = new Play_PURE().playMusic(slashEvent.getGuild(), GetUsersVoiceChannels.usersAudioChannel(Objects.requireNonNull(slashEvent.getMember())),
-                GetUsersVoiceChannels.botsAudioChannel(slashEvent.getGuild()),
-                Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()))).getAsString(), false);
-
-        if (finish)
-            slashEvent.reply("Track was added; **" + GetCurrentTrack.getTrack(slashEvent.getGuild()) + "**").queue();
-        else
-            slashEvent.reply("Track was not added successfully").queue();*/
         new PlayCommand().playMusicFromSlash(slashEvent, Objects.requireNonNull(slashEvent.getOption
                         (Objects.requireNonNull(getArgName()).get(0))).getAsString(),
-                null);
+                null,false);
 
     }
 

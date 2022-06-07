@@ -25,7 +25,7 @@ public class PlayQueue implements ICommands {
             PlayQCommand pq = new PlayQCommand();
 
             if (LibraryClass.isLink(args[1])) {
-                pq.playMusic(event, args[1], true);
+                pq.playMusic(event, args[1], true,false);
 
             } else {
                 event.getChannel().sendMessage("Please, provide a proper YouTube link").queue();

@@ -13,7 +13,7 @@ import java.util.Objects;
  * plays a queue
  */
 public class PlayQCommand {
-    public void playMusic(MessageReceivedEvent event, String url, boolean isLink) {
+    public void playMusic(MessageReceivedEvent event, String url, boolean isLink, boolean playImmediately) {
         final MessageChannel channel = event.getChannel();
 
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember())
@@ -29,13 +29,13 @@ public class PlayQCommand {
             if (connectedChannel.equals(connectedChannelSelf)) {
 
                 if (isLink) {
-                    loadNPlay(channel, url, event, null);
+                    loadNPlay(channel, url, event, null,playImmediately);
                 }
 
             } else {
                 if (isLink) {
                     vc.Join(event);
-                    loadNPlay(channel, url, event, null);
+                    loadNPlay(channel, url, event, null,playImmediately);
                 }
 
             }
@@ -45,7 +45,7 @@ public class PlayQCommand {
 
     }
 
-    public void playMusicFromSlash(SlashCommandInteractionEvent event, String url, boolean isLink) {
+    public void playMusicFromSlash(SlashCommandInteractionEvent event, String url, boolean isLink,boolean playImmediately) {
         final MessageChannel channel = event.getChannel();
 
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember())
@@ -61,13 +61,13 @@ public class PlayQCommand {
             if (connectedChannel.equals(connectedChannelSelf)) {
 
                 if (isLink) {
-                    loadNPlay(channel, url, null, event);
+                    loadNPlay(channel, url, null, event,playImmediately);
                 }
 
             } else {
                 if (isLink) {
                     vc.joinSlash(event, false);
-                    loadNPlay(channel, url, null, event);
+                    loadNPlay(channel, url, null, event,playImmediately);
                 }
 
             }
@@ -79,9 +79,9 @@ public class PlayQCommand {
 
 
     protected void loadNPlay(MessageChannel channel, String url, MessageReceivedEvent eventMsg,
-                             SlashCommandInteractionEvent eventSlash) {
+                             SlashCommandInteractionEvent eventSlash, boolean playImmediately) {
         PlayerManager.getInstance().loadAndPlay(channel, url, true, eventMsg, eventSlash,
-                null, null);
+                null, null, playImmediately);
     }
 
 }
