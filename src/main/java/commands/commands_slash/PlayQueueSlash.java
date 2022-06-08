@@ -17,9 +17,22 @@ import java.util.Objects;
 public class PlayQueueSlash implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+
+        boolean playImmediately, caught = false;
+
+        try {
+            slashEvent.getOption
+                    (getArgName().get(1)).getAsString();
+        } catch (NullPointerException nullPointerException) {
+            caught = true;
+        }
+
+        playImmediately = !caught && Objects.requireNonNull(slashEvent.getOption(getArgName().get(1))).getAsBoolean();
+
         String arg = Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(Objects.requireNonNull(getArgName())
                 .get(0)))).getAsString();
-        new PlayQCommand().playMusicFromSlash(slashEvent, arg, LibraryClass.isLink(arg),false);
+
+        new PlayQCommand().playMusicFromSlash(slashEvent, arg, LibraryClass.isLink(arg), playImmediately);
     }
 
     @Override
@@ -34,7 +47,7 @@ public class PlayQueueSlash implements ISlashCommands {
 
     @Override
     public @NotNull ArgumentSlashCommandCount takesArguments() {
-        return ArgumentSlashCommandCount.ONE;
+        return ArgumentSlashCommandCount.MULTIPLE;
     }
 
     @Override
@@ -42,12 +55,14 @@ public class PlayQueueSlash implements ISlashCommands {
         return new ArrayList<>(List.of(new OptionData(OptionType.STRING, Objects.requireNonNull(Objects
                 .requireNonNull(getArgName()).get(0)),
                 "paste tracks' url",
-                true)));
+                true), new OptionData(OptionType.BOOLEAN, Objects.requireNonNull(Objects.requireNonNull(getArgName())
+                .get(1)), "True → list will be moved to the beginning of the queue;",
+                false, false)));
     }
 
     @Override
     public List<String> getArgName() {
-        return new ArrayList<>(List.of("tracks"));
+        return new ArrayList<>(List.of("tracks", "play-immediately"));
     }
 
     @Override

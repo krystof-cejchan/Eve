@@ -27,8 +27,13 @@ public class SlashCommandManager {
         addNewCommand(new NowPlaying());
         addNewCommand(new FastForwardFrom0akaSetTrackPositionToX());
         addNewCommand(new FastForward());
-        addNewCommand(new PlayImmediately());
-        addNewCommand(new PlayQImmediately());
+
+
+
+
+
+        /*addNewCommand(new PlayImmediately());
+        addNewCommand(new PlayQImmediately());*/
 
         // commands.sort((commands1, commands2) -> commands1.getName().compareToIgnoreCase(commands2.getName()));
     }

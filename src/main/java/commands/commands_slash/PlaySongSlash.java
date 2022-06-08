@@ -21,9 +21,21 @@ public class PlaySongSlash implements ISlashCommands {
      */
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+
+        boolean playImmediately, caught = false;
+
+        try {
+            slashEvent.getOption
+                    (getArgName().get(1)).getAsString();
+        } catch (NullPointerException nullPointerException) {
+            caught = true;
+        }
+
+        playImmediately = !caught && Objects.requireNonNull(slashEvent.getOption(getArgName().get(1))).getAsBoolean();
+
         new PlayCommand().playMusicFromSlash(slashEvent, Objects.requireNonNull(slashEvent.getOption
                         (Objects.requireNonNull(getArgName()).get(0))).getAsString(),
-                null,false);
+                null, playImmediately);
 
     }
 
@@ -45,7 +57,7 @@ public class PlaySongSlash implements ISlashCommands {
 
     @Override
     public @NotNull ArgumentSlashCommandCount takesArguments() {
-        return ArgumentSlashCommandCount.ONE;
+        return ArgumentSlashCommandCount.MULTIPLE;
     }
 
     /**
@@ -56,13 +68,17 @@ public class PlaySongSlash implements ISlashCommands {
     @Override
     public List<OptionData> getOptionData() {
         return new ArrayList<>(List.of(new OptionData(OptionType.STRING, Objects.requireNonNull(Objects.requireNonNull(getArgName())
-                .get(0)), "paste track url or title",
-                true, false)));
+                        .get(0)), "paste track url or title",
+                        true, false),
+                new OptionData(OptionType.BOOLEAN, Objects.requireNonNull(Objects.requireNonNull(getArgName())
+                        .get(1)), "True → track will be moved to the beginning of the queue;",
+                        false, false)
+        ));
     }
 
     @Override
     public List<String> getArgName() {
-        return new ArrayList<>(List.of("song"));
+        return new ArrayList<>(List.of("source-title_or_link", "play-immediately"));
     }
 
     @Override

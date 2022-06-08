@@ -1,8 +1,8 @@
-package commands.commands_slash;
+package bin;
 
-import audioplayer.PlayQCommand;
+import audioplayer.PlayCommand;
+import commands.commands_slash.ISlashCommands;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -13,23 +13,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class PlayQImmediately implements ISlashCommands {
+public class PlayImmediately implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        String arg = Objects.requireNonNull(slashEvent.getOption
-                (Objects.requireNonNull(getArgName()).get(0))).getAsString();
-        new PlayQCommand().playMusicFromSlash(slashEvent, arg,
-                LibraryClass.isLink(arg), true);
+
+        new PlayCommand().playMusicFromSlash(slashEvent, Objects.requireNonNull(slashEvent.getOption
+                        (Objects.requireNonNull(getArgName()).get(0))).getAsString(),
+                null, true);
+
     }
+
 
     @Override
     public @NotNull String getDescription() {
-        return "Adds a play-list to the queue and plays it right away";
+        return "Adds a track to the queue and plays it right away";
     }
 
     @Override
     public @NotNull String getName() {
-        return "playqueueimmediately";
+        return "playimmediately";
     }
 
     @Override
@@ -47,7 +49,7 @@ public class PlayQImmediately implements ISlashCommands {
     @Nullable
     @Override
     public List<String> getArgName() {
-        return Collections.singletonList("playlist");
+        return Collections.singletonList("song");
     }
 
     @Override
