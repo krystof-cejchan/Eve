@@ -27,6 +27,8 @@ public class SlashCommandManager {
         addNewCommand(new NowPlaying());
         addNewCommand(new FastForwardFrom0akaSetTrackPositionToX());
         addNewCommand(new FastForward());
+        // addNewCommand(new WeatherPicture());
+        addNewCommand(new WeatherEmbed());
 
 
 
