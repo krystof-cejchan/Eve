@@ -212,7 +212,9 @@ public class LibraryClass {
      * @param queue of audiotracks
      * @return {@link AudioTrack} which is the most suitable from the map
      */
-    public static AudioTrack getTheMostSuitableAudioTrackFromAHashMap(HashMap<AudioTrack, Double> map, BlockingQueue<AudioTrack> queue, double minimalSimilarity) {
+    public static AudioTrack getTheMostSuitableAudioTrackFromAHashMap(HashMap<AudioTrack, Double> map,
+                                                                      BlockingQueue<AudioTrack> queue,
+                                                                      double minimalSimilarity) {
         AudioTrack ImostLikelyToBe = null;
         double highest = 0;
 

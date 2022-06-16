@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInterac
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 
 /**
- * defined as Listener class in StartUp
+ * defined as Listener class in Main
  */
 class AutocompleteListener : ListenerAdapter() {
 

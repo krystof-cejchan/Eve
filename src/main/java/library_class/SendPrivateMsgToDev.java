@@ -1,6 +1,6 @@
 package library_class;
 
-import main.StartUp;
+import main.Main;
 import net.dv8tion.jda.api.entities.User;
 
 /**
@@ -25,7 +25,7 @@ public class SendPrivateMsgToDev {
             return;
 
 
-        User dev = StartUp.publicJDA.getUserById("348358747825111040");
+        User dev = Main.publicJDA.getUserById("348358747825111040");
 
         assert dev != null;
         dev.openPrivateChannel().flatMap(channel -> channel.sendMessage(msg)).queue();

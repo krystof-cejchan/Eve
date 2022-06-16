@@ -18,6 +18,7 @@ public class JSONGrabber extends WeatherWebPage {
         JSONObject json = new JSONObject(IOUtils.toString(new URL(super.getUrl()), StandardCharsets.UTF_8));
         JSONArray current_condition = json.getJSONArray("current_condition");
         JSONObject zero = current_condition.getJSONObject(0);
+        System.out.println(super.getUrl());
 
         return new WeatherCurrent_Obj(zero.getString("temp_C"), zero.getString("temp_F"), zero.getString("FeelsLikeC"),
                 zero.getString("FeelsLikeF"), current_condition.getJSONObject(0).getJSONArray("weatherDesc")

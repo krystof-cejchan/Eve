@@ -25,7 +25,8 @@ public class WeatherPicture implements ISlashCommands {
         try {
             //https://wttr.in/N%C3%A1chod.png
             URL url = new URL("http://wttr.in/" + Objects.requireNonNull(slashEvent
-                    .getOption(Objects.requireNonNull(getArgName()).get(0))).getAsString() + ".png");
+                    .getOption(Objects.requireNonNull(getArgName()).get(0))).getAsString().replaceAll(" ",
+                    "%20") + ".png");
             String path = Objects.requireNonNull(slashEvent.getGuild()).getName() + LibraryClass.getCurrentDate(true)
                     + ".jpg";
             RenderedImage img = ImageIO.read(url);

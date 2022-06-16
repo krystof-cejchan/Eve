@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import weather.logic.JSONGrabber;
 import weather.logic.WeatherCurrent_Obj;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +24,7 @@ public class WeatherEmbed implements ISlashCommands {
             //https://wttr.in/a?format=j1
             WeatherCurrent_Obj weather = new JSONGrabber("https://wttr.in/" +
                     Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()).get(0))).getAsString()
+                            .replaceAll(" ", "%20")
                     + "?format=j1")
                     .getWeatherForeCast();
 
@@ -35,7 +37,8 @@ public class WeatherEmbed implements ISlashCommands {
 
     private EmbedBuilder generateEmbed(WeatherCurrent_Obj weather) {
         EmbedBuilder builder = new EmbedBuilder();
-        builder.setTitle("Current Weather ForeCast in " + weather.getLocation());
+        builder.setTitle("Current Weather Forecast in " + weather.getLocation());
+        builder.setColor(new Color(0, 123, 255, 255));
         builder.setDescription(weather.getWeather_value());
         builder.addField("Temperature", "C° " + weather.getCurr_tempC() + "\nF° "
                 + weather.getCurr_tempF(), true);

@@ -4,7 +4,7 @@ import commands.commands_voice.IListeningCommands;
 import commands.commands_voice.ListeningCommandManager;
 import database_SQLite.file_database.queries.InsertValuesToTable;
 import library_class.GlobalValues;
-import main.StartUp;
+import main.Main;
 import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 import net.dv8tion.jda.api.audio.CombinedAudio;
@@ -118,7 +118,7 @@ public class SpeechToText {
     public void onEchoSlashCommand(SlashCommandInteractionEvent event) throws NullPointerException, RateLimitedException {
         MemeberWhoTriggeredEchoCommand.setMember(event.getMember());
         Member member = event.getMember();
-        msgEvent = new MessageReceivedEvent_CustomClass(new MessageReceivedEvent(StartUp.publicJDA, 1,
+        msgEvent = new MessageReceivedEvent_CustomClass(new MessageReceivedEvent(Main.publicJDA, 1,
                 event.getMessageChannel().retrieveMessageById(event.getMessageChannel().getLatestMessageId()).complete()));
         EchoHandler echoH = new EchoHandler();
         echoH.isAllowedToCarryOn = true;

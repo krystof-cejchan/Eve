@@ -3,7 +3,7 @@ package main.after_startup;
 
 import commands.commands_slash.ISlashCommands;
 import commands.commands_slash.SlashCommandManager;
-import main.StartUp;
+import main.Main;
 import net.dv8tion.jda.api.entities.Guild;
 
 import java.util.Objects;
@@ -11,7 +11,7 @@ import java.util.Objects;
 public class AddingSlashCommandsToGuilds implements IAfterStartUp {
     protected void addSlashCommandsToTheGuilds() {
         SlashCommandManager slashCommandManager = new SlashCommandManager();
-        for (Guild guild : StartUp.publicJDA.getGuilds()) {
+        for (Guild guild : Main.publicJDA.getGuilds()) {
 
             System.out.println(guild);
             if (library_class.GlobalValues.resetSlashCommands)
