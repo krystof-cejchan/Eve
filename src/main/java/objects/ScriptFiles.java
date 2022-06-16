@@ -21,7 +21,6 @@ public class ScriptFiles extends ScriptPathPointer {
         allFilesAvailable = new File[]{translator, soundFile2Text, dbPath};
     }
 
-
   /*  public ScriptFiles(String translatorPath, String soundFile2TextPath, String dbPath_Path) {
         this.translator = new File(translatorPath);
         this.soundFile2Text = new File(soundFile2TextPath);
