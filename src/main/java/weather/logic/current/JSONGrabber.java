@@ -1,9 +1,10 @@
-package weather.logic;
+package weather.logic.current;
 
 import enums_annotations_exceptions.exceptions.InvalidWebAddress;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import weather.logic.WeatherWebPage;
 
 import java.io.IOException;
 import java.net.URL;

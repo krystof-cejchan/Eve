@@ -47,16 +47,18 @@ public class Listener extends ListenerAdapter {
 
                 TextChannel re = event.getGuild().getTextChannelById("933515864790159360");
                 MessageChannel eventChannel = event.getChannel();
-                CurrentTextChannel currTxtChannel = new CurrentTextChannel(eventChannel.getId());
-                currTxtChannel.setIid(eventChannel.getId());
+                if (event.getMessage().getContentRaw().length() < Prefix.getValue().length()) return;
+
+
                 if (eventChannel == re || GlobalValues.ALLOW_NOT_IN_TEST_MODE) {
 
-                    MessageReceivedEvent_StaticCustomClass.setEvent(event);
                     if (event.getMessage().getContentRaw().substring(0, Prefix.getValue().length())
                             .equalsIgnoreCase(Prefix.getValue())) {
                         CommandManager manager = new CommandManager();
                         if (manager.getCommand(event) != null) {
                             try {
+                                MessageReceivedEvent_StaticCustomClass.setEvent(event);
+                                CurrentTextChannel.setIid(eventChannel.getId());
                                 Objects.requireNonNull(manager.getCommand(event)).doTask(event);
                             } catch (Exception e) {
                                 e.printStackTrace();

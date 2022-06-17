@@ -1,4 +1,4 @@
-package weather.logic;
+package weather.logic.current;
 
 import org.jetbrains.annotations.NotNull;
 
