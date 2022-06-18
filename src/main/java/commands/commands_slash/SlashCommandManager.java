@@ -29,7 +29,7 @@ public class SlashCommandManager {
         addNewCommand(new FastForward());
         // addNewCommand(new WeatherPicture());
         addNewCommand(new WeatherEmbedCurr());
-        addNewCommand(new WeatherForeCastEmbed());
+        addNewCommand(new WeatherForecastForAllDaysAverageEmbed());
 
 
 

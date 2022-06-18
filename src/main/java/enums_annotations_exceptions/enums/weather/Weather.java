@@ -1,4 +1,4 @@
-package enums_annotations_exceptions.enums;
+package enums_annotations_exceptions.enums.weather;
 
 import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
