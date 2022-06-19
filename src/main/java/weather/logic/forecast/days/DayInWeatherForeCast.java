@@ -28,6 +28,11 @@ public class DayInWeatherForeCast extends WeatherWebPage {
     String visibilityKm;
     String visibilityMiles;
     String weatherValue;
+    String maxC, maxF, minC, minF;
+    String uvIndex;
+    String sunHour;
+    String sunRise;
+    String sunSet;
 
     /**
      * @param url    json url
@@ -79,7 +84,7 @@ public class DayInWeatherForeCast extends WeatherWebPage {
         JSONObject day012 = current_condition.getJSONObject(n_day);
         JSONArray hourly = day012.getJSONArray("hourly");
         JSONObject certHour = hourly.getJSONObject(n_time);
-
+        JSONObject astronomy0 = day012.getJSONArray("astronomy").getJSONObject(0);
         this.day = day012.getString("date");
         this.time = certHour.getString("time");
         this.c = certHour.getString("tempC");
@@ -99,6 +104,14 @@ public class DayInWeatherForeCast extends WeatherWebPage {
                 .getJSONObject(0).getString("value") + ", "
                 + json.getJSONArray("nearest_area").getJSONObject(0).getJSONArray("country")
                 .getJSONObject(0).getString("value");
+        this.maxC = day012.getString("maxtempC");
+        this.maxF = day012.getString("maxtempF");
+        this.minC = day012.getString("mintempC");
+        this.minF = day012.getString("mintempF");
+        this.uvIndex = day012.getString("uvIndex");
+        this.sunHour = day012.getString("sunHour");
+        this.sunRise = astronomy0.getString("sunrise");
+        this.sunSet = astronomy0.getString("sunset");
     }
 
 
@@ -166,5 +179,35 @@ public class DayInWeatherForeCast extends WeatherWebPage {
         return location;
     }
 
+    public String getMaxC() {
+        return maxC;
+    }
 
+    public String getMaxF() {
+        return maxF;
+    }
+
+    public String getMinC() {
+        return minC;
+    }
+
+    public String getMinF() {
+        return minF;
+    }
+
+    public String getUvIndex() {
+        return uvIndex;
+    }
+
+    public String getSunHour() {
+        return sunHour;
+    }
+
+    public String getSunRise() {
+        return sunRise;
+    }
+
+    public String getSunSet() {
+        return sunSet;
+    }
 }
