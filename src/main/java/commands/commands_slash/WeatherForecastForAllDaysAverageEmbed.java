@@ -5,7 +5,6 @@ import enums_annotations_exceptions.enums.weather.ChancesOf;
 import enums_annotations_exceptions.enums.weather.TemperatureSystem;
 import enums_annotations_exceptions.exceptions.InvalidWebAddress;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -53,12 +52,15 @@ public class WeatherForecastForAllDaysAverageEmbed implements ISlashCommands {
                             TemperatureSystem.C) + "°C / "
                             + ValuesForCertatinDayLite.Temperature.avgTempforDay(weatherForecastsForAllDaysAndTimes, d,
                             TemperatureSystem.F) + "°F\n"
-                            + "Max-Min temperature " + ValuesForCertatinDayLite.Temperature.maxminTemp(weatherForecastsForAllDaysAndTimes, d,
-                            TemperatureSystem.C, true) + ", " + ValuesForCertatinDayLite.Temperature.maxminTemp(weatherForecastsForAllDaysAndTimes, d,
-                            TemperatureSystem.C, false) + "°C / "
+                            + "Max-Min temperature " + ValuesForCertatinDayLite.Temperature
+                            .maxminTemp(weatherForecastsForAllDaysAndTimes, d,
+                                    TemperatureSystem.C, true) + ", " + ValuesForCertatinDayLite.Temperature
+                            .maxminTemp(weatherForecastsForAllDaysAndTimes, d,
+                                    TemperatureSystem.C, false) + "°C / "
                             + ValuesForCertatinDayLite.Temperature.maxminTemp(weatherForecastsForAllDaysAndTimes, d,
-                            TemperatureSystem.F, true) + ", " + ValuesForCertatinDayLite.Temperature.maxminTemp(weatherForecastsForAllDaysAndTimes, d,
-                            TemperatureSystem.F, false) + "°F\n"
+                            TemperatureSystem.F, true) + ", " + ValuesForCertatinDayLite.Temperature
+                            .maxminTemp(weatherForecastsForAllDaysAndTimes, d,
+                                    TemperatureSystem.F, false) + "°F\n"
                             + "Chance of rain \uD83C\uDF27\t" + ValuesForCertatinDayLite.Chances
                             .chanceOf(weatherForecastsForAllDaysAndTimes,
                                     ChancesOf.RAIN, d) + "%\n"
@@ -85,7 +87,6 @@ public class WeatherForecastForAllDaysAverageEmbed implements ISlashCommands {
                 double avg = 0, counter = 0;
                 for (DayInWeatherForeCast day : dayInWeatherForeCasts) {
                     if (day.getDay().equals(d)) {
-                        System.out.println(day.getTime());
                         if (system == TemperatureSystem.C) avg += Integer.parseInt(day.getC());
                         else avg += Integer.parseInt(day.getF());
                         counter++;
@@ -147,30 +148,6 @@ public class WeatherForecastForAllDaysAverageEmbed implements ISlashCommands {
             }
         }
 
-    }
-
-    private static class GenerateFieldsForDay {
-
-        public static MessageEmbed.Field getTemp(DayInWeatherForeCast dayInWeatherForeCast) {
-            return new MessageEmbed.Field("Temperature", cutTime(dayInWeatherForeCast.getTime()) + dayInWeatherForeCast.getC() + "°C\t" + dayInWeatherForeCast.getF() + "°F" + "\nFeels like: " + dayInWeatherForeCast.getFeelsC() + "°C\t" + dayInWeatherForeCast.getFeelsF() + "°F", false);
-        }
-
-        public static MessageEmbed.Field getDesc(DayInWeatherForeCast dayInWeatherForeCast) {
-            return new MessageEmbed.Field("Description", dayInWeatherForeCast.getWeatherValue(), false);
-        }
-
-        public static MessageEmbed.Field getChances(DayInWeatherForeCast dayInWeatherForeCast) {
-            return new MessageEmbed.Field("Chances of... at " + cutTime(dayInWeatherForeCast.getTime()), "\uD83C\uDF27Rain: " + dayInWeatherForeCast.getChanceofRain() + "%\n" + "\uD83C\uDF28Snow: " + dayInWeatherForeCast.getChanceofSnow() + "%\n" + "\uD83C\uDF29Thunder: " + dayInWeatherForeCast.getChanceofThunder() + "%\n" + "☀Sunshine: " + dayInWeatherForeCast.getChanceofSunshine() + "%", false);
-        }
-
-        public static MessageEmbed.Field getRest(DayInWeatherForeCast dayInWeatherForeCast) {
-            return new MessageEmbed.Field("Other at " + cutTime(dayInWeatherForeCast.getTime()), "Visibility: " + dayInWeatherForeCast.getVisibilityKm() + "km\n" + "Visibility Miles: " + dayInWeatherForeCast.getVisibilityMiles() + "miles\n" + "WindSpeed: " + dayInWeatherForeCast.getWindSpeedKmph() + "kmph\n" + "WindSpeed: " + dayInWeatherForeCast.getWindSpeedMph() + "mph", false);
-        }
-
-    }
-
-    private static String cutTime(String def) {
-        return def.equalsIgnoreCase("0") ? "00:00⌚  " : def.substring(0, def.length() - 2) + ":" + def.substring(def.length() - 2) + "⌚  ";
     }
 
     @Override
