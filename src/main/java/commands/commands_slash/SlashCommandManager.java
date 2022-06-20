@@ -28,7 +28,8 @@ public class SlashCommandManager {
         addNewCommand(new FastForwardFrom0akaSetTrackPositionToX());
         addNewCommand(new FastForward());
         // addNewCommand(new WeatherPicture());
-        addNewCommand(new WeatherEmbed());
+        addNewCommand(new WeatherEmbedCurr());
+        addNewCommand(new WeatherForecastForAllDaysAverageEmbed());
 
 
 

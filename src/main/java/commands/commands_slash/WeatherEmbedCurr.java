@@ -8,8 +8,8 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import weather.logic.JSONGrabber;
-import weather.logic.WeatherCurrent_Obj;
+import weather.logic.current.JSONGrabber;
+import weather.logic.current.WeatherCurrent_Obj;
 
 import java.awt.*;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class WeatherEmbed implements ISlashCommands {
+public class WeatherEmbedCurr implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
         try {
@@ -54,7 +54,7 @@ public class WeatherEmbed implements ISlashCommands {
 
     @Override
     public @NotNull String getName() {
-        return "current_weather";
+        return "weather_today";
     }
 
     @Override

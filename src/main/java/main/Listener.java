@@ -28,7 +28,8 @@ public class Listener extends ListenerAdapter {
     public void onGuildVoiceLeave(@NotNull GuildVoiceLeaveEvent event) {
         try {
             leaveIfAlone(event, null, true);
-        } catch (Exception ignored) {
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
     }
@@ -36,7 +37,8 @@ public class Listener extends ListenerAdapter {
     public void onGuildVoiceMove(@NotNull GuildVoiceMoveEvent event) {
         try {
             leaveIfAlone(null, event, false);
-        } catch (Exception ignored) {
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -47,16 +49,18 @@ public class Listener extends ListenerAdapter {
 
                 TextChannel re = event.getGuild().getTextChannelById("933515864790159360");
                 MessageChannel eventChannel = event.getChannel();
-                CurrentTextChannel currTxtChannel = new CurrentTextChannel(eventChannel.getId());
-                currTxtChannel.setIid(eventChannel.getId());
+                if (event.getMessage().getContentRaw().length() < Prefix.getValue().length()) return;
+
+
                 if (eventChannel == re || GlobalValues.ALLOW_NOT_IN_TEST_MODE) {
 
-                    MessageReceivedEvent_StaticCustomClass.setEvent(event);
                     if (event.getMessage().getContentRaw().substring(0, Prefix.getValue().length())
                             .equalsIgnoreCase(Prefix.getValue())) {
                         CommandManager manager = new CommandManager();
                         if (manager.getCommand(event) != null) {
                             try {
+                                MessageReceivedEvent_StaticCustomClass.setEvent(event);
+                                CurrentTextChannel.setIid(eventChannel.getId());
                                 Objects.requireNonNull(manager.getCommand(event)).doTask(event);
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -101,10 +105,18 @@ public class Listener extends ListenerAdapter {
         if (leave) {
             assert event != null;
             AudioChannel connectedChannelSelf = Objects.requireNonNull(event.getGuild().getSelfMember().getVoiceState()).getChannel();
-
-            assert connectedChannelSelf != null;
-            ArrayList<Member> members = new ArrayList<>(connectedChannelSelf.getMembers());
-
+            ArrayList<Member> members = null;
+            try {
+                members = new ArrayList<>(connectedChannelSelf.getMembers());
+            } catch (NullPointerException ignored) {
+            }
+            if (members == null || members.isEmpty()) {
+                VoiceChannels leaveVC = new VoiceChannels();
+                StopCommand stop = new StopCommand();
+                stop.stopMusic(event);
+                leaveVC.Leave(event);
+                return;
+            }
             boolean human = false;
             for (Member member : members) {
                 if (!member.getUser().isBot()) {
