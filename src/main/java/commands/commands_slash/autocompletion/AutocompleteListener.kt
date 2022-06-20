@@ -40,9 +40,9 @@ class AutocompleteListener : ListenerAdapter() {
         AutoCompleteManager()::getAutoComplete.invoke().forEach {
             run {
 
-                if ((it.representativeCommand().name == event.name) and it.representativeCommand().argName.contains(
+                if ((it.representativeCommand().name == event.name) and (it.representativeCommand().argName?.contains(
                         event.focusedOption.name
-                    )
+                    ) == true)
                 ) {
 
                     return it
