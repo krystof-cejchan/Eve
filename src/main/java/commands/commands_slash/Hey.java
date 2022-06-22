@@ -11,7 +11,7 @@ import voice.voice_and_listening.SpeechToText;
 import java.util.List;
 
 @Slash()
-public class HeySlash implements ISlashCommands {
+public class Hey implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
         try {
@@ -53,7 +53,7 @@ public class HeySlash implements ISlashCommands {
 
     @Override
     public boolean isUserRequiredToBeInTheSameChannelAsBot() {
-        return false;
+        return true;
     }
 
 

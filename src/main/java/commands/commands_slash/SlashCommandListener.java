@@ -16,9 +16,7 @@ public class SlashCommandListener extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         CurrentTextChannel.setIid(event.getChannel().getId());
-        System.out.println(CurrentTextChannel.getId());
 
-        System.out.println(event.getName());
         SlashCommandManager slashCommandManager = new SlashCommandManager();
         if (slashCommandManager.getSlashCommand(event) != null) {
             if (botsAudioChannel(event.getGuild()) != null

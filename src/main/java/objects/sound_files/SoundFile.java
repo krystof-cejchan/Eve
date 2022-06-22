@@ -1,5 +1,8 @@
 package objects.sound_files;
 
+import enums_annotations_exceptions.enums.OS;
+import library_class.GlobalValues;
+
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
@@ -23,7 +26,8 @@ public class SoundFile {
     }
 
     public static String getWholePath() throws IOException {
-        return Directories.getthePath() + "\\" + getTitle() + ".wav";
+        return GlobalValues.operatingSystem == OS.WINDOWS
+                ? Directories.getthePath() + "\\" + getTitle() + ".wav" : Directories.getthePath() + "/" + getTitle() + ".wav";
     }
 
     static public class Directories {
@@ -53,7 +57,9 @@ public class SoundFile {
         }
 
         public static Path getthePath() throws IOException {
-            return Paths.get(getTheFirstDiskLetter().replace("VirtualDisk ","")+ "\\USERS_INPUT_AUDIO");
+            return GlobalValues.operatingSystem != OS.LINUX ?
+                    Paths.get(getTheFirstDiskLetter().replace("VirtualDisk ", "") + "\\USERS_INPUT_AUDIO")
+                    : Path.of("home/" + System.getProperty("user.name") + "/Documents");
         }
 
 

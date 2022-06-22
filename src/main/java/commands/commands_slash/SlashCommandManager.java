@@ -16,7 +16,7 @@ public class SlashCommandManager {
         addNewCommand(new PlaySongSlash());
         addNewCommand(new PlayQueueSlash());
         addNewCommand(new JoinSlash());
-        addNewCommand(new HeySlash());
+        addNewCommand(new Hey());
         addNewCommand(new Skip_fullSlash());
         addNewCommand(new Skip_toSongbyTitleSlash());
         addNewCommand(new QueueSlash());
@@ -27,26 +27,18 @@ public class SlashCommandManager {
         addNewCommand(new NowPlaying());
         addNewCommand(new FastForwardFrom0akaSetTrackPositionToX());
         addNewCommand(new FastForward());
-        // addNewCommand(new WeatherPicture());
         addNewCommand(new WeatherEmbedCurr());
         addNewCommand(new WeatherForecastForAllDaysAverageEmbed());
+        addNewCommand(new WeatherForecastFor1DayDetailedEmbed());
+        addNewCommand(new Help());
+        addNewCommand(new SearchYoutube());
 
 
-
-
-
-        /*addNewCommand(new PlayImmediately());
-        addNewCommand(new PlayQImmediately());*/
-
-        // commands.sort((commands1, commands2) -> commands1.getName().compareToIgnoreCase(commands2.getName()));
+        sortOut();
     }
 
-    // public static Set<Class> findAllClassesUsingReflectionsLibrary(String packageName) {
-    //     Reflections reflections = new Reflections(packageName, new SubTypesScanner(false));
-    //     return new HashSet<>(reflections.getSubTypesOf(Object.class));
-    // }
-
     public ArrayList<ISlashCommands> getAllCommands() {
+
         return commands;
     }
 
@@ -66,6 +58,10 @@ public class SlashCommandManager {
             if (cmd.getName().equalsIgnoreCase(event.getName())) return cmd;
         }
         return null;
+    }
+
+    private void sortOut() {
+        commands.sort((commands1, commands2) -> commands1.getName().compareToIgnoreCase(commands2.getName()));
     }
 
 }

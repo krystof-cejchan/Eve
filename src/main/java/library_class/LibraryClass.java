@@ -310,14 +310,14 @@ public class LibraryClass {
 
             new BufferedReader(new InputStreamReader(p.getErrorStream()));
 
-            String output = "";
+            StringBuilder output = new StringBuilder();
 
             while (!((s = stdInput.readLine()) == null))
-                output = s;
+                output.append(s).append("\n");
 
 
             System.out.println(PythonASCIIDecoding.decodeASCIItext("out " + output));
-            return /*PythonASCII_Decoding.decodeASCIItext*/(output);
+            return PythonASCIIDecoding.decodeASCIItext(output.deleteCharAt(output.length() - 1).toString());
         } catch (IOException e) {
 
             e.printStackTrace();

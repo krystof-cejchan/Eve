@@ -1,5 +1,6 @@
 package commands.commands_slash.autocompletion;
 
+import commands.commands_slash.autocompletion.classes.DayAutoCompletion;
 import commands.commands_slash.autocompletion.classes.SongQueueAutoCompletion;
 
 import java.util.ArrayList;
@@ -9,8 +10,7 @@ public class AutoCompleteManager {
 
     public AutoCompleteManager() {
         addNewAutoComplete(new SongQueueAutoCompletion());
-       // addNewAutoComplete(new SongSearchAutoCompletion());
-       // addNewAutoComplete(new MemberPokeAutoCompletion());
+        addNewAutoComplete(new DayAutoCompletion());
     }
 
     private void addNewAutoComplete(IAutoCompletion autoCompletion) {

@@ -15,11 +15,10 @@ public class PythonASCIIDecoding {
      */
     public static String decodeASCIItext(String asciiEncodedText) {
         try {
+            //all python scripts should return output in ascii if needed
             if (asciiEncodedText == null || (asciiEncodedText.chars().anyMatch(Character::isLetter)))
                 return asciiEncodedText;
 
-
-            //String rawString = LibraryClass.runPyScript("C:\\Users\\vecer\\IdeaProjects\\Eve\\src\\main\\java\\external_files\\py_scripts\\soundfiletotext.py", "C:\\Users\\vecer\\Music\\sample.wav cs-CZ");
             String[] ascii = asciiEncodedText.split(" ");
             int[] asciiNumbers = new int[ascii.length];
             for (int i = 0; i < ascii.length; i++) {

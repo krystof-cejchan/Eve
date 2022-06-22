@@ -3,11 +3,13 @@ package commands.commands_slash;
 import commands.purecommands.SkipToTitle;
 import commands.purecommands.subparts.GetCurrentTrack;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +20,12 @@ import static commands.purecommands.subparts.GetUsersVoiceChannels.usersAudioCha
 public class Skip_toSongbyTitleSlash implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+        if (GetCurrentTrack.getTrack(slashEvent.getGuild()) == null) {
+            slashEvent.replyEmbeds(new EmbedBuilder().setColor(Color.RED).setTitle("That was a fail \uD83D\uDE23\uD83D\uDE23")
+                            .addField("No song found", "There's nothing playing at the moment", true).build())
+                    .queue();
+            return;
+        }
         SkipToTitle.skipToTrackbyTitle(usersAudioChannel(Objects.requireNonNull(slashEvent.getMember())),
                 botsAudioChannel(slashEvent.getGuild()),
                 slashEvent.getGuild(), Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(Objects

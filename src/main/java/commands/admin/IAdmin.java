@@ -16,7 +16,7 @@ public interface IAdmin {
     }
 
     static String adminPrefix() {
-        return GlobalValues.adminPrefix;
+        return GlobalValues.ADMIN_PREFIX;
     }
 
     /**

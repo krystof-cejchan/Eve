@@ -160,11 +160,6 @@ public class PlayerManager {
                     List<AudioTrack> tracks = playlist.getTracks();
                     if (isQueue) {
 
-                    /* for (AudioTrack audioTrack : tracks) {
-                        musicManager.SCHEDULER.queue(audioTrack);
-
-                    }*/
-
                         tracks.forEach(musicManager.SCHEDULER::queue);
 
                         channel.sendMessage("Successfully added: " + playlist.getTracks().size() + " tracks").queue();

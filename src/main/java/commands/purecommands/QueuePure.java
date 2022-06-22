@@ -24,7 +24,7 @@ public class QueuePure {
         }
         if (!queue.isEmpty()) {
 
-            int shownTrackCount = GlobalValues.shownTrackCount;
+            int shownTrackCount = GlobalValues.SHOWN_TRACKS_COUNT;
             final int trackCount = Math.min(queue.size(), shownTrackCount);
             final ArrayList<AudioTrack> trackList = new ArrayList<>(queue);
 

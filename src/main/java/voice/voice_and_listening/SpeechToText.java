@@ -149,7 +149,7 @@ public class SpeechToText {
                         sentMsg = true;
                     }
                 }
-                event.getChannel().sendMessage("I'm listening ...").queue();
+                event.reply("I'm listening ...").queue();
             }
 
         } else {
@@ -167,7 +167,8 @@ public class SpeechToText {
             assert rawString != null;
             byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
 
-            //DeleteSoundAudioFilesFromSystemAndDatabase.delete1SoundFileFromSystemAndDatabase(SoundFile.getWholePath());
+            System.out.println(new File(SoundFile.getWholePath()).delete()
+                    ? "Sound file deleted" : "Sound file failed to be deleted!!!");
 
             return new String(bytes, StandardCharsets.UTF_8);
         } catch (NullPointerException | IOException e) {
@@ -300,67 +301,6 @@ public class SpeechToText {
                 }
             }
         }
-
-
-
-
-        /*
-         * /*@Override public void handleUserAudio(@Nonnull UserAudio userAudio) {
-         * GuildVoiceState voiceState = msgEvent.getEvent().getMember().getVoiceState();
-         *
-         * if (userAudio.getUser().equals(msgEvent.getEvent().getAuthor())) {
-         * guild.getAudioManager();
-         *
-         * rescievedBytes.add(userAudio.getAudioData(1.5f));// 1.0 → 100%
-         *
-         * if (talkingMembersCount.size() > MAX_VALUE) { if (isAllowedToCarryOn &&
-         * haveUsersStoppedTalking(talkingMembersCount)) { try {
-         *
-         * // System.out.println(combinedAudio.getUsers().size()); int size = 0; for
-         * (byte[] bs : rescievedBytes) { size += bs.length; } byte[] decodedData = new
-         * byte[size]; int i = 0; for (byte[] bs : rescievedBytes) { for (int j = 0; j <
-         * bs.length; j++) { decodedData[i++] = bs[j]; } }
-         *
-         * SoundFile.setTitle(msgEvent.getEvent().getGuild().getId());
-         *
-         * File file = new File(SoundFile.getWholePath());
-         *
-         * getWavFile(file, decodedData); SpeechToText StT = new SpeechToText(); String
-         * transcription = StT.getTranscription();
-         * guild.getTextChannelById(CurrentTextChannel.getId()).sendMessage(
-         * transcription).queue(); if
-         * (!((SpeechToText.Language.getLang().equals("en-GB") ||
-         * SpeechToText.Language.getLang().equals("en-US")))) { transcription =
-         * LibraryClass.runPyScript(ScriptPathPointer.translator, transcription);
-         * guild.getTextChannelById(CurrentTextChannel.getId()).sendMessage(
-         * transcription).queue(); }
-         *
-         * System.out.println(transcription); // CurrentTextChannel ctch = new
-         * CurrentTextChannel();
-         *
-         * SpeechToText.setText(transcription); ListeningCommandManager
-         * listeningCommandManager = new ListeningCommandManager();
-         *
-         * IListeningCommands command =
-         * listeningCommandManager.getCommand(transcription); if (command != null)
-         * command.doTask(msgEvent.getEvent());
-         *
-         * else {
-         *
-         * msgEvent.getEvent().getMessage().reply(
-         * "There's been an error\nCommand either does not exist or I couldn't understand you"
-         * ) .queue(); }
-         *
-         * // audioManager.closeAudioConnection(); if
-         * (haveUsersStoppedTalking(talkingMembersCount)) isAllowedToCarryOn = false;
-         *
-         * System.out.println("its done aint it"); } catch (Exception e) {
-         * System.out.println(e); }
-         *
-         * } } }
-         *
-         * }
-         */
 
         @Override
         public boolean includeUserInCombinedAudio(User user) {
