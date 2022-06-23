@@ -1,6 +1,7 @@
 package commands.commands_slash.autocompletion;
 
 import commands.commands_slash.autocompletion.classes.DayAutoCompletion;
+import commands.commands_slash.autocompletion.classes.QuotesLanguagesCompletion;
 import commands.commands_slash.autocompletion.classes.SongQueueAutoCompletion;
 
 import java.util.ArrayList;
@@ -11,14 +12,12 @@ public class AutoCompleteManager {
     public AutoCompleteManager() {
         addNewAutoComplete(new SongQueueAutoCompletion());
         addNewAutoComplete(new DayAutoCompletion());
+        addNewAutoComplete(new QuotesLanguagesCompletion());
     }
 
     private void addNewAutoComplete(IAutoCompletion autoCompletion) {
-        boolean exists = autoComplete.stream().anyMatch(match -> match.equals(autoCompletion));
-
-        if (!exists)
+        if (autoComplete.stream().noneMatch(match -> match.equals(autoCompletion)))
             autoComplete.add(autoCompletion);
-
     }
 
     public ArrayList<IAutoCompletion> getAutoComplete() {

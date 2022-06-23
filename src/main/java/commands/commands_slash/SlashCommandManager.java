@@ -32,13 +32,13 @@ public class SlashCommandManager {
         addNewCommand(new WeatherForecastFor1DayDetailedEmbed());
         addNewCommand(new Help());
         addNewCommand(new SearchYoutube());
+        addNewCommand(new QuoteSlashCommand());
 
 
         sortOut();
     }
 
     public ArrayList<ISlashCommands> getAllCommands() {
-
         return commands;
     }
 

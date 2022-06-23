@@ -23,8 +23,7 @@ public class SearchYoutube implements ISlashCommands {
         boolean caught = false;
 
         try {
-            slashEvent.getOption
-                    (getArgName().get(1)).getAsDouble();
+            slashEvent.getOption(getArgName().get(1)).getAsDouble();
         } catch (NullPointerException nullPointerException) {
             caught = true;
         }

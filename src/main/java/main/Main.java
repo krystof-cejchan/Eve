@@ -24,6 +24,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         //determinates the os
         GlobalValues.operatingSystem = System.getProperty("os.name").toLowerCase().contains("win") ? OS.WINDOWS : OS.LINUX;
+   // System.out.println(    Quotes.INSTANCE.getQuote("Czech"));
         new preSetUpManager().getPreSetUps().forEach(setUp -> {
             try {
                 setUp.GetReady();
