@@ -13,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,12 +31,11 @@ public class SearchYoutube implements ISlashCommands {
 
         String res = LibraryClass.runPyScript(new ScriptFiles(ScriptFilesLocation.fromLOCAL).getYtSearch().getAbsolutePath(),
                 amountOfResults +
-                        Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()).get(0))).getAsString());
+                        Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()).get(0))).getAsString(), false);
         slashEvent.replyEmbeds(generateEmbed(res.split("\n")).build()).queue();
     }
 
     private EmbedBuilder generateEmbed(String[] scriptResults) {
-        System.out.println(Arrays.toString(scriptResults));
         List<MessageEmbed.Field> fields = new ArrayList<>();
         for (int i = 0; i < scriptResults.length - 1; i += 2) {
             fields.add(new MessageEmbed.Field(scriptResults[i],

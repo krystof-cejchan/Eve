@@ -22,12 +22,14 @@ public class PlayCommand {
      * @param voice        {@link voice.voice_and_listening.SpeechToText} user's voice input
      */
     public void playMusic(MessageReceivedEvent event, String url, boolean isLink, MessageTypes messageTypes, String voice
-            , boolean playImmediately) {
+            , boolean playImmediately, boolean multiplyAdded) {
         final MessageChannel channel = event.getChannel();
 
-        @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember()).getVoiceState()).getChannel(); // user
+        @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember())
+                .getVoiceState()).getChannel(); // user
 
-        @Nullable AudioChannel connectedChannelSelf = Objects.requireNonNull(event.getGuild().getSelfMember().getVoiceState()).getChannel(); // bot
+        @Nullable AudioChannel connectedChannelSelf = Objects.requireNonNull(event.getGuild().getSelfMember()
+                .getVoiceState()).getChannel(); // bot
 
         VoiceChannels vc = new VoiceChannels();
 
@@ -39,18 +41,20 @@ public class PlayCommand {
 
                         event.getMessage().reply("Spotify is not supported yet").queue();
 
-                    } else loadNPlay(channel, url, event, null, messageTypes, voice, playImmediately);
+                    } else loadNPlay(channel, url, event, null, messageTypes, voice, playImmediately, multiplyAdded);
                 } else {
-                    loadNPlay(channel, "ytsearch:" + url, event, null, messageTypes, voice, playImmediately);
+                    loadNPlay(channel, "ytsearch:" + url, event, null, messageTypes, voice, playImmediately,
+                            multiplyAdded);
                 }
 
             } else {
 
                 vc.Join(event);
                 if (isLink) {
-                    loadNPlay(channel, url, event, null, messageTypes, voice, playImmediately);
+                    loadNPlay(channel, url, event, null, messageTypes, voice, playImmediately, multiplyAdded);
                 } else {
-                    loadNPlay(channel, "ytsearch:" + url, event, null, messageTypes, voice, playImmediately);
+                    loadNPlay(channel, "ytsearch:" + url, event, null, messageTypes, voice, playImmediately,
+                            multiplyAdded);
                 }
 
             }
@@ -61,7 +65,7 @@ public class PlayCommand {
     }
 
     public void playMusicFromSlash(SlashCommandInteractionEvent event, String url, MessageTypes messageTypes,
-                                   boolean playImmediately) {
+                                   boolean playImmediately, boolean multiplyAdded) {
         final MessageChannel channel = event.getChannel();
         final boolean isLink = LibraryClass.isLink(url);
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember())
@@ -81,9 +85,10 @@ public class PlayCommand {
 
                     event.reply("Spotify is not supported yet").queue();
 
-                } else loadNPlay(channel, url, null, event, messageTypes, null, playImmediately);
+                } else loadNPlay(channel, url, null, event, messageTypes, null, playImmediately, multiplyAdded);
             } else {
-                loadNPlay(channel, "ytsearch:" + url, null, event, messageTypes, null, playImmediately);
+                loadNPlay(channel, "ytsearch:" + url, null, event, messageTypes, null, playImmediately,
+                        multiplyAdded);
             }
 
 
@@ -105,8 +110,10 @@ public class PlayCommand {
      * @author krystof-cejchan
      */
     protected void loadNPlay(MessageChannel channel, String url, MessageReceivedEvent event1,
-                             SlashCommandInteractionEvent event2, MessageTypes type, String voice, boolean playImmediately) {
-        PlayerManager.getInstance().loadAndPlay(channel, url, false, event1, event2, type, voice, playImmediately);
+                             SlashCommandInteractionEvent event2, MessageTypes type, String voice, boolean playImmediately,
+                             boolean multiplyAdded) {
+        PlayerManager.getInstance().loadAndPlay(channel, url, false, event1, event2, type, voice, playImmediately,
+                multiplyAdded);
     }
 
 }

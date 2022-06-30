@@ -56,4 +56,5 @@ public class VolumeUpSlash implements ISlashCommands {
     public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return true;
     }
+
 }

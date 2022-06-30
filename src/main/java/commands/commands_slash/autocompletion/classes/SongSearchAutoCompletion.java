@@ -28,7 +28,7 @@ public class SongSearchAutoCompletion implements IAutoCompletion {
 */
 
         return new ArrayList<>(List.of(runPyScript(new ScriptFiles(ScriptFilesLocation.fromLOCAL)
-                .getYtSearch().getAbsolutePath(), event.getFocusedOption().getValue()).split("\n")));
+                .getYtSearch().getAbsolutePath(), event.getFocusedOption().getValue(), false).split("\n")));
     }
 
     @Override

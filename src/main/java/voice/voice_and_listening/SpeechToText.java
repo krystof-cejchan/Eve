@@ -43,20 +43,13 @@ public class SpeechToText {
     static Guild guild;
     private static String text = "";
 
-   /* public static String getChannelId() {
-        return channelId;
-    }*/
-
     private static void getWavFile(File outFile, byte[] decodedData) throws IOException, SQLException,
             ClassNotFoundException {
         /*
-        float sampleRate = 16000; // 8000,11025,16000,22050,44100,48000
-        int sampleSizeInBits = 16; // 8,16
-        int channels = 1; // 1,2
-        boolean signed = true; // true,false
-        boolean bigEndian = false; // true,false
-        AudioFormat af = new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
-        */
+         * float        sampleRate          = 16000;    // 8000,11025,16000,22050,44100,48000
+         * int          sampleSizeInBits    = 16;       // 8,16
+         * int          channels            = 1;        // 1,2
+         */
         AudioFormat format = new AudioFormat(48000f, 16, 2, true, true);
 
         AudioSystem.write(new AudioInputStream(new ByteArrayInputStream(decodedData), format, decodedData.length),
@@ -64,6 +57,7 @@ public class SpeechToText {
 
         new InsertValuesToTable().insertValuesToTable(outFile.getAbsolutePath());
     }
+
 
     public static String getText() {
         return text;
@@ -160,10 +154,10 @@ public class SpeechToText {
     public String getTranscription() {
         try {
             if (PythonASCIIDecoding.decodeASCIItext(runPyScript(ScriptPathPointer.soundFile2Text,
-                    SoundFile.getWholePath() + " " + Language.lang)) == null)
+                    SoundFile.getWholePath() + " " + Language.lang, false)) == null)
                 return null;
             String rawString = PythonASCIIDecoding.decodeASCIItext(runPyScript(ScriptPathPointer.soundFile2Text,
-                    SoundFile.getWholePath() + " " + Language.lang));
+                    SoundFile.getWholePath() + " " + Language.lang, false));
             assert rawString != null;
             byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
 
@@ -264,7 +258,7 @@ public class SpeechToText {
                                     .sendMessage(transcription_original).queue();
                             if (!((SpeechToText.Language.getLang().equals("en-GB") || SpeechToText.Language.getLang()
                                     .equals("en-US")))) {
-                                transcription_finalVersion = runPyScript(ScriptPathPointer.translator, transcription_original);
+                                transcription_finalVersion = runPyScript(ScriptPathPointer.translator, transcription_original, false);
                                 assert transcription_finalVersion != null;
                                 Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId()))
                                         .sendMessage(transcription_finalVersion).queue();

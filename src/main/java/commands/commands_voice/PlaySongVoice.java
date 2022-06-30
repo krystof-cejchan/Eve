@@ -28,7 +28,8 @@ public class PlaySongVoice implements IListeningCommands {
 
         PlayCommand playCommand = new PlayCommand();
         event.getChannel().sendMessage("Searching for " + extracttheSong(args)).queue();
-        playCommand.playMusic(event, extracttheSong(args), false, MessageTypes.EMBED_MESSAGE, usersInput,false);
+        playCommand.playMusic(event, extracttheSong(args), false, MessageTypes.EMBED_MESSAGE, usersInput,
+                false, true);
 
     }
 
@@ -72,7 +73,7 @@ public class PlaySongVoice implements IListeningCommands {
         for (String forbidden : forbiddenWords()) {
             System.out.println(searchWords);
             if (!(SpeechToText.Language.getLang().equals("en-GB") || SpeechToText.Language.getLang().equals("en-US")))
-                searchWords.removeIf(currWord -> LibraryClass.runPyScript(ScriptPathPointer.translator, currWord).equalsIgnoreCase(forbidden));
+                searchWords.removeIf(currWord -> LibraryClass.runPyScript(ScriptPathPointer.translator, currWord, false).equalsIgnoreCase(forbidden));
             else searchWords.removeIf(currWord -> currWord.equalsIgnoreCase(forbidden));
         }
 
@@ -117,7 +118,7 @@ public class PlaySongVoice implements IListeningCommands {
                 for (String forbiddenWord : PlaySongVoice.forbiddenWords()) {
                     argList.add(LibraryClass.runPyScript(ScriptPathPointer.customTranslator,
                             LANGUAGES.getShortLang(language)
-                                    .substring(0, LANGUAGES.getShortLang(language).indexOf("-")) + " en " + forbiddenWord));
+                                    .substring(0, LANGUAGES.getShortLang(language).indexOf("-")) + " en " + forbiddenWord, false));
                 }
                 hashMap.put(LANGUAGES.getShortLang(language), argList);
             }

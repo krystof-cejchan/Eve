@@ -33,7 +33,8 @@ public class SlashCommandManager {
         addNewCommand(new Help());
         addNewCommand(new SearchYoutube());
         addNewCommand(new QuoteSlashCommand());
-
+        addNewCommand(new ChuckJokes());
+        addNewCommand(new MultipleSongsQueued());
 
         sortOut();
     }

@@ -1,20 +1,20 @@
-package commands.commands_slash.quotes_core
+package commands.api.quotes_core
 
+import enums_annotations_exceptions.enums.QuoteLanguage
 import library_class.LibraryClass
 
-open class Quotes {
+open class QuotesGetFromAPI {
     companion object {
         fun getQuote(lang: String): String {
             val request = okhttp3.Request.Builder()
                 .url(
                     "https://quotes15.p.rapidapi.com/quotes/random/?language_code="
-                            + enums_annotations_exceptions.enums.QuoteLanguage.getLanguageFromString(lang).toString()
-                        .lowercase()
+                            + QuoteLanguage.getLanguageFromString(lang).toString().lowercase()
                 )
                 .get()
                 .addHeader(
                     "X-RapidAPI-Key", LibraryClass
-                        .getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/api_quotes.html")
+                        .getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/keys/api_quotes.html")
                 )
                 .addHeader("X-RapidAPI-Host", "quotes15.p.rapidapi.com")
                 .build()

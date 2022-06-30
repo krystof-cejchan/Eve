@@ -8,7 +8,7 @@ import java.nio.file.Files;
 public class AreSoundFilesReady implements IOnStart {
     @Override
     public void doYourPart() throws Exception {
-        if (!Files.exists(SoundFile.Directories.getthePath()))
+        if (!Files.exists(SoundFile.Directories.getCompletePathToSoundFiles()))
             throw new FileNotFoundException("file not found");
     }
 

@@ -113,11 +113,12 @@ public class PlayerManager {
      * @param msgType         {@link MessageTypes}
      * @param usersInput      user's input
      * @param playImmediately whether song should be played immediately
+     * @param multiplyAdded   means that no msgs will be sent
      * @author krystof-cejchan
      */
     public void loadAndPlay(MessageChannel channel, String url, boolean isQueue, @Nullable MessageReceivedEvent event1,
                             @Nullable SlashCommandInteractionEvent event2, @Nullable MessageTypes msgType, String usersInput,
-                            boolean playImmediately) {
+                            boolean playImmediately, boolean multiplyAdded) {
         if (event1 != null && event2 == null) {
             final GuildMusicManager musicManager = this.getMusicManager(event1.getGuild());
 
@@ -131,42 +132,7 @@ public class PlayerManager {
                 @Override
                 public void trackLoaded(AudioTrack track) {
                     musicManager.SCHEDULER.queue(track);
-                    switch (Objects.requireNonNull(msgType)) {
-                        case EMBED_MESSAGE:
-                            event1.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput, event1, url)).queue();
-                            break;
-                        case REG_MESSAGE:
-                            sendRegularMessage(event1, track);
-                            break;
-                        default:
-                            try {
-                                sendRegularMessage(event1, track);
-                                break;
-                            } catch (Exception e) {
-                                event1.getChannel().sendMessage("There's been an error").queue();
-                            }
-                    }
-
-                }
-
-                /**
-                 * playlist loaded
-                 *
-                 * @param playlist a list of {@link AudioTrack}-s
-                 */
-                @Override
-                public void playlistLoaded(AudioPlaylist playlist) {
-
-                    List<AudioTrack> tracks = playlist.getTracks();
-                    if (isQueue) {
-
-                        tracks.forEach(musicManager.SCHEDULER::queue);
-
-                        channel.sendMessage("Successfully added: " + playlist.getTracks().size() + " tracks").queue();
-
-                    } else {
-                        AudioTrack track = tracks.get(0);
-                        musicManager.SCHEDULER.queue(track);
+                    if (!multiplyAdded) {
                         switch (Objects.requireNonNull(msgType)) {
                             case EMBED_MESSAGE:
                                 event1.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput, event1, url)).queue();
@@ -186,12 +152,49 @@ public class PlayerManager {
                 }
 
                 /**
+                 * playlist loaded
+                 *
+                 * @param playlist a list of {@link AudioTrack}-s
+                 */
+                @Override
+                public void playlistLoaded(AudioPlaylist playlist) {
+
+                    List<AudioTrack> tracks = playlist.getTracks();
+                    if (isQueue) {
+
+                        tracks.forEach(musicManager.SCHEDULER::queue);
+                        if (!multiplyAdded)
+                            channel.sendMessage("Successfully added: " + playlist.getTracks().size() + " tracks").queue();
+
+                    } else {
+                        AudioTrack track = tracks.get(0);
+                        musicManager.SCHEDULER.queue(track);
+                        if (!multiplyAdded) {
+                            switch (Objects.requireNonNull(msgType)) {
+                                case EMBED_MESSAGE:
+                                    event1.getChannel().sendMessageEmbeds(createEmbedMsg(track, usersInput, event1, url)).queue();
+                                    break;
+                                case REG_MESSAGE:
+                                    sendRegularMessage(event1, track);
+                                    break;
+                                default:
+                                    try {
+                                        sendRegularMessage(event1, track);
+                                        break;
+                                    } catch (Exception e) {
+                                        event1.getChannel().sendMessage("There's been an error").queue();
+                                    }
+                            }
+                        }
+                    }
+                }
+
+                /**
                  * no track with this title or upload under this url was found
                  */
                 @Override
                 public void noMatches() {
                     channel.sendMessage("Nothing was found for: __" + usersInput + "__").queue();
-
                 }
 
                 /**
@@ -223,8 +226,9 @@ public class PlayerManager {
                 public void trackLoaded(AudioTrack track) {
                     musicManager.SCHEDULER.queue(track);
                     //event2.reply("**" + track.getInfo().title + "** was successfully added").queue();
-                    event2.replyEmbeds(newSongAddedThroughSlash(Objects.requireNonNull(event2.getMember()),
-                            track, musicManager.SCHEDULER.QUEUE).build()).queue();
+                    if (!multiplyAdded)
+                        event2.replyEmbeds(newSongAddedThroughSlash(Objects.requireNonNull(event2.getMember()),
+                                track, musicManager.SCHEDULER.QUEUE).build()).queue();
                 }
 
                 /**
@@ -250,13 +254,14 @@ public class PlayerManager {
                                 musicManager.SCHEDULER.nextTrack();
 
                         }
-                        (playImmediately
-                                ?
-                                event2.reply(stringBuilder.append(" and moved before all other tracks").toString())
-                                :
-                                event2.reply(stringBuilder.toString())
-                        ).queue();
-
+                        if (!multiplyAdded) {
+                            (playImmediately
+                                    ?
+                                    event2.reply(stringBuilder.append(" and moved before all other tracks").toString())
+                                    :
+                                    event2.reply(stringBuilder.toString())
+                            ).queue();
+                        }
                     } else {
                         AudioTrack track = tracks.get(0);
 
@@ -270,9 +275,10 @@ public class PlayerManager {
 
                         } else
                             musicManager.SCHEDULER.queue(track);
-
-                        event2.replyEmbeds(newSongAddedThroughSlash(Objects.requireNonNull(event2.getMember()),
-                                track, musicManager.SCHEDULER.QUEUE).build()).queue();
+                        if (!multiplyAdded) {
+                            event2.replyEmbeds(newSongAddedThroughSlash(Objects.requireNonNull(event2.getMember()),
+                                    track, musicManager.SCHEDULER.QUEUE).build()).queue();
+                        }
                     }
                 }
 

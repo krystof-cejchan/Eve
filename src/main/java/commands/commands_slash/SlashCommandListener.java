@@ -28,7 +28,9 @@ public class SlashCommandListener extends ListenerAdapter {
                                 .getName() + " command", false).build()).queue();
                 return;
             }
-            slashCommandManager.getSlashCommand(event).executeSlashCommand(event);
+            ISlashCommands triggeredCommand = slashCommandManager.getSlashCommand(event);
+            triggeredCommand.executeSlashCommand(event);
+            SlashCommandGeneralObserver.calculateAndKeepTrackOfSlashCommandUse(triggeredCommand);
         }
     }
 }

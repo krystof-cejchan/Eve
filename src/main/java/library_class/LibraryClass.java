@@ -40,13 +40,7 @@ public class LibraryClass {
      */
     public static boolean compareTwoArrays(ArrayList<String> listA, ArrayList<String> listB) {
         for (String s : listA) {
-            for (String value : listB) {
-                if (s.equalsIgnoreCase(value)) {
-                    return true;
-                }
-
-            }
-
+            if (listB.contains(s)) return true;
         }
 
         return false;
@@ -73,7 +67,8 @@ public class LibraryClass {
         return false;
     }
 
-    public static Integer[] whereAreItemsInTwoArraysTheSame(ArrayList<String> listA, ArrayList<String> listB) throws PatternSyntaxException {
+    public static Integer[] whereAreItemsInTwoArraysTheSame(ArrayList<String> listA, ArrayList<String> listB)
+            throws PatternSyntaxException {
         ArrayList<Integer> where = new ArrayList<>();
         for (String s : listA) {
             for (String value : listB) {
@@ -233,26 +228,6 @@ public class LibraryClass {
         }
     }
 
-    /*
-     * used for song search optimalization
-     *
-     * @param map of String and Integer
-     * @return words with most hits (a song)
-     * @author krystof-cejchan
-     */
-   /* public static String getTheMostSuitableStringFromAHashMap(HashMap<String, Integer> map) {
-        int top = 0;
-        String chosen = null;
-        for (HashMap.Entry<String, Integer> entry : map.entrySet()) {
-
-            if (entry.getValue() > top) {
-                chosen = entry.getKey();
-            }
-
-        }
-        return chosen;
-    }*/
-
     /**
      * transforms a String array to continuous text with spaces
      *
@@ -297,15 +272,16 @@ public class LibraryClass {
     /**
      * runs python script and returns text value that the script returned
      *
-     * @param fullPath  to script
-     * @param arguments that will be passed to the script
+     * @param fullPath      to script
+     * @param arguments     that will be passed to the script
+     * @param consoleOutput true->you'll receive script output in the console
      * @return value from script
      */
-    public static String runPyScript(String fullPath, @Nullable String arguments) {
+    public static String runPyScript(String fullPath, @Nullable String arguments, boolean consoleOutput) {
         try {
             String s;
             Process p = Runtime.getRuntime().exec("python " + fullPath + " " + arguments);
-            //p.waitFor(5, TimeUnit.SECONDS);
+
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
             new BufferedReader(new InputStreamReader(p.getErrorStream()));
@@ -315,11 +291,10 @@ public class LibraryClass {
             while (!((s = stdInput.readLine()) == null))
                 output.append(s).append("\n");
 
-
-            System.out.println(PythonASCIIDecoding.decodeASCIItext("out " + output));
+            if (consoleOutput)
+                System.out.println(PythonASCIIDecoding.decodeASCIItext("out " + output));
             return PythonASCIIDecoding.decodeASCIItext(output.deleteCharAt(output.length() - 1).toString());
         } catch (IOException e) {
-
             e.printStackTrace();
             return "";
         }

@@ -5,7 +5,6 @@ import library_class.GlobalValues;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.ArrayList;
 
 public class SoundFile {
     private static String title;
@@ -27,22 +26,11 @@ public class SoundFile {
 
     public static String getWholePath() throws IOException {
         return GlobalValues.operatingSystem == OS.WINDOWS
-                ? Directories.getthePath() + "\\" + getTitle() + ".wav" : Directories.getthePath() + "/" + getTitle() + ".wav";
+                ? Directories.getCompletePathToSoundFiles() + "\\" + getTitle() + ".wav"
+                : Directories.getCompletePathToSoundFiles() + "/" + getTitle() + ".wav";
     }
 
     static public class Directories {
-        public static ArrayList<FileStore> getAllAvaiableFireStores() {
-            ArrayList<FileStore> stores = new ArrayList<>();
-            FileSystems.getDefault().getRootDirectories().forEach(root -> {
-                try {
-                    stores.add(Files.getFileStore(root));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            return stores;
-        }
-
         public static FileStore getTheFirstFireStore() throws IOException {
             for (Path root : FileSystems.getDefault().getRootDirectories()) {
                 if (!Files.getFileStore(root).isReadOnly() && Files.isWritable(root))
@@ -56,12 +44,19 @@ public class SoundFile {
             return getTheFirstFireStore().toString().replaceAll("\\(", "").replaceAll("\\)", "");
         }
 
-        public static Path getthePath() throws IOException {
+        /**
+         * returns a complete path to folder where sound files are stored<hr>
+         * <b>•if os is windows</b> then a folder on the first writeable/readable disk will be created and all file sounds will be stored there<br>
+         * <b>•linux</b> path will look like this: /home/<i>user's name</i>/Documents
+         *
+         * @return Path to a folder
+         * @throws IOException if disk was not found
+         */
+        public static Path getCompletePathToSoundFiles() throws IOException {
             return GlobalValues.operatingSystem != OS.LINUX ?
-                    Paths.get(getTheFirstDiskLetter().replace("VirtualDisk ", "") + "\\USERS_INPUT_AUDIO")
-                    : Path.of("home/" + System.getProperty("user.name") + "/Documents");
+                    Paths.get(getTheFirstDiskLetter().replace("VirtualDisk ", "") +
+                            "\\USERS_INPUT_AUDIO")
+                    : Path.of("/home/" + System.getProperty("user.name") + "/Documents");
         }
-
-
     }
 }

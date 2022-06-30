@@ -5,6 +5,7 @@ import commands.commands_slash.SlashCommandListener;
 import commands.commands_slash.autocompletion.AutocompleteListener;
 import enums_annotations_exceptions.enums.OS;
 import library_class.GlobalValues;
+import library_class.LibraryClass;
 import main.after_startup.AfterStartUpManager;
 import main.after_startup.IAfterStartUp;
 import main.onstart.OnStartManager;
@@ -16,15 +17,24 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
-import java.util.EnumSet;
 
+/**
+ * Main class
+ */
 public class Main {
     public static JDA publicJDA;
 
+    /**
+     * Main method
+     * prepares and launches the bot and all needed services
+     *
+     * @param args params
+     * @throws Exception general exception
+     */
     public static void main(String[] args) throws Exception {
         //determinates the os
         GlobalValues.operatingSystem = System.getProperty("os.name").toLowerCase().contains("win") ? OS.WINDOWS : OS.LINUX;
-   // System.out.println(    Quotes.INSTANCE.getQuote("Czech"));
+
         new preSetUpManager().getPreSetUps().forEach(setUp -> {
             try {
                 setUp.GetReady();
@@ -45,7 +55,7 @@ public class Main {
             System.out.println("All checked");
         });
 
-        EnumSet<GatewayIntent> intents = EnumSet.of(
+        java.util.EnumSet<GatewayIntent> intents = java.util.EnumSet.of(
 
                 GatewayIntent.GUILD_MESSAGES,
 
@@ -55,9 +65,9 @@ public class Main {
 
 
         @SuppressWarnings("unused")
-        String APITokenTEST = "OTM2Njc1NTQzNzU0MDg4NTQw.YfQpFA.sVKCrcPurel5KqKyLC-5lk0eS5M";
+        String APITokenTEST = LibraryClass.getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/keys/test.html");
         @SuppressWarnings("unused")
-        String APITokenMAIN = "OTMzNDgyMTE1MDM3ODEwNzI5.YeiK9w.Qy3vSVFx5zQ8MsjL0jHVbLmrMXs";
+        String APITokenMAIN = LibraryClass.getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/keys/navostro.html");
 
 
         JDABuilder jda = JDABuilder.createDefault(APITokenTEST, intents);
@@ -68,10 +78,10 @@ public class Main {
         jda.setActivity(Activity.watching("\uD835\uDDE8\uD835\uDE04\uD835\uDDE8"));
         jda.addEventListeners(new Listener(), new SlashCommandListener(), new AutocompleteListener());
         publicJDA = jda.build().awaitReady();
-        //jda.build().awaitReady();
 
         try {
-            new AfterStartUpManager().getiAfterStartUpArrayList().forEach(IAfterStartUp::doAfterStartUp);
+            new AfterStartUpManager().
+                    getiAfterStartUpArrayList().forEach(IAfterStartUp::doAfterStartUp);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(-1);

@@ -19,7 +19,7 @@ public class PlayImmediately implements ISlashCommands {
 
         new PlayCommand().playMusicFromSlash(slashEvent, Objects.requireNonNull(slashEvent.getOption
                         (Objects.requireNonNull(getArgName()).get(0))).getAsString(),
-                null, true);
+                null, true,true);
 
     }
 

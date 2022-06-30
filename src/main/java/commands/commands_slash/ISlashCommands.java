@@ -44,10 +44,8 @@ public interface ISlashCommands {
     List<String> getArgName();
 
 
-
     boolean isGuildOnly();
 
     boolean isUserRequiredToBeInTheSameChannelAsBot();
-
 
 }

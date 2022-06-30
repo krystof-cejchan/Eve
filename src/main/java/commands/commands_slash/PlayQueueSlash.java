@@ -32,7 +32,7 @@ public class PlayQueueSlash implements ISlashCommands {
         String arg = Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(Objects.requireNonNull(getArgName())
                 .get(0)))).getAsString();
 
-        new PlayQCommand().playMusicFromSlash(slashEvent, arg, LibraryClass.isLink(arg), playImmediately);
+        new PlayQCommand().playMusicFromSlash(slashEvent, arg, LibraryClass.isLink(arg), playImmediately,true);
     }
 
     @Override

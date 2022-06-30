@@ -1,6 +1,6 @@
 package commands.commands_slash;
 
-import commands.commands_slash.quotes_core.QuoteObject;
+import commands.api.quotes_core.QuoteObject;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;

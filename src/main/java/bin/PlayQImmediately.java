@@ -20,7 +20,7 @@ public class PlayQImmediately implements ISlashCommands {
         String arg = Objects.requireNonNull(slashEvent.getOption
                 (Objects.requireNonNull(getArgName()).get(0))).getAsString();
         new PlayQCommand().playMusicFromSlash(slashEvent, arg,
-                LibraryClass.isLink(arg), true);
+                LibraryClass.isLink(arg), true, true);
     }
 
     @Override

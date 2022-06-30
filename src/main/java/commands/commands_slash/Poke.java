@@ -13,9 +13,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static library_class.Date.currentDateTime;
 import static library_class.Date.getNormalDateAndTime;
@@ -32,17 +34,26 @@ public class Poke extends PokeFrame implements ISlashCommands {
         String content = getMessageIfPossible(slashEvent, getArgName().get(1));
         try {
             if (taggedMember != null) {
+                sendConfirmMsg(slashEvent, taggedMember.getNickname());
                 sendMsg(slashEvent, taggedMember, content);
             }
             if (!taggedMembersArr.isEmpty()) {
                 for (Member mem : taggedMembersArr) {
                     sendMsg(slashEvent, mem, content);
                 }
+                sendConfirmMsg(slashEvent, taggedMembersArr.stream()
+                        .map(Member::getNickname)
+                        .collect(Collectors.joining(", ")));
             }
 
         } catch (ContextException | UserCannotBeReachedThroughPrivateMessageException e) {
             slashEvent.reply("There's been an error while poking").queue();
         }
+    }
+
+    private void sendConfirmMsg(SlashCommandInteractionEvent event, String member_s) {
+        event.replyFile(new File("src/main/java/external_files/graphics/hey-wake-up-poke-discord.gif"),
+                "Poking " + member_s + ".gif").queue();
     }
 
     @Override
@@ -101,7 +112,7 @@ public class Poke extends PokeFrame implements ISlashCommands {
         }
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(LibraryClass.getRandomColor());
-        embedBuilder.setFooter("Sent by: " + member.getUser().getAsMention() + " from " +
+        embedBuilder.setFooter("Sent by: " + member.getUser().getName() + " from " +
                 Objects.requireNonNull(event.getGuild()).getName(), member.getEffectiveAvatarUrl());
         embedBuilder.setDescription("You have been poked!");
         embedBuilder.setTitle("Hey Wake Up!");
@@ -112,7 +123,7 @@ public class Poke extends PokeFrame implements ISlashCommands {
                             privateChannel.sendMessageEmbeds(embedBuilder.build()))
                     .flatMap(succ -> event.getChannel().sendMessageEmbeds(new EmbedBuilder().setColor(
                                     new Color(102, 255, 0))
-                            .addField("Poke has been sent!! \uD83D\uDE07",
+                            .addField("Poke has been successfully sent!! \uD83D\uDE07",
                                     '*' + Objects.requireNonNull(event.getMember())
                                             .getUser().getName() + "* has just triggered '" + this.getName() + "' command",
                                     false)

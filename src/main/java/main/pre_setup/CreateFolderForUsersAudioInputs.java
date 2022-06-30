@@ -10,7 +10,7 @@ public class CreateFolderForUsersAudioInputs implements IPreSetUp {
     @Override
     public void GetReady() {
         try {
-            if (!Files.exists(Directories.getthePath())) Files.createDirectory(Directories.getthePath());
+            if (!Files.exists(Directories.getCompletePathToSoundFiles())) Files.createDirectory(Directories.getCompletePathToSoundFiles());
             else System.out.println("already exists");
         } catch (IOException e) {
             e.printStackTrace();
