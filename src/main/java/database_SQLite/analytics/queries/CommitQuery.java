@@ -1,6 +1,7 @@
 package database_SQLite.analytics.queries;
 
 import database_SQLite.analytics.DatabaseManager;
+import database_SQLite.analytics.connection.ConnectToDatabase;
 import org.sqlite.SQLiteException;
 
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class CommitQuery extends DatabaseManager {
     protected void commitThisQuery(String query) throws SQLException {
         PreparedStatement statement = null;
         try {
-            statement = super.connectToDatabase().prepareStatement(query);
+            statement = ConnectToDatabase.getInstance().connectToDatabase().prepareStatement(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }

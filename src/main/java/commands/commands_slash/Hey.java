@@ -15,6 +15,7 @@ public class Hey implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
         try {
+            slashEvent.reply("*get ready, set and ...*").queue();
             new SpeechToText().onEchoSlashCommand(slashEvent);
         } catch (RateLimitedException e) {
             e.printStackTrace();

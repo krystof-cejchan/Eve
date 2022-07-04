@@ -13,6 +13,16 @@ import java.sql.SQLException;
  */
 public class ConnectToDatabase extends CreationOfDatabase {
 
+    private static ConnectToDatabase instance = null;
+
+    /**
+     * singleton pattern
+     *
+     * @return instance of this class if no other exists, if one already exists then the one will be returned
+     */
+    public static ConnectToDatabase getInstance() {
+        return instance == null ? instance = new ConnectToDatabase() : instance;
+    }
 
     /**
      * Connects to the database and returns {@link Connection}

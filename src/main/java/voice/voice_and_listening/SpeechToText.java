@@ -43,6 +43,15 @@ public class SpeechToText {
     static Guild guild;
     private static String text = "";
 
+    /**
+     * creates a new wav audio file and fills it with audio from the user represented in bytes
+     *
+     * @param outFile     {@link File} that will hold the decodedData
+     * @param decodedData user's voice input in bytes
+     * @throws IOException            no such file
+     * @throws SQLException           database failed
+     * @throws ClassNotFoundException writing bytes failed
+     */
     private static void getWavFile(File outFile, byte[] decodedData) throws IOException, SQLException,
             ClassNotFoundException {
         /*
@@ -262,9 +271,9 @@ public class SpeechToText {
                                 assert transcription_finalVersion != null;
                                 Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId()))
                                         .sendMessage(transcription_finalVersion).queue();
-                            } else {
+                            } else
                                 transcription_finalVersion = transcription_original;
-                            }
+
 
                             System.out.println(transcription_finalVersion);
 
@@ -314,7 +323,6 @@ public class SpeechToText {
 
         @Override
         public boolean isOpus() {
-
             return false;
         }
 
@@ -334,10 +342,8 @@ public class SpeechToText {
                 for (int y = list.size() - MAX_VALUE; y < list.size(); y++) {
                     if (list.get(y)) return false;
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
-
             }
             return true;
 

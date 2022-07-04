@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import objects.CurrentTextChannel;
 import objects.MessageReceivedEvent_StaticCustomClass;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,9 +52,7 @@ public class Listener extends ListenerAdapter {
                 MessageChannel eventChannel = event.getChannel();
                 if (event.getMessage().getContentRaw().length() < Prefix.getValue().length()) return;
 
-
                 if (eventChannel == re || GlobalValues.ALLOW_NOT_IN_TEST_MODE) {
-
                     if (event.getMessage().getContentRaw().substring(0, Prefix.getValue().length())
                             .equalsIgnoreCase(Prefix.getValue())) {
                         CommandManager manager = new CommandManager();
@@ -71,14 +70,10 @@ public class Listener extends ListenerAdapter {
                         }
                     }
 
-                    if (IAdmin.isVerified(event) && event.getMessage().getContentRaw()
-                            .startsWith(IAdmin.adminPrefix())) {
-
-
+                    if (IAdmin.isVerified(event) && event.getMessage().getContentRaw().startsWith(IAdmin.adminPrefix())) {
                         AdminCommandManager adminCommandManager = new AdminCommandManager();
                         if (adminCommandManager.getCommand(event.getMessage().getContentRaw()) != null)
                             adminCommandManager.getCommand(event.getMessage().getContentRaw()).commitAdminOperation(event);
-
                     }
                 }
 
@@ -89,7 +84,6 @@ public class Listener extends ListenerAdapter {
         }
     }
 
-
     private boolean containsForbiddenChars(String msg) {
         String[] forbiddenChars = {" ", "	"};
         for (String string : forbiddenChars) {
@@ -97,20 +91,23 @@ public class Listener extends ListenerAdapter {
                 return true;
         }
         return false;
-
     }
 
+    @Contract("null, _, true -> fail; _, null, false -> fail")
     private void leaveIfAlone(@Nullable GuildVoiceLeaveEvent event, @Nullable GuildVoiceMoveEvent event2,
                               boolean leave) {
         if (leave) {
             assert event != null;
             AudioChannel connectedChannelSelf = Objects.requireNonNull(event.getGuild().getSelfMember().getVoiceState()).getChannel();
             ArrayList<Member> members = null;
+            boolean isMembersOk = true;
             try {
                 members = new ArrayList<>(connectedChannelSelf.getMembers());
-            } catch (NullPointerException ignored) {
+            } catch (NullPointerException exception) {
+                isMembersOk = false;
             }
-            if (members == null || members.isEmpty()) {
+            // if(members.isEmpty()||members==null)isMembersOk=false;
+            if (!isMembersOk) {
                 VoiceChannels leaveVC = new VoiceChannels();
                 StopCommand stop = new StopCommand();
                 stop.stopMusic(event);
@@ -132,9 +129,15 @@ public class Listener extends ListenerAdapter {
         } else {
             assert event2 != null;
             AudioChannel connectedChannelSelf = Objects.requireNonNull(event2.getGuild().getSelfMember().getVoiceState()).getChannel();
-
-            boolean human = false;
             assert connectedChannelSelf != null;
+            if (connectedChannelSelf.getMembers().isEmpty() || connectedChannelSelf.getMembers().size() < 1) {
+                VoiceChannels leaveVC = new VoiceChannels();
+                StopCommand stop = new StopCommand();
+                stop.stopMusic(event2);
+                leaveVC.Leave(event2);
+                return;
+            }
+            boolean human = false;
             for (Member member : connectedChannelSelf.getMembers()) {
                 if (!member.getUser().isBot()) {
                     human = true;

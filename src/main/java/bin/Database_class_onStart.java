@@ -1,4 +1,4 @@
-import db.Database;
+/*import db.Database;
 import db.DbCommands;
 import main.onstart.IOnStart;
 import objects.ScriptPathPointer;
@@ -26,3 +26,4 @@ public class Database_class_onStart implements IOnStart {
 
 
 }
+*/

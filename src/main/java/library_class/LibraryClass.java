@@ -31,6 +31,10 @@ import java.util.regex.PatternSyntaxException;
  * @author krystof-cejchan
  */
 public class LibraryClass {
+    private LibraryClass() {
+        throw new UnsupportedOperationException("cannot create an instance of a utility class");
+    }
+
     /**
      * if two values match ignoring case, true will be returned
      *
@@ -324,9 +328,9 @@ public class LibraryClass {
             if (!isLink(web_url)) return null;
             Scanner sc = new Scanner(new URL(web_url).openStream());
             StringBuilder sb = new StringBuilder();
-            while (sc.hasNext()) {
+            while (sc.hasNext())
                 sb.append(sc.next());
-            }
+
             sc.close();
             return sb.toString().replaceAll("<[^>]*>", "");
         } catch (IOException e) {

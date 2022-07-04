@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import static library_class.LibraryClass.getCurrentDate;
 
 public class AddNewRecord extends InsertValuesToTable {
+
     public void addNewRecordToDatabase_onNewCommandReceived(String commandName, Message msg,
                                                             MessageType_VOICE_TEXT voice_text) throws SQLException {
         boolean moreThanOne = false;
