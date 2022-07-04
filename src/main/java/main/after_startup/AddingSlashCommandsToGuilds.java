@@ -9,7 +9,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import java.util.Objects;
 
 public class AddingSlashCommandsToGuilds implements IAfterStartUp {
-    protected void addSlashCommandsToTheGuilds() {
+    private void addSlashCommandsToTheGuilds() {
         SlashCommandManager slashCommandManager = new SlashCommandManager();
         for (Guild guild : Main.publicJDA.getGuilds()) {
 
@@ -41,6 +41,23 @@ public class AddingSlashCommandsToGuilds implements IAfterStartUp {
 
             }
 
+        }
+    }
+
+    public static void addSlashCommandsToSpecificGuild(Guild guild) {
+        for (ISlashCommands iSlashCommands : new SlashCommandManager().getAllCommands()) {
+            switch (iSlashCommands.takesArguments()) {
+                case NONE -> guild.upsertCommand(iSlashCommands.getName().toLowerCase(), iSlashCommands.getDescription())
+                        .queue();
+
+                case ONE -> guild.upsertCommand(iSlashCommands.getName().toLowerCase(), iSlashCommands.getDescription())
+                        .addOptions(Objects.requireNonNull(iSlashCommands.getOptionData()).get(0)).queue();
+
+                case MULTIPLE -> guild.upsertCommand(iSlashCommands.getName().toLowerCase(), iSlashCommands
+                        .getDescription()).addOptions(Objects.requireNonNull(iSlashCommands.getOptionData())).queue();
+
+                default -> throw new NullPointerException("slash command takes unknown number of arguments/options");
+            }
         }
     }
 

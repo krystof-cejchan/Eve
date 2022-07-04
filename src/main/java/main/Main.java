@@ -1,11 +1,13 @@
 package main;
 
 
-import commands.commands_slash.SlashCommandListener;
-import commands.commands_slash.autocompletion.AutocompleteListener;
 import enums_annotations_exceptions.enums.OS;
 import library_class.GlobalValues;
 import library_class.LibraryClass;
+import listeners.AutocompleteListener;
+import listeners.FirstJoinServerListener;
+import listeners.Listener;
+import listeners.SlashCommandListener;
 import main.after_startup.AfterStartUpManager;
 import main.after_startup.IAfterStartUp;
 import main.onstart.OnStartManager;
@@ -69,6 +71,10 @@ public class Main {
         @SuppressWarnings("unused")
         String APITokenMAIN = LibraryClass.getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/keys/navostro.html");
 
+        Object[] allActiveListeners = {new Listener(),
+                new SlashCommandListener(),
+                new AutocompleteListener(),
+                new FirstJoinServerListener()};
 
         JDABuilder jda = JDABuilder.createDefault(APITokenTEST, intents);
 
@@ -76,7 +82,7 @@ public class Main {
         jda.enableCache(CacheFlag.VOICE_STATE);
         jda.setStatus(OnlineStatus.ONLINE);
         jda.setActivity(Activity.watching("\uD835\uDDE8\uD835\uDE04\uD835\uDDE8"));
-        jda.addEventListeners(new Listener(), new SlashCommandListener(), new AutocompleteListener());
+        jda.addEventListeners(allActiveListeners);
         publicJDA = jda.build().awaitReady();
 
         try {
@@ -86,7 +92,5 @@ public class Main {
             e.printStackTrace();
             System.exit(-1);
         }
-
-
     }
 }

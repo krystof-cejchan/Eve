@@ -80,7 +80,7 @@ public class VolumeCustomSLASH implements ISlashCommands {
             String increasedOrDecreased = (newVol > oldVol ? "increased" : "decreased");
             EmbedBuilder builder = new EmbedBuilder();
             builder.setColor(LibraryClass.getRandomColor());
-            builder.setTitle("Volume controller");
+            builder.setTitle("Volume controller \uD83D\uDD79");
             builder.addField("Volume before: ", String.valueOf(oldVol), true);
             builder.addField("New Volume: ", String.valueOf(newVol), true);
             builder.addField("", "Volume has " + increasedOrDecreased + " by " + Math.abs(newVol - oldVol),

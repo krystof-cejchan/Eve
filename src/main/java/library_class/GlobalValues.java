@@ -12,7 +12,7 @@ public class GlobalValues {
      */
     public static final int MAX_SEC_AUDIO_RECORDING = 8;
     /**
-     * [main.Listener]
+     * [listeners.Listener]
      */
     public static final boolean ALLOW_NOT_IN_TEST_MODE = true;
     /**

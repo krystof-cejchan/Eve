@@ -15,7 +15,7 @@ public class RunPyScript02 {
 
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("python");
-        engine.eval(new FileReader(("C:\\Users\\kryst\\git\\repository3\\discordbottest\\src\\main\\java\\external_files\\py_scripts\\soundfiletotext.py")), context);
+        engine.eval(new FileReader(("src\\main\\java\\external_files\\py_scripts\\soundfiletotext.py")), context);
         System.out.println(writer.toString().trim());
     }
 }
