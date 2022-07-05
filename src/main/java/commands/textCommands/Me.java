@@ -2,9 +2,9 @@ package commands.textCommands;
 
 import commands.ICommands;
 import commands.commands_others.Birthday;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import utility_class.UtilityClass;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ public class Me implements ICommands {
         net.dv8tion.jda.api.entities.Member user = event.getMember();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         // embedBuilder.setAuthor(user.getNickname(), user.getAsMention(), null);
-        embedBuilder.setColor(LibraryClass.getRandomColor());
+        embedBuilder.setColor(UtilityClass.getRandomColor());
         assert user != null;
         embedBuilder.addField("UserName", user.getAsMention(), false);
         embedBuilder.addField("ID", user.getId(), false);

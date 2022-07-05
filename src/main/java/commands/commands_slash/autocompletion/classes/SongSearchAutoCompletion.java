@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static library_class.LibraryClass.runPyScript;
+import static utility_class.UtilityClass.runPyScript;
 
 public class SongSearchAutoCompletion implements IAutoCompletion {
     @Override

@@ -3,13 +3,13 @@ package commands.commands_slash;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import commands.purecommands.subparts.LetCurrentTrackFastForward;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import utility_class.UtilityClass;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static audioplayer.NowPlayingCommand.getTimestamp;
+import static utility_class.UtilityClass.getTimeStampMilliToStringTime;
 
 public class FastForward extends LetCurrentTrackFastForward implements ISlashCommands {
     @Override
@@ -33,15 +33,15 @@ public class FastForward extends LetCurrentTrackFastForward implements ISlashCom
             case 1 -> {
                 AudioTrack currTrack = getTrack(slashEvent.getGuild());
                 assert currTrack != null;
-                String duration = getTimestamp(currTrack.getDuration());
-                slashEvent.replyEmbeds(new EmbedBuilder().setColor(LibraryClass.getRandomColor())
+                String duration = getTimeStampMilliToStringTime(currTrack.getDuration());
+                slashEvent.replyEmbeds(new EmbedBuilder().setColor(UtilityClass.getRandomColor())
                         .setTitle("Successfully fast-forwarded")
                         .setDescription(currTrack.getInfo().title)
-                        .addField("Previous position", getTimestamp(posBefore) + "** / **" + duration, true)
-                        .addField("Current position", getTimestamp(Long.parseLong(String
+                        .addField("Previous position", getTimeStampMilliToStringTime(posBefore) + "** / **" + duration, true)
+                        .addField("Current position", getTimeStampMilliToStringTime(Long.parseLong(String
                                 .valueOf(getArg_beforeDisappearing))) + "**/**" + duration, true)
                         .addField("Time Left",
-                                getTimestamp(Long.parseLong(String.valueOf(
+                                getTimeStampMilliToStringTime(Long.parseLong(String.valueOf(
                                         currTrack.getDuration() - currTrack.getPosition()))), false)
                         .build()).queue();
             }

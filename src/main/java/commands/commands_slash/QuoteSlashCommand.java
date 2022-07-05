@@ -2,13 +2,13 @@ package commands.commands_slash;
 
 import commands.api.quotes_core.QuoteObject;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import utility_class.UtilityClass;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,7 +29,7 @@ public class QuoteSlashCommand implements ISlashCommands {
                 .get(0))).getAsString();
 
         QuoteObject quoteObject = new QuoteObject(arg);
-        slashEvent.replyEmbeds(new EmbedBuilder().setColor(LibraryClass.getRandomColor())
+        slashEvent.replyEmbeds(new EmbedBuilder().setColor(UtilityClass.getRandomColor())
                 .addField("Your Quote", "```bash\n\"" + quoteObject.getContent() + "\"\nby: " + quoteObject.getAuthor() + "\n```",
                         false)
                 .build()).queue();

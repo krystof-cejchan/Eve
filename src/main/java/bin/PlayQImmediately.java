@@ -3,12 +3,12 @@ package bin;
 import audioplayer.PlayQCommand;
 import commands.commands_slash.ISlashCommands;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import utility_class.UtilityClass;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +20,7 @@ public class PlayQImmediately implements ISlashCommands {
         String arg = Objects.requireNonNull(slashEvent.getOption
                 (Objects.requireNonNull(getArgName()).get(0))).getAsString();
         new PlayQCommand().playMusicFromSlash(slashEvent, arg,
-                LibraryClass.isLink(arg), true, true);
+                UtilityClass.isLink(arg), true, true);
     }
 
     @Override

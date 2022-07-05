@@ -1,8 +1,8 @@
 package commands.textCommands;
 
 import commands.ICommands;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import utility_class.UtilityClass;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class Pp implements ICommands {
     public void doTask(MessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split(" ");
 
-        int len = LibraryClass.generateRandomInt(-1, 50);
+        int len = UtilityClass.generateRandomInt(-1, 50);
         if (args.length <= 1) {
             event.getMessage().reply("pp = " + len + "cm.").queue();
         }

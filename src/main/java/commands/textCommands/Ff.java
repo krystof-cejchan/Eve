@@ -1,13 +1,12 @@
 package commands.textCommands;
 
 import audioplayer.GuildMusicManager;
-import audioplayer.NowPlayingCommand;
 import audioplayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import commands.ICommands;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import utility_class.UtilityClass;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -53,11 +52,11 @@ public class Ff implements ICommands {
                                         .setPosition(audioPlayer.getPlayingTrack().getPosition() + ff);
 
                                 event.getChannel()
-                                        .sendMessage("FastForwarding from __" + NowPlayingCommand.getTimestamp(pos)
-                                                + "__ → __" + NowPlayingCommand.getTimestamp(pos + ff)
-                                                + "__  \nSong duration: " + NowPlayingCommand.getTimestamp(dur))
+                                        .sendMessage("FastForwarding from __" + UtilityClass.getTimeStampMilliToStringTime(pos)
+                                                + "__ → __" + UtilityClass.getTimeStampMilliToStringTime(pos + ff)
+                                                + "__  \nSong duration: " + UtilityClass.getTimeStampMilliToStringTime(dur))
                                         .queue();
-                                LibraryClass.addReactionToTheMsg(event, "U+23E9");
+                                UtilityClass.addReactionToTheMsg(event, "U+23E9");
                             } else {
                                 event.getChannel().sendMessage("Song duration exceeded").queue();
 

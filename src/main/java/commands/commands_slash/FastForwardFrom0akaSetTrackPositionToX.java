@@ -2,20 +2,20 @@ package commands.commands_slash;
 
 import commands.purecommands.subparts.LetCurrentTrackFastForwardFrom0;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import utility_class.UtilityClass;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static audioplayer.NowPlayingCommand.getTimestamp;
+import static utility_class.UtilityClass.getTimeStampMilliToStringTime;
 
 public class FastForwardFrom0akaSetTrackPositionToX extends LetCurrentTrackFastForwardFrom0 implements ISlashCommands {
     @Override
@@ -29,12 +29,12 @@ public class FastForwardFrom0akaSetTrackPositionToX extends LetCurrentTrackFastF
         switch (finish_code) {
 
             case 1 -> {
-                String duration = getTimestamp(Objects.requireNonNull(getTrack(slashEvent.getGuild())).getDuration());
-                slashEvent.replyEmbeds(new EmbedBuilder().setColor(LibraryClass.getRandomColor())
+                String duration = getTimeStampMilliToStringTime(Objects.requireNonNull(getTrack(slashEvent.getGuild())).getDuration());
+                slashEvent.replyEmbeds(new EmbedBuilder().setColor(UtilityClass.getRandomColor())
                         .setTitle("Track position successfully changed")
                         .setDescription(Objects.requireNonNull(getTrack(slashEvent.getGuild())).getInfo().title)
-                        .addField("Previous position", getTimestamp(posBefore) + "** / **" + duration, true)
-                        .addField("Current position", getTimestamp(Long.parseLong(String
+                        .addField("Previous position", getTimeStampMilliToStringTime(posBefore) + "** / **" + duration, true)
+                        .addField("Current position", getTimeStampMilliToStringTime(Long.parseLong(String
                                 .valueOf(getArg_beforeDisappearing))) + "**/**" + duration, true).build()).queue();
             }
             case -1 -> slashEvent.replyEmbeds(new EmbedBuilder().setColor(Color.ORANGE)

@@ -2,12 +2,12 @@ package commands.commands_slash;
 
 import commands.api.chuckjokes.ExtractedJokeFromJSONResult;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import utility_class.UtilityClass;
 
 import java.awt.*;
 import java.util.List;
@@ -18,7 +18,7 @@ public class ChuckJokes implements ISlashCommands {
         slashEvent.replyEmbeds(new EmbedBuilder().setColor(Color.black)
                 .addField("Random Chuck's joke", "```bash\n\"" +
                         ExtractedJokeFromJSONResult.getJokeFromJSON() + "\"\n```", false)
-                .setImage(randomChucksPhoto())
+                .setImage(randomChucksPhoto()).setFooter("random photo of chuck")
                 .build()).queue();
     }
 
@@ -39,8 +39,12 @@ public class ChuckJokes implements ISlashCommands {
                 "https://assets.deutschlandfunk.de/FILE_8be99f77dc4821bcd0ac8c6d76ed6077/1920x1080.jpg?t=1597576838367",
                 "https://www1.wdr.de/stichtag/stichtagmaerzzehn-100~_v-gseapremiumxl.jpg",
                 "https://www.lavanguardia.com/uploads/2020/03/10/5fa908e2329b4.jpeg",
-                "https://i.insider.com/5449264a6bb3f7f539384516?width=638&format=jpeg"};
-        return photos[LibraryClass.generateRandomInt(0, photos.length - 1)];
+                "https://i.insider.com/5449264a6bb3f7f539384516?width=638&format=jpeg",
+                "https://www.godreports.com/wp-content/uploads/2018/03/chuck-norris-war-movie-350x183.png",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZviBpiEM2QVDntN7W7R8CrDjzv_nNi0b55SHc9L6DJAPtD9l2yrK0pgUCZp5AGlaWjnM&usqp=CAU",
+                "https://imagecdn.handitv.com/bNUTO-1642798044-814-blog-snakearticle.jpg"};
+
+        return photos[UtilityClass.generateRandomInt(0, photos.length - 1)];
 
     }
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static library_class.LibraryClass.averageOfDoubleArray;
+import static utility_class.UtilityClass.averageOfDoubleArray;
 
 public enum Weather {
     UNKNOWN, CLOUDY, FOG, HEAVYRAIN, HEAVYSHOWERS, HEAVYSNOW, HEAVYSNOWSHOWERS, LIGHTRAIN, LIGHTSHOWERS, LIGHTSLEET,

@@ -2,7 +2,6 @@ package commands.commands_slash;
 
 import audioplayer.PlayCommand;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -10,6 +9,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import utility_class.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class MultipleSongsQueued implements ISlashCommands {
         }
         argsValues.forEach(arg -> new PlayCommand().playMusicFromSlash(slashEvent, arg, null, false, true));
 
-        slashEvent.replyEmbeds(new EmbedBuilder().setColor(LibraryClass.getRandomColor()).setTitle("Multiple tracks queued")
+        slashEvent.replyEmbeds(new EmbedBuilder().setColor(UtilityClass.getRandomColor()).setTitle("Multiple tracks queued")
                 .setDescription(slashEvent.getOptions().size() <= 1 ? slashEvent.getOptions().size() + " song has been queued."
                         : slashEvent.getOptions().size() + " songs have been queued.").build()).queue();
     }

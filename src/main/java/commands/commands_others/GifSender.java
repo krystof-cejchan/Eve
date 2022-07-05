@@ -1,8 +1,8 @@
 package commands.commands_others;
 
-import library_class.LibraryClass;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import utility_class.UtilityClass;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -42,7 +42,7 @@ public class GifSender {
 
         int resultMax = results.length();
 
-        int index = LibraryClass.generateRandomInt(0, resultMax);
+        int index = UtilityClass.generateRandomInt(0, resultMax);
 
         System.out.println(resultMax);
 

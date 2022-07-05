@@ -1,7 +1,7 @@
 package commands.admin;
 
-import library_class.GlobalValues;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import utility_class.GlobalValues;
 
 /**
  * Interface for admins' commands

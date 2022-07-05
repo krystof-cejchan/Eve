@@ -1,12 +1,12 @@
 package commands.commands_slash;
 
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import utility_class.UtilityClass;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -27,7 +27,7 @@ public class WeatherPicture implements ISlashCommands {
             URL url = new URL("http://wttr.in/" + Objects.requireNonNull(slashEvent
                     .getOption(Objects.requireNonNull(getArgName()).get(0))).getAsString().replaceAll(" ",
                     "%20") + ".png");
-            String path = Objects.requireNonNull(slashEvent.getGuild()).getName() + LibraryClass.getCurrentDate(true)
+            String path = Objects.requireNonNull(slashEvent.getGuild()).getName() + UtilityClass.getCurrentDate(true)
                     + ".jpg";
             RenderedImage img = ImageIO.read(url);
             File file = new File(path);

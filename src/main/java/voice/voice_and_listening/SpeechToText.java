@@ -3,7 +3,6 @@ package voice.voice_and_listening;
 import commands.commands_voice.IListeningCommands;
 import commands.commands_voice.ListeningCommandManager;
 import database_SQLite.file_database.queries.InsertValuesToTable;
-import library_class.GlobalValues;
 import main.Main;
 import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
@@ -19,6 +18,7 @@ import objects.MessageReceivedEvent_CustomClass;
 import objects.ScriptPathPointer;
 import objects.sound_files.SoundFile;
 import org.jetbrains.annotations.NotNull;
+import utility_class.GlobalValues;
 import voice.PythonASCIIDecoding;
 
 import javax.sound.sampled.AudioFileFormat;
@@ -34,7 +34,7 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static library_class.LibraryClass.runPyScript;
+import static utility_class.UtilityClass.runPyScript;
 
 public class SpeechToText {
     private static final List<byte[]> receivedBytes = new ArrayList<>();

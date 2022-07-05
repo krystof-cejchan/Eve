@@ -3,10 +3,10 @@ package audioplayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import utility_class.UtilityClass;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -17,20 +17,6 @@ import java.util.Objects;
  * @author krystof-cejchan
  */
 public class NowPlayingCommand {
-
-    /**
-     * @param milliseconds milliseconds
-     * @return meaningful time value according to format<br> {@code .format("%02d:%02d:%02d", hours, minutes, seconds)}
-     * or {@code .format("%02d:%02d", minutes, seconds)}
-     */
-    public static String getTimestamp(long milliseconds) {
-        int seconds = (int) (milliseconds / 1000) % 60;
-        int minutes = (int) ((milliseconds / (1000 * 60)) % 60);
-        int hours = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
-
-        if (hours > 0) return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-        else return String.format("%02d:%02d", minutes, seconds);
-    }
 
     /**
      * Sends the currently playing track to the text channel
@@ -62,13 +48,13 @@ public class NowPlayingCommand {
                         AudioTrack track = audioPlayer.getPlayingTrack();
 
                         AudioTrackInfo info = track.getInfo();
-                        String position = getTimestamp(track.getPosition());
-                        String duration = getTimestamp(track.getDuration());
-                        String timeLeft = getTimestamp(track.getDuration() - track.getPosition());
+                        String position = UtilityClass.getTimeStampMilliToStringTime(track.getPosition());
+                        String duration = UtilityClass.getTimeStampMilliToStringTime(track.getDuration());
+                        String timeLeft = UtilityClass.getTimeStampMilliToStringTime(track.getDuration() - track.getPosition());
                         EmbedBuilder embed = new EmbedBuilder();
                         embed.setTitle("NOW PLAYING");
                         embed.setAuthor(event.getAuthor().getName(), null, event.getAuthor().getAvatarUrl());
-                        embed.setColor(LibraryClass.getRandomColor());
+                        embed.setColor(UtilityClass.getRandomColor());
                         embed.addField("Title:", info.title, false);
                         embed.addField("By:", info.author, false);
                         embed.addField("Duration", position + "  /  " + duration + " \nTime left: " + timeLeft, false);

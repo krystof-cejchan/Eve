@@ -1,4 +1,4 @@
-package library_class;
+package utility_class;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import commands.commands_voice.IListeningCommands;
@@ -30,8 +30,8 @@ import java.util.regex.PatternSyntaxException;
  *
  * @author krystof-cejchan
  */
-public class LibraryClass {
-    private LibraryClass() {
+public class UtilityClass {
+    private UtilityClass() {
         throw new UnsupportedOperationException("cannot create an instance of a utility class");
     }
 
@@ -339,4 +339,19 @@ public class LibraryClass {
         }
     }
 
+    /**
+     * @param milliseconds milliseconds
+     * @return meaningful time value according to format<br> {@code .format("%02d:%02d:%02d", hours, minutes, seconds)}
+     * or {@code .format("%02d:%02d", minutes, seconds)}
+     */
+    public static String getTimeStampMilliToStringTime(long milliseconds) {
+        int seconds = (int) (milliseconds / 1000) % 60;
+        int minutes = (int) ((milliseconds / (1000 * 60)) % 60);
+        int hours = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
+        return hours > 0 ? String.format("%02d:%02d:%02d", hours, minutes, seconds)
+                : String.format("%02d:%02d", minutes, seconds);
+
+        // if (hours > 0) return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        // else return String.format("%02d:%02d", minutes, seconds);
+    }
 }

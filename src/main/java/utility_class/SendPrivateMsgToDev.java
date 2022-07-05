@@ -1,4 +1,4 @@
-package library_class;
+package utility_class;
 
 import main.Main;
 import net.dv8tion.jda.api.entities.User;

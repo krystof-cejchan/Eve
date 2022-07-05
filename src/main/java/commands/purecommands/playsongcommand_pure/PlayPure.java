@@ -1,9 +1,9 @@
 package commands.purecommands.playsongcommand_pure;
 
 import commands.purecommands.subparts.GetUsersVoiceChannels;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.Guild;
+import utility_class.UtilityClass;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -38,7 +38,7 @@ public class PlayPure {
      * @return if false, then something has gone wrong
      */
     private boolean triggerPlayingTrackDependingOnUrl(String url, Guild guild, boolean isQueue) {
-        if (LibraryClass.isLink(url)) {
+        if (UtilityClass.isLink(url)) {
 
             if (url.contains("spotify.com")) {
                 return false;

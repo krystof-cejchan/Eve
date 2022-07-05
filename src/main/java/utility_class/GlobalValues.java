@@ -1,4 +1,4 @@
-package library_class;
+package utility_class;
 
 import enums_annotations_exceptions.enums.OS;
 

@@ -1,12 +1,12 @@
 package commands.commands_slash;
 
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import utility_class.UtilityClass;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,7 +16,7 @@ public class Help implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
         EmbedBuilder builder = new EmbedBuilder();
-        builder.setColor(LibraryClass.getRandomColor());
+        builder.setColor(UtilityClass.getRandomColor());
         builder.setTitle("Help command");
         builder.setDescription("All Slash commands (" + new SlashCommandManager().getAllCommands().size() + ")");
         for (ISlashCommands command : new SlashCommandManager().getAllCommands()) {

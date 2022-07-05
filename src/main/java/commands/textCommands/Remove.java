@@ -5,12 +5,12 @@ import audioplayer.PlayerManager;
 import audioplayer.QueueCommand;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import commands.ICommands;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
+import utility_class.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,11 +47,11 @@ public class Remove implements ICommands {
                     HashMap<AudioTrack, Double> similarityMap = new HashMap<>();
                     for (AudioTrack track : queue) {
                         similarityMap.put(track, service.score(track.getInfo().title,
-                                LibraryClass.getStringFromArrayOfStrings_withSpaces(text)));
+                                UtilityClass.getStringFromArrayOfStrings_withSpaces(text)));
 
                     }
                     queueCommand.removeFromQueuebyName(event,
-                            LibraryClass.getTheMostSuitableAudioTrackFromAHashMap(similarityMap, queue, .1));
+                            UtilityClass.getTheMostSuitableAudioTrackFromAHashMap(similarityMap, queue, .1));
                 }
 
             }

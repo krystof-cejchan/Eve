@@ -3,7 +3,6 @@ package commands.commands_slash.volume;
 import commands.commands_slash.ISlashCommands;
 import commands.purecommands.VolumePure;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -12,6 +11,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
+import utility_class.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +79,7 @@ public class VolumeCustomSLASH implements ISlashCommands {
             int newVol = getVolume(guild);
             String increasedOrDecreased = (newVol > oldVol ? "increased" : "decreased");
             EmbedBuilder builder = new EmbedBuilder();
-            builder.setColor(LibraryClass.getRandomColor());
+            builder.setColor(UtilityClass.getRandomColor());
             builder.setTitle("Volume controller \uD83D\uDD79");
             builder.addField("Volume before: ", String.valueOf(oldVol), true);
             builder.addField("New Volume: ", String.valueOf(newVol), true);

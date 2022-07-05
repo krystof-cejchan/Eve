@@ -2,10 +2,10 @@ package audioplayer;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import library_class.GlobalValues;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.requests.restaction.MessageAction;
+import utility_class.GlobalValues;
 
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;

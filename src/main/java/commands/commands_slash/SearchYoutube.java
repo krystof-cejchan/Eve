@@ -2,7 +2,6 @@ package commands.commands_slash;
 
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import enums_annotations_exceptions.enums.ScriptFilesLocation;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -11,6 +10,7 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import objects.ScriptFiles;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import utility_class.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class SearchYoutube implements ISlashCommands {
         String amountOfResults = caught ? "5 " : java.lang.Math.round(Objects.requireNonNull(slashEvent
                 .getOption(Objects.requireNonNull(getArgName()).get(1))).getAsDouble()) + " ";
 
-        String res = LibraryClass.runPyScript(new ScriptFiles(ScriptFilesLocation.fromLOCAL).getYtSearch().getAbsolutePath(),
+        String res = UtilityClass.runPyScript(new ScriptFiles(ScriptFilesLocation.fromLOCAL).getYtSearch().getAbsolutePath(),
                 amountOfResults +
                         Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()).get(0))).getAsString(), false);
         slashEvent.replyEmbeds(generateEmbed(res.split("\n")).build()).queue();
@@ -42,7 +42,7 @@ public class SearchYoutube implements ISlashCommands {
                     "[Link to the video](" + scriptResults[i + 1] + ")", true));
         }
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setColor(LibraryClass.getRandomColor());
+        embedBuilder.setColor(UtilityClass.getRandomColor());
         embedBuilder.setTitle("Youtube Search Result");
         embedBuilder.setDescription(String.valueOf(scriptResults.length / 2));
         fields.forEach(embedBuilder::addField);

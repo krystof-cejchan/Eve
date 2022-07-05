@@ -2,9 +2,9 @@ package commands.textCommands;
 
 import commands.ICommands;
 import enums_annotations_exceptions.enums.LANGUAGES.LANGUAGES;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import utility_class.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +32,7 @@ public class SupportedLanguages implements ICommands {
 
         }
         // event.getChannel().sendMessage(msgB.build()).queue();
-        embedBuilder.setColor(LibraryClass.getRandomColor());
+        embedBuilder.setColor(UtilityClass.getRandomColor());
 
         event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
 

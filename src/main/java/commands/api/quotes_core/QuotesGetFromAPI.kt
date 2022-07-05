@@ -1,7 +1,7 @@
 package commands.api.quotes_core
 
 import enums_annotations_exceptions.enums.QuoteLanguage
-import library_class.LibraryClass
+import utility_class.UtilityClass
 
 open class QuotesGetFromAPI {
     companion object {
@@ -13,7 +13,7 @@ open class QuotesGetFromAPI {
                 )
                 .get()
                 .addHeader(
-                    "X-RapidAPI-Key", LibraryClass
+                    "X-RapidAPI-Key", UtilityClass
                         .getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/keys/api_quotes.html")
                 )
                 .addHeader("X-RapidAPI-Host", "quotes15.p.rapidapi.com")

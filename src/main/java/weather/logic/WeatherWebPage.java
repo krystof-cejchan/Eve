@@ -2,7 +2,7 @@ package weather.logic;
 
 import enums_annotations_exceptions.exceptions.InvalidWebAddress;
 
-import static library_class.LibraryClass.isLink;
+import static utility_class.UtilityClass.isLink;
 
 public class WeatherWebPage {
     private String url;

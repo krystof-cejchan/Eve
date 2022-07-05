@@ -1,8 +1,8 @@
 package commands.commands_voice;
 
 import enums_annotations_exceptions.enums.LANGUAGES.LANGUAGES;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import utility_class.UtilityClass;
 import voice.voice_and_listening.SpeechToText;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class ChangeDefaultLanguageVoice implements IListeningCommands {
                 Collections.addAll(wordsArray, words);
                 ArrayList<String> languagesArray = new ArrayList<>(LANGUAGES.getAllEnums());
 
-                if (LibraryClass.compareTwoArrays(wordsArray, languagesArray)) {
+                if (UtilityClass.compareTwoArrays(wordsArray, languagesArray)) {
                     /*
                      * setting language according to the user's input audio, if found it has to be
                      * rewritten to "shorter" version eg. english→ en-GB
@@ -31,7 +31,7 @@ public class ChangeDefaultLanguageVoice implements IListeningCommands {
                     try {
 
                         SpeechToText.Language.setLang(LANGUAGES.getShortLang(LANGUAGES.valueOf(languagesArray
-                                .get(LibraryClass.whereAreTwoArraysTheSame(wordsArray, languagesArray)).toLowerCase())));
+                                .get(UtilityClass.whereAreTwoArraysTheSame(wordsArray, languagesArray)).toLowerCase())));
                         event.getChannel().sendMessage("The default language was set to **"
                                 + LANGUAGES.getProperLanFromShort(SpeechToText.Language.getLang()) + " "
                                 + LANGUAGES.getLangFlag(

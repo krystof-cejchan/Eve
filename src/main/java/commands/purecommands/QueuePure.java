@@ -4,10 +4,10 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import commands.purecommands.subparts.GetCurrentTrack;
 import commands.purecommands.subparts.GetWholePlaylist;
-import library_class.GlobalValues;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
+import utility_class.GlobalValues;
 
 import java.util.ArrayList;
 import java.util.Objects;

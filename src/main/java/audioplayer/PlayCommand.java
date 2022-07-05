@@ -1,12 +1,12 @@
 package audioplayer;
 
 import enums_annotations_exceptions.enums.MessageTypes;
-import library_class.LibraryClass;
 import main.VoiceChannels;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import utility_class.UtilityClass;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -67,7 +67,7 @@ public class PlayCommand {
     public void playMusicFromSlash(SlashCommandInteractionEvent event, String url, MessageTypes messageTypes,
                                    boolean playImmediately, boolean multiplyAdded) {
         final MessageChannel channel = event.getChannel();
-        final boolean isLink = LibraryClass.isLink(url);
+        final boolean isLink = UtilityClass.isLink(url);
         @Nullable AudioChannel connectedChannel = Objects.requireNonNull(Objects.requireNonNull(event.getMember())
                 .getVoiceState()).getChannel(); // user
 

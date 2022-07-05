@@ -1,12 +1,12 @@
 package listeners;
 
 import commands.purecommands.subparts.GetBotAsUser;
-import library_class.LibraryClass;
 import main.after_startup.AddingSlashCommandsToGuilds;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
+import utility_class.UtilityClass;
 
 public class FirstJoinServerListener extends ListenerAdapter {
     /**
@@ -25,7 +25,7 @@ public class FirstJoinServerListener extends ListenerAdapter {
     }
 
     private EmbedBuilder generateEmbed() {
-        return new EmbedBuilder().setColor(LibraryClass.getRandomColor()).setTitle("Heyyyy!\uD83D\uDC9E")
+        return new EmbedBuilder().setColor(UtilityClass.getRandomColor()).setTitle("Heyyyy!\uD83D\uDC9E")
                 .setImage("https://i.gifer.com/1aSc.gif")
                 .addField("Slash Commands", "Slash commands will be uploaded soon\nUse **/help** command to get started", false)
                 .addField("Text Commands", """

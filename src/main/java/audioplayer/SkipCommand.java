@@ -2,13 +2,13 @@ package audioplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
+import utility_class.UtilityClass;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -138,20 +138,20 @@ public class SkipCommand {
                 StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
 
                 HashMap<AudioTrack, Double> similarityMap = new HashMap<>();
-                event.getChannel().sendMessage(LibraryClass.getStringFromArrayOfStrings_withSpaces(text)).queue();
+                event.getChannel().sendMessage(UtilityClass.getStringFromArrayOfStrings_withSpaces(text)).queue();
                 ArrayList<String> queue2trackTitle = new ArrayList<>();
                 for (AudioTrack a : queue) {
                     queue2trackTitle.add(a.getInfo().title);
                 }
 
-                if (LibraryClass.compareItemsInTwoArrays(text, queue2trackTitle)) {
-                    if (LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle).length < 2) {
-                        skipTrackTo(event, LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle)[0] + 1);
+                if (UtilityClass.compareItemsInTwoArrays(text, queue2trackTitle)) {
+                    if (UtilityClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle).length < 2) {
+                        skipTrackTo(event, UtilityClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle)[0] + 1);
                         return;
                     }
-                    for (int i = 0; i < LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle).length; i++) {
+                    for (int i = 0; i < UtilityClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle).length; i++) {
 
-                        similarityMap.put(new ArrayList<>(queue).get(LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle)[i]), service.score(queue2trackTitle.get(LibraryClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle)[i]), LibraryClass.getStringFromArrayOfStrings_withSpaces(text)));
+                        similarityMap.put(new ArrayList<>(queue).get(UtilityClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle)[i]), service.score(queue2trackTitle.get(UtilityClass.whereAreItemsInTwoArraysTheSame(text, queue2trackTitle)[i]), UtilityClass.getStringFromArrayOfStrings_withSpaces(text)));
                     }
                 } else {
                     event.getChannel().sendMessage("Please provide a keyword with a word which is contained in the song title").queue();
@@ -159,8 +159,8 @@ public class SkipCommand {
                     //  queue.forEach(audioTrack -> similarityMap.put(audioTrack, service.score(audioTrack.getInfo().title, LibraryClass.getStringFromArrayOfStrings_withSpaces(text))));
                 }
 
-                if (LibraryClass.getTheMostSuitableAudioTrackFromAHashMap(similarityMap, queue, 0) != null) {
-                    AudioTrack audioTrack = LibraryClass.getTheMostSuitableAudioTrackFromAHashMap(similarityMap, queue, 0);
+                if (UtilityClass.getTheMostSuitableAudioTrackFromAHashMap(similarityMap, queue, 0) != null) {
+                    AudioTrack audioTrack = UtilityClass.getTheMostSuitableAudioTrackFromAHashMap(similarityMap, queue, 0);
 
 
                     try {

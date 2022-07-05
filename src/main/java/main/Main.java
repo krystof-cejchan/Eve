@@ -2,8 +2,6 @@ package main;
 
 
 import enums_annotations_exceptions.enums.OS;
-import library_class.GlobalValues;
-import library_class.LibraryClass;
 import listeners.AutocompleteListener;
 import listeners.FirstJoinServerListener;
 import listeners.Listener;
@@ -18,6 +16,8 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import utility_class.GlobalValues;
+import utility_class.UtilityClass;
 
 
 /**
@@ -67,9 +67,9 @@ public class Main {
 
 
         @SuppressWarnings("unused")
-        String APITokenTEST = LibraryClass.getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/keys/test.html");
+        String APITokenTEST = UtilityClass.getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/keys/test.html");
         @SuppressWarnings("unused")
-        String APITokenMAIN = LibraryClass.getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/keys/navostro.html");
+        String APITokenMAIN = UtilityClass.getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/keys/navostro.html");
 
         Object[] allActiveListeners = {new Listener(),
                 new SlashCommandListener(),

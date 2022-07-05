@@ -3,9 +3,9 @@ package commands.commands_voice;
 import audioplayer.PlayCommand;
 import enums_annotations_exceptions.enums.LANGUAGES.LANGUAGES;
 import enums_annotations_exceptions.enums.MessageTypes;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import objects.ScriptPathPointer;
+import utility_class.UtilityClass;
 import voice.voice_and_listening.SpeechToText;
 
 import java.util.ArrayList;
@@ -73,11 +73,11 @@ public class PlaySongVoice implements IListeningCommands {
         for (String forbidden : forbiddenWords()) {
             System.out.println(searchWords);
             if (!(SpeechToText.Language.getLang().equals("en-GB") || SpeechToText.Language.getLang().equals("en-US")))
-                searchWords.removeIf(currWord -> LibraryClass.runPyScript(ScriptPathPointer.translator, currWord, false).equalsIgnoreCase(forbidden));
+                searchWords.removeIf(currWord -> UtilityClass.runPyScript(ScriptPathPointer.translator, currWord, false).equalsIgnoreCase(forbidden));
             else searchWords.removeIf(currWord -> currWord.equalsIgnoreCase(forbidden));
         }
 
-        return LibraryClass.getStringFromArrayOfStrings_withSpaces(searchWords);
+        return UtilityClass.getStringFromArrayOfStrings_withSpaces(searchWords);
 
         /*
          * AllArrayCombinations_Algorithm.getCombinations(searchWords).forEach((item) ->
@@ -116,7 +116,7 @@ public class PlaySongVoice implements IListeningCommands {
             for (LANGUAGES language : LANGUAGES.values()) {
                 System.out.println(language);
                 for (String forbiddenWord : PlaySongVoice.forbiddenWords()) {
-                    argList.add(LibraryClass.runPyScript(ScriptPathPointer.customTranslator,
+                    argList.add(UtilityClass.runPyScript(ScriptPathPointer.customTranslator,
                             LANGUAGES.getShortLang(language)
                                     .substring(0, LANGUAGES.getShortLang(language).indexOf("-")) + " en " + forbiddenWord, false));
                 }

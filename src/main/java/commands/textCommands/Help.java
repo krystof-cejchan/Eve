@@ -2,10 +2,10 @@ package commands.textCommands;
 
 import commands.CommandManager;
 import commands.ICommands;
-import library_class.LibraryClass;
 import main.Prefix;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import utility_class.UtilityClass;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class Help implements ICommands {
                                     CommandManager.getCommandbyId(w).whatDoIDo() + "\n" + allTriggers, true);
                             counter++;
                         } else {
-                            embedBuilder.setColor(LibraryClass.getRandomColor());
+                            embedBuilder.setColor(UtilityClass.getRandomColor());
                             // embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + "
                             // commands:");
                             embedBuilder.setTitle("Showing " + counter + " commands");
@@ -62,7 +62,7 @@ public class Help implements ICommands {
                         }
                     }
                     // }
-                    embedBuilder.setColor(LibraryClass.getRandomColor());
+                    embedBuilder.setColor(UtilityClass.getRandomColor());
                     // embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + "
                     // commands:");
                     embedBuilder.setTitle("Showing " + counter + " commands");
@@ -81,7 +81,7 @@ public class Help implements ICommands {
                     embedBuilder.addField("**" + iCommands.getName() + "**  :  ", iCommands.whatDoIDo() + "\n" + allTriggers, true);
 
                 }
-                embedBuilder.setColor(LibraryClass.getRandomColor());
+                embedBuilder.setColor(UtilityClass.getRandomColor());
                 embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + " commands:");
                 event.getMessage().replyEmbeds(embedBuilder.build()).queue();
                 embedBuilder.clear();

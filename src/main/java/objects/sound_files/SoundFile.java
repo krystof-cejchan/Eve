@@ -1,7 +1,7 @@
 package objects.sound_files;
 
 import enums_annotations_exceptions.enums.OS;
-import library_class.GlobalValues;
+import utility_class.GlobalValues;
 
 import java.io.IOException;
 import java.nio.file.*;

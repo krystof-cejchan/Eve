@@ -1,6 +1,6 @@
 package external_files.memes__php;
 
-import library_class.LibraryClass;
+import utility_class.UtilityClass;
 
 import java.io.IOException;
 import java.net.URL;
@@ -12,7 +12,7 @@ public class GetFunctionsFrom_PHP {
         // http://eveuwu.g6.cz/memes/IMemes.php?&getFunctionCount
 
         try {
-            if (!LibraryClass.isLink(weburl))
+            if (!UtilityClass.isLink(weburl))
                 weburl = "http://eveuwu.g6.cz/memes/IMemes.php?&getFunctionCount";
             URL url = new URL(weburl);
             Scanner sc = new Scanner(url.openStream());

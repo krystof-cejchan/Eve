@@ -9,8 +9,6 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import enums_annotations_exceptions.enums.MessageTypes;
 import enums_annotations_exceptions.exceptions.NoTrackMatchException;
-import library_class.LibraryClass;
-import library_class.SendPrivateMsgToDev;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -19,6 +17,8 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.apache.commons.collections4.map.HashedMap;
 import org.jetbrains.annotations.NotNull;
+import utility_class.SendPrivateMsgToDev;
+import utility_class.UtilityClass;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -96,7 +96,7 @@ public class PlayerManager {
         embedBuilder.addField("What I'm searching for:", searchingfor.replace("ytsearch:", ""),
                 true);
         embedBuilder.addField("What I'm going to play:", "***" + track.getInfo().title + "***", false);
-        embedBuilder.setColor(LibraryClass.getRandomColor());
+        embedBuilder.setColor(UtilityClass.getRandomColor());
         return embedBuilder.build();
     }
 
@@ -154,18 +154,16 @@ public class PlayerManager {
                 /**
                  * playlist loaded
                  *
-                 * @param playlist a list of {@link AudioTrack}-s
+                 * @param playlist a list of {@link AudioTrack}s
                  */
                 @Override
                 public void playlistLoaded(AudioPlaylist playlist) {
 
                     List<AudioTrack> tracks = playlist.getTracks();
                     if (isQueue) {
-
                         tracks.forEach(musicManager.SCHEDULER::queue);
                         if (!multiplyAdded)
                             channel.sendMessage("Successfully added: " + playlist.getTracks().size() + " tracks").queue();
-
                     } else {
                         AudioTrack track = tracks.get(0);
                         musicManager.SCHEDULER.queue(track);
@@ -239,15 +237,25 @@ public class PlayerManager {
                 @Override
                 public void playlistLoaded(AudioPlaylist playlist) {
                     List<AudioTrack> tracks = playlist.getTracks();
+                    List<Long> tracksDuration = new ArrayList<>();
+                    tracks.forEach(track -> tracksDuration.add(track.getDuration()));
+                    long sumOfTracksDuration = 0;
+                    for (Long dur : tracksDuration)
+                        sumOfTracksDuration += dur;
+
+
                     if (isQueue) {
-                        StringBuilder stringBuilder = new StringBuilder("**" + tracks.size() + "** tracks were successfully added");
-                        if (!playImmediately) {
+                        StringBuilder stringBuilder =
+                                new StringBuilder("```diff\nPlaylist title: " + playlist.getName() + "\n+ " + tracks.size() +
+                                        " [Duration: " + UtilityClass.getTimeStampMilliToStringTime(sumOfTracksDuration)
+                                        + "] tracks were successfully added\n```");
+                        if (!playImmediately)
                             tracks.forEach(musicManager.SCHEDULER::queue);
-                        } else {
+                        else {
                             List<AudioTrack> q = new ArrayList<>(musicManager.SCHEDULER.QUEUE);
-                            for (int i = 0; i < tracks.size(); i++) {
+                            for (int i = 0; i < tracks.size(); i++)
                                 q.add(i, tracks.get(i));
-                            }
+
                             musicManager.SCHEDULER.QUEUE.clear();
                             musicManager.SCHEDULER.QUEUE.addAll(q);
                             if (musicManager.AUDIOPLAYER.getPlayingTrack() != tracks.get(0))
@@ -325,13 +333,13 @@ public class PlayerManager {
     private EmbedBuilder newSongAddedThroughSlash(@NotNull Member author, @NotNull AudioTrack audioTrackToBeAddedToQ,
                                                   @NotNull BlockingQueue<AudioTrack> queue) {
         EmbedBuilder builder = new EmbedBuilder()
-                .setColor(LibraryClass.getRandomColor())
+                .setColor(UtilityClass.getRandomColor())
                 /* .setAuthor(author.getNickname(),
                          "", author.getAvatarUrl())*/
                 .setTitle("New Track has been added to the Queue:")
                 .addField("Title", audioTrackToBeAddedToQ.getInfo().title, true)
                 .addField("Author/Channel", audioTrackToBeAddedToQ.getInfo().author, true)
-                .addField("TimeLine:", "Length " + (NowPlayingCommand.getTimestamp(audioTrackToBeAddedToQ
+                .addField("TimeLine:", "Length " + (UtilityClass.getTimeStampMilliToStringTime(audioTrackToBeAddedToQ
                         .getDuration())), false)
                 .addField("Source URL", "[Link to the source](" + audioTrackToBeAddedToQ.getInfo().uri + ")",
                         true)

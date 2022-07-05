@@ -3,9 +3,9 @@ package commands.textCommands;
 import audioplayer.PlayCommand;
 import commands.ICommands;
 import enums_annotations_exceptions.enums.MessageTypes;
-import library_class.LibraryClass;
 import main.VoiceChannels;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import utility_class.UtilityClass;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class Play implements ICommands {
         PlayCommand playC = new PlayCommand();
         StringBuilder urlOrSearchKey = new StringBuilder();
 
-        if (LibraryClass.isLink(args[1])) {
+        if (UtilityClass.isLink(args[1])) {
             playC.playMusic(event, args[1], true, MessageTypes.REG_MESSAGE, null, false, true);
 
         } else {

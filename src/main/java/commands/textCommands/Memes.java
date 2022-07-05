@@ -2,10 +2,10 @@ package commands.textCommands;
 
 import commands.ICommands;
 import external_files.memes__php.GetFunctionsFrom_PHP;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import utility_class.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -38,7 +38,7 @@ public class Memes implements ICommands {
         String _GET_profpic1 = "?&profpic1=";
         int max = Integer
                 .parseInt(Objects.requireNonNull(GetFunctionsFrom_PHP.getCount("http://eveuwu.g6.cz/memes/IMemes.php?&getFunctionCount")));
-        String _GET_rnd = "&rnd=" + LibraryClass.generateRandomInt(1, max);
+        String _GET_rnd = "&rnd=" + UtilityClass.generateRandomInt(1, max);
         String distinguisher = "&" + event.getMessage().getId();
 
         try {

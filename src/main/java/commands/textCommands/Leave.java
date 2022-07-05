@@ -2,9 +2,9 @@ package commands.textCommands;
 
 import audioplayer.StopCommand;
 import commands.ICommands;
-import library_class.LibraryClass;
 import main.VoiceChannels;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import utility_class.UtilityClass;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ public class Leave implements ICommands {
         StopCommand stop = new StopCommand();
         stop.stopMusic(event);
         leaveVC.Leave(event);
-        LibraryClass.addReactionToTheMsg(event, "U+1F44B");
+        UtilityClass.addReactionToTheMsg(event, "U+1F44B");
 
     }
 

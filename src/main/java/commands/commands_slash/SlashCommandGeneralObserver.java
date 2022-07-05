@@ -1,6 +1,6 @@
 package commands.commands_slash;
 
-import library_class.SendPrivateMsgToDev;
+import utility_class.SendPrivateMsgToDev;
 
 import java.util.ArrayList;
 import java.util.HashMap;

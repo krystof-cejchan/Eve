@@ -13,7 +13,7 @@ public class AddingSlashCommandsToGuilds implements IAfterStartUp {
         SlashCommandManager slashCommandManager = new SlashCommandManager();
         for (Guild guild : Main.publicJDA.getGuilds()) {
 
-            if (library_class.GlobalValues.RESET_SLASH_COMMANDS)
+            if (utility_class.GlobalValues.RESET_SLASH_COMMANDS)
                 guild.updateCommands().queue();
 
             for (ISlashCommands iSlashCommands : slashCommandManager.getAllCommands()) {

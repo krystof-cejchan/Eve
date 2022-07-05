@@ -2,7 +2,6 @@ package commands.commands_slash;
 
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import enums_annotations_exceptions.exceptions.UserCannotBeReachedThroughPrivateMessageException;
-import library_class.LibraryClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -11,6 +10,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import utility_class.UtilityClass;
 
 import java.awt.*;
 import java.io.File;
@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static library_class.Date.currentDateTime;
-import static library_class.Date.getNormalDateAndTime;
 import static net.dv8tion.jda.api.requests.ErrorResponse.CANNOT_SEND_TO_USER;
+import static utility_class.Date.currentDateTime;
+import static utility_class.Date.getNormalDateAndTime;
 
 public class Poke extends PokeFrame implements ISlashCommands {
 
@@ -111,7 +111,7 @@ public class Poke extends PokeFrame implements ISlashCommands {
                     + " needs you to join " + Objects.requireNonNull(event.getGuild()).getName();
         }
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setColor(LibraryClass.getRandomColor());
+        embedBuilder.setColor(UtilityClass.getRandomColor());
         embedBuilder.setFooter("Sent by: " + member.getUser().getName() + " from " +
                 Objects.requireNonNull(event.getGuild()).getName(), member.getEffectiveAvatarUrl());
         embedBuilder.setDescription("You have been poked!");

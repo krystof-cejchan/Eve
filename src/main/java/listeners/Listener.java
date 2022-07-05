@@ -5,7 +5,6 @@ import audioplayer.StopCommand;
 import commands.CommandManager;
 import commands.admin.AdminCommandManager;
 import commands.admin.IAdmin;
-import library_class.GlobalValues;
 import main.Prefix;
 import main.VoiceChannels;
 import net.dv8tion.jda.api.entities.AudioChannel;
@@ -21,6 +20,7 @@ import objects.MessageReceivedEvent_StaticCustomClass;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import utility_class.GlobalValues;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -98,45 +98,29 @@ public class Listener extends ListenerAdapter {
     @Contract("null, _, true -> fail; _, null, false -> fail")
     private void leaveIfAlone(@Nullable GuildVoiceLeaveEvent event, @Nullable GuildVoiceMoveEvent event2,
                               boolean leave) {
+
         if (leave) {
             assert event != null;
             AudioChannel connectedChannelSelf = Objects.requireNonNull(event.getGuild().getSelfMember().getVoiceState()).getChannel();
-            ArrayList<Member> members = null;
-            boolean isMembersOk = true;
+            ArrayList<Member> members;
             try {
                 members = new ArrayList<>(connectedChannelSelf.getMembers());
             } catch (NullPointerException exception) {
-                isMembersOk = false;
-            }
-            // if(members.isEmpty()||members==null)isMembersOk=false;
-            if (!isMembersOk) {
-                VoiceChannels leaveVC = new VoiceChannels();
-                StopCommand stop = new StopCommand();
-                stop.stopMusic(event);
-                leaveVC.Leave(event);
+                stopAndLeave(event);
                 return;
             }
-            boolean human = false;
-            for (Member member : members) {
-                if (!member.getUser().isBot()) {
-                    human = true;
-                }
+
+            // leave if all members are bots
+            if (members.stream().allMatch(it -> it.getUser().isBot())) {
+                stopAndLeave(event);
             }
-            if (!human) {
-                VoiceChannels leaveVC = new VoiceChannels();
-                StopCommand stop = new StopCommand();
-                stop.stopMusic(event);
-                leaveVC.Leave(event);
-            }
+            //in case of adding next if, the previous 'if' needs to have return statement
         } else {
             assert event2 != null;
             AudioChannel connectedChannelSelf = Objects.requireNonNull(event2.getGuild().getSelfMember().getVoiceState()).getChannel();
 
             if (connectedChannelSelf == null || connectedChannelSelf.getMembers().isEmpty() || connectedChannelSelf.getMembers().size() < 1) {
-                VoiceChannels leaveVC = new VoiceChannels();
-                StopCommand stop = new StopCommand();
-                stop.stopMusic(event2);
-                leaveVC.Leave(event2);
+                stopAndLeave(event2);
                 return;
             }
             boolean human = false;
@@ -146,13 +130,26 @@ public class Listener extends ListenerAdapter {
                 }
             }
             if (!human) {
-                VoiceChannels leaveVC = new VoiceChannels();
-                StopCommand stop = new StopCommand();
-                stop.stopMusic(event2);
-                leaveVC.Leave(event2);
+                stopAndLeave(event2);
             }
         }
 
+    }
+
+    private <T> void stopAndLeave(T eventT) {
+        try {
+            GuildVoiceLeaveEvent event = (GuildVoiceLeaveEvent) eventT;
+            VoiceChannels leaveVC = new VoiceChannels();
+            StopCommand stop = new StopCommand();
+            stop.stopMusic(event);
+            leaveVC.Leave(event);
+        } catch (ClassCastException e) {
+            GuildVoiceMoveEvent event2 = (GuildVoiceMoveEvent) eventT;
+            VoiceChannels leaveVC = new VoiceChannels();
+            StopCommand stop = new StopCommand();
+            stop.stopMusic(event2);
+            leaveVC.Leave(event2);
+        }
     }
 
 }

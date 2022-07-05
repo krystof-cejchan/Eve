@@ -1,6 +1,6 @@
 package objects;
 
-import static library_class.LibraryClass.getTextFromWebpage;
+import static utility_class.UtilityClass.getTextFromWebpage;
 
 public class ScriptPathPointer {
 

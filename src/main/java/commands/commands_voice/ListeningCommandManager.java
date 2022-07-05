@@ -1,16 +1,16 @@
 package commands.commands_voice;
 
-import library_class.LibraryClass;
 import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
+import utility_class.UtilityClass;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static library_class.LibraryClass.isUserInputVerySimilarToTags;
+import static utility_class.UtilityClass.isUserInputVerySimilarToTags;
 
 
 public class ListeningCommandManager {
@@ -86,14 +86,14 @@ public class ListeningCommandManager {
                     tempResult_FORLOOP += service.score(theInterfaceExample.getTags().get(i), usersVoiceInput);
                 }
                 tempResults.add(tempResult_FORLOOP / theInterfaceExample.getTags().size());
-                suitabilityMap.put(theInterfaceExample, LibraryClass.averageOfDoubleArray(tempResults));
+                suitabilityMap.put(theInterfaceExample, UtilityClass.averageOfDoubleArray(tempResults));
                 System.out
-                        .println(theInterfaceExample.getName() + " " + LibraryClass.averageOfDoubleArray(tempResults));
+                        .println(theInterfaceExample.getName() + " " + UtilityClass.averageOfDoubleArray(tempResults));
 
             }
 
-            System.out.println(LibraryClass.getTheMostSuitableIListeningCommandFromAHashMap(suitabilityMap));
-            return LibraryClass.getTheMostSuitableIListeningCommandFromAHashMap(suitabilityMap);
+            System.out.println(UtilityClass.getTheMostSuitableIListeningCommandFromAHashMap(suitabilityMap));
+            return UtilityClass.getTheMostSuitableIListeningCommandFromAHashMap(suitabilityMap);
 
         } catch (Exception e) {
             e.printStackTrace();
