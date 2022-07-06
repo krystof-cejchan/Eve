@@ -9,12 +9,13 @@ import utility_class.UtilityClass;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static utility_class.UtilityClass.isUserInputVerySimilarToTags;
 
 
 public class ListeningCommandManager {
-    public final static ArrayList<IListeningCommands> commands = new ArrayList<>();
+    public final ArrayList<IListeningCommands> commands = new ArrayList<>();
 
     public ListeningCommandManager() {
         addNewCommand(new ChangeDefaultLanguageVoice());
@@ -23,7 +24,7 @@ public class ListeningCommandManager {
         addNewCommand(new SkipToNextSongVoice());
     }
 
-    public static ArrayList<IListeningCommands> getAllCommands() {
+    public ArrayList<IListeningCommands> getAllCommands() {
         return commands;
     }
 
@@ -35,6 +36,10 @@ public class ListeningCommandManager {
             commands.add(Icmd);
         }
 
+    }
+
+    public List<IListeningCommands> getCommands() {
+        return commands;
     }
 
     /**

@@ -2,6 +2,7 @@ package commands.commands_slash;
 
 import commands.api.chuckjokes.ExtractedJokeFromJSONResult;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
+import enums_annotations_exceptions.enums.SlashCommandCategory;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -10,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import utility_class.UtilityClass;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.List;
 
 public class ChuckJokes implements ISlashCommands {
@@ -83,5 +85,10 @@ public class ChuckJokes implements ISlashCommands {
     @Override
     public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return false;
+    }
+
+    @Override
+    public @NotNull List<SlashCommandCategory> getCategory() {
+        return Collections.singletonList(SlashCommandCategory.ENTERTAINMENT);
     }
 }

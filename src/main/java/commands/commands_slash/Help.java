@@ -1,53 +1,45 @@
 package commands.commands_slash;
 
+import DropdownLists.HelpDropdownList;
+import commands.CommandManager;
+import commands.commands_voice.ListeningCommandManager;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
-import net.dv8tion.jda.api.EmbedBuilder;
+import enums_annotations_exceptions.enums.SlashCommandCategory;
+import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import utility_class.UtilityClass;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
-public class Help implements ISlashCommands {
+public class Help extends HelpDropdownList implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        EmbedBuilder builder = new EmbedBuilder();
-        builder.setColor(UtilityClass.getRandomColor());
-        builder.setTitle("Help command");
-        builder.setDescription("All Slash commands (" + new SlashCommandManager().getAllCommands().size() + ")");
-        for (ISlashCommands command : new SlashCommandManager().getAllCommands()) {
-            StringBuilder optData = new StringBuilder();
-            if (command.takesArguments() != ArgumentSlashCommandCount.NONE) {
-                optData = new StringBuilder();
-                for (OptionData optionData : Objects.requireNonNull(command.getOptionData())) {
-                    optData.append(optionData.getName()).append(", ");
-                }
-                optData = new StringBuilder(Optional.of(optData.toString())
-                        .filter(str -> str.lastIndexOf(" ") == str.length() - 1)
-                        .map(str -> str.substring(0, str.length() - 2))
-                        .orElse(optData.toString()));
-            }
-            if (command.takesArguments() == ArgumentSlashCommandCount.NONE) {
-                builder.addField(command.getName(), "__" + command.getDescription() + "__\nTakes Arguments: **"
-                                + command.takesArguments() + "**\nIs guild only: **" + command.isGuildOnly()
-                                + "**\nMust user's joined channel match bot's channel: **"
-                                + command.isUserRequiredToBeInTheSameChannelAsBot() + "**",
-                        true);
-            } else {
-                builder.addField(command.getName(), "__" + command.getDescription() + "__\nTakes Arguments: **"
-                                + command.takesArguments() + "**\t:\t*" + optData + "*\nIs guild only: **"
-                                + command.isGuildOnly()
-                                + "**\nMust user's joined channel match bot's channel: **"
-                                + command.isUserRequiredToBeInTheSameChannelAsBot() + "**",
-                        true);
-            }
+        MessageBuilder builder = new MessageBuilder();
+        int slashCommandSize = new SlashCommandManager().getAllCommands().size(),
+                textCommandSize = new CommandManager().getAllCommands().size(),
+                voiceCommandSize = new ListeningCommandManager().getAllCommands().size();
+        builder.append("Bot currently has:\n");
+        builder.append("`").append(String.valueOf(slashCommandSize)).append("` Slash Commands");
+        builder.append("\n`").append(String.valueOf(textCommandSize)).append("` Text Commands");
+        builder.append("\n`").append(String.valueOf(voiceCommandSize)).append("` Voice Commands");
+        builder.append("\n`").append("Total number of commands: ")
+                .append(String.valueOf(slashCommandSize + textCommandSize + voiceCommandSize)).append("`");
+        builder.append("\n```fix\n");
+        builder.append("Choose from a category from Selection Menu down below to see the commands");
+        SelectMenu.Builder menu = SelectMenu.create(super.getIdentificator());
+        Arrays.stream(SlashCommandCategory.values()).toList().forEach(category ->
+                menu.addOption(SlashCommandCategory.getCategoryInFullName(category), category.toString()));
+        menu.setPlaceholder("Select commands' category to show up");
+        menu.setRequiredRange(1, 1);
 
-        }
-        slashEvent.replyEmbeds(builder.build()).queue();
+        slashEvent.reply(builder.append("\n```").build())
+                .addActionRow(menu.build())
+                .queue();
     }
 
     @Override
@@ -85,5 +77,10 @@ public class Help implements ISlashCommands {
     @Override
     public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return false;
+    }
+
+    @Override
+    public @NotNull List<SlashCommandCategory> getCategory() {
+        return Collections.singletonList(SlashCommandCategory.OTHER);
     }
 }

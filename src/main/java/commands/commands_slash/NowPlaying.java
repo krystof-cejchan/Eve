@@ -4,6 +4,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import commands.purecommands.subparts.GetCurrentTrack;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
+import enums_annotations_exceptions.enums.SlashCommandCategory;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -12,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import utility_class.UtilityClass;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.List;
 
 public class NowPlaying implements ISlashCommands {
@@ -71,5 +73,10 @@ public class NowPlaying implements ISlashCommands {
     @Override
     public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return false;
+    }
+
+    @Override
+    public @NotNull List<SlashCommandCategory> getCategory() {
+        return Collections.singletonList(SlashCommandCategory.MUSIC);
     }
 }

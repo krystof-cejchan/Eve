@@ -3,6 +3,7 @@ package commands.commands_slash;
 import commands.purecommands.SkipToTitle;
 import commands.purecommands.subparts.GetCurrentTrack;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
+import enums_annotations_exceptions.enums.SlashCommandCategory;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -11,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -71,5 +73,10 @@ public class Skip_toSongbyTitleSlash implements ISlashCommands {
     @Override
     public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return true;
+    }
+
+    @Override
+    public @NotNull List<SlashCommandCategory> getCategory() {
+        return Collections.singletonList(SlashCommandCategory.MUSIC);
     }
 }

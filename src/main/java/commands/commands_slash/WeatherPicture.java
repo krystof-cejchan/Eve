@@ -1,6 +1,7 @@
 package commands.commands_slash;
 
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
+import enums_annotations_exceptions.enums.SlashCommandCategory;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -87,7 +88,7 @@ public class WeatherPicture implements ISlashCommands {
         return false;
     }
 
-    public byte[] extractBytes(BufferedImage image) throws IOException {
+    public byte[] extractBytes(BufferedImage image) {
 
         WritableRaster raster = image.getRaster();
         DataBufferByte data = (DataBufferByte) raster.getDataBuffer();
@@ -136,6 +137,11 @@ public class WeatherPicture implements ISlashCommands {
                 }
             }
         }
+    }
+
+    @Override
+    public @NotNull List<SlashCommandCategory> getCategory() {
+        return Collections.singletonList(SlashCommandCategory.WEATHER);
     }
 
 }

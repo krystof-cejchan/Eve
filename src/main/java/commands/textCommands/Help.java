@@ -29,7 +29,7 @@ public class Help implements ICommands {
 
             int counter = 0;
 
-            int cmdSize = CommandManager.getAllCommands().size();
+            int cmdSize = new CommandManager().getAllCommands().size();
             embedBuilder.clear();
             if (cmdSize > maxEmbedSize) {
 
@@ -72,7 +72,7 @@ public class Help implements ICommands {
                 }
             } else {
 
-                for (ICommands iCommands : CommandManager.getAllCommands()) {
+                for (ICommands iCommands : new CommandManager().getAllCommands()) {
                     StringBuilder allTriggers = new StringBuilder();
                     for (String trigger : iCommands.getTriggers()) {
                         allTriggers.append(Prefix.getValue()).append(trigger).append("   ");
@@ -82,7 +82,7 @@ public class Help implements ICommands {
 
                 }
                 embedBuilder.setColor(UtilityClass.getRandomColor());
-                embedBuilder.setTitle("All " + CommandManager.getAllCommands().size() + " commands:");
+                embedBuilder.setTitle("All " + new CommandManager().getAllCommands().size() + " commands:");
                 event.getMessage().replyEmbeds(embedBuilder.build()).queue();
                 embedBuilder.clear();
             }

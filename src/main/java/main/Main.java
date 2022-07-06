@@ -2,10 +2,7 @@ package main;
 
 
 import enums_annotations_exceptions.enums.OS;
-import listeners.AutocompleteListener;
-import listeners.FirstJoinServerListener;
-import listeners.Listener;
-import listeners.SlashCommandListener;
+import listeners.*;
 import main.after_startup.AfterStartUpManager;
 import main.after_startup.IAfterStartUp;
 import main.onstart.OnStartManager;
@@ -74,7 +71,8 @@ public class Main {
         Object[] allActiveListeners = {new Listener(),
                 new SlashCommandListener(),
                 new AutocompleteListener(),
-                new FirstJoinServerListener()};
+                new FirstJoinServerListener(),
+                new DropDownListListener()};
 
         JDABuilder jda = JDABuilder.createDefault(APITokenTEST, intents);
 

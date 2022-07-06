@@ -1,6 +1,7 @@
 package commands.commands_slash;
 
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
+import enums_annotations_exceptions.enums.SlashCommandCategory;
 import enums_annotations_exceptions.enums.weather.ChancesOf;
 import enums_annotations_exceptions.enums.weather.TemperatureSystem;
 import enums_annotations_exceptions.exceptions.InvalidWebAddress;
@@ -189,5 +190,10 @@ public class WeatherForecastForAllDaysAverageEmbed implements ISlashCommands {
     @Override
     public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return false;
+    }
+
+    @Override
+    public @NotNull List<SlashCommandCategory> getCategory() {
+        return Collections.singletonList(SlashCommandCategory.WEATHER);
     }
 }

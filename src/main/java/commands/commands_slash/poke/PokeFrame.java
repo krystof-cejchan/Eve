@@ -1,4 +1,4 @@
-package commands.commands_slash;
+package commands.commands_slash.poke;
 
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;

@@ -69,7 +69,7 @@ public class CommandManager {
         }
     }
 
-    public static ArrayList<ICommands> getAllCommands() {
+    public ArrayList<ICommands> getAllCommands() {
         return commands;
     }
 

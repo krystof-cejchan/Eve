@@ -158,7 +158,7 @@ public class UtilityClass {
         HashMap<IListeningCommands, Double> map = new HashMap<>();
         SimilarityStrategy strategy = new JaroWinklerStrategy();
         StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
-        for (IListeningCommands IListeningCmd : ListeningCommandManager.getAllCommands()) {
+        for (IListeningCommands IListeningCmd : new ListeningCommandManager().getAllCommands()) {
             try {
                 double tempResult_FORLOOP = 0;
                 if (compareTwoArrays(IListeningCmd.getTags(), words)) {
@@ -190,7 +190,7 @@ public class UtilityClass {
         IListeningCommands ImostLikelyToBe = null;
         double highest = 0;
 
-        for (IListeningCommands I : ListeningCommandManager.getAllCommands()) {
+        for (IListeningCommands I : new ListeningCommandManager().getAllCommands()) {
             if (map.containsKey(I)) {
                 if (map.get(I) > highest) {
                     highest = map.get(I);

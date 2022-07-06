@@ -3,6 +3,7 @@ package commands.commands_slash;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import commands.purecommands.subparts.LetCurrentTrackFastForward;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
+import enums_annotations_exceptions.enums.SlashCommandCategory;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -92,5 +93,10 @@ public class FastForward extends LetCurrentTrackFastForward implements ISlashCom
     @Override
     public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return true;
+    }
+
+    @Override
+    public @NotNull List<SlashCommandCategory> getCategory() {
+        return Collections.singletonList(SlashCommandCategory.MUSIC);
     }
 }

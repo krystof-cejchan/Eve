@@ -1,5 +1,6 @@
 package commands.commands_slash;
 
+import commands.commands_slash.poke.Poke;
 import commands.commands_slash.volume.VolumeCustomSLASH;
 import commands.commands_slash.volume.VolumeDownSlash;
 import commands.commands_slash.volume.VolumeUpSlash;

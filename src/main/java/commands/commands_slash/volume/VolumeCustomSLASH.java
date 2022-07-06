@@ -3,6 +3,7 @@ package commands.commands_slash.volume;
 import commands.commands_slash.ISlashCommands;
 import commands.purecommands.VolumePure;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
+import enums_annotations_exceptions.enums.SlashCommandCategory;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -14,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import utility_class.UtilityClass;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -72,6 +74,11 @@ public class VolumeCustomSLASH implements ISlashCommands {
     @Override
     public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return true;
+    }
+
+    @Override
+    public @NotNull List<SlashCommandCategory> getCategory() {
+        return Collections.singletonList(SlashCommandCategory.MUSIC);
     }
 
     static class embed {

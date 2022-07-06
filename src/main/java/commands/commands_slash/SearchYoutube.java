@@ -2,6 +2,7 @@ package commands.commands_slash;
 
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import enums_annotations_exceptions.enums.ScriptFilesLocation;
+import enums_annotations_exceptions.enums.SlashCommandCategory;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -87,5 +88,10 @@ public class SearchYoutube implements ISlashCommands {
     @Override
     public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return false;
+    }
+
+    @Override
+    public @NotNull List<SlashCommandCategory> getCategory() {
+        return List.of(SlashCommandCategory.MUSIC, SlashCommandCategory.OTHER);
     }
 }

@@ -6,6 +6,8 @@ package main.onstart;
 import commands.CommandManager;
 import commands.ICommands;
 
+import java.util.List;
+
 /**
  * @author krystof-cejchan
  *
@@ -30,10 +32,11 @@ public class AverageTriggerCountFromCommands implements IOnStart {
 
     public int calcAverageTriggerCount() {
         int helper = 0;
-        for (ICommands iCommands : CommandManager.getAllCommands()) {
+        List<ICommands> list = new CommandManager().getAllCommands();
+        for (ICommands iCommands : list) {
             helper += iCommands.getTriggers().size();
         }
-        return helper / CommandManager.getAllCommands().size();
+        return helper / list.size();
     }
 
 }

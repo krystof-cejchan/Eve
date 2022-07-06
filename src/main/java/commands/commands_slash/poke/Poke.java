@@ -1,6 +1,8 @@
-package commands.commands_slash;
+package commands.commands_slash.poke;
 
+import commands.commands_slash.ISlashCommands;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
+import enums_annotations_exceptions.enums.SlashCommandCategory;
 import enums_annotations_exceptions.exceptions.UserCannotBeReachedThroughPrivateMessageException;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
@@ -15,6 +17,7 @@ import utility_class.UtilityClass;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -47,13 +50,13 @@ public class Poke extends PokeFrame implements ISlashCommands {
             }
 
         } catch (ContextException | UserCannotBeReachedThroughPrivateMessageException e) {
-            slashEvent.reply("There's been an error while poking").queue();
+            slashEvent.reply("There's been an error while poking").setEphemeral(true).queue();
         }
     }
 
     private void sendConfirmMsg(SlashCommandInteractionEvent event, String member_s) {
         event.replyFile(new File("src/main/java/external_files/graphics/hey-wake-up-poke-discord.gif"),
-                "Poking " + member_s + ".gif").queue();
+                "Poking " + member_s + ".gif").setEphemeral(true).queue();
     }
 
     @Override
@@ -92,6 +95,11 @@ public class Poke extends PokeFrame implements ISlashCommands {
     @Override
     public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return false;
+    }
+
+    @Override
+    public @NotNull List<SlashCommandCategory> getCategory() {
+        return Collections.singletonList(SlashCommandCategory.GUILDMANAGEMENT);
     }
 
     /**

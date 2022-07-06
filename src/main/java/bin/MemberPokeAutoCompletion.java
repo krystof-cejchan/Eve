@@ -1,8 +1,8 @@
 package bin;
 
 import commands.commands_slash.ISlashCommands;
-import commands.commands_slash.Poke;
 import commands.commands_slash.autocompletion.IAutoCompletion;
+import commands.commands_slash.poke.Poke;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import org.jetbrains.annotations.NotNull;

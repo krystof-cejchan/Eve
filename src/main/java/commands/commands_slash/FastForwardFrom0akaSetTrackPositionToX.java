@@ -2,6 +2,7 @@ package commands.commands_slash;
 
 import commands.purecommands.subparts.LetCurrentTrackFastForwardFrom0;
 import enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
+import enums_annotations_exceptions.enums.SlashCommandCategory;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -12,6 +13,7 @@ import utility_class.UtilityClass;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -86,5 +88,10 @@ public class FastForwardFrom0akaSetTrackPositionToX extends LetCurrentTrackFastF
     @Override
     public boolean isUserRequiredToBeInTheSameChannelAsBot() {
         return true;
+    }
+
+    @Override
+    public @NotNull List<SlashCommandCategory> getCategory() {
+        return Collections.singletonList(SlashCommandCategory.MUSIC);
     }
 }
