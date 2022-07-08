@@ -8,7 +8,7 @@ public class CreationOfDatabase {
 
     public CreationOfDatabase(/*@Nullable String path*/) {
         // this.path = Objects.requireNonNullElse(path, "src/main/java/database_SQLite/file_database.db");
-        this.path = "src/main/java/database_SQLite/analytics/analyticdata.db";
+        this.path = "src/main/java/cz/krystofcejchan/database_SQLite/analytics/analyticdata.db";
         System.out.println(getFullPath());
     }
 
@@ -20,7 +20,7 @@ public class CreationOfDatabase {
         return new File(getPath()).getAbsolutePath();
     }
 
-    protected void checkIfDatabaseExistsAndCreateNewOneIfNeeded() throws IOException {
+    public void checkIfDatabaseExistsAndCreateNewOneIfNeeded() throws IOException {
         File dbFile = new File(path);
         if (!dbFile.exists())
             dbFile.createNewFile();

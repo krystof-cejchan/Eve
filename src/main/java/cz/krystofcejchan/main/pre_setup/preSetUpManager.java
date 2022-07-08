@@ -10,6 +10,7 @@ public class preSetUpManager {
     public preSetUpManager() {
         preSetUps.add(new CreateFolderForUsersAudioInputs());
         preSetUps.add(new CreateNewTable());
+        preSetUps.add(new DatabaseCheckup());
     }
 
     public ArrayList<IPreSetUp> getPreSetUps() {

@@ -13,7 +13,8 @@ import java.sql.SQLException;
  */
 public class ConnectToDatabase extends CreationOfDatabase {
 
-    private static ConnectToDatabase instance = null;
+    public static ConnectToDatabase instance = null;
+    public static Connection sqlConnection = null;
 
     /**
      * singleton pattern
@@ -34,7 +35,11 @@ public class ConnectToDatabase extends CreationOfDatabase {
         try {
             Class.forName("org.sqlite.JDBC");
             System.out.println("db ok " + getFullPath());
-            return DriverManager.getConnection("jdbc:sqlite:" + super.getFullPath());
+            //return ;
+            if (sqlConnection == null)
+                sqlConnection = DriverManager.getConnection("jdbc:sqlite:" + super.getFullPath());
+
+            return sqlConnection;
         } catch (ClassNotFoundException | SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(-1);
@@ -50,7 +55,8 @@ public class ConnectToDatabase extends CreationOfDatabase {
      * @param conn closes this connection
      * @throws SQLException db errors
      */
-    public void closeConnectionToDabase(Connection conn) throws SQLException {
+    public void closeConnectionToDatabase(Connection conn) throws SQLException {
         conn.close();
+        instance = null;
     }
 }

@@ -9,8 +9,8 @@ public class DatabaseManager extends ConnectToDatabase {
 
 
     @Override
-    public void closeConnectionToDabase(Connection conn) throws SQLException {
-        super.closeConnectionToDabase(conn);
+    public void closeConnectionToDatabase(Connection conn) throws SQLException {
+        super.closeConnectionToDatabase(conn);
     }
 
     @Override
