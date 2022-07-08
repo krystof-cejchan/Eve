@@ -1,0 +1,20 @@
+package cz.krystofcejchan.weather.logic.pic;
+
+import cz.krystofcejchan.enums_annotations_exceptions.exceptions.InvalidWebAddress;
+import cz.krystofcejchan.weather.logic.WeatherWebPage;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.io.IOException;
+import java.net.URL;
+
+public class PictureGrabber extends WeatherWebPage {
+    public PictureGrabber(String url) throws InvalidWebAddress {
+        super(url);
+    }
+
+    public ImageIcon getPictureOfWeather() throws IOException {
+        return new ImageIcon(ImageIO.read(new URL(super.getUrl())));
+    }
+
+}

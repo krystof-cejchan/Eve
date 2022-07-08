@@ -1,4 +1,0 @@
-/**
- * Objects
- */
-package objects;

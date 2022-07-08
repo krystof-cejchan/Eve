@@ -1,5 +1,6 @@
 package commands.commands_slash.analytics;
 
+import cz.krystofcejchan.commands.commands_slash.analytics.EditorXML;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
