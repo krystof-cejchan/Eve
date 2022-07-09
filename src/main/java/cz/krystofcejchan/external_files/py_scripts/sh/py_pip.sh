@@ -9,8 +9,4 @@ else
     echo "Failed"
 fi
 
-pip install youtube-search-python
-pip install SpeechRecognition
-pip install deep-translator
-
-
+sudo apt install python3-pip
