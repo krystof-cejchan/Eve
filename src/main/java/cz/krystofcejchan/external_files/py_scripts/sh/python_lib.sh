@@ -13,4 +13,6 @@ sudo pip install youtube-search-python
 sudo pip install SpeechRecognition
 sudo pip install deep-translator
 
+pip list
+
 
