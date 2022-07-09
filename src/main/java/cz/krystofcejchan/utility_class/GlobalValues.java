@@ -13,7 +13,7 @@ public class GlobalValues {
     /**
      * [voice.voice_and_listening.SpeechToText]
      */
-    public static final int MAX_SEC_AUDIO_RECORDING = 8;
+    public static final int MAX_AUDIO_RECORDING_DURATION = 600;
     /**
      * [listeners.Listener]
      */

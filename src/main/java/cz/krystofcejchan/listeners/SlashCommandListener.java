@@ -3,8 +3,6 @@ package cz.krystofcejchan.listeners;
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
 import cz.krystofcejchan.commands.commands_slash.JoinSlash;
 import cz.krystofcejchan.commands.commands_slash.SlashCommandManager;
-import cz.krystofcejchan.database_SQLite.analytics.usage.AddNewRecord;
-import cz.krystofcejchan.enums_annotations_exceptions.enums.MessageType_VOICE_TEXT;
 import cz.krystofcejchan.objects.CurrentTextChannel;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -12,7 +10,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
-import java.sql.SQLException;
 import java.util.Objects;
 
 import static cz.krystofcejchan.commands.purecommands.subparts.GetUsersVoiceChannels.botsAudioChannel;
@@ -35,15 +32,16 @@ public class SlashCommandListener extends ListenerAdapter {
                 return;
             }
             ISlashCommands triggeredCommand = slashCommandManager.getSlashCommand(event);
-            triggeredCommand.executeSlashCommand(event);
-            try {
+            if (triggeredCommand != null)
+                triggeredCommand.executeSlashCommand(event);
+          /*  try {
                 new AddNewRecord().addNewRecordToDatabase_onNewCommandReceived(
                         Objects.requireNonNull(event.getCommandString()),
                                 event.getMessageChannel().retrieveMessageById(event.getMessageChannel().getLatestMessageId()).complete(),
                         MessageType_VOICE_TEXT.TEXT);
             } catch (SQLException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
     }
 }

@@ -32,7 +32,10 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class SpeechToText {
@@ -168,8 +171,9 @@ public class SpeechToText {
                     SoundFile.getWholePath() + " " + Language.lang, false));
             assert rawString != null;
             byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
+            File soundFile = new File(SoundFile.getWholePath());
 
-            System.out.println(new File(SoundFile.getWholePath()).delete()
+            System.out.println(soundFile.delete()
                     ? "Sound file deleted" : "Sound file failed to be deleted!!!");
 
             return new String(bytes, StandardCharsets.UTF_8);
@@ -211,9 +215,8 @@ public class SpeechToText {
 
     public static class EchoHandler implements AudioSendHandler, AudioReceiveHandler {
 
-        final Timer TIMER = new Timer();
         final int MAX_VALUE = GlobalValues.MAX_VALUE;
-        final int MAX_SEC_AUDIO_RECORDING = GlobalValues.MAX_SEC_AUDIO_RECORDING;
+        final int MAX_AUDIO_RECORDING_DURATION = GlobalValues.MAX_AUDIO_RECORDING_DURATION;
         private final Queue<byte[]> queue = new ConcurrentLinkedQueue<>();
         public boolean isAllowedToCarryOn = true;
         ArrayList<Boolean> talkingMembersCount = new ArrayList<>();
@@ -225,7 +228,6 @@ public class SpeechToText {
 
         @Override
         public void handleCombinedAudio(@NotNull CombinedAudio combinedAudio) {
-            // includeUserInCombinedAudio(msgEvent.getEvent().getAuthor());
             if (isAllowedToCarryOn) {
                 guild.getAudioManager();
 
@@ -237,7 +239,8 @@ public class SpeechToText {
                 else talkingMembersCount.add(false);
 
                 if (talkingMembersCount.size() > MAX_VALUE) {
-                    if (isAllowedToCarryOn && haveUsersStoppedTalking(talkingMembersCount)) {
+                    if (isAllowedToCarryOn &&
+                            (haveUsersStoppedTalking(talkingMembersCount) || hasAudioRecordingDurationBeenExceeded())) {
                         try {
                             System.out.println(combinedAudio.getUsers().size());
                             int size = 0;
@@ -280,7 +283,6 @@ public class SpeechToText {
                             SpeechToText.setText(transcription_finalVersion);
 
 
-
                             if (new ListeningCommandManager().getCommand(transcription_finalVersion) != null) {
                                 IListeningCommands command = new ListeningCommandManager().getCommand(transcription_finalVersion);
                                 assert command != null;
@@ -295,7 +297,13 @@ public class SpeechToText {
                                                 " exist or I couldn't understand you").queue();
                             }
 
-                            if (haveUsersStoppedTalking(talkingMembersCount)) isAllowedToCarryOn = false;
+                            if (haveUsersStoppedTalking(talkingMembersCount))
+                                isAllowedToCarryOn = false;
+                            if (hasAudioRecordingDurationBeenExceeded()) {
+                                isAllowedToCarryOn = false;
+                                msgEvent.getEvent().getChannel().sendMessage("Speech duration has been exceeded")
+                                        .queue();
+                            }
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -347,6 +355,11 @@ public class SpeechToText {
             }
             return true;
 
+        }
+
+        private boolean hasAudioRecordingDurationBeenExceeded() {
+            //    System.out.println(receivedBytes.size());
+            return receivedBytes.size() >= MAX_AUDIO_RECORDING_DURATION;
         }
 
     }
