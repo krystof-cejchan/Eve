@@ -20,7 +20,7 @@ public class SearchYoutube implements ISlashCommands {
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
         boolean caught = false;
-
+        slashEvent.deferReply().queue();
         try {
             slashEvent.getOption(getArgName().get(1)).getAsDouble();
         } catch (NullPointerException nullPointerException) {

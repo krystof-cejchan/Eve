@@ -3,6 +3,7 @@ package cz.krystofcejchan.utility_class;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import cz.krystofcejchan.commands.commands_voice.IListeningCommands;
 import cz.krystofcejchan.commands.commands_voice.ListeningCommandManager;
+import cz.krystofcejchan.enums_annotations_exceptions.enums.OS;
 import cz.krystofcejchan.voice.PythonASCIIDecoding;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.ricecode.similarity.JaroWinklerStrategy;
@@ -280,7 +281,9 @@ public class UtilityClass {
     public static String runPyScript(String fullPath, @Nullable String arguments, boolean consoleOutput) {
         try {
             String s;
-            Process p = Runtime.getRuntime().exec("python " + fullPath + " " + arguments);
+            String python = GlobalValues.operatingSystem == OS.LINUX?
+                    "python3 ":"python ";
+            Process p = Runtime.getRuntime().exec(python + fullPath + " " + arguments);
 
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
