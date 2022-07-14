@@ -1,2 +1,2 @@
 *.PHP linguist-detectable=false
-*.Shell linguist-detectable=true
+*.Python linguist-detectable=true
