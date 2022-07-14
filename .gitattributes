@@ -1,3 +1,5 @@
+src/main/java/cz/krystofcejchan/external_files/memes__php/* linguist-detectable=false
+*.Python linguist-detectable=true
+*.Shell linguist-detectable=true
 *.py linguist-detectable=true
 *.sh linguist-detectable=true
-*.php linguist-detectable=false
