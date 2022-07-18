@@ -1,7 +1,7 @@
 package cz.krystofcejchan.commands.textCommands;
 
 import cz.krystofcejchan.commands.ICommands;
-import cz.krystofcejchan.external_files.memes__php.GetFunctionsFrom_PHP;
+import cz.krystofcejchan.objects.GetFunctionsFrom_PHP;
 import cz.krystofcejchan.utility_class.UtilityClass;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;

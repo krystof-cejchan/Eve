@@ -1,9 +1,10 @@
 package cz.krystofcejchan.commands.commands_voice;
 
 import cz.krystofcejchan.audioplayer.PlayCommand;
+import cz.krystofcejchan.enums_annotations_exceptions.enums.ExternalFileNames;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.LANGUAGES.LANGUAGES;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.MessageTypes;
-import cz.krystofcejchan.external_files.py_scripts.PyPaths;
+import cz.krystofcejchan.link_to_externalfiles.InputStreamHolder;
 import cz.krystofcejchan.utility_class.UtilityClass;
 import cz.krystofcejchan.voice.voice_and_listening.SpeechToText;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -74,8 +75,11 @@ public class PlaySongVoice implements IListeningCommands {
         for (String forbidden : forbiddenWords()) {
             System.out.println(searchWords);
             if (!(SpeechToText.Language.getLang().equals("en-GB") || SpeechToText.Language.getLang().equals("en-US")))
-                searchWords.removeIf(currWord -> UtilityClass.runPyScript(PyPaths.absolutePath(PyPaths.TRANSLATOR),
-                        currWord, false).equalsIgnoreCase(forbidden));
+                searchWords.removeIf(currWord -> {
+                    assert InputStreamHolder.fileNameToPathMap != null;
+                    return UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNames.TRANSLATOR).toString(),
+                            currWord, false).equalsIgnoreCase(forbidden);
+                });
             else searchWords.removeIf(currWord -> currWord.equalsIgnoreCase(forbidden));
         }
 
@@ -118,7 +122,8 @@ public class PlaySongVoice implements IListeningCommands {
             for (LANGUAGES language : LANGUAGES.values()) {
                 System.out.println(language);
                 for (String forbiddenWord : PlaySongVoice.forbiddenWords()) {
-                    argList.add(UtilityClass.runPyScript(PyPaths.absolutePath(PyPaths.TRANSLATORFROMCUSTOMLANGUAGE),
+                    assert InputStreamHolder.fileNameToPathMap != null;
+                    argList.add(UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNames.TRANSLATORCUSTOM).toString(),
                             LANGUAGES.getShortLang(language)
                                     .substring(0, LANGUAGES.getShortLang(language).indexOf("-")) + " en " + forbiddenWord, false));
                 }

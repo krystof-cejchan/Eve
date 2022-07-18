@@ -85,7 +85,7 @@ public class Main {
 
         try {
             new AfterStartUpManager().
-                    getiAfterStartUpArrayList().forEach(IAfterStartUp::doAfterStartUp);
+                    getIAfterStartUpArrayList().forEach(IAfterStartUp::doAfterStartUp);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(-1);

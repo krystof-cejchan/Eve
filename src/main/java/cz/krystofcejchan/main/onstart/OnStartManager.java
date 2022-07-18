@@ -7,9 +7,8 @@ public class OnStartManager {
 
     public OnStartManager() {
 
-        // listOf_onStartClasses.add(new Database_class_onStart());
         listOf_onStartClasses.add(new AreSoundFilesReady());
-        listOf_onStartClasses.add(new CheckPyPaths());
+     //   listOf_onStartClasses.add(new CheckPyPaths());
     }
 
     public ArrayList<IOnStart> getListOf_onStartClasses() {

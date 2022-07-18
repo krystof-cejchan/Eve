@@ -80,7 +80,7 @@ public class DayInWeatherForeCast extends WeatherWebPage {
     public DayInWeatherForeCast(String url, int n_day, int n_time) throws InvalidWebAddress, IOException {
         super(url);
         JSONObject json = new JSONObject(IOUtils.toString(new URL(super.getUrl()), StandardCharsets.UTF_8));
-        JSONArray current_condition = json.getJSONArray("cz/krystofcejchan/weather");
+        JSONArray current_condition = json.getJSONArray("weather");
         JSONObject day012 = current_condition.getJSONObject(n_day);
         JSONArray hourly = day012.getJSONArray("hourly");
         JSONObject certHour = hourly.getJSONObject(n_time);

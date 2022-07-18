@@ -7,7 +7,8 @@ public class AfterStartUpManager {
 
     public AfterStartUpManager() {
         addToArray(new AddingSlashCommandsToGuilds());
-       // addToArray(new main.after_startup.DeletingAllSlashCommandsFromAllGuilds());
+        // addToArray(new main.after_startup.DeletingAllSlashCommandsFromAllGuilds());
+        addToArray(new CreateNewExternalFilesLocally());
 
     }
 
@@ -16,7 +17,7 @@ public class AfterStartUpManager {
             iAfterStartUpArrayList.add(iAfterStartUp);
     }
 
-    public ArrayList<IAfterStartUp> getiAfterStartUpArrayList() {
+    public ArrayList<IAfterStartUp> getIAfterStartUpArrayList() {
         return iAfterStartUpArrayList;
     }
 }

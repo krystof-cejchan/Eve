@@ -2,8 +2,10 @@ package cz.krystofcejchan.commands.commands_slash.poke;
 
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
+import cz.krystofcejchan.enums_annotations_exceptions.enums.ExternalFileNames;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
 import cz.krystofcejchan.enums_annotations_exceptions.exceptions.UserCannotBeReachedThroughPrivateMessageException;
+import cz.krystofcejchan.link_to_externalfiles.InputStreamHolder;
 import cz.krystofcejchan.utility_class.UtilityClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
@@ -55,7 +57,8 @@ public class Poke extends PokeFrame implements ISlashCommands {
     }
 
     private void sendConfirmMsg(SlashCommandInteractionEvent event, String member_s) {
-        event.replyFile(new File("src/main/java/external_files/graphics/hey-wake-up-poke-discord.gif"),
+        assert InputStreamHolder.fileNameToPathMap != null;
+        event.replyFile(new File(String.valueOf(InputStreamHolder.fileNameToPathMap.get(ExternalFileNames.POKEGIF))),
                 "Poking " + member_s + ".gif").setEphemeral(true).queue();
     }
 

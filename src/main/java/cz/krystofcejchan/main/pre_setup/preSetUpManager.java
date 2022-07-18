@@ -1,7 +1,5 @@
 package cz.krystofcejchan.main.pre_setup;
 
-import cz.krystofcejchan.database_SQLite.file_database.queries.CreateNewTable;
-
 import java.util.ArrayList;
 
 public class preSetUpManager {
@@ -9,8 +7,8 @@ public class preSetUpManager {
 
     public preSetUpManager() {
         preSetUps.add(new CreateFolderForUsersAudioInputs());
-        preSetUps.add(new CreateNewTable());
-        preSetUps.add(new DatabaseCheckup());
+       // preSetUps.add(new CreateNewTable());
+      //  preSetUps.add(new DatabaseCheckup());
     }
 
     public ArrayList<IPreSetUp> getPreSetUps() {

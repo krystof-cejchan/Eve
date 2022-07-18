@@ -1,8 +1,9 @@
 package cz.krystofcejchan.commands.commands_slash;
 
 import cz.krystofcejchan.enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
+import cz.krystofcejchan.enums_annotations_exceptions.enums.ExternalFileNames;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
-import cz.krystofcejchan.external_files.py_scripts.PyPaths;
+import cz.krystofcejchan.link_to_externalfiles.InputStreamHolder;
 import cz.krystofcejchan.utility_class.UtilityClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -29,7 +30,8 @@ public class SearchYoutube implements ISlashCommands {
         String amountOfResults = caught ? "5 " : java.lang.Math.round(Objects.requireNonNull(slashEvent
                 .getOption(Objects.requireNonNull(getArgName()).get(1))).getAsDouble()) + " ";
 
-        String res = UtilityClass.runPyScript(PyPaths.absolutePath(PyPaths.YTSEARCH),
+        assert InputStreamHolder.fileNameToPathMap != null;
+        String res = UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNames.YTSEARCH).toString(),
                 amountOfResults +
                         Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()).get(0))).getAsString(), false);
         slashEvent.replyEmbeds(generateEmbed(res.split("\n")).build()).queue();
