@@ -2,7 +2,6 @@ import speech_recognition as sr
 import sys
 
 
-# py C:\\Users\\vecer\\IdeaProjects\\Eve\\src\\main\\java\\external_files\\py_scripts\\soundfiletotext.py C:\\Users\\vecer\\Music\\sample.wav cs-CZ
 def main():
     sound = str(sys.argv[1])
     #  lan = str(sys.argv[2])
