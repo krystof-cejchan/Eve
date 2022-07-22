@@ -1,8 +1,8 @@
 package cz.krystofcejchan.commands.commands_slash;
 
-import cz.krystofcejchan.DropdownLists.HelpDropdownList;
 import cz.krystofcejchan.commands.CommandManager;
 import cz.krystofcejchan.commands.commands_voice.ListeningCommandManager;
+import cz.krystofcejchan.dropdown_lists.HelpDropdownList;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
 import net.dv8tion.jda.api.MessageBuilder;

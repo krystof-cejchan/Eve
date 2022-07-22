@@ -1,4 +1,4 @@
-package cz.krystofcejchan.DropdownLists;
+package cz.krystofcejchan.dropdown_lists;
 
 import cz.krystofcejchan.commands.commands_slash.Help;
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;

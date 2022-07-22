@@ -1,7 +1,7 @@
 package cz.krystofcejchan.listeners
 
-import cz.krystofcejchan.DropdownLists.DropdownListManager
-import cz.krystofcejchan.DropdownLists.IDropdownList
+import cz.krystofcejchan.dropdown_lists.DropdownListManager
+import cz.krystofcejchan.dropdown_lists.IDropdownList
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent
 import java.util.function.Consumer
 

@@ -1,4 +1,4 @@
-package cz.krystofcejchan.DropdownLists;
+package cz.krystofcejchan.dropdown_lists;
 
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;

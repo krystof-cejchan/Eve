@@ -8,7 +8,6 @@ import cz.krystofcejchan.main.after_startup.IAfterStartUp;
 import cz.krystofcejchan.main.onstart.OnStartManager;
 import cz.krystofcejchan.main.pre_setup.preSetUpManager;
 import cz.krystofcejchan.utility_class.GlobalValues;
-import cz.krystofcejchan.utility_class.UtilityClass;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -62,11 +61,11 @@ public class Main {
 
                 GatewayIntent.GUILD_EMOJIS);
 
-
+/*
         @SuppressWarnings("unused")
         String APITokenTEST = UtilityClass.getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/keys/test.html");
         @SuppressWarnings("unused")
-        String APITokenMAIN = UtilityClass.getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/keys/navostro.html");
+        String APITokenMAIN = UtilityClass.getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/keys/navostro.html");*/
 
         Object[] allActiveListeners = {new Listener(),
                 new SlashCommandListener(),
@@ -74,7 +73,7 @@ public class Main {
                 new FirstJoinServerListener(),
                 new DropDownListListener()};
 
-        JDABuilder jda = JDABuilder.createDefault(APITokenTEST, intents);
+        JDABuilder jda = JDABuilder.createDefault("OTk5NDMyNDc2NTY3MDE5NjMw.GJ9GsF.8iOskeoQOnDJNz3v4rLWTAYKdrhmaJpxPqLUfc", intents);
 
         jda.setRawEventsEnabled(true);
         jda.enableCache(CacheFlag.VOICE_STATE);

@@ -19,8 +19,8 @@ public class FirstJoinServerListener extends ListenerAdapter {
      */
     @Override
     public void onGuildJoin(@NotNull GuildJoinEvent event) {
-        if (event.getGuild().getDefaultChannel() != null)
-            event.getGuild().getDefaultChannel().sendMessageEmbeds(generateEmbed().build()).queue();
+     /*   if (event.getGuild().getDefaultChannel() != null)
+            event.getGuild().getDefaultChannel().sendMessageEmbeds(generateEmbed().build()).queue();*/
         AddingSlashCommandsToGuilds.addSlashCommandsToSpecificGuild(event.getGuild());
     }
 
