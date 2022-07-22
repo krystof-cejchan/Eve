@@ -1,5 +1,0 @@
-*.Python linguist-detectable=true
-*.Shell linguist-detectable=true
-*.py linguist-detectable=true
-*.sh linguist-detectable=true
-*.PHP linguist-detectable=true
