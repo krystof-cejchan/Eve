@@ -10,6 +10,8 @@ public class AfterStartUpManager {
         // addToArray(new main.after_startup.DeletingAllSlashCommandsFromAllGuilds());
         addToArray(new CreateNewExternalFilesLocally());
 
+        addToArray(new DatabaseConnectionEstablishment());
+
     }
 
     private void addToArray(IAfterStartUp iAfterStartUp) {

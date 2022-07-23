@@ -8,7 +8,7 @@ import java.nio.file.Files;
 
 public class CreateFolderForUsersAudioInputs implements IPreSetUp {
     @Override
-    public void GetReady() {
+    public void getReady() {
         try {
             if (!Files.exists(SoundFile.Directories.getCompletePathToSoundFiles())) Files.createDirectory(SoundFile.Directories.getCompletePathToSoundFiles());
             else System.out.println("already exists");

@@ -5,8 +5,8 @@ import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory
 import cz.krystofcejchan.enums_annotations_exceptions.enums.weather.ChancesOf;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.weather.TemperatureSystem;
 import cz.krystofcejchan.enums_annotations_exceptions.exceptions.InvalidWebAddress;
-import cz.krystofcejchan.weather.logic.forecast.JSONGrabber;
-import cz.krystofcejchan.weather.logic.forecast.days.DayInWeatherForeCast;
+import cz.krystofcejchan.weather.logics.forecast.JSONGrabber;
+import cz.krystofcejchan.weather.logics.forecast.days.DayInWeatherForeCast;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;

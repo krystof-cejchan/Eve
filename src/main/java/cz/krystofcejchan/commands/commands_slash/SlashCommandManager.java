@@ -3,6 +3,8 @@ package cz.krystofcejchan.commands.commands_slash;
 import cz.krystofcejchan.commands.commands_slash.pause_resume.PauseTrack;
 import cz.krystofcejchan.commands.commands_slash.pause_resume.ResumeTrack;
 import cz.krystofcejchan.commands.commands_slash.poke.Poke;
+import cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.AddPublicPlaylistToDatabaseSlashCommand;
+import cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.PlayPopularPlaylists;
 import cz.krystofcejchan.commands.commands_slash.volume.VolumeCustomSLASH;
 import cz.krystofcejchan.commands.commands_slash.volume.VolumeDownSlash;
 import cz.krystofcejchan.commands.commands_slash.volume.VolumeUpSlash;
@@ -41,6 +43,8 @@ public class SlashCommandManager {
         addNewCommand(new PauseTrack());
         addNewCommand(new ResumeTrack());
         addNewCommand(new Destroy());
+        addNewCommand(new AddPublicPlaylistToDatabaseSlashCommand());
+        addNewCommand(new PlayPopularPlaylists());
 
         sortOut();
     }

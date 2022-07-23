@@ -10,7 +10,6 @@ public class AdminCommandManager {
     private final ArrayList<IAdmin> iAdminCommands = new ArrayList<>();
 
     public AdminCommandManager() {
-        addIAdminCommands(new DeleteAllAudioFiles());
         addIAdminCommands(new HardShutDown());
     }
 

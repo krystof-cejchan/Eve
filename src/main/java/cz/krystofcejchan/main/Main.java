@@ -35,7 +35,7 @@ public class Main {
 
         new preSetUpManager().getPreSetUps().forEach(setUp -> {
             try {
-                setUp.GetReady();
+                setUp.getReady();
             } catch (Exception e) {
                 e.printStackTrace();
                 System.exit(-1);

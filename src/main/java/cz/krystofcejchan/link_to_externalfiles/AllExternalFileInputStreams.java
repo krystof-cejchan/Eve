@@ -22,6 +22,8 @@ public class AllExternalFileInputStreams {
             .getResourceAsStream("/external_files/py_scripts/translator_fromTo_customlang.py");
     private final InputStream ytSearchPY = this.getClass()
             .getResourceAsStream("/external_files/py_scripts/ytsearch.py");
+    private final InputStream publicPlaylistsDB = this.getClass()
+            .getResourceAsStream("/external_files/db/public_playlists.db");
 
 
     public AllExternalFileInputStreams() {
@@ -32,18 +34,16 @@ public class AllExternalFileInputStreams {
         addToArray(translatorPY);
         addToArray(translatorFromCustomLangPY);
         addToArray(ytSearchPY);
+        addToArray(publicPlaylistsDB);
 
         inputStreamList.forEach(inputStream ->
         {
             try {
                 if (inputStream.available() < 1)
-                    throw new IOException();
+                    System.out.println(inputStream + " is null or its size is less than 1");
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("one of the stream-inputs is null or its size is less than 1");
-                System.exit(-1);
             }
-
         });
     }
 
@@ -78,6 +78,10 @@ public class AllExternalFileInputStreams {
 
     public InputStream getYtSearchPY() {
         return ytSearchPY;
+    }
+
+    public InputStream getPublicPlaylistsDB() {
+        return publicPlaylistsDB;
     }
 
 }

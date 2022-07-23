@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class MultipleSongsQueued implements ISlashCommands {
-    public int songLimitPerCommand = 25;
+    private final int SONG_LIMIT_PER_COMMAND = 25;
 
     /**
      * adds as many songs as a user provided to the queue
@@ -46,7 +46,7 @@ public class MultipleSongsQueued implements ISlashCommands {
 
     @Override
     public @NotNull String getDescription() {
-        return "add up to " + songLimitPerCommand + " songs to the queue";
+        return "add up to " + SONG_LIMIT_PER_COMMAND + " songs to the queue";
     }
 
     @Override
@@ -64,7 +64,7 @@ public class MultipleSongsQueued implements ISlashCommands {
     @Override
     public List<OptionData> getOptionData() {
         List<OptionData> optionDataList = new ArrayList<>();
-        for (int i = 0; i < songLimitPerCommand; i++) {
+        for (int i = 0; i < SONG_LIMIT_PER_COMMAND; i++) {
             optionDataList.add(new OptionData(OptionType.STRING, Objects.requireNonNull(getArgName()).get(i),
                     i + ". song url or title", i == 0, false));
         }
@@ -75,7 +75,7 @@ public class MultipleSongsQueued implements ISlashCommands {
     @Override
     public List<String> getArgName() {
         List<String> argList = new ArrayList<>();
-        for (int i = 0; i < songLimitPerCommand; i++) {
+        for (int i = 0; i < SONG_LIMIT_PER_COMMAND; i++) {
             argList.add(i + "_song-title-or-url");
         }
         return argList;

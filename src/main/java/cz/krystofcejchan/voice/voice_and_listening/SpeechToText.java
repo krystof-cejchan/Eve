@@ -2,7 +2,6 @@ package cz.krystofcejchan.voice.voice_and_listening;
 
 import cz.krystofcejchan.commands.commands_voice.IListeningCommands;
 import cz.krystofcejchan.commands.commands_voice.ListeningCommandManager;
-import cz.krystofcejchan.database_SQLite.file_database.queries.InsertValuesToTable;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.ExternalFileNames;
 import cz.krystofcejchan.link_to_externalfiles.InputStreamHolder;
 import cz.krystofcejchan.main.Main;
@@ -55,8 +54,7 @@ public class SpeechToText {
      * @throws SQLException           database failed
      * @throws ClassNotFoundException writing bytes failed
      */
-    private static void getWavFile(File outFile, byte[] decodedData) throws IOException, SQLException,
-            ClassNotFoundException {
+    private static void getWavFile(File outFile, byte[] decodedData) throws IOException {
         /*
          * float        sampleRate          = 16000;    // 8000,11025,16000,22050,44100,48000
          * int          sampleSizeInBits    = 16;       // 8,16
@@ -67,7 +65,6 @@ public class SpeechToText {
         AudioSystem.write(new AudioInputStream(new ByteArrayInputStream(decodedData), format, decodedData.length),
                 AudioFileFormat.Type.WAVE, outFile);
 
-        new InsertValuesToTable().insertValuesToTable(outFile.getAbsolutePath());
     }
 
 

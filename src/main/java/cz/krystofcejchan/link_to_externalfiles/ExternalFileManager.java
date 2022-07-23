@@ -25,6 +25,9 @@ public class ExternalFileManager {
                 ExternalFileNames.YTSEARCH, ".py"));
         INPUT_STREAM_HOLDER_LIST.add(new InputStreamHolder(allInputStreams.getTranslatorPY(),
                 ExternalFileNames.TRANSLATOR, ".py"));
+        INPUT_STREAM_HOLDER_LIST.add(new InputStreamHolder(allInputStreams.getPublicPlaylistsDB(),
+                ExternalFileNames.PUBLIC_PLAYLISTS_DB, ".db"));
+
 
 
     }
