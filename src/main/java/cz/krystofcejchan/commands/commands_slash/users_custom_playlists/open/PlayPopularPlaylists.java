@@ -9,15 +9,20 @@ import cz.krystofcejchan.utility_class.UtilityClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.interactions.components.ActionRow;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import net.dv8tion.jda.api.interactions.components.buttons.ButtonStyle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class PlayPopularPlaylists implements ISlashCommands {
+
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
         try {
@@ -25,8 +30,22 @@ public class PlayPopularPlaylists implements ISlashCommands {
                     .Retrieve
                     .mostPopularRecords(Objects.requireNonNull(ConnectToDatabase.getInstance().connectToDatabase()));
 
-            slashEvent.replyEmbeds(generateEmbed(databaseRes).build()).queue();
-            //improve output + add buttons/droplist
+
+            List<ActionRow> buttonsAsActionRows = new ArrayList<>();
+            for (int i = 0; i < databaseRes.size(); i++) {
+                buttonsAsActionRows
+                        .add(ActionRow
+                                .of(Button
+                                        .of(ButtonStyle.SECONDARY,
+                                                i + "popular_public_playlist",
+                                                "Play play-list n." + i)
+                                )
+                        );
+            }
+
+
+            slashEvent.replyEmbeds(generateEmbed(databaseRes).build())
+                    .addActionRows(buttonsAsActionRows).queue();
 
         } catch (SQLException e) {
             e.printStackTrace();
