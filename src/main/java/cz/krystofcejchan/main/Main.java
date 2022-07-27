@@ -71,7 +71,8 @@ public class Main {
                 new SlashCommandListener(),
                 new AutocompleteListener(),
                 new FirstJoinServerListener(),
-                new DropDownListListener()};
+                new DropDownListListener(),
+                new ButtonClickListener()};
 
         JDABuilder jda = JDABuilder.createDefault("OTk5NDMyNDc2NTY3MDE5NjMw.GJ9GsF.8iOskeoQOnDJNz3v4rLWTAYKdrhmaJpxPqLUfc", intents);
 
