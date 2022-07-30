@@ -13,16 +13,17 @@ public class Queries {
 
     public static boolean createDefaultTable(Connection connection) throws SQLException {
         String query = """
-                CREATE TABLE IF NOT EXISTS "public_playlists" (
-                \t"id"\tINTEGER NOT NULL UNIQUE,
-                \t"title"\tTEXT NOT NULL,
-                \t"desc"\tTEXT NOT NULL,
-                \t"guild_id"\tINTEGER NOT NULL,
-                \t"author"\tTEXT NOT NULL,
-                \t"songs"\tTEXT NOT NULL,
-                \t"popularity"\tINTEGER DEFAULT 0,
-                \t"played_n"\tINTEGER DEFAULT 0,
-                \tPRIMARY KEY("id" AUTOINCREMENT)
+                CREATE TABLE "public_playlists" (
+                	"id"	INTEGER NOT NULL UNIQUE,
+                	"title"	TEXT NOT NULL,
+                	"desc"	TEXT DEFAULT '',
+                	"guild_id"	INTEGER NOT NULL,
+                	"author"	TEXT NOT NULL,
+                	"songs"	TEXT NOT NULL,
+                	"creation_date" TEXT DEFAULT '',
+                	"popularity"	INTEGER DEFAULT 0,
+                	"played_n"	INTEGER DEFAULT 0,
+                	PRIMARY KEY("id" AUTOINCREMENT)
                 );""";
         return connection.prepareStatement(query).execute();
     }
@@ -32,13 +33,14 @@ public class Queries {
 //        INSERT INTO public_playlists (title, guild_id, author, songs)
 //VALUES ('a', 'b', 'c', 'https://www.youtube.com/watch?v=QwVjTlTdIDQ;https://www.youtube.com/watch?v=QwVjTlTdIDQ');
 
-        String query = "INSERT INTO public_playlists (title,desc, guild_id, author, songs)" +
+        String query = "INSERT INTO public_playlists (title,desc, guild_id, author, songs, creation_date)" +
                 "VALUES ('" + record.getTitle() +
                 "', '" + record.getDesc() +
                 "', '" + record.getGuild_id() +
-                "', '" + record.getAuthor() + "', " + "'" +
-                record.getSongs() +
-                "');";
+                "', '" + record.getAuthor() +
+                "', '" + record.getSongs() +
+                "', '" + record.getDateTime() + "')";
+
         connection.prepareStatement(query).execute();
     }
 
@@ -76,7 +78,31 @@ public class Queries {
                 db2D.add(rowCount, rows);
                 rowCount++;
             }
-        //    System.out.println(hashMap.size());
+            //    System.out.println(hashMap.size());
+            resultSet.close();
+
+            return db2D;
+
+        }
+
+        public static List<List<String>> usersCreatedPlaylists(Connection connection, long usersDiscordId)
+                throws SQLException {
+            List<List<String>> db2D = new ArrayList<>();
+            String sql = "SELECT * FROM public_playlists\n" +
+                    "WHERE author='" + usersDiscordId + "'\n" +
+                    "ORDER BY popularity desc;";
+            ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
+            ResultSetMetaData metadata = resultSet.getMetaData();
+            int columnCount = metadata.getColumnCount(), rowCount = 0;
+            while (resultSet.next()) {
+                List<String> rows = new ArrayList<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    rows.add(resultSet.getString(i));
+                }
+                db2D.add(rowCount, rows);
+                rowCount++;
+            }
+            //    System.out.println(hashMap.size());
             resultSet.close();
 
             return db2D;

@@ -281,8 +281,8 @@ public class UtilityClass {
     public static String runPyScript(String fullPath, @Nullable String arguments, boolean consoleOutput) {
         try {
             String s;
-            String python = GlobalValues.operatingSystem == OS.LINUX?
-                    "python3 ":"python ";
+            String python = GlobalValues.operatingSystem == OS.LINUX ?
+                    "python3 " : "python ";
             Process p = Runtime.getRuntime().exec(python + fullPath + " " + arguments);
 
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -313,7 +313,17 @@ public class UtilityClass {
     public static boolean isLink(String link) {
         String urlRegex = "((http://|https://)?(www.)?(([a-zA-Z0-9-]){2,}\\.){1,4}([a-zA-Z]){2,6}(/([a-zA-Z-_/.0-9#:?=&;,]*)?)?)";
         return Pattern.compile(urlRegex).matcher(link).find();
+    }
 
+    /**
+     * checks if param is link and then YouTube link
+     *
+     * @param link web URl
+     * @return true if param is a youtube link; else false
+     */
+    public static boolean isYoutubeLink(String link) {
+        return isLink(link) & Pattern.compile("((http://|https://)?(www.)?(youtu.be|youtube)(\u003f)(=)?(([\\S]){18,}))")
+                .matcher(link).find();
     }
 
     /**

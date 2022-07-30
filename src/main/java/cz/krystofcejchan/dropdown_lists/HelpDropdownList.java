@@ -1,12 +1,11 @@
 package cz.krystofcejchan.dropdown_lists;
 
-import cz.krystofcejchan.commands.commands_slash.Help;
-import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
 import cz.krystofcejchan.commands.commands_slash.SlashCommandManager;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
 import cz.krystofcejchan.utility_class.UtilityClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class HelpDropdownList implements IDropdownList {
     @Override
@@ -30,14 +29,8 @@ public class HelpDropdownList implements IDropdownList {
     }
 
     @Override
-    public String getIdentificator() {
+    public @NotNull String getIdentification() {
         return "help_page_scroller";
     }
-
-    @Override
-    public ISlashCommands representativeCommand() {
-        return new Help();
-    }
-
 
 }

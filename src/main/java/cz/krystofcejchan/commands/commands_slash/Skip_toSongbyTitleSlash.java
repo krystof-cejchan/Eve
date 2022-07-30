@@ -28,7 +28,7 @@ public class Skip_toSongbyTitleSlash implements ISlashCommands {
                     .queue();
             return;
         }
-        SkipToTitle.skipToTrackbyTitle(usersAudioChannel(Objects.requireNonNull(slashEvent.getMember())),
+        SkipToTitle.skipToTrackByTitle(usersAudioChannel(Objects.requireNonNull(slashEvent.getMember())),
                 botsAudioChannel(slashEvent.getGuild()),
                 slashEvent.getGuild(), Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(Objects
                         .requireNonNull(getArgName()).get(0)))).getAsString());

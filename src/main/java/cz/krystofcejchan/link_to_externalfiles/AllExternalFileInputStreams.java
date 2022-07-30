@@ -1,6 +1,5 @@
 package cz.krystofcejchan.link_to_externalfiles;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,16 +34,6 @@ public class AllExternalFileInputStreams {
         addToArray(translatorFromCustomLangPY);
         addToArray(ytSearchPY);
         addToArray(publicPlaylistsDB);
-
-        inputStreamList.forEach(inputStream ->
-        {
-            try {
-                if (inputStream.available() < 1)
-                    System.out.println(inputStream + " is null or its size is less than 1");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
     }
 
     private void addToArray(InputStream inputStream) {

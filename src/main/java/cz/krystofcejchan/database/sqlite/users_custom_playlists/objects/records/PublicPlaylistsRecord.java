@@ -1,10 +1,5 @@
 package cz.krystofcejchan.database.sqlite.users_custom_playlists.objects.records;
 
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * an object representing all the data the record must contain before uploading to the db
  */
@@ -41,35 +36,18 @@ public class PublicPlaylistsRecord {
      */
     private Integer played_n;
 
+    private String dateTime;
+
     public PublicPlaylistsRecord() {
     }
 
-    public PublicPlaylistsRecord(String title, String desc, Long guild_id, String author, List<AudioTrack> songs,
-                                 Integer popularity, Integer played_n) {
-        this.title = title;
-        this.desc = desc;
-        this.guild_id = guild_id;
-        this.author = author;
-        this.songs = songs.stream().map(song -> song.getInfo().uri).collect(Collectors.joining(";"));
-        this.popularity = popularity;
-        this.played_n = played_n;
-    }
-
-    public PublicPlaylistsRecord(String title, String desc, Long guild_id, String author, List<AudioTrack> songs) {
-        this.title = title;
-        this.desc = desc;
-        this.guild_id = guild_id;
-        this.author = author;
-        this.songs = songs.stream().map(song -> song.getInfo().uri).collect(Collectors.joining(";"));
-
-    }
-
-    public PublicPlaylistsRecord(String title, String desc, Long guild_id, String author, String songs) {
+    public PublicPlaylistsRecord(String title, String desc, Long guild_id, String author, String songs, String dateTime) {
         this.title = title;
         this.desc = desc;
         this.guild_id = guild_id;
         this.author = author;
         this.songs = songs;
+        this.dateTime = dateTime;
     }
 
     public String getTitle() {
@@ -128,6 +106,14 @@ public class PublicPlaylistsRecord {
         this.played_n = played_n;
     }
 
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
     @Override
     public String toString() {
         return "PublicPlaylistsRecord{" +
@@ -138,6 +124,7 @@ public class PublicPlaylistsRecord {
                 ", songs='" + songs + '\'' +
                 ", popularity=" + popularity +
                 ", played_n=" + played_n +
+                ", dateTime=" + dateTime +
                 '}';
     }
 }

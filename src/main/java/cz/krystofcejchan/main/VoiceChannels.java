@@ -22,10 +22,6 @@ public class VoiceChannels {
                 event.getChannel().sendMessage("equal rights to all bots!!! - pls gimme permission to join ya").queue();
                 return;
             }
-
-            AudioChannel connectedChannel = event.getMember().getVoiceState().getChannel();
-            System.out.println(connectedChannel);
-
             AudioManager audioManager = event.getGuild().getAudioManager();
 
             /*
@@ -34,7 +30,7 @@ public class VoiceChannels {
              * queue(); return; }
              */
 
-            audioManager.openAudioConnection(connectedChannel);
+            audioManager.openAudioConnection(channel);
 
             event.getChannel().sendMessage("Connected to the voice channel!").queue();
         }
@@ -51,7 +47,6 @@ public class VoiceChannels {
             }
 
             AudioChannel connectedChannel = event.getMember().getVoiceState().getChannel();
-            System.out.println(connectedChannel);
 
             AudioManager audioManager = event.getGuild().getAudioManager();
 

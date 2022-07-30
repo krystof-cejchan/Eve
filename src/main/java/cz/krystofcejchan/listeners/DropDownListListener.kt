@@ -8,7 +8,7 @@ import java.util.function.Consumer
 class DropDownListListener : Listener() {
     override fun onSelectMenuInteraction(event: SelectMenuInteractionEvent) {
         DropdownListManager().dropdownLists.forEach(Consumer { it: IDropdownList ->
-            if (it.identificator.equals(
+            if (it.identification.equals(
                     event.selectMenu.id,
                     ignoreCase = true
                 )

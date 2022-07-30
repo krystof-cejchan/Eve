@@ -17,6 +17,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.apache.commons.collections4.map.HashedMap;
 import org.jetbrains.annotations.NotNull;
@@ -109,6 +110,7 @@ public class PlayerManager {
      * @param isQueue         if true, loads all song from link and adds them all to the queue; if false, it loads only one song <hr>
      *                        <i>(for instance, if user passes a playlist as a arguments when triggering {@link PlayCommand} but isQueue is false,
      *                        then only the first song from the playlist will be added to the queue, otherwise all songs will be added)</i><hr>
+     * @param event0          {@link SelectMenuInteractionEvent}
      * @param event1          {@link MessageReceivedEvent}
      * @param event2          {@link SlashCommandInteractionEvent}
      * @param msgType         {@link MessageTypes}
@@ -117,7 +119,7 @@ public class PlayerManager {
      * @param multiplyAdded   means that no msgs will be sent
      * @author krystof-cejchan
      */
-    public void loadAndPlay(MessageChannel channel, String url, boolean isQueue, @Nullable MessageReceivedEvent event1,
+    public void loadAndPlay(MessageChannel channel, String url, boolean isQueue, @Nullable SelectMenuInteractionEvent event0, @Nullable MessageReceivedEvent event1,
                             @Nullable SlashCommandInteractionEvent event2, @Nullable MessageTypes msgType, String usersInput,
                             boolean playImmediately, boolean multiplyAdded) {
         if (event1 != null && event2 == null) {
@@ -328,8 +330,60 @@ public class PlayerManager {
 
             });
         }
+        if (event0 != null && event1 == null && event2 == null) {//SelectMenu
 
+            final GuildMusicManager musicManager = this.getMusicManager(Objects.requireNonNull(event0.getGuild()));
+
+            this.AUDIOPLAYERMANAGER.loadItemOrdered(musicManager, url, new AudioLoadResultHandler() {
+
+                /**
+                 * single track loaded
+                 *
+                 * @param track {@link AudioTrack} which is supposed to be added to the queue
+                 */
+                @Override
+                public void trackLoaded(AudioTrack track) {
+                    musicManager.SCHEDULER.queue(track);
+                }
+
+                /**
+                 * playlist loaded
+                 *
+                 * @param playlist a list of {@link AudioTrack}-s
+                 */
+                @Override
+                public void playlistLoaded(AudioPlaylist playlist) {
+                    if (isQueue)
+                        playlist.getTracks().forEach(musicManager.SCHEDULER::queue);
+                    else
+                        musicManager.SCHEDULER.queue(playlist.getTracks().get(0));
+                }
+
+                /**
+                 * no track with this title or upload under this url was found
+                 */
+                @Override
+                public void noMatches() {
+                    try {
+                        throw new NoTrackMatchException();
+                    } catch (NoTrackMatchException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                /**
+                 * track could not be loaded
+                 * @param exception {@link FriendlyException} this exception will be printed out to the user as an error message
+                 */
+                @Override
+                public void loadFailed(FriendlyException exception) {
+                    exception.printStackTrace();
+                }
+
+            });
+        }
     }
+
 
     /**
      * builds an embed message which is ready to be built and sent {@code EmbedBuilder.build()} {@link EmbedBuilder}
