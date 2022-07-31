@@ -23,9 +23,9 @@ class UtilityClassTest {
             if (!used.contains(letter))
                 used.add(letter);
         });
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (int i = used.size() - 1; i >= 0; i--) {
-            output += used.get(i);
+            output.append(used.get(i));
         }
         System.out.println(output);
 
@@ -33,6 +33,11 @@ class UtilityClassTest {
 
     @Test
     void isLink() {
-        System.out.println(UtilityClass.isLink("youtube:"));
+        Assertions.assertTrue(UtilityClass.isLink("youtube.com/aaa"));
+    }
+
+    @Test
+    void isYoutubeLink() {
+        System.out.println(false & false);
     }
 }

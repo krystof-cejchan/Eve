@@ -99,7 +99,6 @@ public class PlayerManagerPure {
                 } catch (NoTrackMatchException e) {
                     e.printStackTrace();
                 }
-
             }
 
             /**
@@ -109,7 +108,6 @@ public class PlayerManagerPure {
             @Override
             public void loadFailed(FriendlyException exception) {
                 exception.printStackTrace();
-
             }
 
         });

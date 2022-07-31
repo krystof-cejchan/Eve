@@ -1,4 +1,4 @@
-package cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open;
+package cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.add;
 
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
 import cz.krystofcejchan.database.sqlite.users_custom_playlists.commit_queries.Queries;
@@ -6,7 +6,8 @@ import cz.krystofcejchan.database.sqlite.users_custom_playlists.connection.Conne
 import cz.krystofcejchan.database.sqlite.users_custom_playlists.objects.records.PublicPlaylistsRecord;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
-import cz.krystofcejchan.utility_class.UtilityClass;
+import cz.krystofcejchan.utility_class.Date;
+import cz.krystofcejchan.utility_class.GlobalValues;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -26,47 +27,40 @@ public class AddPublicPlaylistToDatabaseSlashCommand implements ISlashCommands {
 
     @Override
     public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        int notLink = 0;
-        // slashEvent.deferReply().queue();
+
         ArrayList<String> args = new ArrayList<>();
+
         args.add(0, Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()).get(0))).getAsString());
         args.add(1, Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()).get(1))).getAsString());
         for (int i = 2; i < slashEvent.getOptions().size(); i++) {
-            if (!UtilityClass.isLink(slashEvent.getOptions().get(i).getAsString()) || !slashEvent.getOptions().get(i).getAsString().contains("you")) {
-                notLink++;
-                continue;
-            }
             args.add(i, slashEvent.getOptions().get(i).getAsString());
         }
 
-       /* String linksToAllTracks =
-                UsersInput2AudioTracks.transformUsersInputToAudioTracks(slashEvent.getGuild(), args.subList(2, args.size()))
-                        .stream()
-                        .map(audioTrackInfo -> audioTrackInfo.uri)
-                        .collect(Collectors.joining(";"));*/
-
-//        while (linksToAllTracks.isEmpty() || linksToAllTracks.isBlank()) {
-//            try {
-//                System.out.println("skee");
-//                Thread.sleep(1000);
-//            }catch (InterruptedException e){
-//                e.printStackTrace();
-//            }
-//        }
-
-
         PublicPlaylistsRecord record = new PublicPlaylistsRecord(args.get(0), args.get(1),
                 Objects.requireNonNull(slashEvent.getGuild()).getIdLong(),
-                slashEvent.getUser().getId(), String.join(";", args.subList(2, args.size())));
+                slashEvent.getUser().getId(), String.join(GlobalValues.DATABASE_SONG_SEPARATOR, args.subList(2, args.size())),
+                Date.currentDateTime(true).toString());
+
         try {
             Queries.addRecord(Objects.requireNonNull(ConnectToDatabase.getInstance().connectToDatabase()), record);
         } catch (SQLException sqlException) {
-            slashEvent.reply("There was an error while handling your request").setEphemeral(true).queue();
+            slashEvent.reply("There was an error while handling your request - *database issue*").setEphemeral(true).queue();
+            sqlException.printStackTrace();
+            return;
         }
         slashEvent.replyEmbeds(new EmbedBuilder().setColor(Color.GREEN).setTitle("Public playlist successfully added!")
-                .addField("Playlist data:", record.toString(), false)
-                .addField("Stats:", "Success: " + (slashEvent.getOptions().size() - 2 - notLink) + "\nFailed: " + notLink,
-                        false).build()).setEphemeral(false).queue();
+                .addField("Playlist data:", recordToStringBeautified(record), false)
+                .addField("Stats:", "Success: " + (slashEvent.getOptions().size() - 2) +
+                                "\nFailed: " + 0
+                        ,
+                        false)
+                .build()).setEphemeral(false).queue();
+    }
+
+    private String recordToStringBeautified(@NotNull PublicPlaylistsRecord record) {
+        return "Title= **" + record.getTitle() +
+                "**\nDesc= **" + record.getDesc() +
+                "**\nSongs= **" + record.getSongs().replaceAll(GlobalValues.DATABASE_SONG_SEPARATOR, ", ") + "**";
     }
 
     @Override

@@ -29,7 +29,7 @@ public class Main {
      * @param args params
      * @throws Exception general exception
      */
-    public static void main(String[] args) throws Exception {
+    public static synchronized void main(String[] args) throws Exception {
         //determinates the os
         GlobalValues.operatingSystem = System.getProperty("os.name").toLowerCase().contains("win") ? OS.WINDOWS : OS.LINUX;
 
@@ -61,18 +61,15 @@ public class Main {
 
                 GatewayIntent.GUILD_EMOJIS);
 
-/*
-        @SuppressWarnings("unused")
-        String APITokenTEST = UtilityClass.getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/keys/test.html");
-        @SuppressWarnings("unused")
-        String APITokenMAIN = UtilityClass.getTextFromWebpage("http://eveuwu.g6.cz/get_values&paths/keys/navostro.html");*/
 
-        Object[] allActiveListeners = {new Listener(),
+        Object[] allActiveListeners = {
+                new Listener(),
                 new SlashCommandListener(),
                 new AutocompleteListener(),
                 new FirstJoinServerListener(),
                 new DropDownListListener(),
-                new ButtonClickListener()};
+                new ButtonClickListener()
+        };
 
         JDABuilder jda = JDABuilder.createDefault("OTk5NDMyNDc2NTY3MDE5NjMw.GJ9GsF.8iOskeoQOnDJNz3v4rLWTAYKdrhmaJpxPqLUfc", intents);
 
@@ -89,6 +86,7 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(-1);
+
         }
     }
 }

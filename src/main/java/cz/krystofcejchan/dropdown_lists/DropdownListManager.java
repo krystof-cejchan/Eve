@@ -7,10 +7,12 @@ public class DropdownListManager {
 
     public DropdownListManager() {
         addList(new HelpDropdownList());
+        addList(new PlayPublicPlaylistDropdownList());
+        addList(new PlayUsersCustomPlaylistDropdownList());
     }
 
     private void addList(IDropdownList list) {
-        if (dropdownLists.stream().noneMatch(it -> it.getIdentificator().equalsIgnoreCase(list.getIdentificator())))
+        if (dropdownLists.stream().noneMatch(it -> it.getIdentification().equalsIgnoreCase(list.getIdentification())))
             dropdownLists.add(list);
     }
 

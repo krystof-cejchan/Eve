@@ -45,8 +45,10 @@ public class InputStreamHolder {
 
     public void transformInputStreamToLocalFile(ExternalFileNames fileName) throws IOException {
         assert fileNameToPathMap != null;
-        if (!(fileName.toString().contains("DB") && Files.exists(fileNameToPathMap.get(fileName))))
+        System.out.println(fileNameToPathMap.get(fileName));
+        if (fileName.toString().contains("DB") ^ Files.exists(fileNameToPathMap.get(fileName)))
             Files.copy(getInputStream(), fileNameToPathMap.get(fileName), StandardCopyOption.REPLACE_EXISTING);
     }
 
 }
+

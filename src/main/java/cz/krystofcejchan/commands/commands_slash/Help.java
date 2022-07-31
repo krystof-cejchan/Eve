@@ -31,7 +31,7 @@ public class Help extends HelpDropdownList implements ISlashCommands {
                 .append(String.valueOf(slashCommandSize + textCommandSize + voiceCommandSize)).append("`");
         builder.append("\n```fix\n");
         builder.append("Choose from a category from Selection Menu down below to see the commands");
-        SelectMenu.Builder menu = SelectMenu.create(super.getIdentificator());
+        SelectMenu.Builder menu = SelectMenu.create(super.getIdentification());
         Arrays.stream(SlashCommandCategory.values()).toList().forEach(category ->
                 menu.addOption(SlashCommandCategory.getCategoryInFullName(category), category.toString()));
         menu.setPlaceholder("Select commands' category to show up");

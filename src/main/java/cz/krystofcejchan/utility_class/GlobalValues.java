@@ -35,4 +35,6 @@ public class GlobalValues {
      */
     public static OS operatingSystem = OS.WINDOWS;
 
+    public static String DATABASE_SONG_SEPARATOR = "}%○";
+
 }

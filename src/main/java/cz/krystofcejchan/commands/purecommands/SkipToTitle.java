@@ -10,18 +10,14 @@ import java.util.Locale;
 import java.util.concurrent.BlockingQueue;
 
 public class SkipToTitle {
-    public static void skipToTrackbyTitle(AudioChannel user, AudioChannel bot, Guild guild, String usersInput) {
+    public static void skipToTrackByTitle(AudioChannel user, AudioChannel bot, Guild guild, String usersInput) {
         try {
             BlockingQueue<AudioTrack> queue = PlayerManager.getInstance().getMusicManager(guild).SCHEDULER.QUEUE;
 
             if (!queue.isEmpty()) {
                 if (queue.stream().anyMatch(audioTrack -> audioTrack.getInfo().title.equals(usersInput))) {
-                    System.out.println("true");
-
                     SkipPure.skipTrackTo(user, bot, guild, getSongIndex(new ArrayList<>(queue), usersInput) + 1);
-
                 }
-
             }
         } catch (NullPointerException e) {
             e.printStackTrace();

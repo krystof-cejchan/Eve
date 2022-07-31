@@ -1,7 +1,8 @@
 package cz.krystofcejchan.dropdown_lists;
 
-import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
+
+import javax.annotation.Nonnull;
 
 public interface IDropdownList {
     /**
@@ -11,8 +12,9 @@ public interface IDropdownList {
      */
     void handleEvent(SelectMenuInteractionEvent event);
 
-    String getIdentificator();
+    @Nonnull
+    String getIdentification();
 
-    ISlashCommands representativeCommand();
+
 
 }
