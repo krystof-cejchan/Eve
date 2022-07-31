@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +49,20 @@ public class GetPopularPlaylists extends PlayPublicPlaylistDropdownList implemen
 
             slashEvent.replyEmbeds(generateEmbed(databaseRes).build()).addActionRow(selectMenu.build()).queue();
 
+        } catch (IllegalArgumentException e) {
+            slashEvent.replyEmbeds(new EmbedBuilder()
+                            .setTitle("It seems I was not able to find any data")
+                            .setColor(Color.RED)
+                            .build())
+                    .setEphemeral(true)
+                    .queue();
         } catch (SQLException e) {
-            e.printStackTrace();
+            slashEvent.replyEmbeds(new EmbedBuilder()
+                            .setTitle("It seems something went wrong with the database :(")
+                            .setColor(Color.RED)
+                            .build())
+                    .setEphemeral(true)
+                    .queue();
         }
     }
 

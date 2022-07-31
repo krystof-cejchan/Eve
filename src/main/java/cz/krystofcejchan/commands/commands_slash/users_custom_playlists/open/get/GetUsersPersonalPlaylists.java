@@ -1,6 +1,7 @@
 package cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.get;
 
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
+import cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.add.AddPublicPlaylistToDatabaseSlashCommand;
 import cz.krystofcejchan.database.sqlite.users_custom_playlists.commit_queries.Queries;
 import cz.krystofcejchan.database.sqlite.users_custom_playlists.connection.ConnectToDatabase;
 import cz.krystofcejchan.dropdown_lists.PlayUsersCustomPlaylistDropdownList;
@@ -15,6 +16,7 @@ import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +45,24 @@ public class GetUsersPersonalPlaylists extends PlayUsersCustomPlaylistDropdownLi
 
             slashEvent.replyEmbeds(generateEmbed(databaseRes).build()).addActionRow(selectMenu.build()).queue();
 
+        } catch (IllegalArgumentException e) {
+            slashEvent.replyEmbeds(new EmbedBuilder()
+                            .setTitle("It seems I was not able to find any data")
+                            .addField("How to prevent it?",
+                                    "You need to save a playlist" +
+                                            "\nDo this by using this command:" +
+                                            new AddPublicPlaylistToDatabaseSlashCommand().getName(), false)
+                            .setColor(Color.RED)
+                            .build())
+                    .setEphemeral(true)
+                    .queue();
         } catch (SQLException e) {
-            e.printStackTrace();
+            slashEvent.replyEmbeds(new EmbedBuilder()
+                            .setTitle("It seems something went wrong with the database :(")
+                            .setColor(Color.RED)
+                            .build())
+                    .setEphemeral(true)
+                    .queue();
         }
     }
 
