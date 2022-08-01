@@ -1,1 +1,4 @@
-src/main/java/cz/krystofcejchan/commands/admin
+src/main/java/cz/krystofcejchan/commands/admin/
+src/main/resources/external_files/db/
+target/
+src/main/java/cz/krystofcejchan/main/Main.java
