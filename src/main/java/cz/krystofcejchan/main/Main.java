@@ -61,7 +61,6 @@ public class Main {
 
                 GatewayIntent.GUILD_EMOJIS);
 
-
         Object[] allActiveListeners = {
                 new Listener(),
                 new SlashCommandListener(),
@@ -86,7 +85,6 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(-1);
-
         }
     }
 }
