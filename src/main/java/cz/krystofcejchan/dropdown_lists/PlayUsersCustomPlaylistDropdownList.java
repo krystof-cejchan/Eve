@@ -15,7 +15,7 @@ import java.util.List;
 import static cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.get.GetUsersPersonalPlaylists.songs;
 
 public class PlayUsersCustomPlaylistDropdownList implements IDropdownList {
-    int counter = 0;
+    private int counter = 0;
 
     @Override
     public void handleEvent(SelectMenuInteractionEvent event) {
@@ -32,7 +32,7 @@ public class PlayUsersCustomPlaylistDropdownList implements IDropdownList {
                 .map(SelectOption::getValue)
                 .toList()
                 .forEach(input ->
-                    local_songs.add((songs.get(Integer.parseInt(input) - 1))));
+                        local_songs.add((songs.get(Integer.parseInt(input) - 1))));
 
 
         local_songs.forEach(stringOfSongs -> Arrays.stream(stringOfSongs.split(GlobalValues.DATABASE_SONG_SEPARATOR))
@@ -49,7 +49,6 @@ public class PlayUsersCustomPlaylistDropdownList implements IDropdownList {
                         .setColor(UtilityClass.getRandomColor()).build())
                 .queue();
 
-        //clearing arraylists
         songs.clear();
 
     }

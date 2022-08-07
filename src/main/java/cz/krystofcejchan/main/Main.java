@@ -70,7 +70,7 @@ public class Main {
                 new ButtonClickListener()
         };
 
-        JDABuilder jda = JDABuilder.createDefault("OTk5NDMyNDc2NTY3MDE5NjMw.GJ9GsF.8iOskeoQOnDJNz3v4rLWTAYKdrhmaJpxPqLUfc", intents);
+        JDABuilder jda = JDABuilder.createDefault(args[0], intents);
 
         jda.setRawEventsEnabled(true);
         jda.enableCache(CacheFlag.VOICE_STATE);
