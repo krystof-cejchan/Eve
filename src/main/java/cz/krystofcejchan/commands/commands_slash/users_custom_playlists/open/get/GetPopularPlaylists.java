@@ -1,6 +1,7 @@
 package cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.get;
 
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
+import cz.krystofcejchan.commands.commands_slash.users_custom_playlists.logics.DatabaseData;
 import cz.krystofcejchan.database.sqlite.users_custom_playlists.commit_queries.Queries;
 import cz.krystofcejchan.database.sqlite.users_custom_playlists.connection.ConnectToDatabase;
 import cz.krystofcejchan.dropdown_lists.PlayPublicPlaylistDropdownList;
@@ -24,13 +25,10 @@ import java.util.Objects;
 
 public class GetPopularPlaylists extends PlayPublicPlaylistDropdownList implements ISlashCommands {
     /**
-     * arraylist containing all songs from one database row joined to one another by ';'
+     * arraylist containing {@link DatabaseData}
      */
-    public static List<String> songs = new ArrayList<>();
-    /**
-     * authors of the playlists
-     */
-    public static List<String> authors = new ArrayList<>();
+    public static List<DatabaseData> databaseDataRecords = new ArrayList<>();
+
     private int generateEmbedCounter = 0;
 
     @Override
@@ -66,10 +64,13 @@ public class GetPopularPlaylists extends PlayPublicPlaylistDropdownList implemen
         }
     }
 
+    @NotNull
     private EmbedBuilder generateEmbed(List<List<String>> listOList) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
 
         listOList.forEach(list -> {
+                    System.out.println(list.get(0));
+
                     embedBuilder.addField("Playlist => " + ++generateEmbedCounter,
                             "Title: " + list.get(1) + "\nDescription: " + list.get(2) + "\nSongs: " +
                                     list.get(5).replaceAll(GlobalValues.DATABASE_SONG_SEPARATOR, ", ") +
@@ -78,25 +79,35 @@ public class GetPopularPlaylists extends PlayPublicPlaylistDropdownList implemen
                                     "** on **" + Objects.requireNonNull(Main.publicJDA
                                     .getGuildById(list.get(3))).getName() + "** server",
                             true);
-                    songs.add(list.get(5));
-                    authors.add(list.get(4));
+                    byte c = 0;
+                    databaseDataRecords.add(new DatabaseData(list.get(c),
+                            list.get(++c), list.get(++c),
+                            list.get(++c),
+                            list.get(++c),
+                            list.get(++c),
+                            list.get(++c),
+                            list.get(++c),
+                            list.get(++c)));
                 }
         );
         return embedBuilder.setColor(UtilityClass.getRandomColor()).setTitle("The most popular play-lists");
     }
 
     @Override
-    public @NotNull String getDescription() {
+    public @NotNull
+    String getDescription() {
         return "Get the most popular playlists and choose from them!";
     }
 
     @Override
-    public @NotNull String getName() {
+    public @NotNull
+    String getName() {
         return "play_most_popular_playlists";
     }
 
     @Override
-    public @NotNull ArgumentSlashCommandCount takesArguments() {
+    public @NotNull
+    ArgumentSlashCommandCount takesArguments() {
         return ArgumentSlashCommandCount.NONE;
     }
 
@@ -123,7 +134,8 @@ public class GetPopularPlaylists extends PlayPublicPlaylistDropdownList implemen
     }
 
     @Override
-    public @NotNull List<SlashCommandCategory> getCategory() {
+    public @NotNull
+    List<SlashCommandCategory> getCategory() {
         return List.of(SlashCommandCategory.MUSIC, SlashCommandCategory.PLAYLISTS);
     }
 }

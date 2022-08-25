@@ -19,7 +19,6 @@ public class ConnectToDatabase {
     static {
         assert InputStreamHolder.fileNameToPathMap != null;
         pathToDatabase = String.valueOf(InputStreamHolder.fileNameToPathMap.get(ExternalFileNames.PUBLIC_PLAYLISTS_DB));
-        //    pathToDatabase="D:\\USERS_INPUT_AUDIO\\public_playlists.db";
     }
 
     private Connection sqlConnection;

@@ -1,5 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="MAIN_CLASS_NAME" value="cz.krystofcejchan.main.Main" />
     <module name="discordbottest" />
     <option name="PROGRAM_PARAMETERS" value="OTk5NDMyNDc2NTY3MDE5NjMw.GJ9GsF.8iOskeoQOnDJNz3v4rLWTAYKdrhmaJpxPqLUfc" />

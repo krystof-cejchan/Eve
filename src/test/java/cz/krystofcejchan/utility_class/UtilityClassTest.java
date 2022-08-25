@@ -38,6 +38,6 @@ class UtilityClassTest {
 
     @Test
     void isYoutubeLink() {
-        System.out.println(false & false);
+ 
     }
 }

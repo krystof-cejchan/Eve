@@ -31,7 +31,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -51,8 +50,6 @@ public class SpeechToText {
      * @param outFile     {@link File} that will hold the decodedData
      * @param decodedData user's voice input in bytes
      * @throws IOException            no such file
-     * @throws SQLException           database failed
-     * @throws ClassNotFoundException writing bytes failed
      */
     private static void getWavFile(File outFile, byte[] decodedData) throws IOException {
         /*
@@ -118,7 +115,7 @@ public class SpeechToText {
         }
     }
 
-    public void onEchoSlashCommand(SlashCommandInteractionEvent event) throws NullPointerException, RateLimitedException {
+    public void onEchoSlashCommand(@NotNull SlashCommandInteractionEvent event) throws NullPointerException, RateLimitedException {
         MemeberWhoTriggeredEchoCommand.setMember(event.getMember());
         Member member = event.getMember();
         msgEvent = new MessageReceivedEvent_CustomClass(new MessageReceivedEvent(Main.publicJDA, 1,
@@ -130,9 +127,9 @@ public class SpeechToText {
         assert member != null;
         GuildVoiceState voiceState = member.getVoiceState();
         assert voiceState != null;
-        AudioChannel channel = voiceState.getChannel(); // user
+        AudioChannel channel = voiceState.getChannel();
         AudioChannel connectedChannelSelf = Objects.requireNonNull(Objects.requireNonNull(event.getGuild()).getSelfMember()
-                .getVoiceState()).getChannel(); // bot
+                .getVoiceState()).getChannel();
         if (channel != null) {
             if (!channel.equals(connectedChannelSelf)) {
                 connectTo(channel);
@@ -192,8 +189,6 @@ public class SpeechToText {
         AudioManager audioManager = guild.getAudioManager();
 
         EchoHandler handler = new EchoHandler();
-
-        // audioManager.setSendingHandler(handler);
 
         audioManager.setReceivingHandler(handler);
 

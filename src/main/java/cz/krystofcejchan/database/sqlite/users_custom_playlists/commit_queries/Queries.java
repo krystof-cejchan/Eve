@@ -1,6 +1,7 @@
 package cz.krystofcejchan.database.sqlite.users_custom_playlists.commit_queries;
 
 import cz.krystofcejchan.database.sqlite.users_custom_playlists.objects.records.PublicPlaylistsRecord;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -44,6 +45,25 @@ public class Queries {
         connection.prepareStatement(query).execute();
     }
 
+
+    /**
+     * ++ n_played or popularity in database by id
+     *
+     * @param connection {@link Connection}
+     * @param playlistId id of the playlist
+     * @param n_played   if true → n_played will be changed, else popularity
+     * @throws SQLException database exception
+     */
+    public static void countUp(@NotNull Connection connection, String playlistId, String formerValue, boolean n_played)
+            throws SQLException {
+
+        String sql = "UPDATE public_playlists\n" +
+                "SET " + (n_played ? "played_n" : "popularity") + " = '" + Long.parseLong(formerValue) + 1 + "'\n" +
+                "WHERE id = " + playlistId + ";";
+
+        connection.prepareStatement(sql).execute();
+    }
+
     public static class Retrieve {
         public static ResultSet recordByTitle(Connection connection, String title, boolean fromThisGuild,
                                               Long guildId) throws SQLException {
@@ -85,6 +105,7 @@ public class Queries {
 
         }
 
+        @NotNull
         public static List<List<String>> usersCreatedPlaylists(Connection connection, long usersDiscordId)
                 throws SQLException {
             List<List<String>> db2D = new ArrayList<>();

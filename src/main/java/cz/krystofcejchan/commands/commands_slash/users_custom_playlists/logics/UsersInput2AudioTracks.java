@@ -4,12 +4,13 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import cz.krystofcejchan.commands.purecommands.playsongcommand_pure.PlayerManagerPure;
 import net.dv8tion.jda.api.entities.Guild;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class UsersInput2AudioTracks {
-    public static List<AudioTrackInfo> transformUsersInputToAudioTracks(Guild guild, List<String> inputList) {
+    public static List<AudioTrackInfo> transformUsersInputToAudioTracks(Guild guild, @NotNull List<String> inputList) {
         return inputList
                 .stream()
                 .flatMap(input -> PlayerManagerPure.getInstance().loadAndReturnAudioTracks(guild, input)
