@@ -2,9 +2,9 @@ package cz.krystofcejchan.commands.commands_slash.poke;
 
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
-import cz.krystofcejchan.enums_annotations_exceptions.enums.ExternalFileNames;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
 import cz.krystofcejchan.enums_annotations_exceptions.exceptions.UserCannotBeReachedThroughPrivateMessageException;
+import cz.krystofcejchan.link_to_externalfiles.ExternalFileNamesE;
 import cz.krystofcejchan.link_to_externalfiles.InputStreamHolder;
 import cz.krystofcejchan.utility_class.UtilityClass;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -32,7 +32,7 @@ public class Poke extends PokeFrame implements ISlashCommands {
 
 
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
 
         Member taggedMember = Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()).get(0))).getAsMember();
         List<Member> taggedMembersArr = new ArrayList<>(getListOfMembersTaggedIfPossible(slashEvent, getArgName().get(0)));
@@ -58,7 +58,7 @@ public class Poke extends PokeFrame implements ISlashCommands {
 
     private void sendConfirmMsg(SlashCommandInteractionEvent event, String member_s) {
         assert InputStreamHolder.fileNameToPathMap != null;
-        event.replyFile(new File(String.valueOf(InputStreamHolder.fileNameToPathMap.get(ExternalFileNames.POKEGIF))),
+        event.replyFile(new File(String.valueOf(InputStreamHolder.fileNameToPathMap.get(ExternalFileNamesE.POKEGIF))),
                 "Poking " + member_s + ".gif").setEphemeral(true).queue();
     }
 

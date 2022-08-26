@@ -22,7 +22,7 @@ public class PlaySongSlash implements ISlashCommands {
      * @param slashEvent {@link SlashCommandInteractionEvent}
      */
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
 
         boolean playImmediately, caught = false;
 

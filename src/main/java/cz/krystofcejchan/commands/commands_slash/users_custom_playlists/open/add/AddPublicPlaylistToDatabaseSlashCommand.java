@@ -26,7 +26,7 @@ public class AddPublicPlaylistToDatabaseSlashCommand implements ISlashCommands {
     private final int ARG_LIMIT = 25;
 
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
 
         ArrayList<String> args = new ArrayList<>();
 

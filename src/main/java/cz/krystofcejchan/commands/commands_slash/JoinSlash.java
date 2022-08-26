@@ -14,7 +14,7 @@ import java.util.List;
 @Slash()
 public class JoinSlash implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         new VoiceChannels().joinSlash(slashEvent, true);
     }
 

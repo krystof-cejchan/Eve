@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ChuckJokes implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         slashEvent.replyEmbeds(new EmbedBuilder().setColor(Color.black)
                 .addField("Random Chuck's joke", "```bash\n\"" +
                         ExtractedJokeFromJSONResult.getJokeFromJSON() + "\"\n```", false)

@@ -32,7 +32,7 @@ public class GetPopularPlaylists extends PlayPublicPlaylistDropdownList implemen
     private int generateEmbedCounter = 0;
 
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         try {
             List<List<String>> databaseRes = Queries
                     .Retrieve

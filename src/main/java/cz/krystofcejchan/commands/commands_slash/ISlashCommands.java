@@ -16,7 +16,7 @@ public interface ISlashCommands {
      *
      * @param slashEvent {@link SlashCommandInteractionEvent}
      */
-    void executeSlashCommand(SlashCommandInteractionEvent slashEvent);
+    void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent);
 
     /**
      * @return description of the command

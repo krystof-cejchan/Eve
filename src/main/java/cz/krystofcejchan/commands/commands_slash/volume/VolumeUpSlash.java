@@ -17,7 +17,7 @@ import static cz.krystofcejchan.commands.purecommands.subparts.GetCurrentVolume.
 
 public class VolumeUpSlash implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         int oldVol = getVolume(slashEvent.getGuild());
         setVolumeUpOrDown(slashEvent.getGuild(), VolumeUpDown.UP);
         slashEvent.replyEmbeds(VolumeCustomSLASH.embed.get(Objects.requireNonNull(slashEvent.getMember()),

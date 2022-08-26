@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class Skip_fullSlash implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         if (slashEvent.getOption(Objects.requireNonNull(Objects.requireNonNull(getArgName()).get(0))) != null) {
             SkipPure.skipTrackTo(Objects.requireNonNull(Objects.requireNonNull(slashEvent.getMember()).getVoiceState()).getChannel(),
                     Objects.requireNonNull(Objects.requireNonNull(slashEvent.getGuild()).getSelfMember()

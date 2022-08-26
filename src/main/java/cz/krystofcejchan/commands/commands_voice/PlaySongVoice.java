@@ -1,9 +1,9 @@
 package cz.krystofcejchan.commands.commands_voice;
 
 import cz.krystofcejchan.audioplayer.PlayCommand;
-import cz.krystofcejchan.enums_annotations_exceptions.enums.ExternalFileNames;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.LANGUAGES.LANGUAGES;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.MessageTypes;
+import cz.krystofcejchan.link_to_externalfiles.ExternalFileNamesE;
 import cz.krystofcejchan.link_to_externalfiles.InputStreamHolder;
 import cz.krystofcejchan.utility_class.UtilityClass;
 import cz.krystofcejchan.voice.voice_and_listening.SpeechToText;
@@ -77,7 +77,7 @@ public class PlaySongVoice implements IListeningCommands {
             if (!(SpeechToText.Language.getLang().equals("en-GB") || SpeechToText.Language.getLang().equals("en-US")))
                 searchWords.removeIf(currWord -> {
                     assert InputStreamHolder.fileNameToPathMap != null;
-                    return UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNames.TRANSLATOR).toString(),
+                    return UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNamesE.TRANSLATOR).toString(),
                             currWord, false).equalsIgnoreCase(forbidden);
                 });
             else searchWords.removeIf(currWord -> currWord.equalsIgnoreCase(forbidden));
@@ -123,7 +123,7 @@ public class PlaySongVoice implements IListeningCommands {
                 System.out.println(language);
                 for (String forbiddenWord : PlaySongVoice.forbiddenWords()) {
                     assert InputStreamHolder.fileNameToPathMap != null;
-                    argList.add(UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNames.TRANSLATORCUSTOM).toString(),
+                    argList.add(UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNamesE.TRANSLATORCUSTOM).toString(),
                             LANGUAGES.getShortLang(language)
                                     .substring(0, LANGUAGES.getShortLang(language).indexOf("-")) + " en " + forbiddenWord, false));
                 }

@@ -21,7 +21,7 @@ import static cz.krystofcejchan.commands.purecommands.subparts.GetUsersVoiceChan
 
 public class Skip_toSongbyTitleSlash implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         if (GetCurrentTrack.getTrack(slashEvent.getGuild()) == null) {
             slashEvent.replyEmbeds(new EmbedBuilder().setColor(Color.RED).setTitle("That was a fail \uD83D\uDE23\uD83D\uDE23")
                             .addField("No song found", "There's nothing playing at the moment", true).build())

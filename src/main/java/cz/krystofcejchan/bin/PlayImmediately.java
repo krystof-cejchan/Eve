@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class PlayImmediately implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
 
         new PlayCommand().playMusicFromSlash(slashEvent, Objects.requireNonNull(slashEvent.getOption
                         (Objects.requireNonNull(getArgName()).get(0))).getAsString(),

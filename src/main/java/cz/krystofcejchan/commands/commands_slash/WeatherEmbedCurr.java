@@ -20,7 +20,7 @@ import java.util.Objects;
 
 public class WeatherEmbedCurr implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         try {
             //https://wttr.in/a?format=j1
             WeatherCurrent_Obj weather = new JSONGrabber("https://wttr.in/" +

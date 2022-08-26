@@ -18,7 +18,7 @@ import java.util.List;
 
 public class Help extends HelpDropdownList implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         MessageBuilder builder = new MessageBuilder();
         int slashCommandSize = new SlashCommandManager().getAllCommands().size(),
                 textCommandSize = new CommandManager().getAllCommands().size(),

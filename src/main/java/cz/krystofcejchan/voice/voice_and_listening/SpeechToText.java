@@ -2,7 +2,7 @@ package cz.krystofcejchan.voice.voice_and_listening;
 
 import cz.krystofcejchan.commands.commands_voice.IListeningCommands;
 import cz.krystofcejchan.commands.commands_voice.ListeningCommandManager;
-import cz.krystofcejchan.enums_annotations_exceptions.enums.ExternalFileNames;
+import cz.krystofcejchan.link_to_externalfiles.ExternalFileNamesE;
 import cz.krystofcejchan.link_to_externalfiles.InputStreamHolder;
 import cz.krystofcejchan.main.Main;
 import cz.krystofcejchan.objects.CurrentTextChannel;
@@ -163,10 +163,10 @@ public class SpeechToText {
     public String getTranscription() {
         try {
             assert InputStreamHolder.fileNameToPathMap != null;
-            if (PythonASCIIDecoding.decodeASCIItext(UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNames.SOUNDFILETOTEXT).toString(),
+            if (PythonASCIIDecoding.decodeASCIItext(UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNamesE.SOUNDFILETOTEXT).toString(),
                     SoundFile.getWholePath() + " " + Language.lang, false)) == null)
                 return null;
-            String rawString = PythonASCIIDecoding.decodeASCIItext(UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNames.SOUNDFILETOTEXT).toString(),
+            String rawString = PythonASCIIDecoding.decodeASCIItext(UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNamesE.SOUNDFILETOTEXT).toString(),
                     SoundFile.getWholePath() + " " + Language.lang, false));
             assert rawString != null;
             byte[] bytes = rawString.getBytes(StandardCharsets.UTF_8);
@@ -267,7 +267,7 @@ public class SpeechToText {
                             if (!((SpeechToText.Language.getLang().equals("en-GB") || SpeechToText.Language.getLang()
                                     .equals("en-US")))) {
                                 assert InputStreamHolder.fileNameToPathMap != null;
-                                transcription_finalVersion = UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNames.TRANSLATOR).toString(),
+                                transcription_finalVersion = UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNamesE.TRANSLATOR).toString(),
                                         transcription_original, false);
                                 assert transcription_finalVersion != null;
                                 Objects.requireNonNull(guild.getTextChannelById(CurrentTextChannel.getId()))

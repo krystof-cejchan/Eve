@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class WeatherPicture implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         try {
             //https://wttr.in/N%C3%A1chod.png
             URL url = new URL("http://wttr.in/" + Objects.requireNonNull(slashEvent

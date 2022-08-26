@@ -19,8 +19,8 @@ public class Mute implements ISlashCommands {
     protected static int beforeVolume = 0;
 
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
-        beforeVolume = (int) getVolume(slashEvent.getGuild());
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
+        beforeVolume = getVolume(slashEvent.getGuild());
 
         setVolumeTo(slashEvent.getGuild(), 0);
         slashEvent.replyEmbeds(VolumeCustomSLASH.embed.get(Objects.requireNonNull(slashEvent.getMember()),

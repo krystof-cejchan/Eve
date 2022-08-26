@@ -23,7 +23,7 @@ public class WeatherForecastFor1DayDetailedEmbed implements ISlashCommands {
     private static String theDay = "";
 
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         try {
 
             String arg = Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()).get(0))).getAsString();

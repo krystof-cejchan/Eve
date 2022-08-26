@@ -18,7 +18,7 @@ import java.util.List;
 
 public class NowPlaying implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         AudioTrack npTrack = GetCurrentTrack.getTrack(slashEvent.getGuild());
         if (npTrack == null) {
             slashEvent.replyEmbeds(new EmbedBuilder().setColor(Color.RED).addField("No track is playing at the moment!",

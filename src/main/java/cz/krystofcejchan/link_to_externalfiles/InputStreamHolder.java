@@ -1,6 +1,5 @@
 package cz.krystofcejchan.link_to_externalfiles;
 
-import cz.krystofcejchan.enums_annotations_exceptions.enums.ExternalFileNames;
 import cz.krystofcejchan.objects.sound_files.SoundFile;
 
 import javax.annotation.CheckForNull;
@@ -14,12 +13,12 @@ import java.util.HashMap;
 public class InputStreamHolder {
 
     private final InputStream inputStream;
-    private final ExternalFileNames name;
+    private final ExternalFileNamesE name;
 
     @CheckForNull
-    public static HashMap<ExternalFileNames, Path> fileNameToPathMap = new HashMap<>();
+    public static HashMap<ExternalFileNamesE, Path> fileNameToPathMap = new HashMap<>();
 
-    public InputStreamHolder(InputStream inputStream, ExternalFileNames name, String suffix) {
+    public InputStreamHolder(InputStream inputStream, ExternalFileNamesE name, String suffix) {
         this.inputStream = inputStream;
         this.name = name;
 
@@ -39,11 +38,11 @@ public class InputStreamHolder {
         return inputStream;
     }
 
-    public ExternalFileNames getName() {
+    public ExternalFileNamesE getName() {
         return name;
     }
 
-    public void transformInputStreamToLocalFile(ExternalFileNames fileName) throws IOException {
+    public void transformInputStreamToLocalFile(ExternalFileNamesE fileName) throws IOException {
         assert fileNameToPathMap != null;
         System.out.println(fileNameToPathMap.get(fileName));
         //  if (fileName.toString().contains("DB") ^ Files.exists(fileNameToPathMap.get(fileName)))

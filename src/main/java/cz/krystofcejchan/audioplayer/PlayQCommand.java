@@ -76,7 +76,7 @@ public class PlayQCommand {
 
             }
         } else {
-            event.reply("where r u?  🥺").queue();
+            event.reply("where r u?  🥺").setEphemeral(true).queue();
         }
 
     }

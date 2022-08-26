@@ -22,7 +22,7 @@ import static cz.krystofcejchan.utility_class.UtilityClass.getTimeStampMilliToSt
 
 public class FastForward extends LetCurrentTrackFastForward implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         final int posBefore = (int) Objects.requireNonNull(getTrack(slashEvent.getGuild())).getPosition();
         final int getArg_beforeDisappearing = Objects.requireNonNull(slashEvent
                         .getOption(Objects.requireNonNull(getArgName()).get(0)))

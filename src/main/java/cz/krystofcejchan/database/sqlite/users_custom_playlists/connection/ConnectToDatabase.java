@@ -1,6 +1,6 @@
 package cz.krystofcejchan.database.sqlite.users_custom_playlists.connection;
 
-import cz.krystofcejchan.enums_annotations_exceptions.enums.ExternalFileNames;
+import cz.krystofcejchan.link_to_externalfiles.ExternalFileNamesE;
 import cz.krystofcejchan.link_to_externalfiles.InputStreamHolder;
 import org.jetbrains.annotations.Contract;
 
@@ -18,7 +18,7 @@ public class ConnectToDatabase {
 
     static {
         assert InputStreamHolder.fileNameToPathMap != null;
-        pathToDatabase = String.valueOf(InputStreamHolder.fileNameToPathMap.get(ExternalFileNames.PUBLIC_PLAYLISTS_DB));
+        pathToDatabase = String.valueOf(InputStreamHolder.fileNameToPathMap.get(ExternalFileNamesE.PUBLIC_PLAYLISTS_DB));
     }
 
     private Connection sqlConnection;

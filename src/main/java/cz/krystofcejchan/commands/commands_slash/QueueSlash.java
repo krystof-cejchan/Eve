@@ -12,7 +12,7 @@ import java.util.List;
 
 public class QueueSlash implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         slashEvent.reply(QueuePure.getQueueAndReturnItAsReadyMessage(slashEvent.getGuild())).queue();
     }
 

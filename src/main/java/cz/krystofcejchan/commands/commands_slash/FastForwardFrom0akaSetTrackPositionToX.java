@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class FastForwardFrom0akaSetTrackPositionToX extends LetCurrentTrackFastForwardFrom0 implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         final int posBefore = (int) Objects.requireNonNull(getTrack(slashEvent.getGuild())).getPosition();
         final int getArg_beforeDisappearing = Objects.requireNonNull(slashEvent
                         .getOption(Objects.requireNonNull(getArgName()).get(0)))

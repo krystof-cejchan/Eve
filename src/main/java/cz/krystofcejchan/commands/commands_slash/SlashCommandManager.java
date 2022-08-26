@@ -47,6 +47,7 @@ public class SlashCommandManager {
         addNewCommand(new GetUsersPersonalPlaylists());
         addNewCommand(new Mute());
         addNewCommand(new Unmute());
+        addNewCommand(new FunFact());
 
 
         sortOut();

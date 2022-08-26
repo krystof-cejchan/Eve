@@ -23,6 +23,8 @@ public class AllExternalFileInputStreams {
             .getResourceAsStream("/external_files/py_scripts/ytsearch.py");
     private final InputStream publicPlaylistsDB = this.getClass()
             .getResourceAsStream("/external_files/db/public_playlists.db");
+    private final InputStream randomFactsPY = this.getClass()
+            .getResourceAsStream("/external_files/py_scripts/rndfacts.py");
 
 
     public AllExternalFileInputStreams() {
@@ -34,6 +36,7 @@ public class AllExternalFileInputStreams {
         addToArray(translatorFromCustomLangPY);
         addToArray(ytSearchPY);
         addToArray(publicPlaylistsDB);
+        addToArray(randomFactsPY);
     }
 
     private void addToArray(InputStream inputStream) {
@@ -73,4 +76,7 @@ public class AllExternalFileInputStreams {
         return publicPlaylistsDB;
     }
 
+    public InputStream getRandomFactsPY() {
+        return randomFactsPY;
+    }
 }

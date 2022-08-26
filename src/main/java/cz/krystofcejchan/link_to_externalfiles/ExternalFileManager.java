@@ -1,7 +1,5 @@
 package cz.krystofcejchan.link_to_externalfiles;
 
-import cz.krystofcejchan.enums_annotations_exceptions.enums.ExternalFileNames;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,21 +10,23 @@ public class ExternalFileManager {
     public ExternalFileManager() {
         AllExternalFileInputStreams allInputStreams = new AllExternalFileInputStreams();
         INPUT_STREAM_HOLDER_LIST.add(new InputStreamHolder(allInputStreams.getHeyWakeUpGif(),
-                ExternalFileNames.POKEGIF, ".gif"));
+                ExternalFileNamesE.POKEGIF, ".gif"));
         INPUT_STREAM_HOLDER_LIST.add(new InputStreamHolder(allInputStreams.getGetSongSearchResPY(),
-                ExternalFileNames.GETSONGSEARCHRES, ".py"));
+                ExternalFileNamesE.GETSONGSEARCHRES, ".py"));
         INPUT_STREAM_HOLDER_LIST.add(new InputStreamHolder(allInputStreams.getSoundFileToTextPY(),
-                ExternalFileNames.SOUNDFILETOTEXT, ".py"));
+                ExternalFileNamesE.SOUNDFILETOTEXT, ".py"));
         INPUT_STREAM_HOLDER_LIST.add(new InputStreamHolder(allInputStreams.getGetTheMostSuitableSongPY(),
-                ExternalFileNames.GETTHEMOSTSUITABLESONG, ".py"));
+                ExternalFileNamesE.GETTHEMOSTSUITABLESONG, ".py"));
         INPUT_STREAM_HOLDER_LIST.add(new InputStreamHolder(allInputStreams.getTranslatorFromCustomLangPY(),
-                ExternalFileNames.TRANSLATORCUSTOM, ".py"));
+                ExternalFileNamesE.TRANSLATORCUSTOM, ".py"));
         INPUT_STREAM_HOLDER_LIST.add(new InputStreamHolder(allInputStreams.getYtSearchPY(),
-                ExternalFileNames.YTSEARCH, ".py"));
+                ExternalFileNamesE.YTSEARCH, ".py"));
         INPUT_STREAM_HOLDER_LIST.add(new InputStreamHolder(allInputStreams.getTranslatorPY(),
-                ExternalFileNames.TRANSLATOR, ".py"));
+                ExternalFileNamesE.TRANSLATOR, ".py"));
         INPUT_STREAM_HOLDER_LIST.add(new InputStreamHolder(allInputStreams.getPublicPlaylistsDB(),
-                ExternalFileNames.PUBLIC_PLAYLISTS_DB, ".db"));
+                ExternalFileNamesE.PUBLIC_PLAYLISTS_DB, ".db"));
+        INPUT_STREAM_HOLDER_LIST.add(new InputStreamHolder(allInputStreams.getRandomFactsPY(),
+                ExternalFileNamesE.RANDOMFACTS, ".py"));
 
 
 

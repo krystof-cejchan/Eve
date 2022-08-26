@@ -28,7 +28,7 @@ public class GetUsersPersonalPlaylists extends PlayUsersCustomPlaylistDropdownLi
 
 
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         try {
             List<List<String>> databaseRes =
                     Queries

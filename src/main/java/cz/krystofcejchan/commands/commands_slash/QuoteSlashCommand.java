@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class QuoteSlashCommand implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
 
         boolean caught = false;
 

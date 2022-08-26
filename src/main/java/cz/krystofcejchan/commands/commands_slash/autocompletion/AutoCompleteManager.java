@@ -1,6 +1,7 @@
 package cz.krystofcejchan.commands.commands_slash.autocompletion;
 
 import cz.krystofcejchan.commands.commands_slash.autocompletion.classes.DayAutoCompletion;
+import cz.krystofcejchan.commands.commands_slash.autocompletion.classes.FunFactSafetyAutoCompletion;
 import cz.krystofcejchan.commands.commands_slash.autocompletion.classes.QuotesLanguagesCompletion;
 import cz.krystofcejchan.commands.commands_slash.autocompletion.classes.SongQueueAutoCompletion;
 
@@ -13,6 +14,7 @@ public class AutoCompleteManager {
         addNewAutoComplete(new SongQueueAutoCompletion());
         addNewAutoComplete(new DayAutoCompletion());
         addNewAutoComplete(new QuotesLanguagesCompletion());
+        addNewAutoComplete(new FunFactSafetyAutoCompletion());
     }
 
     private void addNewAutoComplete(IAutoCompletion autoCompletion) {

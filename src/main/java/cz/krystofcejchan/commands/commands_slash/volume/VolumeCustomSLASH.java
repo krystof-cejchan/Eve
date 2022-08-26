@@ -23,7 +23,7 @@ import static cz.krystofcejchan.commands.purecommands.subparts.GetCurrentVolume.
 
 public class VolumeCustomSLASH implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         try {
             int oldVol = getVolume(slashEvent.getGuild());
 

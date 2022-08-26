@@ -1,8 +1,8 @@
 package cz.krystofcejchan.commands.commands_slash;
 
 import cz.krystofcejchan.enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
-import cz.krystofcejchan.enums_annotations_exceptions.enums.ExternalFileNames;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
+import cz.krystofcejchan.link_to_externalfiles.ExternalFileNamesE;
 import cz.krystofcejchan.link_to_externalfiles.InputStreamHolder;
 import cz.krystofcejchan.utility_class.UtilityClass;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class SearchYoutube implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         boolean caught = false;
        // slashEvent.deferReply().queue();
         try {
@@ -31,7 +31,7 @@ public class SearchYoutube implements ISlashCommands {
                 .getOption(Objects.requireNonNull(getArgName()).get(1))).getAsDouble()) + " ";
 
         assert InputStreamHolder.fileNameToPathMap != null;
-        String res = UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNames.YTSEARCH).toString(),
+        String res = UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNamesE.YTSEARCH).toString(),
                 amountOfResults +
                         Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()).get(0))).getAsString(), false);
         slashEvent.replyEmbeds(generateEmbed(res.split("\n")).build()).queue();

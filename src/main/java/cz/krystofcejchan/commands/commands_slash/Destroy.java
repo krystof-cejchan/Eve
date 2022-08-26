@@ -18,7 +18,7 @@ import java.util.Objects;
 
 public class Destroy implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(Objects.requireNonNull(slashEvent.getGuild()));
         if (GetCurrentTrack.getTrack(slashEvent.getGuild()) != null)
             musicManager.SCHEDULER.PLAYER.stopTrack();

@@ -14,7 +14,7 @@ import java.util.List;
 @Slash()
 public class Hey implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         try {
             slashEvent.reply("*get ready, set and ...*").queue();
             new SpeechToText().onEchoSlashCommand(slashEvent);

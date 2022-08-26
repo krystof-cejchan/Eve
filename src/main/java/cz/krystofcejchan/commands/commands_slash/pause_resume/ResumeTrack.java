@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ResumeTrack implements ISlashCommands {
     @Override
-    public void executeSlashCommand(SlashCommandInteractionEvent slashEvent) {
+    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         if (GetCurrentTrack.getTrack(slashEvent.getGuild()) == null) {
             slashEvent.reply("There's no song to be resumed *sad noises*; you can add one using '" +
                     new PlaySongSlash().getName() + "' command").setEphemeral(true).queue();
