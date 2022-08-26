@@ -22,7 +22,7 @@ import static cz.krystofcejchan.utility_class.UtilityClass.getTimeStampMilliToSt
 
 public class FastForward extends LetCurrentTrackFastForward implements ISlashCommands {
     @Override
-    public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
+    public synchronized void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         final int posBefore = (int) Objects.requireNonNull(getTrack(slashEvent.getGuild())).getPosition();
         final int getArg_beforeDisappearing = Objects.requireNonNull(slashEvent
                         .getOption(Objects.requireNonNull(getArgName()).get(0)))
@@ -40,10 +40,10 @@ public class FastForward extends LetCurrentTrackFastForward implements ISlashCom
                         .setDescription(currTrack.getInfo().title)
                         .addField("Previous position", getTimeStampMilliToStringTime(posBefore) + "** / **" + duration, true)
                         .addField("Current position", getTimeStampMilliToStringTime(Long.parseLong(String
-                                .valueOf(getArg_beforeDisappearing))) + "**/**" + duration, true)
+                                .valueOf(posBefore + getArg_beforeDisappearing))) + "**/**" + duration, true)
                         .addField("Time Left",
                                 getTimeStampMilliToStringTime(Long.parseLong(String.valueOf(
-                                        currTrack.getDuration() - currTrack.getPosition()))), false)
+                                        currTrack.getDuration() - (posBefore + getArg_beforeDisappearing)))), false)
                         .build()).queue();
             }
             case -1 -> slashEvent.replyEmbeds(new EmbedBuilder().setColor(Color.ORANGE)
@@ -56,17 +56,20 @@ public class FastForward extends LetCurrentTrackFastForward implements ISlashCom
     }
 
     @Override
-    public @NotNull String getDescription() {
+    public @NotNull
+    String getDescription() {
         return "Fast forward the current track";
     }
 
     @Override
-    public @NotNull String getName() {
+    public @NotNull
+    String getName() {
         return "fast-forward";
     }
 
     @Override
-    public @NotNull ArgumentSlashCommandCount takesArguments() {
+    public @NotNull
+    ArgumentSlashCommandCount takesArguments() {
         return ArgumentSlashCommandCount.ONE;
     }
 
@@ -96,7 +99,8 @@ public class FastForward extends LetCurrentTrackFastForward implements ISlashCom
     }
 
     @Override
-    public @NotNull List<SlashCommandCategory> getCategory() {
+    public @NotNull
+    List<SlashCommandCategory> getCategory() {
         return Collections.singletonList(SlashCommandCategory.MUSIC);
     }
 }

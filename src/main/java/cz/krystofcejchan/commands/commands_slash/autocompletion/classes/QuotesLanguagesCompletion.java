@@ -11,12 +11,12 @@ import java.util.List;
 
 public class QuotesLanguagesCompletion implements IAutoCompletion {
     @Override
-    public @NotNull List<String> getStringChoices(@NotNull CommandAutoCompleteInteractionEvent event) {
+    public @NotNull
+    List<String> getStringChoices(@NotNull CommandAutoCompleteInteractionEvent event) {
         List<String> filteredListOfChoices = QuoteLanguage.getAllProperLanguages().stream().filter(it ->
                 org.apache.commons.lang3.StringUtils.containsIgnoreCase(it, event.getFocusedOption().getValue())).toList();
 
-        return filteredListOfChoices.isEmpty() ? QuoteLanguage.getAllProperLanguages() :
-                filteredListOfChoices;
+        return filteredListOfChoices.isEmpty() ? QuoteLanguage.getAllProperLanguages() : filteredListOfChoices;
     }
 
     @Override

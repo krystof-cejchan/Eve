@@ -30,7 +30,7 @@ public class Main {
      * @throws Exception general exception
      */
     public static synchronized void main(String[] args) throws Exception {
-        //determinates the os
+        //determinate the os
         GlobalValues.operatingSystem = System.getProperty("os.name").toLowerCase().contains("win") ? OS.WINDOWS : OS.LINUX;
 
         new preSetUpManager().getPreSetUps().forEach(setUp -> {

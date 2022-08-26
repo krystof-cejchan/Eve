@@ -19,14 +19,7 @@ public class QuoteSlashCommand implements ISlashCommands {
     @Override
     public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
 
-        boolean caught = false;
-
-        try {
-            slashEvent.getOption(getArgName().get(0)).getAsString();
-        } catch (NullPointerException nullPointerException) {
-            caught = true;
-        }
-        String arg = caught ? "English" : Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName())
+        String arg = !(slashEvent.getOptions().size() > 0) ? "English" : Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName())
                 .get(0))).getAsString();
 
         QuoteObject quoteObject = new QuoteObject(arg);
@@ -37,13 +30,15 @@ public class QuoteSlashCommand implements ISlashCommands {
     }
 
     @Override
-    public @NotNull String getDescription() {
+    public @NotNull
+    String getDescription() {
         return "get a random quote from a famous person";
     }
 
     @Override
-    public @NotNull String getName() {
-        return "famousquote";
+    public @NotNull
+    String getName() {
+        return "famous-quote";
     }
 
     @Override
@@ -76,7 +71,8 @@ public class QuoteSlashCommand implements ISlashCommands {
     }
 
     @Override
-    public @NotNull List<SlashCommandCategory> getCategory() {
+    public @NotNull
+    List<SlashCommandCategory> getCategory() {
         return Collections.singletonList(SlashCommandCategory.MUSIC);
     }
 }

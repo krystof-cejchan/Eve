@@ -13,13 +13,12 @@ public class FunFactSafetyAutoCompletion implements IAutoCompletion {
     @Override
     public List<String> getStringChoices(@NotNull CommandAutoCompleteInteractionEvent event) {
         List<String> defValues = List.of(
-                "Filter ON", "Filter OFF", "Unsafe only"
+                "Filter ON", "Filter OFF", "Could be 'Unsafe'"
         );
         List<String> filteredListOfChoices = defValues.stream().filter(it ->
                 org.apache.commons.lang3.StringUtils.containsIgnoreCase(it, event.getFocusedOption().getValue())).toList();
 
-        return filteredListOfChoices.isEmpty() ? defValues :
-                filteredListOfChoices;
+        return filteredListOfChoices.isEmpty() ? defValues : filteredListOfChoices;
     }
 
     @NotNull
