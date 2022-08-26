@@ -107,6 +107,9 @@ public class SpeechToText {
                         sentMsg = true;
                     }
                 }
+               if(audioManager.isSelfMuted())
+                   System.out.println("jooooooooooo");
+
                 event.getChannel().sendMessage("I'm listening ...").queue();
             }
 

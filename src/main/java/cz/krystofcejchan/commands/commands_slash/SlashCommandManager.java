@@ -6,9 +6,7 @@ import cz.krystofcejchan.commands.commands_slash.poke.Poke;
 import cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.add.AddPublicPlaylistToDatabaseSlashCommand;
 import cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.get.GetPopularPlaylists;
 import cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.get.GetUsersPersonalPlaylists;
-import cz.krystofcejchan.commands.commands_slash.volume.VolumeCustomSLASH;
-import cz.krystofcejchan.commands.commands_slash.volume.VolumeDownSlash;
-import cz.krystofcejchan.commands.commands_slash.volume.VolumeUpSlash;
+import cz.krystofcejchan.commands.commands_slash.volume.*;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import javax.annotation.Nonnull;
@@ -47,6 +45,9 @@ public class SlashCommandManager {
         addNewCommand(new AddPublicPlaylistToDatabaseSlashCommand());
         addNewCommand(new GetPopularPlaylists());
         addNewCommand(new GetUsersPersonalPlaylists());
+        addNewCommand(new Mute());
+        addNewCommand(new Unmute());
+
 
         sortOut();
     }
