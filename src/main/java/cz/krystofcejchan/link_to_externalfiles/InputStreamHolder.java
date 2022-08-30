@@ -49,7 +49,10 @@ public class InputStreamHolder {
         if (!Files.exists(fileNameToPathMap.get(fileName)))
             Files.copy(getInputStream(), fileNameToPathMap.get(fileName), StandardCopyOption.REPLACE_EXISTING);
         else {
-            System.out.println(fileName.name() + " ALREADY EXISTS");
+            if (!fileName.toString().contains("DB"))
+                Files.copy(getInputStream(), fileNameToPathMap.get(fileName), StandardCopyOption.REPLACE_EXISTING);
+            else
+                System.out.println(fileName.name() + " ALREADY EXISTS AND IS NOT GOING TO BE CREATED AGAIN");
         }
     }
 

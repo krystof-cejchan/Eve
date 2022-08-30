@@ -5,6 +5,7 @@ import cz.krystofcejchan.enums_annotations_exceptions.annotations.Slash;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
@@ -24,28 +25,20 @@ public class PlaySongSlash implements ISlashCommands {
     @Override
     public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
 
-        boolean playImmediately, caught = false;
-
-        try {
-            slashEvent.getOption
-                    (getArgName().get(1)).getAsString();
-        } catch (NullPointerException nullPointerException) {
-            caught = true;
-        }
-
-        playImmediately = !caught && Objects.requireNonNull(slashEvent.getOption(getArgName().get(1))).getAsBoolean();
+        boolean caught = slashEvent.getOptions().stream().map(OptionMapping::getName)
+                .anyMatch(name -> name.equals(Objects.requireNonNull(getArgName()).get(1)));
 
         new PlayCommand().playMusicFromSlash(slashEvent, Objects.requireNonNull(slashEvent.getOption
-                        (Objects.requireNonNull(getArgName()).get(0))).getAsString(),
-                null, playImmediately,false);
-
+                        (Objects.requireNonNull(getArgName()).get(0))).getAsString(), null,
+                caught, false);
     }
 
     /**
      * @return description of the command
      */
     @Override
-    public @NotNull String getDescription() {
+    public @NotNull
+    String getDescription() {
         return "Plays a track";
     }
 
@@ -53,7 +46,8 @@ public class PlaySongSlash implements ISlashCommands {
      * @return name of the command
      */
     @Override
-    public @NotNull String getName() {
+    public @NotNull
+    String getName() {
         return "playsong";
     }
 
@@ -81,7 +75,7 @@ public class PlaySongSlash implements ISlashCommands {
 
     @Override
     public List<String> getArgName() {
-        return new ArrayList<>(List.of("source-title_or_link", "play-immediately"));
+        return List.of("source-title_or_link", "play-immediately");
     }
 
     @Override
@@ -95,7 +89,8 @@ public class PlaySongSlash implements ISlashCommands {
     }
 
     @Override
-    public @NotNull List<SlashCommandCategory> getCategory() {
+    public @NotNull
+    List<SlashCommandCategory> getCategory() {
         return Collections.singletonList(SlashCommandCategory.MUSIC);
     }
 }

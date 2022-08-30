@@ -6,6 +6,7 @@ import cz.krystofcejchan.enums_annotations_exceptions.enums.ArgumentSlashCommand
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
 import cz.krystofcejchan.utility_class.UtilityClass;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
@@ -20,30 +21,24 @@ public class PlayQueueSlash implements ISlashCommands {
     @Override
     public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
 
-        boolean playImmediately, caught = false;
-
-        try {
-            slashEvent.getOption
-                    (getArgName().get(1)).getAsString();
-        } catch (NullPointerException nullPointerException) {
-            caught = true;
-        }
-
-        playImmediately = !caught && Objects.requireNonNull(slashEvent.getOption(getArgName().get(1))).getAsBoolean();
-
+        boolean caught = slashEvent.getOptions().stream().map(OptionMapping::getName)
+                .anyMatch(name -> name.equals(Objects.requireNonNull(getArgName()).get(1)));
         String arg = Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(Objects.requireNonNull(getArgName())
                 .get(0)))).getAsString();
 
-        new PlayQCommand().playMusicFromSlash(slashEvent, arg, UtilityClass.isLink(arg), playImmediately,false);
+        new PlayQCommand().playMusicFromSlash(slashEvent, arg, UtilityClass.isLink(arg),
+                caught, false);
     }
 
     @Override
-    public @NotNull String getDescription() {
+    public @NotNull
+    String getDescription() {
         return "Plays each song from playlist";
     }
 
     @Override
-    public @NotNull String getName() {
+    public @NotNull
+    String getName() {
         return "playqueue";
     }
 
@@ -79,7 +74,8 @@ public class PlayQueueSlash implements ISlashCommands {
     }
 
     @Override
-    public @NotNull List<SlashCommandCategory> getCategory() {
+    public @NotNull
+    List<SlashCommandCategory> getCategory() {
         return Collections.singletonList(SlashCommandCategory.MUSIC);
     }
 }

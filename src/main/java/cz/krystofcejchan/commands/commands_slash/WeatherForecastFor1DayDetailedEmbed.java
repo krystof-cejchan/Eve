@@ -25,7 +25,6 @@ public class WeatherForecastFor1DayDetailedEmbed implements ISlashCommands {
     @Override
     public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         try {
-
             String arg = Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()).get(0))).getAsString();
             theDay = Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()).get(1))).getAsString();
             slashEvent.replyEmbeds(generateEmbed(new JSONGrabber("https://wttr.in/" +

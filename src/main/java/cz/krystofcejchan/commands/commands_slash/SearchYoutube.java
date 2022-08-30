@@ -8,6 +8,7 @@ import cz.krystofcejchan.utility_class.UtilityClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
@@ -20,15 +21,12 @@ import java.util.Objects;
 public class SearchYoutube implements ISlashCommands {
     @Override
     public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
-        boolean caught = false;
-       // slashEvent.deferReply().queue();
-        try {
-            slashEvent.getOption(getArgName().get(1)).getAsDouble();
-        } catch (NullPointerException nullPointerException) {
-            caught = true;
-        }
-        String amountOfResults = caught ? "5 " : java.lang.Math.round(Objects.requireNonNull(slashEvent
-                .getOption(Objects.requireNonNull(getArgName()).get(1))).getAsDouble()) + " ";
+        String amountOfResults = slashEvent.getOptions()
+                .stream()
+                .map(OptionMapping::getName)
+                .anyMatch(it -> it.equals(Objects.requireNonNull(getArgName()).get(1))) ? "5 " :
+                java.lang.Math.round(Objects.requireNonNull(slashEvent
+                        .getOption(Objects.requireNonNull(getArgName()).get(1))).getAsDouble()) + " ";
 
         assert InputStreamHolder.fileNameToPathMap != null;
         String res = UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNamesE.YTSEARCH).toString(),
@@ -39,10 +37,10 @@ public class SearchYoutube implements ISlashCommands {
 
     private EmbedBuilder generateEmbed(String[] scriptResults) {
         List<MessageEmbed.Field> fields = new ArrayList<>();
-        for (int i = 0; i < scriptResults.length - 1; i += 2) {
+        for (int i = 0; i < scriptResults.length - 1; i += 2)
             fields.add(new MessageEmbed.Field(scriptResults[i],
                     "[Link to the video](" + scriptResults[i + 1] + ")", true));
-        }
+
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(UtilityClass.getRandomColor());
         embedBuilder.setTitle("Youtube Search Result");
@@ -52,12 +50,14 @@ public class SearchYoutube implements ISlashCommands {
     }
 
     @Override
-    public @NotNull String getDescription() {
+    public @NotNull
+    String getDescription() {
         return "search for youtube videos";
     }
 
     @Override
-    public @NotNull String getName() {
+    public @NotNull
+    String getName() {
         return "search-yt";
     }
 
@@ -93,7 +93,8 @@ public class SearchYoutube implements ISlashCommands {
     }
 
     @Override
-    public @NotNull List<SlashCommandCategory> getCategory() {
+    public @NotNull
+    List<SlashCommandCategory> getCategory() {
         return List.of(SlashCommandCategory.MUSIC, SlashCommandCategory.OTHER);
     }
 }

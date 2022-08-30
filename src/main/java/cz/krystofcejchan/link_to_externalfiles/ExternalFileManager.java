@@ -27,7 +27,8 @@ public class ExternalFileManager {
                 ExternalFileNamesE.PUBLIC_PLAYLISTS_DB, ".db"));
         INPUT_STREAM_HOLDER_LIST.add(new InputStreamHolder(allInputStreams.getRandomFactsPY(),
                 ExternalFileNamesE.RANDOMFACTS, ".py"));
-
+        INPUT_STREAM_HOLDER_LIST.add(new InputStreamHolder(allInputStreams.getLatLonToLocationPY(),
+                ExternalFileNamesE.LATITUDELONGTITUDE, ".py"));
 
 
     }

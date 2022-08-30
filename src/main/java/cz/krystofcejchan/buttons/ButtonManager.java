@@ -1,23 +1,25 @@
 package cz.krystofcejchan.buttons;
 
-import cz.krystofcejchan.buttons.seperate_buttons.PopularPlaylistButtons;
+import cz.krystofcejchan.commands.commands_slash.WeatherEmbedCurr;
+import cz.krystofcejchan.commands.commands_slash.trivia_game.TriviaGame;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ButtonManager {
-    private final List<IButtons> buttonList = new ArrayList<>();
+    private final ArrayList<IButtons> buttonClasses = new ArrayList<>();
 
     public ButtonManager() {
-        addToList(new PopularPlaylistButtons());
+        addNewClass(new TriviaGame());
+        addNewClass(new WeatherEmbedCurr());
     }
 
-    private void addToList(IButtons newClass) {
-        if (buttonList.stream().noneMatch(btn -> btn.getId().equals(newClass.getId())))
-            buttonList.add(newClass);
+    private void addNewClass(IButtons iButtons) {
+        if (buttonClasses.stream().noneMatch(iB -> iB.getButtonIdentifier().equals(iButtons.getButtonIdentifier()))) {
+            buttonClasses.add(iButtons);
+        }
     }
 
-    public List<IButtons> getButtonList() {
-        return buttonList;
+    public ArrayList<IButtons> getButtonClasses() {
+        return buttonClasses;
     }
 }

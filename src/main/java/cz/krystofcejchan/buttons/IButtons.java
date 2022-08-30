@@ -1,6 +1,6 @@
 package cz.krystofcejchan.buttons;
 
-import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
 import javax.annotation.Nonnull;
 
@@ -9,16 +9,10 @@ public interface IButtons {
      * @return unique id of the button
      */
     @Nonnull
-    String getId();
-
-    /**
-     * @return list of buttons which are to be attached to the message
-     */
-    @Nonnull
-    Button getButton();
+    String getButtonIdentifier();
 
     /**
      * code that is run when the button is clicked
      */
-    void handleEvent();
+    void handleEvent(ButtonInteractionEvent event);
 }

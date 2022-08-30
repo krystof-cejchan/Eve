@@ -21,9 +21,10 @@ public class FunFact implements ISlashCommands {
     public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
         boolean argSet = slashEvent.getOptions().size() > 0;
         assert InputStreamHolder.fileNameToPathMap != null;
-        String output = UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNamesE.RANDOMFACTS).toString(),
-                argSet ? optionToPythonArgument(
-                        Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(getArgName()).get(0))).getAsString()) :
+        String output = UtilityClass.runPyScript(InputStreamHolder.fileNameToPathMap.get(ExternalFileNamesE
+                        .RANDOMFACTS).toString(),
+                argSet ? optionToPythonArgument(Objects.requireNonNull(
+                        slashEvent.getOption(Objects.requireNonNull(getArgName()).get(0))).getAsString()) :
                         "-1", false);
 
         slashEvent.replyEmbeds(generateEmbed(output)

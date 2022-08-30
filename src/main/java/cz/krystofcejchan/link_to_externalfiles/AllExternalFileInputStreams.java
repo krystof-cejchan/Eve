@@ -25,6 +25,8 @@ public class AllExternalFileInputStreams {
             .getResourceAsStream("/external_files/db/public_playlists.db");
     private final InputStream randomFactsPY = this.getClass()
             .getResourceAsStream("/external_files/py_scripts/rndfacts.py");
+    private final InputStream latLonToLocationPY = this.getClass()
+            .getResourceAsStream("/external_files/py_scripts/latitude_longitude_to_location.py");
 
 
     public AllExternalFileInputStreams() {
@@ -37,6 +39,7 @@ public class AllExternalFileInputStreams {
         addToArray(ytSearchPY);
         addToArray(publicPlaylistsDB);
         addToArray(randomFactsPY);
+        addToArray(latLonToLocationPY);
     }
 
     private void addToArray(InputStream inputStream) {
@@ -78,5 +81,9 @@ public class AllExternalFileInputStreams {
 
     public InputStream getRandomFactsPY() {
         return randomFactsPY;
+    }
+
+    public InputStream getLatLonToLocationPY() {
+        return latLonToLocationPY;
     }
 }

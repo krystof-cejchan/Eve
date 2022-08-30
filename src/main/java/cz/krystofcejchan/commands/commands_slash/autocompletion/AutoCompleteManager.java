@@ -1,9 +1,6 @@
 package cz.krystofcejchan.commands.commands_slash.autocompletion;
 
-import cz.krystofcejchan.commands.commands_slash.autocompletion.classes.DayAutoCompletion;
-import cz.krystofcejchan.commands.commands_slash.autocompletion.classes.FunFactSafetyAutoCompletion;
-import cz.krystofcejchan.commands.commands_slash.autocompletion.classes.QuotesLanguagesCompletion;
-import cz.krystofcejchan.commands.commands_slash.autocompletion.classes.SongQueueAutoCompletion;
+import cz.krystofcejchan.commands.commands_slash.autocompletion.classes.*;
 
 import java.util.ArrayList;
 
@@ -15,6 +12,7 @@ public class AutoCompleteManager {
         addNewAutoComplete(new DayAutoCompletion());
         addNewAutoComplete(new QuotesLanguagesCompletion());
         addNewAutoComplete(new FunFactSafetyAutoCompletion());
+        addNewAutoComplete(new TriviaAutoCompletion());
     }
 
     private void addNewAutoComplete(IAutoCompletion autoCompletion) {
