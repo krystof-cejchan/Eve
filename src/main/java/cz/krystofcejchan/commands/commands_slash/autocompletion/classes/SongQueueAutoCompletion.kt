@@ -1,8 +1,8 @@
 package cz.krystofcejchan.commands.commands_slash.autocompletion.classes
 
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands
-import cz.krystofcejchan.commands.commands_slash.Skip_toSongbyTitleSlash
 import cz.krystofcejchan.commands.commands_slash.autocompletion.IAutoCompletion
+import cz.krystofcejchan.commands.commands_slash.music.Skip_toSongbyTitleSlash
 import cz.krystofcejchan.commands.purecommands.subparts.GetWholePlaylist
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent
 import org.apache.commons.lang3.StringUtils

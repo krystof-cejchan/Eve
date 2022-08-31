@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.get.GetPopularPlaylists.databaseDataRecords;
+import static cz.krystofcejchan.commands.commands_slash.music.users_custom_playlists.open.get.GetPopularPlaylists.databaseDataRecords;
 
 public class PlayPublicPlaylistDropdownList implements IDropdownList {
     int counter = 0;

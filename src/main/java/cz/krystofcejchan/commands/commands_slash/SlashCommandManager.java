@@ -1,13 +1,18 @@
 package cz.krystofcejchan.commands.commands_slash;
 
-import cz.krystofcejchan.commands.commands_slash.pause_resume.PauseTrack;
-import cz.krystofcejchan.commands.commands_slash.pause_resume.ResumeTrack;
+import cz.krystofcejchan.commands.commands_slash.music.*;
+import cz.krystofcejchan.commands.commands_slash.music.pause_resume.PauseTrack;
+import cz.krystofcejchan.commands.commands_slash.music.pause_resume.ResumeTrack;
+import cz.krystofcejchan.commands.commands_slash.music.users_custom_playlists.open.add.AddPublicPlaylistToDatabaseSlashCommand;
+import cz.krystofcejchan.commands.commands_slash.music.users_custom_playlists.open.get.GetPopularPlaylists;
+import cz.krystofcejchan.commands.commands_slash.music.users_custom_playlists.open.get.GetUsersPersonalPlaylists;
+import cz.krystofcejchan.commands.commands_slash.music.volume.*;
 import cz.krystofcejchan.commands.commands_slash.poke.Poke;
+import cz.krystofcejchan.commands.commands_slash.quotes_facts_and_jokes.ChuckJokes;
+import cz.krystofcejchan.commands.commands_slash.quotes_facts_and_jokes.Dog;
+import cz.krystofcejchan.commands.commands_slash.quotes_facts_and_jokes.FunFact;
+import cz.krystofcejchan.commands.commands_slash.quotes_facts_and_jokes.QuoteSlashCommand;
 import cz.krystofcejchan.commands.commands_slash.trivia_game.TriviaGame;
-import cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.add.AddPublicPlaylistToDatabaseSlashCommand;
-import cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.get.GetPopularPlaylists;
-import cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.get.GetUsersPersonalPlaylists;
-import cz.krystofcejchan.commands.commands_slash.volume.*;
 import cz.krystofcejchan.commands.commands_slash.weather.WeatherEmbedCurr;
 import cz.krystofcejchan.commands.commands_slash.weather.WeatherForecastForDayAndTime;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;

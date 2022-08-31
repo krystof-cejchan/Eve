@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.get.GetUsersPersonalPlaylists.songs;
+import static cz.krystofcejchan.commands.commands_slash.music.users_custom_playlists.open.get.GetUsersPersonalPlaylists.songs;
 
 public class PlayUsersCustomPlaylistDropdownList implements IDropdownList {
     private int counter = 0;

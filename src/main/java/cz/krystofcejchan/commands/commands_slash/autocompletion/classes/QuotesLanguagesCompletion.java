@@ -1,8 +1,8 @@
 package cz.krystofcejchan.commands.commands_slash.autocompletion.classes;
 
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
-import cz.krystofcejchan.commands.commands_slash.QuoteSlashCommand;
 import cz.krystofcejchan.commands.commands_slash.autocompletion.IAutoCompletion;
+import cz.krystofcejchan.commands.commands_slash.quotes_facts_and_jokes.QuoteSlashCommand;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.QuoteLanguage;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import org.jetbrains.annotations.NotNull;

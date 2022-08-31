@@ -3,6 +3,7 @@ package cz.krystofcejchan.commands.commands_slash.poke;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +14,11 @@ import java.util.Objects;
  */
 public class PokeFrame {
     protected String getMessageIfPossible(SlashCommandInteractionEvent slashEvent, String argName) throws NullPointerException {
-        try {
-            return slashEvent.getOption(argName).getAsString();
-        } catch (NullPointerException ignored) {
-            return null;
-          /* parameter was not set
-            no need to handle exception*/
-        }
+        return slashEvent.getOptions()
+                .stream()
+                .map(OptionMapping::getName)
+                .anyMatch(m -> m.contains(argName)) ?
+                Objects.requireNonNull(slashEvent.getOption(argName)).toString() : null;
     }
 
     protected List<Member> getListOfMembersTaggedIfPossible(SlashCommandInteractionEvent slashEvent, String argName) {
