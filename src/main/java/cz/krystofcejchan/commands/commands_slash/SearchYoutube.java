@@ -35,6 +35,7 @@ public class SearchYoutube implements ISlashCommands {
         slashEvent.replyEmbeds(generateEmbed(res.split("\n")).build()).queue();
     }
 
+    @NotNull
     private EmbedBuilder generateEmbed(String[] scriptResults) {
         List<MessageEmbed.Field> fields = new ArrayList<>();
         for (int i = 0; i < scriptResults.length - 1; i += 2)

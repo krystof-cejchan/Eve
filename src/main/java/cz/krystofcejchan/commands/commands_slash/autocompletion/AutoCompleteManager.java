@@ -9,10 +9,10 @@ public class AutoCompleteManager {
 
     public AutoCompleteManager() {
         addNewAutoComplete(new SongQueueAutoCompletion());
-        addNewAutoComplete(new DayAutoCompletion());
         addNewAutoComplete(new QuotesLanguagesCompletion());
         addNewAutoComplete(new FunFactSafetyAutoCompletion());
         addNewAutoComplete(new TriviaAutoCompletion());
+        addNewAutoComplete(new WeatherDaysAndTimesAutoCompletion());
     }
 
     private void addNewAutoComplete(IAutoCompletion autoCompletion) {

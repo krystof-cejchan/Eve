@@ -1,6 +1,7 @@
-package cz.krystofcejchan.commands.commands_slash;
+package cz.krystofcejchan.commands.commands_slash.weather;
 
 import cz.krystofcejchan.buttons.IButtons;
+import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
 import cz.krystofcejchan.link_to_externalfiles.ExternalFileNamesE;

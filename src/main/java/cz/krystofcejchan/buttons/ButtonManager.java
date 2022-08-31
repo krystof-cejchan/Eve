@@ -1,7 +1,7 @@
 package cz.krystofcejchan.buttons;
 
-import cz.krystofcejchan.commands.commands_slash.WeatherEmbedCurr;
 import cz.krystofcejchan.commands.commands_slash.trivia_game.TriviaGame;
+import cz.krystofcejchan.commands.commands_slash.weather.WeatherEmbedCurr;
 
 import java.util.ArrayList;
 

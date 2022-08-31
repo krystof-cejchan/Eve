@@ -8,6 +8,8 @@ import cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.add
 import cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.get.GetPopularPlaylists;
 import cz.krystofcejchan.commands.commands_slash.users_custom_playlists.open.get.GetUsersPersonalPlaylists;
 import cz.krystofcejchan.commands.commands_slash.volume.*;
+import cz.krystofcejchan.commands.commands_slash.weather.WeatherEmbedCurr;
+import cz.krystofcejchan.commands.commands_slash.weather.WeatherForecastForDayAndTime;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import javax.annotation.Nonnull;
@@ -33,8 +35,6 @@ public class SlashCommandManager {
         addNewCommand(new FastForwardFrom0akaSetTrackPositionToX());
         addNewCommand(new FastForward());
         addNewCommand(new WeatherEmbedCurr());
-        addNewCommand(new WeatherForecastForAllDaysAverageEmbed());
-        addNewCommand(new WeatherForecastFor1DayDetailedEmbed());
         addNewCommand(new Help());
         addNewCommand(new SearchYoutube());
         addNewCommand(new QuoteSlashCommand());
@@ -52,6 +52,7 @@ public class SlashCommandManager {
         addNewCommand(new TriviaGame());
         addNewCommand(new Latency());
         addNewCommand(new Dog());
+        addNewCommand(new WeatherForecastForDayAndTime());
 
 
         sortOut();
