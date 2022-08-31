@@ -22,7 +22,6 @@ public class ChangeDefaultLanguageVoice implements IListeningCommands {
     public void doTask(MessageReceivedEvent event, String usersInput) throws NullPointerException {
 
         try {
-
             if (usersInput != null) {
                 String[] words = usersInput.split("\\s");
                 ArrayList<String> wordsArray = new ArrayList<>();
@@ -37,8 +36,12 @@ public class ChangeDefaultLanguageVoice implements IListeningCommands {
                      * rewritten to "shorter" version eg. english→ en-GB
                      */
                     try {
+                        if (UtilityClass.whereAreTwoArraysTheSame(wordsArray, languagesArray) == null)
+                            return;
+
                         SpeechToText.Language.setLang(LANGUAGES.getShortLang(LANGUAGES.valueOf(languagesArray
-                                .get(UtilityClass.whereAreTwoArraysTheSame(wordsArray, languagesArray)).toLowerCase())));
+                                .get(UtilityClass.whereAreTwoArraysTheSame(wordsArray, languagesArray))
+                                .toLowerCase())));
                         event.getChannel().sendMessage("The default language was set to **"
                                 + LANGUAGES.getProperLanFromShort(SpeechToText.Language.getLang()) + " "
                                 + LANGUAGES.getLangFlag(
@@ -55,11 +58,8 @@ public class ChangeDefaultLanguageVoice implements IListeningCommands {
 
             }
         } catch (FriendlyException e) {
-
             event.getChannel().sendMessage("There's been an error \ninfo " + e).queue();
-
         }
-
     }
 
     @Override

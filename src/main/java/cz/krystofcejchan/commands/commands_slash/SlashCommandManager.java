@@ -15,9 +15,15 @@ import cz.krystofcejchan.commands.commands_slash.quotes_facts_and_jokes.QuoteSla
 import cz.krystofcejchan.commands.commands_slash.trivia_game.TriviaGame;
 import cz.krystofcejchan.commands.commands_slash.weather.WeatherEmbedCurr;
 import cz.krystofcejchan.commands.commands_slash.weather.WeatherForecastForDayAndTime;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import java.awt.*;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 public class SlashCommandManager {
@@ -87,6 +93,20 @@ public class SlashCommandManager {
 
     private void sortOut() {
         commands.sort((commands1, commands2) -> commands1.getName().compareToIgnoreCase(commands2.getName()));
+    }
+
+    @NotNull
+    static public MessageEmbed generateErrorMsg(@NotNull String errorMsg,
+                                                @CheckForNull Exception exception,
+                                                @NotNull String context) {
+        return new EmbedBuilder()
+                .setColor(Color.RED)
+                .setTitle("Error has occurred")
+                .setTimestamp(ZonedDateTime.now())
+                .setDescription(context)
+                .addField("Description", errorMsg, false)
+                .setFooter(exception == null ? " " : exception.getMessage())
+                .build();
     }
 
 }

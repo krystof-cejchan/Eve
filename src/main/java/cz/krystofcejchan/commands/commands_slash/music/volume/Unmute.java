@@ -19,7 +19,8 @@ public class Unmute implements ISlashCommands {
     @Override
     public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
           if (GetCurrentVolume.getVolume(slashEvent.getGuild()) != 0) {
-            slashEvent.reply("Bot is not muted or at least the volume is not set to 0").setEphemeral(true).queue();
+            slashEvent.reply("Bot is not muted or at least the volume is not set to 0")
+                    .setEphemeral(true).queue();
             return;
         }
 

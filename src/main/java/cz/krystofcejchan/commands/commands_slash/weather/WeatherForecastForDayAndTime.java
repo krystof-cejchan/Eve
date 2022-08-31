@@ -1,6 +1,7 @@
 package cz.krystofcejchan.commands.commands_slash.weather;
 
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
+import cz.krystofcejchan.commands.commands_slash.SlashCommandManager;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
 import cz.krystofcejchan.lite_weather_lib.enums_exception.enums.DAY;
@@ -48,7 +49,7 @@ public class WeatherForecastForDayAndTime implements ISlashCommands {
             slashEvent.replyEmbeds(generateEmbed(weatherForecast).build()).queue();
 
         } catch (IOException ioException) {
-            slashEvent.reply("* something has gone terribly wrong... *\nPlease, try again later or try different location ")
+            slashEvent.replyEmbeds(SlashCommandManager.generateErrorMsg("\"* something has gone terribly wrong... *\\nPlease, try again later or try different location \"", ioException, getName()))
                     .setEphemeral(true).queue();
         }
     }

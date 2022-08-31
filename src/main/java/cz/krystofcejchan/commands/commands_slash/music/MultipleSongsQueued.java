@@ -28,8 +28,7 @@ public class MultipleSongsQueued implements ISlashCommands {
      */
     @Override
     public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {
-        //  boolean[] caughtArgs = new boolean[slashEvent.getOptions().size()];
-        //  Arrays.fill(caughtArgs, false);
+
         ArrayList<String> argsValues = new ArrayList<>();
         for (OptionMapping options : slashEvent.getOptions()) {
             try {

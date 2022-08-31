@@ -38,9 +38,6 @@ public class PublicPlaylistsRecord {
 
     private String dateTime;
 
-    public PublicPlaylistsRecord() {
-    }
-
     public PublicPlaylistsRecord(String title, String desc, Long guild_id, String author, String songs, String dateTime) {
         this.title = title;
         this.desc = desc;

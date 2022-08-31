@@ -28,7 +28,6 @@ public class FastForwardFrom0akaSetTrackPositionToX extends LetCurrentTrackFastF
         final int finish_code = fastForward(slashEvent.getGuild(), getArg_beforeDisappearing);
 
         switch (finish_code) {
-
             case 1 -> {
                 String duration = UtilityClass.getTimeStampMilliToStringTime(Objects.requireNonNull(getTrack(slashEvent.getGuild())).getDuration());
                 slashEvent.replyEmbeds(new EmbedBuilder().setColor(UtilityClass.getRandomColor())

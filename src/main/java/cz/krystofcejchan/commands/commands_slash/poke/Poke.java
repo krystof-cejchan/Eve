@@ -1,6 +1,7 @@
 package cz.krystofcejchan.commands.commands_slash.poke;
 
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
+import cz.krystofcejchan.commands.commands_slash.SlashCommandManager;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
 import cz.krystofcejchan.enums_annotations_exceptions.exceptions.UserCannotBeReachedThroughPrivateMessageException;
@@ -52,7 +53,7 @@ public class Poke extends PokeFrame implements ISlashCommands {
             }
 
         } catch (ContextException | UserCannotBeReachedThroughPrivateMessageException e) {
-            slashEvent.reply("There's been an error while poking").setEphemeral(true).queue();
+            slashEvent.replyEmbeds(SlashCommandManager.generateErrorMsg("There's been an error while poking", e, getName())).setEphemeral(true).queue();
         }
     }
 
@@ -63,17 +64,20 @@ public class Poke extends PokeFrame implements ISlashCommands {
     }
 
     @Override
-    public @NotNull String getDescription() {
+    public @NotNull
+    String getDescription() {
         return "Poke a user through bot";
     }
 
     @Override
-    public @NotNull String getName() {
+    public @NotNull
+    String getName() {
         return "poke";
     }
 
     @Override
-    public @NotNull ArgumentSlashCommandCount takesArguments() {
+    public @NotNull
+    ArgumentSlashCommandCount takesArguments() {
         return ArgumentSlashCommandCount.MULTIPLE;
     }
 
@@ -101,7 +105,8 @@ public class Poke extends PokeFrame implements ISlashCommands {
     }
 
     @Override
-    public @NotNull List<SlashCommandCategory> getCategory() {
+    public @NotNull
+    List<SlashCommandCategory> getCategory() {
         return Collections.singletonList(SlashCommandCategory.GUILDMANAGEMENT);
     }
 

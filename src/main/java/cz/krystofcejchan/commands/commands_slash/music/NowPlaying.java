@@ -34,7 +34,6 @@ public class NowPlaying implements ISlashCommands {
                     .addField("Title:", info.title, true).addField("Author:", info.author, true)
                     .addField("TimeLine:", position + " / " + duration + "\t[Time left: *" + timeLeft + "*]", false)
                     .addField("","[Link to the source](" + info.uri + ")",false).build()).queue();
-            //[Link text](http://example.com)
         }
     }
 

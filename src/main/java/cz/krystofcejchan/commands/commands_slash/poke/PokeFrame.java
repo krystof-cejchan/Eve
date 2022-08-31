@@ -1,5 +1,6 @@
 package cz.krystofcejchan.commands.commands_slash.poke;
 
+import cz.krystofcejchan.commands.commands_slash.SlashCommandManager;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -33,7 +34,7 @@ public class PokeFrame {
         } catch (IllegalStateException ignored) {
             // no role was tagged
         } catch (Exception e) {
-            slashEvent.reply("There's been an error while poking").queue();
+            slashEvent.replyEmbeds(SlashCommandManager.generateErrorMsg("There's been an error while poking", e, this.getClass().getName())).setEphemeral(true).queue();
             e.printStackTrace();
         }
         return memberList;

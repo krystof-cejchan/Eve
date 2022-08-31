@@ -1,21 +1,26 @@
 package cz.krystofcejchan.utility_class;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 
 public class Date {
 
 
+    @NotNull
     public static String getNormalDateAndTime(OffsetDateTime date, boolean toGTM0) {
         return getNormalDate(date, toGTM0) + " " + getNormalTime(date, toGTM0);
     }
 
+    @NotNull
     public static OffsetDateTime currentDateTime(boolean toGTM0) {
         if (toGTM0) return OffsetDateTime.now(ZoneId.of("Etc/GMT0"));
 
         return OffsetDateTime.now();
     }
 
+    @NotNull
     public static String getNormalDate(OffsetDateTime date, boolean toGTM0) {
         if (toGTM0) date.atZoneSameInstant(ZoneId.of("Etc/GMT0"));
         int day = date.getDayOfMonth();
@@ -34,6 +39,7 @@ public class Date {
      * @param date {@link OffsetDateTime}
      * @return OffsetDateTime → String time
      */
+    @NotNull
     public static String getNormalTime(OffsetDateTime date, boolean toGTM0) {
         if (toGTM0) date.atZoneSameInstant(ZoneId.of("Etc/GMT0"));
         int hour = date.getHour();

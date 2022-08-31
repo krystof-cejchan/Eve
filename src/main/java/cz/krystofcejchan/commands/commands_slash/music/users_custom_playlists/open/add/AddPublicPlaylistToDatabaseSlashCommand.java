@@ -1,6 +1,7 @@
 package cz.krystofcejchan.commands.commands_slash.music.users_custom_playlists.open.add;
 
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
+import cz.krystofcejchan.commands.commands_slash.SlashCommandManager;
 import cz.krystofcejchan.database.sqlite.users_custom_playlists.commit_queries.Queries;
 import cz.krystofcejchan.database.sqlite.users_custom_playlists.connection.ConnectToDatabase;
 import cz.krystofcejchan.database.sqlite.users_custom_playlists.objects.records.PublicPlaylistsRecord;
@@ -44,7 +45,9 @@ public class AddPublicPlaylistToDatabaseSlashCommand implements ISlashCommands {
         try {
             Queries.addRecord(Objects.requireNonNull(ConnectToDatabase.getInstance().connectToDatabase()), record);
         } catch (SQLException sqlException) {
-            slashEvent.reply("There was an error while handling your request - *database issue*").setEphemeral(true).queue();
+            slashEvent.replyEmbeds(SlashCommandManager.generateErrorMsg("There was an error while handling your request - *database issue*",
+                            sqlException, getName()))
+                    .setEphemeral(true).queue();
             sqlException.printStackTrace();
             return;
         }
@@ -64,17 +67,20 @@ public class AddPublicPlaylistToDatabaseSlashCommand implements ISlashCommands {
     }
 
     @Override
-    public @NotNull String getDescription() {
+    public @NotNull
+    String getDescription() {
         return "Save your playlist so that other users can play it world-wide!";
     }
 
     @Override
-    public @NotNull String getName() {
+    public @NotNull
+    String getName() {
         return "save_playlist_public";
     }
 
     @Override
-    public @NotNull ArgumentSlashCommandCount takesArguments() {
+    public @NotNull
+    ArgumentSlashCommandCount takesArguments() {
         return ArgumentSlashCommandCount.MULTIPLE;
     }
 
@@ -116,7 +122,8 @@ public class AddPublicPlaylistToDatabaseSlashCommand implements ISlashCommands {
     }
 
     @Override
-    public @NotNull List<SlashCommandCategory> getCategory() {
+    public @NotNull
+    List<SlashCommandCategory> getCategory() {
         return Collections.singletonList(SlashCommandCategory.MUSIC);
     }
 }

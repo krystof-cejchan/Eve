@@ -2,6 +2,7 @@ package cz.krystofcejchan.commands.commands_slash.trivia_game;
 
 import cz.krystofcejchan.buttons.IButtons;
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
+import cz.krystofcejchan.commands.commands_slash.SlashCommandManager;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.trivia_game.Difficulty;
@@ -57,7 +58,7 @@ public class TriviaGame implements ISlashCommands, IButtons {
                     .queue();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            slashEvent.replyEmbeds(SlashCommandManager.generateErrorMsg("There was an error receiving data", e, getName())).setEphemeral(true).queue();
         }
     }
 

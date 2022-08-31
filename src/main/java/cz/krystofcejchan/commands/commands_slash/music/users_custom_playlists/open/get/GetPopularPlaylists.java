@@ -1,6 +1,7 @@
 package cz.krystofcejchan.commands.commands_slash.music.users_custom_playlists.open.get;
 
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
+import cz.krystofcejchan.commands.commands_slash.SlashCommandManager;
 import cz.krystofcejchan.commands.commands_slash.music.users_custom_playlists.logics.DatabaseData;
 import cz.krystofcejchan.database.sqlite.users_custom_playlists.commit_queries.Queries;
 import cz.krystofcejchan.database.sqlite.users_custom_playlists.connection.ConnectToDatabase;
@@ -17,7 +18,6 @@ import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,17 +48,10 @@ public class GetPopularPlaylists extends PlayPublicPlaylistDropdownList implemen
             slashEvent.replyEmbeds(generateEmbed(databaseRes).build()).addActionRow(selectMenu.build()).queue();
 
         } catch (IllegalArgumentException e) {
-            slashEvent.replyEmbeds(new EmbedBuilder()
-                            .setTitle("It seems I was not able to find any data")
-                            .setColor(Color.RED)
-                            .build())
-                    .setEphemeral(true)
+            slashEvent.replyEmbeds(SlashCommandManager.generateErrorMsg("It seems I was not able to find any data", e, getName())).setEphemeral(true)
                     .queue();
         } catch (SQLException e) {
-            slashEvent.replyEmbeds(new EmbedBuilder()
-                            .setTitle("It seems something went wrong with the database :(")
-                            .setColor(Color.RED)
-                            .build())
+            slashEvent.replyEmbeds(SlashCommandManager.generateErrorMsg("It seems something went wrong with the database", e, getName()))
                     .setEphemeral(true)
                     .queue();
         }

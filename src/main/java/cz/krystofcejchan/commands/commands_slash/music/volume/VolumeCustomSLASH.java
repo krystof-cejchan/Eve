@@ -1,6 +1,7 @@
 package cz.krystofcejchan.commands.commands_slash.music.volume;
 
 import cz.krystofcejchan.commands.commands_slash.ISlashCommands;
+import cz.krystofcejchan.commands.commands_slash.SlashCommandManager;
 import cz.krystofcejchan.commands.purecommands.VolumePure;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
@@ -34,17 +35,20 @@ public class VolumeCustomSLASH implements ISlashCommands {
             slashEvent.replyEmbeds(embed.get(Objects.requireNonNull(slashEvent.getMember()), slashEvent.getGuild(), oldVol)).queue();
         } catch (Exception e) {
             e.printStackTrace();
-            slashEvent.reply("There's been an error; make sure you entered valid input").queue();
+            slashEvent.replyEmbeds(SlashCommandManager.generateErrorMsg("There's been an error; make sure you entered valid input",
+                    e, getName())).setEphemeral(true).queue();
         }
     }
 
     @Override
-    public @NotNull String getDescription() {
+    public @NotNull
+    String getDescription() {
         return "Set volume for bot's audio output";
     }
 
     @Override
-    public @NotNull String getName() {
+    public @NotNull
+    String getName() {
         return "volume";
     }
 
@@ -78,7 +82,8 @@ public class VolumeCustomSLASH implements ISlashCommands {
     }
 
     @Override
-    public @NotNull List<SlashCommandCategory> getCategory() {
+    public @NotNull
+    List<SlashCommandCategory> getCategory() {
         return Collections.singletonList(SlashCommandCategory.MUSIC);
     }
 
