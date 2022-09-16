@@ -54,6 +54,7 @@ public class WeatherForecastForDayAndTime implements ISlashCommands {
         }
     }
 
+    @NotNull
     private EmbedBuilder generateEmbed(WeatherForecast weatherForecast) {
         EmbedBuilder embedBuilder = new EmbedBuilder().setTimestamp(ZonedDateTime.now())
                 .setTitle("Weather forecast for " + weatherForecast.getLocation() + ", " +
@@ -64,6 +65,7 @@ public class WeatherForecastForDayAndTime implements ISlashCommands {
         return embedBuilder.setColor(UtilityClass.getRandomColor());
     }
 
+    @NotNull
     private List<MessageEmbed.Field> generateFields(WeatherForecast weatherForecast) {
         List<MessageEmbed.Field> fields = new ArrayList<>();
         for (Map<TIME, ForecastAtHour> timeForecastAtHourMap : weatherForecast.getAllForecastForAllDayAndAllTime().values()) {

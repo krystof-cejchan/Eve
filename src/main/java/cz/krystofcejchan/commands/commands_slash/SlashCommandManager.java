@@ -64,6 +64,7 @@ public class SlashCommandManager {
         addNewCommand(new Latency());
         addNewCommand(new Dog());
         addNewCommand(new WeatherForecastForDayAndTime());
+        addNewCommand(new Earrape());
 
 
         sortOut();

@@ -1,5 +1,6 @@
 package cz.krystofcejchan.buttons;
 
+import cz.krystofcejchan.commands.commands_slash.music.Earrape;
 import cz.krystofcejchan.commands.commands_slash.trivia_game.TriviaGame;
 import cz.krystofcejchan.commands.commands_slash.weather.WeatherEmbedCurr;
 
@@ -11,10 +12,11 @@ public class ButtonManager {
     public ButtonManager() {
         addNewClass(new TriviaGame());
         addNewClass(new WeatherEmbedCurr());
+        addNewClass(new Earrape());
     }
 
     private void addNewClass(IButtons iButtons) {
-        if (buttonClasses.stream().noneMatch(iB -> iB.getButtonIdentifier().equals(iButtons.getButtonIdentifier()))) {
+        if (buttonClasses.stream().noneMatch(btnClass -> btnClass.getButtonIdentifier().equals(iButtons.getButtonIdentifier()))) {
             buttonClasses.add(iButtons);
         }
     }

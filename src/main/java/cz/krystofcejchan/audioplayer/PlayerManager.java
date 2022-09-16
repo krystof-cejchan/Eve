@@ -42,7 +42,6 @@ public class PlayerManager {
 
         AudioSourceManagers.registerRemoteSources(AUDIOPLAYERMANAGER);
         AudioSourceManagers.registerLocalSource(AUDIOPLAYERMANAGER);
-
     }
 
     /**
@@ -51,9 +50,9 @@ public class PlayerManager {
      * @return instance of the class, if any other instance does not exist
      */
     public static PlayerManager getInstance() {
-        if (INSTANCE == null) {
+        if (INSTANCE == null)
             INSTANCE = new PlayerManager();
-        }
+
         return INSTANCE;
     }
 
@@ -247,18 +246,16 @@ public class PlayerManager {
                  */
                 @Override
                 public void playlistLoaded(AudioPlaylist playlist) {
-                    List<AudioTrack> tracks = playlist.getTracks();
-                    List<Long> tracksDuration = new ArrayList<>();
-                    tracks.forEach(track -> tracksDuration.add(track.getDuration()));
-                    long sumOfTracksDuration = 0;
-                    for (Long dur : tracksDuration)
-                        sumOfTracksDuration += dur;
-
 
                     if (isQueue) {
+                        List<AudioTrack> tracks = playlist.getTracks();
+                        List<Long> tracksDuration = new ArrayList<>();
+                        tracks.forEach(track -> tracksDuration.add(track.getDuration()));
+
                         StringBuilder stringBuilder =
                                 new StringBuilder("```diff\nPlaylist title: " + playlist.getName() + "\n+ " + tracks.size() +
-                                        " [Duration: " + UtilityClass.getTimeStampMilliToStringTime(sumOfTracksDuration)
+                                        " [Duration: " + UtilityClass.getTimeStampMilliToStringTime(
+                                        tracksDuration.stream().reduce(0L, Long::sum))
                                         + "] tracks were successfully added\n```");
                         if (!playImmediately)
                             tracks.forEach(musicManager.SCHEDULER::queue);
@@ -282,7 +279,7 @@ public class PlayerManager {
                             ).queue();
                         }
                     } else {
-                        AudioTrack track = tracks.get(0);
+                        AudioTrack track = playlist.getTracks().get(0);
 
                         if (playImmediately) {
                             List<AudioTrack> q = new ArrayList<>(musicManager.SCHEDULER.QUEUE);

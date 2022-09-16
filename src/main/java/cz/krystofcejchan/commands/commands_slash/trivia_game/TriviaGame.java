@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class TriviaGame implements ISlashCommands, IButtons {
-    private Difficulty difficulty = null;
-    private Topic topic = null;
+    private static Difficulty difficulty = null;
+    private static Topic topic = null;
 
     @Override
     public void executeSlashCommand(@NotNull SlashCommandInteractionEvent slashEvent) {

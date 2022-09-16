@@ -4,7 +4,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
-import cz.krystofcejchan.objects.MessageReceivedEvent_StaticCustomClass;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,10 +37,10 @@ public class TrackScheduler extends AudioEventAdapter {
      * @param track     {@link AudioTrack}
      * @param endReason {@link AudioTrackEndReason}
      */
-    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
+    public void onTrackEnd(AudioPlayer player, AudioTrack track, @NotNull AudioTrackEndReason endReason) {
         if (endReason.mayStartNext) {
             nextTrack();
-            LetUsersKnowOfPlayingNextTrack.informAboutPlayingNextTrack(MessageReceivedEvent_StaticCustomClass.getEvent());
+           // LetUsersKnowOfPlayingNextTrack.informAboutPlayingNextTrack(MessageReceivedEvent_StaticCustomClass.getEvent());
         }
     }
 

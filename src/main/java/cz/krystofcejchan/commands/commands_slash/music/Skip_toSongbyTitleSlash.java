@@ -5,6 +5,7 @@ import cz.krystofcejchan.commands.purecommands.SkipToTitle;
 import cz.krystofcejchan.commands.purecommands.subparts.GetCurrentTrack;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.ArgumentSlashCommandCount;
 import cz.krystofcejchan.enums_annotations_exceptions.enums.SlashCommandCategory;
+import cz.krystofcejchan.utility_class.UtilityClass;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -34,17 +35,21 @@ public class Skip_toSongbyTitleSlash implements ISlashCommands {
                 slashEvent.getGuild(), Objects.requireNonNull(slashEvent.getOption(Objects.requireNonNull(Objects
                         .requireNonNull(getArgName()).get(0)))).getAsString());
 
-        slashEvent.reply("Skipped to **" + Objects.requireNonNull(GetCurrentTrack.getTrack(slashEvent.getGuild()))
-                .getInfo().title + "**").queue();
+        slashEvent.replyEmbeds(new EmbedBuilder().setColor(UtilityClass.getRandomColor()).setTitle("✅")
+                .addField("Skipped to...", "**" + Objects.requireNonNull(GetCurrentTrack.
+                                getTrack(slashEvent.getGuild()))
+                        .getInfo().title + "**", false).build()).queue();
     }
 
     @Override
-    public @NotNull String getDescription() {
+    public @NotNull
+    String getDescription() {
         return "skips to song by its title";
     }
 
     @Override
-    public @NotNull String getName() {
+    public @NotNull
+    String getName() {
         return "skiptosongbyname";
     }
 
@@ -78,7 +83,8 @@ public class Skip_toSongbyTitleSlash implements ISlashCommands {
     }
 
     @Override
-    public @NotNull List<SlashCommandCategory> getCategory() {
+    public @NotNull
+    List<SlashCommandCategory> getCategory() {
         return Collections.singletonList(SlashCommandCategory.MUSIC);
     }
 }
